@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {{> head-meta}}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "{{{seo.title}}}",
+    "description": "{{{seo.description}}}",
+    "url": "{{{jsonLd.organizationUrl}}}/products/"
+  }
+  </script>
+</head>
+<body>
+  {{> nav}}
+  <main id="main">
+    {{> breadcrumb}}
+    <div class="container">
+      <div class="layout-with-sidebar">
+        <div class="layout-with-sidebar__main">
+
+          <header class="page-hero">
+            <h1 class="page-hero__title">Infineon Products from an Authorized Distributor</h1>
+            <p class="page-hero__desc">BeiLuo stocks the full Infineon product range including AURIX and XMC MCUs, IGBT modules, OptiMOS and CoolMOS MOSFETs, and industrial sensors. All parts are sourced through authorized channels with full traceability.</p>
+          </header>
+
+          <div class="category-card__grid">
+            {{#each categories}}
+            <div class="category-card">
+              <img src="{{icon}}" alt="" aria-hidden="true" class="category-card__icon">
+              <h2><a href="/products/{{slug}}/">{{name}}</a></h2>
+              <p>{{description}}</p>
+              <p class="category-card__fae-note">{{faeNote}}</p>
+              <a href="/products/{{slug}}/" class="btn btn--cta">View {{name}} Products</a>
+            </div>
+            {{/each}}
+          </div>
+
+          <section class="products-intro">
+            <h2>Why Source Infineon Components from BeiLuo?</h2>
+            <p>As a Top 8 infineon distributor in China, BeiLuo provides genuine, authorized Infineon components with same-day quotation, FAE technical support, and global delivery to over 40 countries. Our bonded warehouse holds over 10,000 Infineon part numbers ready for immediate dispatch.</p>
+            <p>Whether you need Infineon AURIX TC3xx for automotive safety, XMC4000 for industrial motor control, IGBT modules for power inverters, or CoolMOS MOSFETs for efficient switching — BeiLuo has the stock, the expertise, and the supply chain to support your production schedule.</p>
+          </section>
+
+        </div>
+        <aside class="layout-with-sidebar__sidebar">
+          {{> sidebar}}
+        </aside>
+      </div>
+    </div>
+  </main>
+  {{> footer}}
+  {{> contact-float}}
+  <script type="module" src="/assets/js/nav.js"></script>
+</body>
+</html>
