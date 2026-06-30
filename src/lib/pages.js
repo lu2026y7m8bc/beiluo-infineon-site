@@ -27,6 +27,19 @@ function bc(name, url) {
 }
 
 /**
+ * Mark the last item of a breadcrumb array with current:true (in-place).
+ * No-op for empty arrays (home page).
+ * @param {Array<{name:string, url:string}>} arr
+ * @returns {Array}
+ */
+function markCurrentLast(arr) {
+  if (arr.length > 0) {
+    arr[arr.length - 1].current = true;
+  }
+  return arr;
+}
+
+/**
  * Build the full page list from all JSON data objects.
  *
  * @param {{ site, home, products, solutions, support, news, about }} data
@@ -49,7 +62,7 @@ export function buildPageList(data) {
 
   // ── 2. About ────────────────────────────────────────────────────────────────
   {
-    const breadcrumb = [bc('Home', '/')];
+    const breadcrumb = markCurrentLast([bc('Home', '/')]);
     pages.push({
       url: '/about/',
       template: 'about',
@@ -60,7 +73,7 @@ export function buildPageList(data) {
 
   // ── 3. Contact ──────────────────────────────────────────────────────────────
   {
-    const breadcrumb = [bc('Home', '/')];
+    const breadcrumb = markCurrentLast([bc('Home', '/')]);
     pages.push({
       url: '/contact/',
       template: 'contact',
@@ -71,7 +84,7 @@ export function buildPageList(data) {
 
   // ── 4. Products list ─────────────────────────────────────────────────────────
   {
-    const breadcrumb = [bc('Home', '/')];
+    const breadcrumb = markCurrentLast([bc('Home', '/')]);
     pages.push({
       url: '/products/',
       template: 'products-list',
@@ -86,7 +99,7 @@ export function buildPageList(data) {
 
     // Category index page
     {
-      const breadcrumb = [bc('Home', '/'), bc('Products', '/products/')];
+      const breadcrumb = markCurrentLast([bc('Home', '/'), bc('Products', '/products/')]);
       pages.push({
         url: catUrl,
         template: 'product-category',
@@ -100,12 +113,12 @@ export function buildPageList(data) {
     for (const model of category.models) {
       const modelSlug = uniqueSlug(model.partNo, usedModelSlugs);
       const modelUrl = `/products/${category.slug}/${modelSlug}/`;
-      const breadcrumb = [
+      const breadcrumb = markCurrentLast([
         bc('Home', '/'),
         bc('Products', '/products/'),
         bc(category.name, catUrl),
         bc(model.partNo, modelUrl),
-      ];
+      ]);
       pages.push({
         url: modelUrl,
         template: 'product-detail',
@@ -117,7 +130,7 @@ export function buildPageList(data) {
 
   // ── 7. Solutions list ────────────────────────────────────────────────────────
   {
-    const breadcrumb = [bc('Home', '/')];
+    const breadcrumb = markCurrentLast([bc('Home', '/')]);
     pages.push({
       url: '/solutions/',
       template: 'solutions-list',
@@ -129,7 +142,7 @@ export function buildPageList(data) {
   // ── 8. Solution detail pages ─────────────────────────────────────────────────
   for (const solution of solutions.solutions) {
     const solutionUrl = `/solutions/${solution.slug}/`;
-    const breadcrumb = [bc('Home', '/'), bc('Solutions', '/solutions/')];
+    const breadcrumb = markCurrentLast([bc('Home', '/'), bc('Solutions', '/solutions/')]);
     pages.push({
       url: solutionUrl,
       template: 'solution-detail',
@@ -140,7 +153,7 @@ export function buildPageList(data) {
 
   // ── 9. Support overview ──────────────────────────────────────────────────────
   {
-    const breadcrumb = [bc('Home', '/')];
+    const breadcrumb = markCurrentLast([bc('Home', '/')]);
     pages.push({
       url: '/support/',
       template: 'support-list',
@@ -152,7 +165,7 @@ export function buildPageList(data) {
   // ── 10. Support category index pages ─────────────────────────────────────────
   for (const category of support.categories) {
     const catUrl = `/support/${category.slug}/`;
-    const breadcrumb = [bc('Home', '/'), bc('Support', '/support/')];
+    const breadcrumb = markCurrentLast([bc('Home', '/'), bc('Support', '/support/')]);
     pages.push({
       url: catUrl,
       template: 'support-list',
@@ -174,7 +187,7 @@ export function buildPageList(data) {
     const tagInfo = support.tags
       ? support.tags.find(t => t.slug === tagSlug) ?? null
       : null;
-    const breadcrumb = [bc('Home', '/'), bc('Support', '/support/')];
+    const breadcrumb = markCurrentLast([bc('Home', '/'), bc('Support', '/support/')]);
     pages.push({
       url: `/support/tags/${tagSlug}/`,
       template: 'support-list',
@@ -190,12 +203,12 @@ export function buildPageList(data) {
       : null;
     const catName = catInfo ? catInfo.name : article.category;
     const articleUrl = `/support/${article.category}/${article.slug}/`;
-    const breadcrumb = [
+    const breadcrumb = markCurrentLast([
       bc('Home', '/'),
       bc('Support', '/support/'),
       bc(catName, `/support/${article.category}/`),
       bc(article.title, articleUrl),
-    ];
+    ]);
     pages.push({
       url: articleUrl,
       template: 'tech-detail',
@@ -206,7 +219,7 @@ export function buildPageList(data) {
 
   // ── 13. News list ────────────────────────────────────────────────────────────
   {
-    const breadcrumb = [bc('Home', '/')];
+    const breadcrumb = markCurrentLast([bc('Home', '/')]);
     pages.push({
       url: '/news/',
       template: 'news-list',
@@ -218,7 +231,7 @@ export function buildPageList(data) {
   // ── 14. News detail pages ────────────────────────────────────────────────────
   for (const article of news.articles) {
     const articleUrl = `/news/${article.slug}/`;
-    const breadcrumb = [bc('Home', '/'), bc('News', '/news/')];
+    const breadcrumb = markCurrentLast([bc('Home', '/'), bc('News', '/news/')]);
     pages.push({
       url: articleUrl,
       template: 'news-detail',
@@ -230,12 +243,12 @@ export function buildPageList(data) {
   // ── 15. Author profile pages ─────────────────────────────────────────────────
   for (const author of support.authors) {
     const authorUrl = `/about/authors/${author.slug}/`;
-    const breadcrumb = [
+    const breadcrumb = markCurrentLast([
       bc('Home', '/'),
       bc('About Us', '/about/'),
       bc('Authors', '/about/authors/'),
       bc(author.name, authorUrl),
-    ];
+    ]);
     pages.push({
       url: authorUrl,
       template: 'about',

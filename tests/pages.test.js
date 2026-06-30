@@ -613,4 +613,58 @@ describe('buildPageList', () => {
     const expected = 1 + 1 + 1 + 1 + 2 + 4 + 1 + 2 + 1 + 2 + 3 + 2 + 1 + 2 + 2;
     assert.equal(pages.length, expected); // 26
   });
+
+  // ── Breadcrumb last-item current flag (T2.6) ──────────────────────────────────
+  it('home page breadcrumb stays [] with no current item', () => {
+    const p = findPage(pages, '/');
+    assert.deepEqual(p.breadcrumb, []);
+  });
+
+  it('product detail breadcrumb last item has current===true', () => {
+    const p = findPage(pages, '/products/igbt/ikw40n120h3/');
+    const last = p.breadcrumb[p.breadcrumb.length - 1];
+    assert.equal(last.current, true);
+  });
+
+  it('product detail breadcrumb non-last items do not have current===true', () => {
+    const p = findPage(pages, '/products/igbt/ikw40n120h3/');
+    const nonLast = p.breadcrumb.slice(0, -1);
+    for (const item of nonLast) {
+      assert.notEqual(item.current, true,
+        `non-last breadcrumb item "${item.name}" should not have current===true`);
+    }
+  });
+
+  it('author page breadcrumb last item has current===true', () => {
+    const p = findPage(pages, '/about/authors/li-wei/');
+    const last = p.breadcrumb[p.breadcrumb.length - 1];
+    assert.equal(last.current, true);
+  });
+
+  it('author page breadcrumb non-last items do not have current===true', () => {
+    const p = findPage(pages, '/about/authors/li-wei/');
+    const nonLast = p.breadcrumb.slice(0, -1);
+    for (const item of nonLast) {
+      assert.notEqual(item.current, true,
+        `non-last item "${item.name}" should not have current===true`);
+    }
+  });
+
+  it('single-item breadcrumb (/about/) marks that item as current', () => {
+    const p = findPage(pages, '/about/');
+    assert.equal(p.breadcrumb.length, 1);
+    assert.equal(p.breadcrumb[0].current, true);
+  });
+
+  it('tech-detail breadcrumb last item has current===true', () => {
+    const p = findPage(pages, '/support/guides/how-to-select-igbt/');
+    const last = p.breadcrumb[p.breadcrumb.length - 1];
+    assert.equal(last.current, true);
+  });
+
+  it('news detail breadcrumb last item has current===true', () => {
+    const p = findPage(pages, '/news/beiluo-joins-electronica-2024/');
+    const last = p.breadcrumb[p.breadcrumb.length - 1];
+    assert.equal(last.current, true);
+  });
 });

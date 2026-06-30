@@ -1,0 +1,16 @@
+{{#if breadcrumb}}
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ol class="breadcrumb__list">
+    {{#each breadcrumb}}
+    <li class="breadcrumb__item">
+      {{#if current}}
+        <span class="breadcrumb__current" aria-current="page">{{name}}</span>
+      {{else}}
+        <a class="breadcrumb__link" href="{{url}}">{{name}}</a>
+      {{/if}}
+    </li>
+    {{/each}}
+  </ol>
+</nav>
+{{/if}}
+{{#if breadcrumbJsonLd}}{{{breadcrumbJsonLd}}}{{/if}}
