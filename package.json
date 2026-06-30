@@ -1,0 +1,11 @@
+{
+  "name": "beiluo-infineon-site",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "BeiLuo Infineon Distributor - English SEO/GEO static site",
+  "scripts": {
+    "test": "node --test",
+    "build": "node src/build.js"
+  }
+}
