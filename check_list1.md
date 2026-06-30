@@ -241,6 +241,7 @@ checked before a template is considered delivered. Items are verifiable against 
 ### D3 — three-tier responsive
 
 - [ ] Desktop ≥1200px: hero first-screen `1fr 1fr` dual column (left: product image, right: info + CTAs). (design §5.4, §7)
+- [ ] Tablet 768–1199px: hero remains 2-column (`1fr 1fr`); Specifications tab spec table scrolls horizontally. (design §7)
 - [ ] Mobile <768px: hero collapses to single column (image above, info+CTAs below). (design §7)
 - [ ] Specifications tab table: `overflow-x:auto` horizontal scroll on tablet/mobile. (design §7)
 - [ ] `.tab-container` tab bar scrolls horizontally on mobile. (design §4.10)
@@ -420,6 +421,7 @@ checked before a template is considered delivered. Items are verifiable against 
 ### D3 — three-tier responsive
 
 - [ ] Desktop ≥1200px: article card grid 3 columns; sidebar visible. (design §3)
+- [ ] Tablet 768–1199px: article card grid 2 columns; sidebar narrowed but visible; tab bar may scroll. (design §3, §7)
 - [ ] Mobile <768px: cards collapse to 1 column; `.tab-container` tab bar scrolls horizontally. (design §4.10, §3)
 - [ ] Sidebar collapses below main content on mobile. (design §4.4)
 
@@ -720,6 +722,7 @@ checked before a template is considered delivered. Items are verifiable against 
 ### D3 — three-tier responsive
 
 - [ ] Desktop ≥1200px: two-column grid (contact card left, inquiry form right). (design §5.14)
+- [ ] Tablet 768–1199px: two-column maintained (contact card + form) or graceful narrow. (design §5.14, §7)
 - [ ] Mobile <768px: single column (contact card above, form below). (design §5.14)
 
 ### D4 — key CSS classes
