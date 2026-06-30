@@ -29,7 +29,7 @@
   --font-heading: 'Inter', system-ui, sans-serif;
   --font-body: 'Roboto', system-ui, sans-serif;
 
-  /* Typography - Font Sizes */
+  /* Typography - Font Sizes (Desktop) */
   --fs-h1: 40px;
   --fs-h2: 30px;
   --fs-h3: 23px;
@@ -38,9 +38,32 @@
   --fs-small: 14px;
   --fs-caption: 12px;
 
-  /* Typography - Line Heights */
-  --lh-tight: 1.2;
+  /* Typography - Font Sizes (Mobile) */
+  --fs-h1-m: 30px;
+  --fs-h2-m: 24px;
+  --fs-h3-m: 20px;
+  --fs-h4-m: 17px;
+  --fs-body-m: 16px;
+  --fs-small-m: 14px;
+  --fs-caption-m: 12px;
+
+  /* Typography - Line Heights (Per Level) */
+  --lh-h1: 1.2;
+  --lh-h2: 1.25;
+  --lh-h3: 1.3;
+  --lh-h4: 1.4;
   --lh-body: 1.7;
+  --lh-small: 1.5;
+  --lh-caption: 1.4;
+
+  /* Typography - Font Weights */
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+
+  /* Typography - Legacy Line Heights */
+  --lh-tight: 1.2;
   --lh-longform: 1.8;
 
   /* Spacing - 8px base unit */
