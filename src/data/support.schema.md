@@ -24,7 +24,7 @@
 | `tags` | Auto-derived from articles — each unique tag gets a `/support/tags/<slug>/` page |
 | `articles[].internalLinks` | ≥1 model link + ≥1 concept link per article (PRD §3.5.4) |
 | `articles[].relatedArticles` | 3–5 related article slugs per article |
-| `articles[].toc` | ≥3 TOC entries per article (H2/H3 headings) |
+| `body` H2/H3 `id` attributes | Every H2/H3 in `body` must carry a unique `id` — `toc.js` auto-generates the TOC at runtime; TOC is **not stored in the JSON** (markup-contract §3) |
 | `articles[].faq` (optional) | 0 or more — encouraged for GEO |
 | `body` word count | ≥800 words per article |
 
@@ -37,7 +37,7 @@ support.json
 ├── categories: Array<SupportCategory>   // exactly 4
 ├── tags: Array<Tag>                      // one entry per unique tag across all articles
 ├── authors: Array<Author>               // ≥1 FAE author
-└── articles: Array<Article>             // ≥4 detail articles (one per category)
+└── articles: Array<Article>             // exactly 4 detail articles (one per category)
 ```
 
 ---
@@ -110,21 +110,10 @@ Detail-level support articles (4 total, one per category). Powers both the `tech
 
 | Field | Type | Required | Meaning | Template Placeholder / JSON-LD |
 |-------|------|----------|---------|-------------------------------|
-| `body` | String | Required | Full article body HTML/Markdown — **≥800 words**; H2/H3 structured with left border rule (design §5.10); `<pre><code>` for code blocks; `<blockquote>` for key callouts; line-height 1.8, paragraph spacing 24px | `{{article.body}}` rendered in `.article-content` div (design §5.10, PRD §3.5.4) |
-| `toc` | Array\<TocEntry\> | Required | Table of Contents entries matching H2/H3 in body (≥3 entries) | `{{article.toc}}` loop rendered in Sticky sidebar TOC (design §5.10) |
+| `body` | String | Required | Full article body HTML/Markdown — **≥800 words**; H2/H3 structured with left border rule (design §5.10); **all H2/H3 must carry unique `id` attributes** (slug anchors) — `toc.js` reads these at runtime to auto-generate the Sticky TOC (markup-contract §3); `<pre><code>` for code blocks; `<blockquote>` for key callouts; line-height 1.8, paragraph spacing 24px | `{{article.body}}` rendered in `.article-content` div (design §5.10, PRD §3.5.4) |
 | `internalLinks` | Array\<InternalLink\> | Required | ≥1 model link + ≥1 concept link embedded in body (PRD §3.5.4, iron rule) | `{{article.internalLinks}}` — used by `validate-data.js` to verify links exist |
 | `relatedArticles` | Array\<String\> | Required | 3–5 article slugs for "Related Articles" section at article foot (design §5.10) | `{{article.relatedArticles}}` loop → resolved to card previews at build time |
 | `pdf` | Array\<PdfItem\> | Optional | Related PDF downloads listed in sidebar (design §5.10 "Related PDF Download") | `{{article.pdf}}` loop in sidebar |
-
----
-
-## `TocEntry` Object
-
-| Field | Type | Required | Meaning | Placeholder |
-|-------|------|----------|---------|-------------|
-| `id` | String | Required | Anchor id matching heading in body: e.g., `"understanding-vce-saturation"` | `{{toc.id}}` for TOC link `href="#<id>"` and heading `id` attribute |
-| `heading` | String | Required | Heading text (copied from H2/H3 in body) | `{{toc.heading}}` as TOC link text |
-| `level` | Number | Required | `2` for H2, `3` for H3 | `{{toc.level}}` → used to apply indentation class in TOC |
 
 ---
 

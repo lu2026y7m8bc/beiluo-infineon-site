@@ -13,7 +13,7 @@
 
 | Item | Quota |
 |------|-------|
-| `articles` array length | **4** (minimum) |
+| `articles` array length | **exactly 4** |
 | Mix of types | At least 1 `"company"` + at least 1 `"industry"` (PRD §3.6.2) |
 | `body` word count | **≥800 words** per article |
 | `latestNews` card count (rendered at page bottom) | 3 cards (from this same articles array, excluding current) |
@@ -24,7 +24,7 @@
 
 ```
 news.json
-└── articles: Array<NewsArticle>   // ≥4 entries
+└── articles: Array<NewsArticle>   // exactly 4 entries
 ```
 
 ---

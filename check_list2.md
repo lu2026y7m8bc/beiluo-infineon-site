@@ -144,13 +144,13 @@
 ## 3. products.json
 
 > Schema ref: `src/data/products.schema.md`  
-> Count quotas: `categories` = 4 · detail models per category ≥ 2 (8 total) · `specs` per model ≥ 5 · `faq` per model = 3–5  
+> Count quotas: `categories` = 4 · detail models per category = 2 (8 total) · `specs` per model ≥ 5 · `faq` per model = 3–5  
 > Templates: `products-list` (§5.2) · `product-category` (§5.3) · `product-detail` (§5.4); JSON-LD: ItemList+Product on category page, Product on detail page (design §10)
 
 ### D1 — Field Completeness
 - [ ] Top-level key `categories` is an array; no other spurious top-level keys
 - [ ] Each `Category` has: `slug`, `name`, `title`, `metaDescription`, `description` (200–300 words), `faeNote` (≥50 words, FAE voice), `icon`, `selectionGuideHref`, `columns` (Array\<ColumnDef\>), `models` (Array\<Model\>)
-- [ ] Each `ColumnDef` has `key`, `label`, `type` (`"text"`/`"number"`/`"range"`/`"multiselect"`), `filter` (boolean); `unit` present where applicable; first column has `sticky: true`
+- [ ] Each `ColumnDef` has `key`, `label`, `type` (`"text"`/`"number"`/`"enum"`), `filter` (`"select"`/`"range"`/`"multi"`/`"none"`); `unit` present where applicable; first column has `sticky: true`
 - [ ] Each Model (all — table-row level) has: `partNo`, `series`, `params` (Object whose keys match `columns[].key` for that category), `package`, `stock` (`"inStock"` or `"rfq"`), `href`
 - [ ] Each detail-level model (≥2 per category) additionally has: `overview` (≥100 words), `shortDescription` (≤30 words), `image`, `imageAlt`, `datasheetHref`, `specs` (Array\<SpecRow\>), `applications` (Array\<String\>), `documents` (Array\<Document\>), `faq` (Array\<FaqItem\>), `alternativeParts` (Array\<PartRef\>), `companionParts` (Array\<PartRef\>), `brand`
 - [ ] Each `SpecRow` has `param`, `value`; `unit` present where applicable
@@ -179,7 +179,7 @@
 ### D5 — Count Quotas
 - [ ] `categories` array length = exactly 4 — products.schema.md Count Quotas / PRD §1.3
 - [ ] Category slugs are exactly: `"mcu"`, `"igbt"`, `"mosfet"`, `"sensors"` — PRD §1.3 / C4
-- [ ] Each category has ≥2 detail-level models (with overview, specs, faq, etc.) → 8 detail models total — products.schema.md Count Quotas / PRD §1.3 (§3.3.3: 8 total, 4×2)
+- [ ] Each category has exactly 2 detail-level models (with overview, specs, faq, etc.) — 8 detail models total — products.schema.md Count Quotas / PRD §1.3 (§3.3.3: 8 total, 4×2)
 - [ ] Each detail model has ≥5 `specs` rows — products.schema.md Count Quotas
 - [ ] Each detail model has 3–5 `faq` items — products.schema.md Count Quotas
 - [ ] `columns` per category are category-appropriate and differ between categories (e.g., IGBT columns ≠ MCU columns) per products.schema.md §ColumnDef example column sets
@@ -200,10 +200,15 @@
 - [ ] `model.specs` → `{{model.specs}}` loop in `.spec-table` Specifications tab (design §4.9 / §5.4)
 - [ ] `model.faq` → `{{model.faq}}` loop as accordion (design §5.4); `faq.question` as accordion header, `faq.answer` as body
 - [ ] `model.alternativeParts` / `model.companionParts` → `{{model.alternativeParts}}` / `{{model.companionParts}}` in card carousel (design §5.4)
+- [ ] `model.shortDescription` → `{{model.shortDescription}}` in core info bar at top of detail page (design §5.4)
+- [ ] `model.overview` → `{{model.overview}}` as first paragraph in Overview tab (design §5.4)
+- [ ] `model.applications` → `{{model.applications}}` as list in Application tab (design §5.4); also `Product.category` in JSON-LD (design §10)
+- [ ] `model.documents` → `{{model.documents}}` loop in Documents tab (design §5.4)
+- [ ] `model.href` → `{{model.href}}` on part number link in spec table; `Product.url` in JSON-LD (design §10 / products.schema.md §JSON-LD Mapping)
 - [ ] JSON-LD: `ItemList` + per-model `Product` on `product-category` page; `Product` on `product-detail` page (design §10 / PRD §3.3.2–3.3.3)
 
 ### D7 — No Residual Stubs
-- [ ] No `model.datasheetHref` is `"#"` or empty string — all have real (or realistic placeholder) paths (iron rule §9 #2)
+- [ ] No `model.datasheetHref` is `"#"` or empty string — all have real, submitted paths (iron rule §9 #2)
 - [ ] All `PartRef.slug` and `PartRef.categorySlug` values resolve to real entries in the `categories` / `models` arrays — no dangling cross-references
 - [ ] No `model.overview`, `category.description`, or `category.faeNote` contains `"lorem ipsum"`, `"TBD"`, or unfilled section headers
 - [ ] All `model.href` paths follow the pattern `"/products/<categorySlug>/<partNo-slug>/"` with real slugs — not template strings
@@ -260,6 +265,7 @@
 - [ ] `solution.bomList` → `{{solution.bomList}}` loop in BOM table; `bom.link` on part-number anchor; `bom.description` in role column (design §5.6)
 - [ ] `solution.body` → `{{solution.body}}` rendered as article content with H2/H3 structure (design §5.6)
 - [ ] `solution.related` → `{{solution.related}}` loop in sidebar (3–5 items, design §5.6); `item.type` determines icon/link pattern
+- [ ] `solution.scenarios` → `{{solution.scenarios}}` as rich text block in "Application Scenarios" H2 section (design §5.6)
 - [ ] `solution.ctaLabel` (if provided) → `{{solution.ctaLabel}}` on closing CTA button; defaults to `"Get a Quote"` (design §5.6)
 - [ ] JSON-LD: `BreadcrumbList` on `solution-detail` pages (`Home → Solutions → <solution.title>`); no dedicated Solution Schema type per solutions.schema.md §JSON-LD note (design §10)
 
@@ -274,7 +280,7 @@
 ## 5. support.json
 
 > Schema ref: `src/data/support.schema.md`  
-> Count quotas: `categories` = 4 · `articles` ≥ 4 (one per category) · `authors` ≥ 1 · `body` ≥800 words · `toc` ≥3 entries · `internalLinks` ≥1 model + ≥1 concept · `relatedArticles` 3–5  
+> Count quotas: `categories` = 4 · `articles` = 4 (one per category) · `authors` ≥ 1 · `body` ≥800 words · H2/H3 `id` attrs required (toc.js auto-generates TOC) · `internalLinks` ≥1 model + ≥1 concept · `relatedArticles` 3–5  
 > Templates: `support-list` (§5.7/§5.8/§5.9) · `tech-detail` (§5.10); JSON-LD: TechArticle on detail pages (design §10)
 
 ### D1 — Field Completeness
@@ -283,8 +289,8 @@
 - [ ] Each `Tag` has: `slug`, `name`; tags array is exhaustive — every slug referenced in any `article.tags[]` has a corresponding entry here
 - [ ] Each `Author` has: `slug`, `name`, `photo`, `photoAlt`, `expertise` (≤30 words), `experience`, `profileHref`
 - [ ] Each `Article` (preview fields) has: `slug`, `title`, `category` (matching a `SupportCategory.slug`), `tags` (Array\<String\>), `author` (matching an `Author.slug`), `date`, `summary` (≤60 words), `metaDescription`
-- [ ] Each `Article` (detail fields) has: `body` (≥800 words), `toc` (Array\<TocEntry\>), `internalLinks` (Array\<InternalLink\>), `relatedArticles` (Array\<String\>)
-- [ ] Each `TocEntry` has: `id`, `heading`, `level` (2 or 3)
+- [ ] Each `Article` (detail fields) has: `body` (≥800 words), `internalLinks` (Array\<InternalLink\>), `relatedArticles` (Array\<String\>)
+- [ ] Every H2/H3 heading inside `article.body` carries a unique `id` attribute (slug anchor) — `toc.js` auto-generates the Sticky TOC from these; no `toc` field is stored in the JSON
 - [ ] Each `InternalLink` has: `href`; the `internalLinks` array for each article contains ≥1 entry with `model` field and ≥1 entry with `concept` field
 
 ### D2 — Pure English
@@ -307,22 +313,23 @@
 
 ### D5 — Count Quotas
 - [ ] `categories` array length = exactly 4 with slugs: `"guides"`, `"application-notes"`, `"troubleshooting"`, `"reviews"` — support.schema.md Count Quotas / PRD §1.3
-- [ ] `articles` array length ≥ 4; each article is assigned to a different category (one article covers each category) — PRD §1.3 / §3.5.4
+- [ ] `articles` array length = exactly 4; each article is assigned to a different category (one article covers each category) — PRD §1.3 / §3.5.4
 - [ ] `authors` array length ≥ 1 (at least one complete FAE author profile) — support.schema.md Count Quotas
 - [ ] `tags` array is exhaustive: every slug in any `article.tags[]` has a matching `Tag` entry — support.schema.md §Tag
 - [ ] Each article `body` ≥ 800 words — support.schema.md Count Quotas
-- [ ] Each article `toc` ≥ 3 entries — support.schema.md Count Quotas
+- [ ] Every H2/H3 in each `article.body` has a unique `id` attribute (≥3 anchors expected per article) — toc.js auto-generates TOC from these at runtime (markup-contract §3)
 - [ ] Each article `internalLinks` provides ≥1 model link (entry with `model` key) + ≥1 concept link (entry with `concept` key) — PRD §3.5.4 iron rule
 - [ ] Each article `relatedArticles` = 3–5 slugs — support.schema.md Count Quotas
 
 ### D6 — Placeholder Alignment
+- [ ] `article.summary` → `{{article.summary}}` in card preview on `support-list` and category index pages (design §5.7/§5.8)
 - [ ] `article.title` → `{{article.title}}` as H1 in `tech-detail`; as card heading in `support-list` (design §5.10 / §5.7)
 - [ ] `article.category` → `{{article.category}}` as tab filter and category badge on list/detail (design §4.8)
 - [ ] `article.tags` → `{{article.tags}}` rendered as clickable badge pills linking to `/support/tags/<slug>/` (design §5.10 / §4.12)
 - [ ] `article.author` → resolves to Author object at build time; `author.name` → `{{author.name}}` in author bar; `author.photo` → `{{author.photo}}`; `author.profileHref` → link from author bar (design §5.10)
 - [ ] `article.date` → `{{article.date}}`; also `TechArticle.datePublished` in JSON-LD (design §10)
 - [ ] `article.body` → `{{article.body}}` rendered in `.article-content` with H2/H3 left-border rule, `<pre><code>` gray background, `<blockquote>` left border, line-height 1.8, paragraph spacing 24px (design §5.10)
-- [ ] `article.toc` → `{{article.toc}}` loop in Sticky sidebar TOC (`position:sticky;top:100px`, z-10) — design §5.10 / §4.4
+- [ ] TOC is auto-generated by `toc.js` from `.article-content h2[id], h3[id]` — no `{{article.toc}}` placeholder; `<nav data-toc>` mount point in `.sticky-sidebar` is left empty by template (markup-contract §3.1 / §3.3)
 - [ ] `article.internalLinks[].href` → used by `validate-data.js` to verify model and concept links resolve
 - [ ] `article.relatedArticles` → `{{article.relatedArticles}}` loop at article foot (3–5 related article cards, design §5.10)
 - [ ] `article.metaDescription` → `{{article.metaDescription}}` in `<meta name="description">`; also `TechArticle.description`
@@ -342,7 +349,7 @@
 ## 6. news.json
 
 > Schema ref: `src/data/news.schema.md`  
-> Count quotas: `articles` ≥ 4 · ≥1 `"company"` + ≥1 `"industry"` · `body` ≥800 words per article  
+> Count quotas: `articles` = exactly 4 · ≥1 `"company"` + ≥1 `"industry"` · `body` ≥800 words per article  
 > Templates: `news-list` (§5.11) · `news-detail` (§5.12, single-column, no sidebar per PRD C7); JSON-LD: NewsArticle + BreadcrumbList on detail pages (design §10)
 
 ### D1 — Field Completeness
@@ -369,7 +376,7 @@
 - [ ] `article.bannerImage.alt` contains the article's headline keyword context — not a generic `"news banner"` string (news.schema.md Brand Differentiation Notes)
 
 ### D5 — Count Quotas
-- [ ] `articles` array length ≥ 4 — PRD §1.3 / §3.6.2 / news.schema.md Count Quotas
+- [ ] `articles` array length = exactly 4 — PRD §1.3 / §3.6.2 / news.schema.md Count Quotas
 - [ ] At least 1 article has `type: "company"` and at least 1 has `type: "industry"` — PRD §3.6.2 / news.schema.md Count Quotas
 - [ ] Each article `body` ≥ 800 words — news.schema.md Count Quotas
 - [ ] Total articles ≥ 4 so that the "Latest Industry News" 3-card block can always be filled (`articles.filter(slug ≠ current).slice(0, 3)` always yields 3 cards) — news.schema.md §news-detail Template Rendering Logic

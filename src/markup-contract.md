@@ -396,7 +396,7 @@
 ### 4.1 DOM 结构
 
 ```html
-<form data-validate action="#" method="post" novalidate>
+<form data-validate novalidate>
 
   <!-- 字段组：Name -->
   <div class="form-group">
@@ -474,6 +474,15 @@
     <p>Or email us directly at <a href="mailto:sales@beiluo.com">sales@beiluo.com</a>.</p>
   </div>
 
+  <!-- 降级：JS 禁用时展示真实联系方式，不留空链接 -->
+  <noscript>
+    <p>JavaScript is required to submit this form. Please contact us directly:</p>
+    <ul>
+      <li>WhatsApp: <a href="https://wa.me/8615013702378">+86 15013702378</a></li>
+      <li>WeChat: +86 18612518271</li>
+    </ul>
+  </noscript>
+
 </form>
 ```
 
@@ -483,6 +492,7 @@
 |------------|------|--------|------|
 | `data-validate` | `<form>` | 无值属性 | JS 定位需要挂载校验逻辑的表单；页面可有多个表单，只有带此属性的会被 JS 接管 |
 | `novalidate` | `<form>` | 无值属性 | 禁用浏览器原生校验气泡，由 JS 统一控制校验 UI |
+| ~~`action="#"`~~ | — | — | **不使用** `action` 属性：表单为 JS-only 提交，无服务端 endpoint；JS 禁用时由 `<noscript>` 块展示真实联系方式（WhatsApp / WeChat），不留任何空链接 |
 | `required` | `<input>`/`<textarea>` | 无值属性 | 模板标记必填；JS 校验时读取此属性 |
 | `data-rule="email\|text\|partno"` | `<input>`/`<textarea>` | `email` / `text` / `partno` | JS 依此选择校验规则：`email`=标准邮箱格式、`text`=非空字符串（去除首尾空格）、`partno`=非空且仅允许字母数字连字符 |
 | `aria-required="true"` | 必填 `<input>`/`<textarea>` | `"true"` | 语义化声明，JS 不修改 |
@@ -540,7 +550,7 @@
 
 | 场景 | 行为 |
 |------|------|
-| JS 未加载 | `novalidate` 使浏览器不做原生校验气泡，但 `required` 属性仍阻止提交（HTML5 原生行为，无 `novalidate` 时生效）。**模板不应同时加 `novalidate` 与依赖 JS 校验**：若静态站有 fallback action（如 Netlify Forms / mailto:），去掉 `novalidate` 让浏览器原生校验兜底；若无任何 server 端处理，`action="#"` 提交后页面刷新，效果为空操作 |
+| JS 未加载 | 表单无 `action`，无法提交；`<noscript>` 块自动显示，向用户展示真实联系方式：WhatsApp `https://wa.me/8615013702378`（`+86 15013702378`）和 WeChat `+86 18612518271`。不留任何 `#` 空链接，符合铁律 #2 |
 | `[data-success]` 未在 DOM 中（遗漏） | JS 校验通过提交后，查不到成功容器时直接跳转 `action` URL，不报错 |
 | 字段缺少 `data-error-for` 对应的错误容器 | JS 跳过该字段的错误 UI 写入，字段校验逻辑仍执行，控制台输出警告 |
 | 字段缺少 `data-rule` | JS 对该字段仅做 `required` 检查（非空），跳过格式校验 |
@@ -554,4 +564,4 @@
 | 规格表 | `.spec-table-wrap` > `[data-filter-bar]` + `.spec-table`（含 `data-col`/`data-type`/`data-filter`/`.col-sticky`） | `[data-filter-bar]` 内插入控件；`<tr hidden>` 过滤；空状态行 | `.spec-table-wrap` 横向滚动；`.col-sticky` 首列冻结；斑马纹；行 hover |
 | Tab | `.tab-container` > `[role=tablist]` > `[role=tab][data-tab]` + `[role=tabpanel][data-tabpanel]`（含初始 `aria-selected`/`hidden`/`id`/`aria-controls`/`aria-labelledby`） | `aria-selected`；`tabindex`；`hidden` 属性 | Tab 条下划线高亮；面板淡入过渡 |
 | Sticky TOC | `.article-content`（含 `h2[id]`/`h3[id]`）；`.sticky-sidebar` > `[data-toc]` | `[data-toc]` 内生成目录树 `<ol>/<li>/<a>`；`.toc-active` 类 | `.sticky-sidebar` position:sticky；`.toc-active` 高亮色 |
-| 表单 | `<form data-validate>` > 字段 `[required][data-rule]` + `[data-error-for]` + `[data-submit]` + `[data-success hidden]` | `is-invalid` 类；错误文本；`disabled`/spinner；`[data-success]` `hidden` 切换 | `.is-invalid` 红色边框；`.spinner` 动画；`.form-group` 布局 |
+| 表单 | `<form data-validate novalidate>`（无 `action`） > 字段 `[required][data-rule]` + `[data-error-for]` + `[data-submit]` + `[data-success hidden]` + `<noscript>` 降级联系块 | `is-invalid` 类；错误文本；`disabled`/spinner；`[data-success]` `hidden` 切换 | `.is-invalid` 红色边框；`.spinner` 动画；`.form-group` 布局 |

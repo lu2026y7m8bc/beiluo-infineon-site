@@ -727,7 +727,8 @@ checked before a template is considered delivered. Items are verifiable against 
 
 ### D4 — key CSS classes
 
-- [ ] `<form data-validate action="#" method="post" novalidate>` present. (markup-contract §4.1)
+- [ ] `<form data-validate novalidate>` present (no `action` attribute — JS-only submit). (markup-contract §4.1)
+- [ ] `<noscript>` block inside form with WhatsApp `https://wa.me/8615013702378` and WeChat `+86 18612518271` real contact links — no `#` hrefs in noscript. (markup-contract §4.5)
 - [ ] 4 field groups (Name / Email / Part No. / Message) in `.form-group` with `<label for>` + matching `id`. (markup-contract §4.1)
 - [ ] Each field: `required`, `data-rule` (`text`/`email`/`partno`), `aria-required="true"`, `aria-describedby="error-<field>"`. (markup-contract §4.2)
 - [ ] Each field: `<span data-error-for="<name>" id="error-<name-lowercase>" role="alert">`. (markup-contract §4.2)

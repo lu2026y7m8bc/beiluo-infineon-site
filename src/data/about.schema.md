@@ -164,7 +164,6 @@ No additional fields in `about.json` are needed for author pages — all data co
 | Schema Type | Data Source |
 |-------------|------------|
 | `BreadcrumbList` | `Home → About Us → Authors → <author.name>` |
-| `Person` (optional, encouraged for E-E-A-T) | `author.name`, `author.profileHref`, `author.expertise` |
 
 ---
 

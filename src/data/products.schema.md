@@ -17,7 +17,7 @@
 | Item | Quota |
 |------|-------|
 | `categories` array length | **4** (MCU / IGBT / MOSFET / Sensors) |
-| `models` per category | **≥2** detail-level models (共 8 total across all categories) |
+| `models` per category | **exactly 2** detail-level models per category (8 total) |
 | `columns` per category | Dynamic — varies per category (e.g., IGBT ≠ MCU columns) |
 | `faq` per model | **3–5** questions |
 | `specs` per model | ≥5 spec rows |
@@ -46,7 +46,7 @@ products.json
 | `icon` | String | Required | SVG icon path: `"/assets/svg/icons/<slug>.svg"` (design §9, same-family line icons) | `{{category.icon}}` in category card and sidebar |
 | `selectionGuideHref` | String | Required | Link to corresponding support article (Selection Guide): e.g., `"/support/guides/how-to-select-infineon-igbt/"` | `{{category.selectionGuideHref}}` on "Download Category Selection Guide" / "Selection Guide →" CTA (design §5.3) |
 | `columns` | Array\<ColumnDef\> | Required | **Dynamic column definitions** for the spec table — varies per category | `{{category.columns}}` drives `render.js` table header + filter controls (design §4.9, §5.3) |
-| `models` | Array\<Model\> | Required | All models in this category (≥2 detail-level models) | `{{category.models}}` loop for table rows and detail pages |
+| `models` | Array\<Model\> | Required | All models in this category (exactly 2 detail-level models) | `{{category.models}}` loop for table rows and detail pages |
 
 ---
 
@@ -58,22 +58,22 @@ One entry per column in the spec table (design §4.9). Column set is defined per
 |-------|------|----------|---------|-------|
 | `key` | String | Required | camelCase key matching a field in `model.params` or a top-level model field (e.g., `"vce"`, `"ic"`, `"package"`) | Used by `render.js` to read value from model object |
 | `label` | String | Required | Column header display text: e.g., `"VCE (V)"`, `"IC (A)"`, `"Package"` | `{{col.label}}` as `<th>` content |
-| `type` | String | Required | Filter control type: `"text"` / `"number"` / `"range"` / `"multiselect"` | `{{col.type}}` tells `render.js` which filter widget to render (design §4.9) |
-| `filter` | Boolean | Required | `true` → render filter control for this column; `false` → display only | `{{col.filter}}` |
+| `type` | String | Required | Data type: `"text"` \| `"number"` \| `"enum"` | `{{col.type}}` in `data-type` attribute on `<th>` — tells `render.js` how to parse cell values (design §4.9, markup-contract §1.2) |
+| `filter` | String | Required | Filter widget type: `"select"` / `"range"` / `"multi"` / `"none"` | `{{col.filter}}` in `data-filter` attribute on `<th>`; `"none"` = display column only, no filter widget (markup-contract §1.2) |
 | `unit` | String | Optional | Unit suffix displayed in filter/cell: e.g., `"V"`, `"A"`, `"MHz"` | `{{col.unit}}` |
 | `sticky` | Boolean | Optional | `true` → freeze column on mobile horizontal scroll (first column: part number) | Applied as CSS class `.col-sticky` |
 
-> **Example column sets by category**:
-> - IGBT: partNo (sticky, text), series, vce (V, range), ic (A, range), package (multiselect), stock
-> - MCU: partNo (sticky, text), series, coreArch (text), flashKb (range), ramKb (range), maxMhz (range), package (multiselect), stock
-> - MOSFET: partNo (sticky), series, vds (V, range), rdsOn (mΩ, range), id (A, range), package (multiselect), stock
-> - Sensors: partNo (sticky), series, sensorType (multiselect), interface (multiselect), supplyV (range), package (multiselect), stock
+> **Example column sets by category** (type → data-type; filter → data-filter per markup-contract §1.2):
+> - IGBT: partNo (sticky, type=text, filter=select), series (type=text, filter=select), vce (V, type=number, filter=range), ic (A, type=number, filter=range), package (type=enum, filter=multi), stock (type=enum, filter=select)
+> - MCU: partNo (sticky, type=text, filter=select), series (type=text, filter=select), coreArch (type=text, filter=select), flashKb (type=number, filter=range), ramKb (type=number, filter=range), maxMhz (type=number, filter=range), package (type=enum, filter=multi), stock (type=enum, filter=select)
+> - MOSFET: partNo (sticky, type=text, filter=select), series (type=text, filter=select), vds (V, type=number, filter=range), rdsOn (mΩ, type=number, filter=range), id (A, type=number, filter=range), package (type=enum, filter=multi), stock (type=enum, filter=select)
+> - Sensors: partNo (sticky, type=text, filter=select), series (type=text, filter=select), sensorType (type=enum, filter=multi), interface (type=enum, filter=multi), supplyV (type=number, filter=range), package (type=enum, filter=multi), stock (type=enum, filter=select)
 
 ---
 
 ## `Model` Object
 
-Shared base fields for all categories (table row level). Detail fields are populated for the ≥2 "detail models" per category.
+Shared base fields for all categories (table row level). Detail fields are populated for the exactly 2 "detail models" per category.
 
 ### Base Fields (required for all models — table row level)
 
@@ -87,7 +87,7 @@ Shared base fields for all categories (table row level). Detail fields are popul
 | `stockQty` | Number | Optional | Indicative quantity on hand (omit if not disclosed) | `{{model.stockQty}}` if present |
 | `href` | String | Required | Detail page path: `"/products/<categorySlug>/<partNo-slug>/"` | `{{model.href}}` on part number link in table; `Product.url` in JSON-LD |
 
-### Detail Fields (required for the ≥2 "detail-level" models per category)
+### Detail Fields (required for the exactly 2 "detail-level" models per category)
 
 These fields power the `product-detail` template (design §5.4).
 
