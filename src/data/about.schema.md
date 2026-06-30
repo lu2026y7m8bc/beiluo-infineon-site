@@ -144,7 +144,7 @@ The author profile page at `/about/authors/<slug>/` is generated from `support.j
 
 > **Data source for author pages**: `support.json authors[]` (see `support.schema.md`).
 > **Template**: `about` — build.js detects the `authorProfile: true` flag in the page context and renders only the author variant layout.
-> **Breadcrumb**: `Home → About Us → <author.name>`.
+> **Breadcrumb**: `Home → About Us → Authors → <author.name>`.
 > **Content**: FAE photo / name / expertise / experience + list of articles authored (derived from `support.json articles[]` filtered by `author === slug`).
 
 No additional fields in `about.json` are needed for author pages — all data comes from `support.json`.
@@ -163,7 +163,7 @@ No additional fields in `about.json` are needed for author pages — all data co
 
 | Schema Type | Data Source |
 |-------------|------------|
-| `BreadcrumbList` | `Home → About Us → <author.name>` |
+| `BreadcrumbList` | `Home → About Us → Authors → <author.name>` |
 | `Person` (optional, encouraged for E-E-A-T) | `author.name`, `author.profileHref`, `author.expertise` |
 
 ---
