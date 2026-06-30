@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 500 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="solution-diagram-title">
+  <defs>
+    <style>
+      .block { fill: #E8F1FA; stroke: #0072CE; stroke-width: 2; }
+      .label { font-family: Arial, sans-serif; font-size: 12px; fill: #0072CE; text-anchor: middle; font-weight: 500; }
+      .label-sub { font-family: Arial, sans-serif; font-size: 10px; fill: #666666; text-anchor: middle; }
+      .arrow { stroke: #0072CE; stroke-width: 2.5; fill: none; marker-end: url(#arrowhead); }
+      .flow-label { font-family: Arial, sans-serif; font-size: 9px; fill: #F5821F; text-anchor: middle; font-weight: bold; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#0072CE"/>
+    </marker>
+  </defs>
+  <title id="solution-diagram-title">BeiLuo supply chain: connecting applications to Infineon components</title>
+
+  <!-- Background -->
+  <rect width="500" height="300" fill="transparent"/>
+
+  <!-- Left block: Application -->
+  <g>
+    <rect x="20" y="110" width="100" height="80" class="block" rx="4"/>
+    <text x="70" y="155" class="label">Application</text>
+    <text x="70" y="172" class="label-sub">Solutions</text>
+  </g>
+
+  <!-- Arrow 1: Application to BeiLuo -->
+  <path class="arrow" d="M 120 150 L 180 150"/>
+  <text x="150" y="140" class="flow-label">supplies</text>
+
+  <!-- Middle block: BeiLuo -->
+  <g>
+    <rect x="180" y="110" width="100" height="80" class="block" rx="4"/>
+    <text x="230" y="150" class="label">BeiLuo</text>
+    <text x="230" y="170" class="label">Distribution</text>
+    <text x="230" y="187" class="label-sub">Center</text>
+  </g>
+
+  <!-- Arrow 2: BeiLuo to Infineon -->
+  <path class="arrow" d="M 280 150 L 340 150"/>
+  <text x="310" y="140" class="flow-label">sources</text>
+
+  <!-- Right block: Infineon -->
+  <g>
+    <rect x="340" y="110" width="100" height="80" class="block" rx="4"/>
+    <text x="390" y="150" class="label">Infineon</text>
+    <text x="390" y="170" class="label">Components</text>
+    <text x="390" y="187" class="label-sub">& Parts</text>
+  </g>
+
+  <!-- Supporting connections with component icons -->
+  <g transform="translate(70, 40)">
+    <!-- Top indicator boxes -->
+    <rect x="0" y="0" width="40" height="25" fill="#F5F8FC" stroke="#C5D8EE" stroke-width="1" rx="2"/>
+    <text x="20" y="16" class="label-sub" font-size="8">Industrial</text>
+  </g>
+
+  <g transform="translate(210, 40)">
+    <rect x="0" y="0" width="40" height="25" fill="#F5F8FC" stroke="#C5D8EE" stroke-width="1" rx="2"/>
+    <text x="20" y="16" class="label-sub" font-size="8">Logistics</text>
+  </g>
+
+  <g transform="translate(350, 40)">
+    <rect x="0" y="0" width="40" height="25" fill="#F5F8FC" stroke="#C5D8EE" stroke-width="1" rx="2"/>
+    <text x="20" y="16" class="label-sub" font-size="8">MCU, IGBT</text>
+  </g>
+
+  <!-- Bottom supply detail -->
+  <g transform="translate(100, 230)">
+    <text x="0" y="0" class="label-sub" font-size="10">✓ 24/7 Technical Support</text>
+  </g>
+
+  <g transform="translate(200, 230)">
+    <text x="0" y="0" class="label-sub" font-size="10">✓ Fast Delivery</text>
+  </g>
+
+  <g transform="translate(340, 230)">
+    <text x="0" y="0" class="label-sub" font-size="10">✓ Certified Parts</text>
+  </g>
+
+</svg>

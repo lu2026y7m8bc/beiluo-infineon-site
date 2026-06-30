@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="trust-badge-title">
+  <defs>
+    <style>
+      .primary { fill: #0072CE; }
+      .accent { fill: #F5821F; }
+      .neutral { fill: #E8F1FA; }
+      .badge-text { font-family: Arial, sans-serif; font-weight: bold; text-anchor: middle; }
+      .badge-text-main { font-size: 12px; fill: #FFFFFF; }
+      .badge-text-sub { font-size: 7px; fill: #0072CE; }
+      .badge-text-chip { font-size: 6px; fill: #F5821F; }
+    </style>
+  </defs>
+  <title id="trust-badge-title">Authorized Infineon Distributor</title>
+
+  <!-- Background circle -->
+  <circle cx="60" cy="60" r="58" class="neutral" stroke="#0072CE" stroke-width="2"/>
+
+  <!-- Shield shape base -->
+  <path d="M 60 15 L 85 35 L 85 55 Q 85 75 60 90 Q 35 75 35 55 L 35 35 Z"
+        class="primary" stroke="#0072CE" stroke-width="1.5"/>
+
+  <!-- Inner shield highlight -->
+  <path d="M 60 22 L 78 38 L 78 55 Q 78 72 60 84 Q 42 72 42 55 L 42 38 Z"
+        class="neutral" opacity="0.6"/>
+
+  <!-- Checkmark in shield -->
+  <path d="M 50 50 L 56 58 L 70 42"
+        stroke="#F5821F" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- "Authorized" text in arc above -->
+  <text x="60" y="32" class="badge-text badge-text-main">Authorized</text>
+
+  <!-- "Infineon Distributor" text below shield -->
+  <text x="60" y="105" class="badge-text badge-text-sub">INFINEON DISTRIBUTOR</text>
+
+  <!-- Small chip icon indicator (bottom right) -->
+  <g transform="translate(80, 85)">
+    <rect x="0" y="0" width="12" height="12" class="accent" rx="1"/>
+    <line x1="3" y1="0" x2="3" y2="12" stroke="#FFFFFF" stroke-width="0.5" opacity="0.7"/>
+    <line x1="9" y1="0" x2="9" y2="12" stroke="#FFFFFF" stroke-width="0.5" opacity="0.7"/>
+  </g>
+
+  <!-- Circular border accent -->
+  <circle cx="60" cy="60" r="58" fill="none" stroke="#F5821F" stroke-width="1" stroke-dasharray="3,2" opacity="0.5"/>
+
+</svg>
