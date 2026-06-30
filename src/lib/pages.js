@@ -1,0 +1,248 @@
+/**
+ * pages.js — data → page-list mapping (T1.6)
+ *
+ * export function buildPageList(data)
+ *   data: { site, home, products, solutions, support, news, about }
+ *   returns Page[]
+ *
+ * Page = { url, template, context, breadcrumb }
+ *   url        — directory form with trailing slash, e.g. '/products/igbt/'  (home = '/')
+ *   template   — one of: home / about / contact / products-list / product-category /
+ *                product-detail / solutions-list / solution-detail / support-list /
+ *                tech-detail / news-list / news-detail
+ *   context    — { ...site, ...page-specific fields, breadcrumb }
+ *   breadcrumb — [{name, url}]  (home is [])
+ */
+
+import { slugify, uniqueSlug } from './slugify.js';
+
+/**
+ * Helper — create a single breadcrumb item.
+ * @param {string} name
+ * @param {string} url
+ * @returns {{ name: string, url: string }}
+ */
+function bc(name, url) {
+  return { name, url };
+}
+
+/**
+ * Build the full page list from all JSON data objects.
+ *
+ * @param {{ site, home, products, solutions, support, news, about }} data
+ * @returns {Array<{ url: string, template: string, context: object, breadcrumb: Array }>}
+ */
+export function buildPageList(data) {
+  const { site, home, products, solutions, support, news, about } = data;
+  const pages = [];
+
+  // ── 1. Home ─────────────────────────────────────────────────────────────────
+  {
+    const breadcrumb = [];
+    pages.push({
+      url: '/',
+      template: 'home',
+      context: { ...site, ...home, breadcrumb },
+      breadcrumb,
+    });
+  }
+
+  // ── 2. About ────────────────────────────────────────────────────────────────
+  {
+    const breadcrumb = [bc('Home', '/')];
+    pages.push({
+      url: '/about/',
+      template: 'about',
+      context: { ...site, ...about, breadcrumb },
+      breadcrumb,
+    });
+  }
+
+  // ── 3. Contact ──────────────────────────────────────────────────────────────
+  {
+    const breadcrumb = [bc('Home', '/')];
+    pages.push({
+      url: '/contact/',
+      template: 'contact',
+      context: { ...site, breadcrumb },
+      breadcrumb,
+    });
+  }
+
+  // ── 4. Products list ─────────────────────────────────────────────────────────
+  {
+    const breadcrumb = [bc('Home', '/')];
+    pages.push({
+      url: '/products/',
+      template: 'products-list',
+      context: { ...site, categories: products.categories, breadcrumb },
+      breadcrumb,
+    });
+  }
+
+  // ── 5. Product category pages + 6. Product detail pages ─────────────────────
+  for (const category of products.categories) {
+    const catUrl = `/products/${category.slug}/`;
+
+    // Category index page
+    {
+      const breadcrumb = [bc('Home', '/'), bc('Products', '/products/')];
+      pages.push({
+        url: catUrl,
+        template: 'product-category',
+        context: { ...site, category, breadcrumb },
+        breadcrumb,
+      });
+    }
+
+    // Product detail pages — uniqueSlug scoped per category
+    const usedModelSlugs = new Set();
+    for (const model of category.models) {
+      const modelSlug = uniqueSlug(model.partNo, usedModelSlugs);
+      const modelUrl = `/products/${category.slug}/${modelSlug}/`;
+      const breadcrumb = [
+        bc('Home', '/'),
+        bc('Products', '/products/'),
+        bc(category.name, catUrl),
+        bc(model.partNo, modelUrl),
+      ];
+      pages.push({
+        url: modelUrl,
+        template: 'product-detail',
+        context: { ...site, category, model, breadcrumb },
+        breadcrumb,
+      });
+    }
+  }
+
+  // ── 7. Solutions list ────────────────────────────────────────────────────────
+  {
+    const breadcrumb = [bc('Home', '/')];
+    pages.push({
+      url: '/solutions/',
+      template: 'solutions-list',
+      context: { ...site, solutions: solutions.solutions, breadcrumb },
+      breadcrumb,
+    });
+  }
+
+  // ── 8. Solution detail pages ─────────────────────────────────────────────────
+  for (const solution of solutions.solutions) {
+    const solutionUrl = `/solutions/${solution.slug}/`;
+    const breadcrumb = [bc('Home', '/'), bc('Solutions', '/solutions/')];
+    pages.push({
+      url: solutionUrl,
+      template: 'solution-detail',
+      context: { ...site, solution, breadcrumb },
+      breadcrumb,
+    });
+  }
+
+  // ── 9. Support overview ──────────────────────────────────────────────────────
+  {
+    const breadcrumb = [bc('Home', '/')];
+    pages.push({
+      url: '/support/',
+      template: 'support-list',
+      context: { ...site, ...support, breadcrumb },
+      breadcrumb,
+    });
+  }
+
+  // ── 10. Support category index pages ─────────────────────────────────────────
+  for (const category of support.categories) {
+    const catUrl = `/support/${category.slug}/`;
+    const breadcrumb = [bc('Home', '/'), bc('Support', '/support/')];
+    pages.push({
+      url: catUrl,
+      template: 'support-list',
+      context: { ...site, category, filterCategory: category.slug, breadcrumb },
+      breadcrumb,
+    });
+  }
+
+  // ── 11. Support tag pages (deduplicated) ─────────────────────────────────────
+  // Collect all tag slugs from articles, slugify, deduplicate
+  const seenTagSlugs = new Set();
+  for (const article of support.articles) {
+    for (const rawTag of article.tags) {
+      seenTagSlugs.add(slugify(rawTag));
+    }
+  }
+
+  for (const tagSlug of seenTagSlugs) {
+    const tagInfo = support.tags
+      ? support.tags.find(t => t.slug === tagSlug) ?? null
+      : null;
+    const breadcrumb = [bc('Home', '/'), bc('Support', '/support/')];
+    pages.push({
+      url: `/support/tags/${tagSlug}/`,
+      template: 'support-list',
+      context: { ...site, filterTag: tagSlug, tag: tagInfo, breadcrumb },
+      breadcrumb,
+    });
+  }
+
+  // ── 12. Support article detail pages (tech-detail) ───────────────────────────
+  for (const article of support.articles) {
+    const catInfo = support.categories
+      ? support.categories.find(c => c.slug === article.category) ?? null
+      : null;
+    const catName = catInfo ? catInfo.name : article.category;
+    const articleUrl = `/support/${article.category}/${article.slug}/`;
+    const breadcrumb = [
+      bc('Home', '/'),
+      bc('Support', '/support/'),
+      bc(catName, `/support/${article.category}/`),
+      bc(article.title, articleUrl),
+    ];
+    pages.push({
+      url: articleUrl,
+      template: 'tech-detail',
+      context: { ...site, article, breadcrumb },
+      breadcrumb,
+    });
+  }
+
+  // ── 13. News list ────────────────────────────────────────────────────────────
+  {
+    const breadcrumb = [bc('Home', '/')];
+    pages.push({
+      url: '/news/',
+      template: 'news-list',
+      context: { ...site, articles: news.articles, breadcrumb },
+      breadcrumb,
+    });
+  }
+
+  // ── 14. News detail pages ────────────────────────────────────────────────────
+  for (const article of news.articles) {
+    const articleUrl = `/news/${article.slug}/`;
+    const breadcrumb = [bc('Home', '/'), bc('News', '/news/')];
+    pages.push({
+      url: articleUrl,
+      template: 'news-detail',
+      context: { ...site, article, breadcrumb },
+      breadcrumb,
+    });
+  }
+
+  // ── 15. Author profile pages ─────────────────────────────────────────────────
+  for (const author of support.authors) {
+    const authorUrl = `/about/authors/${author.slug}/`;
+    const breadcrumb = [
+      bc('Home', '/'),
+      bc('About Us', '/about/'),
+      bc('Authors', '/about/authors/'),
+      bc(author.name, authorUrl),
+    ];
+    pages.push({
+      url: authorUrl,
+      template: 'about',
+      context: { ...site, author, authorProfile: true, breadcrumb },
+      breadcrumb,
+    });
+  }
+
+  return pages;
+}

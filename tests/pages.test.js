@@ -1,0 +1,533 @@
+import { describe, it } from 'node:test';
+import assert from 'node:assert/strict';
+import { buildPageList } from '../src/lib/pages.js';
+
+// ── Minimal sample data ───────────────────────────────────────────────────────
+
+const site = {
+  brand: { name: 'BeiLuo', slogan: 'Top 8 Electronic Component Distributor in China' },
+  seo: {
+    baseUrl: 'https://www.beiluo.com',
+    defaultTitle: 'Infineon Distributor | BeiLuo',
+    defaultDescription: 'Infineon distributor BeiLuo',
+  },
+  nav: { items: [] },
+  footer: { columns: [], copyright: '© 2024 BeiLuo.' },
+};
+
+const home = { heroTitle: 'Welcome to BeiLuo' };
+
+const products = {
+  categories: [
+    {
+      slug: 'igbt',
+      name: 'IGBT',
+      title: 'Infineon IGBT Distributor',
+      metaDescription: 'IGBT meta',
+      description: 'IGBT desc',
+      faeNote: 'FAE note',
+      icon: '/assets/svg/icons/igbt.svg',
+      selectionGuideHref: '/support/guides/how-to-select-infineon-igbt/',
+      selectionGuideDownloadHref: '/assets/docs/igbt-guide.pdf',
+      columns: [],
+      models: [
+        {
+          partNo: 'IKW40N120H3',
+          series: 'H3',
+          params: {},
+          package: 'TO-247',
+          stock: 'inStock',
+          href: '/products/igbt/ikw40n120h3/',
+        },
+        // Same partNo to test slug dedup → should become ikw40n120h3-2
+        {
+          partNo: 'IKW40N120H3',
+          series: 'H3',
+          params: {},
+          package: 'TO-247',
+          stock: 'inStock',
+          href: '/products/igbt/ikw40n120h3-2/',
+        },
+      ],
+    },
+    {
+      slug: 'mcu',
+      name: 'MCU',
+      title: 'Infineon MCU Distributor',
+      metaDescription: 'MCU meta',
+      description: 'MCU desc',
+      faeNote: 'FAE note',
+      icon: '/assets/svg/icons/mcu.svg',
+      selectionGuideHref: '/support/guides/how-to-select-infineon-mcu/',
+      selectionGuideDownloadHref: '/assets/docs/mcu-guide.pdf',
+      columns: [],
+      models: [
+        {
+          partNo: 'TC387QP',
+          series: 'AURIX',
+          params: {},
+          package: 'BGA-292',
+          stock: 'inStock',
+          href: '/products/mcu/tc387qp/',
+        },
+        {
+          partNo: 'XMC4800',
+          series: 'XMC',
+          params: {},
+          package: 'LQFP-144',
+          stock: 'rfq',
+          href: '/products/mcu/xmc4800/',
+        },
+      ],
+    },
+  ],
+};
+
+const solutions = {
+  solutions: [
+    {
+      slug: 'bldc-motor-drive',
+      title: 'BLDC Motor Drive Solution',
+      metaDescription: 'Motor drive meta',
+      summary: 'Motor drive solution',
+      industry: 'Motor Drive',
+      blockDiagram: { src: '/assets/svg/bd-bldc.svg', alt: 'BLDC block diagram' },
+      advantages: ['High efficiency'],
+      bomList: [],
+      scenarios: 'Industrial applications',
+      body: 'Full body text...',
+      related: [],
+    },
+    {
+      slug: 'ev-onboard-charger',
+      title: 'EV Onboard Charger Solution',
+      metaDescription: 'EV charger meta',
+      summary: 'EV charger solution',
+      industry: 'EV Charging',
+      blockDiagram: { src: '/assets/svg/bd-ev.svg', alt: 'EV block diagram' },
+      advantages: ['Fast charge'],
+      bomList: [],
+      scenarios: 'EV applications',
+      body: 'Full body text...',
+      related: [],
+    },
+  ],
+};
+
+const support = {
+  categories: [
+    {
+      slug: 'guides',
+      name: 'Selection Guides',
+      title: 'Infineon Selection Guides',
+      metaDescription: 'Guides meta',
+    },
+    {
+      slug: 'reviews',
+      name: 'New Product Reviews',
+      title: 'New Product Reviews',
+      metaDescription: 'Reviews meta',
+    },
+  ],
+  tags: [
+    { slug: 'igbt', name: 'IGBT' },
+    { slug: 'mosfet', name: 'MOSFET' },
+    { slug: 'aurix', name: 'AURIX' },
+  ],
+  authors: [
+    {
+      slug: 'li-wei',
+      name: 'Li Wei',
+      photo: '/assets/svg/illustrations/author-li-wei.svg',
+      photoAlt: 'Li Wei — BeiLuo FAE Engineer',
+      expertise: 'Power semiconductors, IGBT gate drive design',
+      experience: '8+ years in power electronics',
+      profileHref: '/about/authors/li-wei/',
+    },
+    {
+      slug: 'wang-fang',
+      name: 'Wang Fang',
+      photo: '/assets/svg/illustrations/author-wang-fang.svg',
+      photoAlt: 'Wang Fang — BeiLuo FAE Engineer',
+      expertise: 'MCU systems and embedded design',
+      experience: '5+ years in MCU applications',
+      profileHref: '/about/authors/wang-fang/',
+    },
+  ],
+  articles: [
+    {
+      slug: 'how-to-select-igbt',
+      title: 'How to Select the Right Infineon IGBT',
+      category: 'guides',
+      // igbt appears in both articles — should yield only ONE /support/tags/igbt/ page
+      tags: ['igbt', 'mosfet'],
+      author: 'li-wei',
+      date: '2024-03-01',
+      summary: 'A guide to selecting Infineon IGBTs.',
+      metaDescription: 'How to select Infineon IGBT guide.',
+      body: 'Body content...',
+      internalLinks: [],
+      relatedArticles: [],
+    },
+    {
+      slug: 'aurix-tc387-review',
+      title: 'AURIX TC387 New Product Review',
+      category: 'reviews',
+      // igbt repeated → still only 1 igbt tag page total
+      tags: ['igbt', 'aurix'],
+      author: 'wang-fang',
+      date: '2024-04-01',
+      summary: 'Review of the AURIX TC387 MCU.',
+      metaDescription: 'AURIX TC387 new product review.',
+      body: 'Body content...',
+      internalLinks: [],
+      relatedArticles: [],
+    },
+  ],
+};
+
+const news = {
+  articles: [
+    {
+      slug: 'beiluo-joins-electronica-2024',
+      title: 'BeiLuo Joins Electronica 2024',
+      type: 'company',
+      date: '2024-11-10',
+      author: 'BeiLuo Editorial Team',
+      categoryTag: 'Company News',
+      summary: 'BeiLuo exhibited at Electronica 2024.',
+      metaDescription: 'BeiLuo at Electronica 2024.',
+      bannerImage: {
+        src: '/assets/svg/illustrations/news-beiluo-joins-electronica-2024.svg',
+        alt: 'BeiLuo Electronica 2024 booth banner',
+      },
+      body: 'Body content...',
+      share: {
+        url: 'https://www.beiluo.com/news/beiluo-joins-electronica-2024/',
+        title: 'BeiLuo Joins Electronica 2024',
+      },
+    },
+    {
+      slug: 'infineon-igbt-market-2024',
+      title: 'Infineon IGBT Market Outlook 2024',
+      type: 'industry',
+      date: '2024-10-05',
+      author: 'Li Wei',
+      categoryTag: 'Industry News',
+      summary: 'Industry analysis of Infineon IGBT market.',
+      metaDescription: 'Infineon IGBT market outlook 2024.',
+      bannerImage: {
+        src: '/assets/svg/illustrations/news-infineon-igbt-market-2024.svg',
+        alt: 'Infineon IGBT market trend 2024',
+      },
+      body: 'Body content...',
+      share: {
+        url: 'https://www.beiluo.com/news/infineon-igbt-market-2024/',
+        title: 'Infineon IGBT Market Outlook 2024',
+      },
+    },
+  ],
+};
+
+const about = { mission: 'Distribute Infineon chips with FAE support.' };
+
+const data = { site, home, products, solutions, support, news, about };
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+
+function pagesByTemplate(pages, template) {
+  return pages.filter(p => p.template === template);
+}
+
+function findPage(pages, url) {
+  return pages.find(p => p.url === url);
+}
+
+// ── Tests ─────────────────────────────────────────────────────────────────────
+
+describe('buildPageList', () => {
+  const pages = buildPageList(data);
+
+  // ── Return type ─────────────────────────────────────────────────────────────
+  it('returns an array', () => {
+    assert.ok(Array.isArray(pages));
+  });
+
+  it('each page has url, template, context, breadcrumb', () => {
+    for (const page of pages) {
+      assert.ok(typeof page.url === 'string', `url missing on ${page.template}`);
+      assert.ok(typeof page.template === 'string', 'template missing');
+      assert.ok(page.context !== null && typeof page.context === 'object', 'context missing');
+      assert.ok(Array.isArray(page.breadcrumb), 'breadcrumb missing');
+    }
+  });
+
+  // ── Home ────────────────────────────────────────────────────────────────────
+  it('home page has url "/" and template "home"', () => {
+    const p = findPage(pages, '/');
+    assert.ok(p, 'home page not found');
+    assert.equal(p.template, 'home');
+  });
+
+  it('home page breadcrumb is empty array', () => {
+    const p = findPage(pages, '/');
+    assert.deepEqual(p.breadcrumb, []);
+  });
+
+  // ── About / Contact ─────────────────────────────────────────────────────────
+  it('about page has url "/about/" and template "about"', () => {
+    const p = findPage(pages, '/about/');
+    assert.ok(p, '/about/ page not found');
+    assert.equal(p.template, 'about');
+  });
+
+  it('contact page has url "/contact/" and template "contact"', () => {
+    const p = findPage(pages, '/contact/');
+    assert.ok(p, '/contact/ page not found');
+    assert.equal(p.template, 'contact');
+  });
+
+  // ── Products list ───────────────────────────────────────────────────────────
+  it('products list page has url "/products/" and template "products-list"', () => {
+    const p = findPage(pages, '/products/');
+    assert.ok(p, '/products/ page not found');
+    assert.equal(p.template, 'products-list');
+  });
+
+  // ── Product category pages ──────────────────────────────────────────────────
+  it('product category pages count equals number of categories (2)', () => {
+    const catPages = pagesByTemplate(pages, 'product-category');
+    assert.equal(catPages.length, products.categories.length); // 2
+  });
+
+  it('product category URLs match /products/<catSlug>/', () => {
+    const catPages = pagesByTemplate(pages, 'product-category');
+    const urls = catPages.map(p => p.url).sort();
+    assert.deepEqual(urls, ['/products/igbt/', '/products/mcu/']);
+  });
+
+  // ── Product detail pages ────────────────────────────────────────────────────
+  it('product detail pages count equals total models across all categories (4)', () => {
+    const detailPages = pagesByTemplate(pages, 'product-detail');
+    const totalModels = products.categories.reduce((n, c) => n + c.models.length, 0);
+    assert.equal(detailPages.length, totalModels); // 4
+  });
+
+  it('first model of igbt category gets url /products/igbt/ikw40n120h3/', () => {
+    const p = findPage(pages, '/products/igbt/ikw40n120h3/');
+    assert.ok(p, 'first igbt model page not found');
+    assert.equal(p.template, 'product-detail');
+  });
+
+  it('duplicate partNo in same category gets deduped slug -2', () => {
+    // igbt category has two models with partNo "IKW40N120H3" → second gets ikw40n120h3-2
+    const p = findPage(pages, '/products/igbt/ikw40n120h3-2/');
+    assert.ok(p, 'deduped model page /products/igbt/ikw40n120h3-2/ not found');
+    assert.equal(p.template, 'product-detail');
+  });
+
+  it('dedup scope is per-category (mcu models share no namespace with igbt)', () => {
+    // mcu first model TC387QP → tc387qp (not tc387qp-2 even though igbt also used a slug)
+    const p = findPage(pages, '/products/mcu/tc387qp/');
+    assert.ok(p, '/products/mcu/tc387qp/ not found');
+  });
+
+  it('product detail breadcrumb has 4 levels (Home / Products / Category / PartNo)', () => {
+    const p = findPage(pages, '/products/igbt/ikw40n120h3/');
+    assert.equal(p.breadcrumb.length, 4);
+    assert.equal(p.breadcrumb[0].url, '/');
+    assert.equal(p.breadcrumb[1].url, '/products/');
+    assert.equal(p.breadcrumb[2].url, '/products/igbt/');
+    assert.equal(p.breadcrumb[3].url, '/products/igbt/ikw40n120h3/');
+  });
+
+  // ── Solutions ───────────────────────────────────────────────────────────────
+  it('solutions list has url "/solutions/" and template "solutions-list"', () => {
+    const p = findPage(pages, '/solutions/');
+    assert.ok(p, '/solutions/ not found');
+    assert.equal(p.template, 'solutions-list');
+  });
+
+  it('solution detail pages count equals solutions array length (2)', () => {
+    const detailPages = pagesByTemplate(pages, 'solution-detail');
+    assert.equal(detailPages.length, solutions.solutions.length); // 2
+  });
+
+  it('solution detail URL matches /solutions/<slug>/', () => {
+    const p = findPage(pages, '/solutions/bldc-motor-drive/');
+    assert.ok(p, '/solutions/bldc-motor-drive/ not found');
+    assert.equal(p.template, 'solution-detail');
+  });
+
+  // ── Support overview ────────────────────────────────────────────────────────
+  it('support overview has url "/support/" and template "support-list"', () => {
+    const p = findPage(pages, '/support/');
+    assert.ok(p, '/support/ not found');
+    assert.equal(p.template, 'support-list');
+  });
+
+  // ── Support category pages ──────────────────────────────────────────────────
+  it('support category pages count equals support.categories length (2)', () => {
+    // All pages under /support/<catSlug>/ that are NOT /support/tags/<tagSlug>/
+    const catPages = pages.filter(
+      p => p.template === 'support-list' &&
+        /^\/support\/[^/]+\/$/.test(p.url) &&
+        !p.url.startsWith('/support/tags/') &&
+        p.url !== '/support/'
+    );
+    assert.equal(catPages.length, support.categories.length); // 2
+  });
+
+  it('support category URLs match /support/<catSlug>/', () => {
+    const catPages = pages.filter(
+      p => p.template === 'support-list' &&
+        /^\/support\/[^/]+\/$/.test(p.url) &&
+        !p.url.startsWith('/support/tags/') &&
+        p.url !== '/support/'
+    );
+    const urls = catPages.map(p => p.url).sort();
+    assert.deepEqual(urls, ['/support/guides/', '/support/reviews/']);
+  });
+
+  // ── Support tag pages (dedup) ───────────────────────────────────────────────
+  it('tag pages are deduplicated across all articles (3 unique tags: igbt, mosfet, aurix)', () => {
+    const tagPages = pages.filter(p => p.url.startsWith('/support/tags/'));
+    // article 0 tags: igbt, mosfet; article 1 tags: igbt, aurix
+    // unique: igbt, mosfet, aurix → 3 pages
+    assert.equal(tagPages.length, 3);
+  });
+
+  it('shared tag "igbt" appears in both articles but yields only one tag page', () => {
+    const igbtPages = pages.filter(p => p.url === '/support/tags/igbt/');
+    assert.equal(igbtPages.length, 1);
+  });
+
+  it('tag pages have template "support-list" and url /support/tags/<slug>/', () => {
+    const tagPages = pages.filter(p => p.url.startsWith('/support/tags/'));
+    for (const p of tagPages) {
+      assert.equal(p.template, 'support-list');
+      assert.match(p.url, /^\/support\/tags\/[a-z0-9-]+\/$/);
+    }
+  });
+
+  // ── Support article detail pages ────────────────────────────────────────────
+  it('tech-detail pages count equals support.articles length (2)', () => {
+    const techPages = pagesByTemplate(pages, 'tech-detail');
+    assert.equal(techPages.length, support.articles.length); // 2
+  });
+
+  it('tech-detail URL is /support/<category>/<slug>/', () => {
+    const p = findPage(pages, '/support/guides/how-to-select-igbt/');
+    assert.ok(p, '/support/guides/how-to-select-igbt/ not found');
+    assert.equal(p.template, 'tech-detail');
+  });
+
+  // ── News ─────────────────────────────────────────────────────────────────────
+  it('news list has url "/news/" and template "news-list"', () => {
+    const p = findPage(pages, '/news/');
+    assert.ok(p, '/news/ not found');
+    assert.equal(p.template, 'news-list');
+  });
+
+  it('news detail pages count equals news.articles length (2)', () => {
+    const newsPages = pagesByTemplate(pages, 'news-detail');
+    assert.equal(newsPages.length, news.articles.length); // 2
+  });
+
+  it('news detail URL is /news/<slug>/', () => {
+    const p = findPage(pages, '/news/beiluo-joins-electronica-2024/');
+    assert.ok(p, 'news detail page not found');
+    assert.equal(p.template, 'news-detail');
+  });
+
+  // ── Author pages ────────────────────────────────────────────────────────────
+  it('author pages count equals support.authors length (2)', () => {
+    const authorPages = pages.filter(p => p.url.startsWith('/about/authors/'));
+    assert.equal(authorPages.length, support.authors.length); // 2
+  });
+
+  it('author page URL is /about/authors/<slug>/', () => {
+    const p = findPage(pages, '/about/authors/li-wei/');
+    assert.ok(p, '/about/authors/li-wei/ not found');
+  });
+
+  it('author page template is "about"', () => {
+    const p = findPage(pages, '/about/authors/li-wei/');
+    assert.equal(p.template, 'about');
+  });
+
+  it('author page context.authorProfile is true', () => {
+    const p = findPage(pages, '/about/authors/li-wei/');
+    assert.equal(p.context.authorProfile, true);
+  });
+
+  it('second author page also has authorProfile true', () => {
+    const p = findPage(pages, '/about/authors/wang-fang/');
+    assert.ok(p, '/about/authors/wang-fang/ not found');
+    assert.equal(p.context.authorProfile, true);
+  });
+
+  it('author page breadcrumb has 4 levels (Home / About Us / Authors / Name)', () => {
+    const p = findPage(pages, '/about/authors/li-wei/');
+    assert.equal(p.breadcrumb.length, 4);
+    assert.equal(p.breadcrumb[0].url, '/');
+    assert.equal(p.breadcrumb[1].url, '/about/');
+    assert.equal(p.breadcrumb[2].url, '/about/authors/');
+    assert.equal(p.breadcrumb[3].url, '/about/authors/li-wei/');
+    assert.equal(p.breadcrumb[3].name, 'Li Wei');
+  });
+
+  // ── Site merged into context ─────────────────────────────────────────────────
+  it('every page context includes site.brand.name', () => {
+    for (const page of pages) {
+      assert.equal(
+        page.context.brand?.name,
+        'BeiLuo',
+        `site.brand.name missing on ${page.url}`
+      );
+    }
+  });
+
+  it('every page context includes site.seo.baseUrl', () => {
+    for (const page of pages) {
+      assert.equal(
+        page.context.seo?.baseUrl,
+        'https://www.beiluo.com',
+        `site.seo.baseUrl missing on ${page.url}`
+      );
+    }
+  });
+
+  // ── context.breadcrumb matches page.breadcrumb ───────────────────────────────
+  it('context.breadcrumb is the same object as page.breadcrumb', () => {
+    for (const page of pages) {
+      assert.strictEqual(
+        page.context.breadcrumb,
+        page.breadcrumb,
+        `context.breadcrumb !== page.breadcrumb on ${page.url}`
+      );
+    }
+  });
+
+  // ── URLs are directory-form (trailing slash) except root ────────────────────
+  it('all page URLs end with "/" (directory form)', () => {
+    for (const page of pages) {
+      assert.ok(
+        page.url.endsWith('/'),
+        `URL ${page.url} does not end with /`
+      );
+    }
+  });
+
+  // ── Total page count sanity check ───────────────────────────────────────────
+  it('total page count matches expected formula', () => {
+    // 1 home + 1 about + 1 contact
+    // + 1 products-list + 2 cat + 4 detail
+    // + 1 solutions-list + 2 solution-detail
+    // + 1 support-list + 2 support-cat + 3 tag + 2 tech-detail
+    // + 1 news-list + 2 news-detail
+    // + 2 author
+    const expected = 1 + 1 + 1 + 1 + 2 + 4 + 1 + 2 + 1 + 2 + 3 + 2 + 1 + 2 + 2;
+    assert.equal(pages.length, expected); // 26
+  });
+});
