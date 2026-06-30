@@ -1,4 +1,4 @@
-import { describe, it } from 'node:test';
+﻿import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import {
   organization,
@@ -112,6 +112,28 @@ describe('organization(site)', () => {
   it('is JSON.stringify safe', () => {
     assert.doesNotThrow(() => JSON.stringify(obj));
   });
+
+  // Fix B: required-field validation
+  it('throws when site.brand.name is missing', () => {
+    assert.throws(
+      () => organization({ url: 'https://x.com', logoUrl: 'https://x.com/logo.svg' }),
+      /organization: missing brand\.name/
+    );
+  });
+
+  it('throws when site.url is missing', () => {
+    assert.throws(
+      () => organization({ brand: { name: 'X' }, logoUrl: 'https://x.com/logo.svg' }),
+      /organization: missing url/
+    );
+  });
+
+  it('throws when site.logoUrl is missing', () => {
+    assert.throws(
+      () => organization({ brand: { name: 'X' }, url: 'https://x.com' }),
+      /organization: missing logoUrl/
+    );
+  });
 });
 
 // ─── webSite ─────────────────────────────────────────────────────────────────
@@ -137,6 +159,21 @@ describe('webSite(site)', () => {
 
   it('is JSON.stringify safe', () => {
     assert.doesNotThrow(() => JSON.stringify(obj));
+  });
+
+  // Fix B: required-field validation
+  it('throws when site.brand.name is missing', () => {
+    assert.throws(
+      () => webSite({ url: 'https://x.com' }),
+      /webSite: missing name/
+    );
+  });
+
+  it('throws when site.url is missing', () => {
+    assert.throws(
+      () => webSite({ brand: { name: 'X' } }),
+      /webSite: missing url/
+    );
   });
 });
 
@@ -197,6 +234,21 @@ describe('breadcrumbList(crumbs)', () => {
   it('is JSON.stringify safe', () => {
     assert.doesNotThrow(() => JSON.stringify(obj3));
   });
+
+  // Fix B: required-field validation
+  it('throws when a crumb is missing name', () => {
+    assert.throws(
+      () => breadcrumbList([{ url: 'https://x.com/' }]),
+      /breadcrumbList: missing crumb\.name/
+    );
+  });
+
+  it('throws when a crumb is missing url', () => {
+    assert.throws(
+      () => breadcrumbList([{ name: 'Home' }]),
+      /breadcrumbList: missing crumb\.url/
+    );
+  });
 });
 
 // ─── itemList ─────────────────────────────────────────────────────────────────
@@ -241,6 +293,21 @@ describe('itemList(items)', () => {
 
   it('is JSON.stringify safe', () => {
     assert.doesNotThrow(() => JSON.stringify(obj));
+  });
+
+  // Fix B: required-field validation
+  it('throws when an item is missing name', () => {
+    assert.throws(
+      () => itemList([{ url: 'https://x.com/' }]),
+      /itemList: missing item\.name/
+    );
+  });
+
+  it('throws when an item is missing url', () => {
+    assert.throws(
+      () => itemList([{ name: 'IKW40N120H3' }]),
+      /itemList: missing item\.url/
+    );
   });
 });
 
@@ -315,6 +382,36 @@ describe('product(model, opts)', () => {
     assert.doesNotThrow(() => JSON.stringify(objIn));
     assert.doesNotThrow(() => JSON.stringify(objRfq));
   });
+
+  // Fix B: required-field validation
+  it('throws when model.partNo is missing', () => {
+    assert.throws(
+      () => product({ stock: 'inStock' }, productOpts),
+      /product: missing partNo/
+    );
+  });
+
+  it('throws when opts.url is missing', () => {
+    assert.throws(
+      () => product(modelInStock, { category: 'IGBT' }),
+      /product: missing url/
+    );
+  });
+
+  it('throws when opts.category is missing', () => {
+    assert.throws(
+      () => product(modelInStock, { url: 'https://x.com/' }),
+      /product: missing category/
+    );
+  });
+
+  // Fix C: unknown stock value throws
+  it('throws on unknown stock value', () => {
+    assert.throws(
+      () => product({ partNo: 'X', stock: 'unknown' }, productOpts),
+      /unknown stock/
+    );
+  });
 });
 
 // ─── techArticle ─────────────────────────────────────────────────────────────
@@ -363,6 +460,35 @@ describe('techArticle(article, opts)', () => {
   it('is JSON.stringify safe', () => {
     assert.doesNotThrow(() => JSON.stringify(obj));
   });
+
+  // Fix B: required-field validation
+  it('throws when article.title is missing', () => {
+    assert.throws(
+      () => techArticle({ date: '2024-01-01' }, techOpts),
+      /techArticle: missing title/
+    );
+  });
+
+  it('throws when article.date is missing', () => {
+    assert.throws(
+      () => techArticle({ title: 'X' }, techOpts),
+      /techArticle: missing date/
+    );
+  });
+
+  it('throws when opts.authorName is missing', () => {
+    assert.throws(
+      () => techArticle(articleSupport, { publisher: techOpts.publisher }),
+      /techArticle: missing authorName/
+    );
+  });
+
+  it('throws when opts.publisher is missing', () => {
+    assert.throws(
+      () => techArticle(articleSupport, { authorName: 'Li Wei' }),
+      /techArticle: missing publisher/
+    );
+  });
 });
 
 // ─── newsArticle ─────────────────────────────────────────────────────────────
@@ -405,6 +531,35 @@ describe('newsArticle(article, opts)', () => {
 
   it('is JSON.stringify safe', () => {
     assert.doesNotThrow(() => JSON.stringify(obj));
+  });
+
+  // Fix B: required-field validation
+  it('throws when article.title is missing', () => {
+    assert.throws(
+      () => newsArticle({ date: '2024-01-01', author: 'X' }, newsOpts),
+      /newsArticle: missing title/
+    );
+  });
+
+  it('throws when article.date is missing', () => {
+    assert.throws(
+      () => newsArticle({ title: 'X', author: 'X' }, newsOpts),
+      /newsArticle: missing date/
+    );
+  });
+
+  it('throws when article.author is missing', () => {
+    assert.throws(
+      () => newsArticle({ title: 'X', date: '2024-01-01' }, newsOpts),
+      /newsArticle: missing author/
+    );
+  });
+
+  it('throws when opts.publisher is missing', () => {
+    assert.throws(
+      () => newsArticle(articleNews, {}),
+      /newsArticle: missing publisher/
+    );
   });
 });
 
@@ -451,5 +606,19 @@ describe('jsonLdScript(obj)', () => {
     const s = jsonLdScript(product(modelInStock, productOpts));
     const inner = s.slice('<script type="application/ld+json">'.length, -'</script>'.length);
     assert.doesNotThrow(() => JSON.parse(inner));
+  });
+
+  // Fix A: </script> injection prevention
+  it('inner JSON does not contain literal </script> when input has </script>', () => {
+    const s = jsonLdScript({ x: '</script><b>hi</b>' });
+    const inner = s.slice('<script type="application/ld+json">'.length, -'</script>'.length);
+    assert.ok(!inner.includes('</script>'), 'inner JSON must not contain literal </script>');
+  });
+
+  it('JSON.parse round-trip restores original value after script-escaping', () => {
+    const s = jsonLdScript({ x: '</script><b>hi</b>' });
+    const inner = s.slice('<script type="application/ld+json">'.length, -'</script>'.length);
+    const parsed = JSON.parse(inner);
+    assert.equal(parsed.x, '</script><b>hi</b>');
   });
 });

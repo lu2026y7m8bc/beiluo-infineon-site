@@ -1,5 +1,5 @@
-/**
- * schema.js — 7 JSON-LD constructors + jsonLdScript helper
+﻿/**
+ * schema.js - 7 JSON-LD constructors + jsonLdScript helper
  * ESM, zero dependencies.
  * @module schema
  */
@@ -12,6 +12,12 @@ const SCHEMA = 'https://schema.org';
  * @returns {object}
  */
 export function organization(site) {
+  if (site == null || site.brand == null || site.brand.name == null)
+    throw new Error('organization: missing brand.name');
+  if (site.url == null)
+    throw new Error('organization: missing url');
+  if (site.logoUrl == null)
+    throw new Error('organization: missing logoUrl');
   return {
     '@context': SCHEMA,
     '@type': 'Organization',
@@ -33,6 +39,10 @@ export function organization(site) {
  * @returns {object}
  */
 export function webSite(site) {
+  if (site == null || site.brand == null || site.brand.name == null)
+    throw new Error('webSite: missing name');
+  if (site.url == null)
+    throw new Error('webSite: missing url');
   return {
     '@context': SCHEMA,
     '@type': 'WebSite',
@@ -47,6 +57,10 @@ export function webSite(site) {
  * @returns {object}
  */
 export function breadcrumbList(crumbs) {
+  for (const crumb of crumbs) {
+    if (crumb.name == null) throw new Error('breadcrumbList: missing crumb.name');
+    if (crumb.url == null) throw new Error('breadcrumbList: missing crumb.url');
+  }
   return {
     '@context': SCHEMA,
     '@type': 'BreadcrumbList',
@@ -65,6 +79,10 @@ export function breadcrumbList(crumbs) {
  * @returns {object}
  */
 export function itemList(items) {
+  for (const item of items) {
+    if (item.name == null) throw new Error('itemList: missing item.name');
+    if (item.url == null) throw new Error('itemList: missing item.url');
+  }
   return {
     '@context': SCHEMA,
     '@type': 'ItemList',
@@ -79,20 +97,34 @@ export function itemList(items) {
 
 /**
  * Build a Product JSON-LD object.
+ * Canonical stock values (per products.schema.md): "inStock" | "rfq".
+ * Any other value throws.
  * @param {{ partNo: string, stock: string }} model
- * @param {{ brandName?: string, url: string, category?: string, orgUrl?: string }} opts
+ * @param {{ brandName?: string, url: string, category: string, orgUrl?: string }} opts
  * @returns {object}
  */
 export function product(model, opts) {
-  const brandName = (opts && opts.brandName) ? opts.brandName : 'Infineon';
-  const url = opts && opts.url;
-  const category = opts && opts.category;
+  if (model == null || model.partNo == null)
+    throw new Error('product: missing partNo');
+  if (opts == null || opts.url == null)
+    throw new Error('product: missing url');
+  if (opts.category == null)
+    throw new Error('product: missing category');
 
-  // Map stock status to schema.org availability URL
-  const availability =
-    model.stock === 'inStock'
-      ? `${SCHEMA}/InStock`
-      : `${SCHEMA}/PreOrder`;
+  const brandName = opts.brandName ? opts.brandName : 'Infineon';
+  const url = opts.url;
+  const category = opts.category;
+
+  // Map stock status to schema.org availability URL.
+  // Canonical values from products.schema.md: "inStock" | "rfq".
+  let availability;
+  if (model.stock === 'inStock') {
+    availability = SCHEMA + '/InStock';
+  } else if (model.stock === 'rfq') {
+    availability = SCHEMA + '/PreOrder';
+  } else {
+    throw new Error('product: unknown stock value: "' + model.stock + '"');
+  }
 
   return {
     '@context': SCHEMA,
@@ -103,12 +135,12 @@ export function product(model, opts) {
       '@type': 'Brand',
       name: brandName,
     },
-    ...(category !== undefined && { category }),
-    ...(url !== undefined && { url }),
+    category,
+    url,
     offers: {
       '@type': 'Offer',
       availability,
-      ...(url !== undefined && { url }),
+      url,
     },
   };
 }
@@ -120,6 +152,15 @@ export function product(model, opts) {
  * @returns {object}
  */
 export function techArticle(article, opts) {
+  if (article == null || article.title == null)
+    throw new Error('techArticle: missing title');
+  if (article.date == null)
+    throw new Error('techArticle: missing date');
+  if (opts == null || opts.authorName == null)
+    throw new Error('techArticle: missing authorName');
+  if (opts.publisher == null)
+    throw new Error('techArticle: missing publisher');
+
   const obj = {
     '@context': SCHEMA,
     '@type': 'TechArticle',
@@ -141,18 +182,27 @@ export function techArticle(article, opts) {
 
 /**
  * Build a NewsArticle JSON-LD object.
- * @param {{ title: string, date: string, author: string, bannerImage: string | object }} article
+ * @param {{ title: string, date: string, author: string, bannerImage?: string | object }} article
  * @param {{ publisher: object }} opts
  * @returns {object}
  */
 export function newsArticle(article, opts) {
+  if (article == null || article.title == null)
+    throw new Error('newsArticle: missing title');
+  if (article.date == null)
+    throw new Error('newsArticle: missing date');
+  if (article.author == null)
+    throw new Error('newsArticle: missing author');
+  if (opts == null || opts.publisher == null)
+    throw new Error('newsArticle: missing publisher');
+
   // Determine author @type: Organization when byline is editorial team, else Person
   const authorType =
     typeof article.author === 'string' && article.author.toLowerCase().includes('team')
       ? 'Organization'
       : 'Person';
 
-  return {
+  const obj = {
     '@context': SCHEMA,
     '@type': 'NewsArticle',
     headline: article.title,
@@ -162,15 +212,27 @@ export function newsArticle(article, opts) {
       name: article.author,
     },
     publisher: opts.publisher,
-    image: article.bannerImage,
   };
+
+  if (article.bannerImage !== undefined) {
+    obj.image = article.bannerImage;
+  }
+
+  return obj;
 }
 
 /**
  * Serialize a JSON-LD object into an HTML script tag string.
+ * Escapes </script> injection and U+2028/U+2029 line terminators so the
+ * JSON is safe to embed inside an HTML script block. Values are still
+ * restored to their original form after JSON.parse.
  * @param {object} obj - A JSON-LD object (must be JSON.stringify-safe).
- * @returns {string} '<script type="application/ld+json">…</script>'
+ * @returns {string} '<script type="application/ld+json">...</script>'
  */
 export function jsonLdScript(obj) {
-  return '<script type="application/ld+json">' + JSON.stringify(obj) + '</script>';
+  const json = JSON.stringify(obj)
+    .replace(/</g, '\\u003c')
+    .replace(/\u2028/g, '\\u2028')
+    .replace(/\u2029/g, '\\u2029');
+  return '<script type="application/ld+json">' + json + '</script>';
 }
