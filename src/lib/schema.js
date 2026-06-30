@@ -182,7 +182,7 @@ export function techArticle(article, opts) {
 
 /**
  * Build a NewsArticle JSON-LD object.
- * @param {{ title: string, date: string, author: string, bannerImage?: string | object }} article
+ * @param {{ title: string, date: string, author: string, bannerImage: { src: string, alt: string } }} article
  * @param {{ publisher: object }} opts
  * @returns {object}
  */
@@ -195,6 +195,8 @@ export function newsArticle(article, opts) {
     throw new Error('newsArticle: missing author');
   if (opts == null || opts.publisher == null)
     throw new Error('newsArticle: missing publisher');
+  if (article.bannerImage == null || article.bannerImage.src == null)
+    throw new Error('newsArticle: missing bannerImage.src');
 
   // Determine author @type: Organization when byline is editorial team, else Person
   const authorType =
@@ -212,11 +214,8 @@ export function newsArticle(article, opts) {
       name: article.author,
     },
     publisher: opts.publisher,
+    image: article.bannerImage.src,
   };
-
-  if (article.bannerImage !== undefined) {
-    obj.image = article.bannerImage;
-  }
 
   return obj;
 }

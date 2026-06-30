@@ -72,7 +72,10 @@ const articleNews = {
   title: 'BeiLuo Joins Electronica 2024',
   date: '2024-11-10',
   author: 'BeiLuo Editorial Team',
-  bannerImage: 'https://www.beiluo.com/assets/svg/illustrations/news-electronica.svg',
+  bannerImage: {
+    src: '/assets/svg/illustrations/news-x.svg',
+    alt: 'News banner illustration',
+  },
   metaDescription: 'BeiLuo exhibits at Electronica 2024.',
 };
 
@@ -525,8 +528,8 @@ describe('newsArticle(article, opts)', () => {
     assert.equal(obj.publisher.name, 'BeiLuo');
   });
 
-  it('image = article.bannerImage', () => {
-    assert.equal(obj.image, articleNews.bannerImage);
+  it('image = article.bannerImage.src', () => {
+    assert.equal(obj.image, articleNews.bannerImage.src);
   });
 
   it('is JSON.stringify safe', () => {
@@ -559,6 +562,20 @@ describe('newsArticle(article, opts)', () => {
     assert.throws(
       () => newsArticle(articleNews, {}),
       /newsArticle: missing publisher/
+    );
+  });
+
+  it('throws when article.bannerImage is missing', () => {
+    assert.throws(
+      () => newsArticle({ title: 'X', date: '2024-01-01', author: 'X' }, newsOpts),
+      /newsArticle: missing bannerImage\.src/
+    );
+  });
+
+  it('throws when article.bannerImage.src is missing', () => {
+    assert.throws(
+      () => newsArticle({ title: 'X', date: '2024-01-01', author: 'X', bannerImage: { alt: 'X' } }, newsOpts),
+      /newsArticle: missing bannerImage\.src/
     );
   });
 });
