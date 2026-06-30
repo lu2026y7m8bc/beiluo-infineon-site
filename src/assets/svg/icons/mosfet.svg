@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-labelledby="icon-mosfet-title"
+     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <title id="icon-mosfet-title">MOSFET icon</title>
+  <!-- gate lead -->
+  <line x1="3" y1="12" x2="8" y2="12"/>
+  <!-- gate insulator bar -->
+  <line x1="8" y1="8" x2="8" y2="16"/>
+  <!-- channel body (gap = insulated gate) -->
+  <line x1="10" y1="8" x2="10" y2="11"/>
+  <line x1="10" y1="13" x2="10" y2="16"/>
+  <!-- drain lead -->
+  <line x1="10" y1="8" x2="21" y2="8"/>
+  <!-- source lead -->
+  <line x1="10" y1="16" x2="21" y2="16"/>
+  <!-- drain terminal -->
+  <line x1="21" y1="6" x2="21" y2="10"/>
+  <!-- source terminal -->
+  <line x1="21" y1="14" x2="21" y2="18"/>
+  <!-- body diode arrow -->
+  <polyline points="13,14 13,10 17,12"/>
+  <line x1="13" y1="14" x2="17" y2="12"/>
+</svg>

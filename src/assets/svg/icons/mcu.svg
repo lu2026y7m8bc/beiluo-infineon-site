@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-labelledby="icon-mcu-title"
+     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <title id="icon-mcu-title">MCU icon</title>
+  <!-- chip body -->
+  <rect x="7" y="7" width="10" height="10" rx="1"/>
+  <!-- core block -->
+  <rect x="9.5" y="9.5" width="5" height="5"/>
+  <!-- left pins -->
+  <line x1="7" y1="9" x2="4" y2="9"/>
+  <line x1="7" y1="12" x2="4" y2="12"/>
+  <line x1="7" y1="15" x2="4" y2="15"/>
+  <!-- right pins -->
+  <line x1="17" y1="9" x2="20" y2="9"/>
+  <line x1="17" y1="12" x2="20" y2="12"/>
+  <line x1="17" y1="15" x2="20" y2="15"/>
+</svg>
