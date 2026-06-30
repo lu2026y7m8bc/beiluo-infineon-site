@@ -14,7 +14,7 @@
 | Item | Quota |
 |------|-------|
 | `articles` array length | **exactly 4** |
-| Mix of types | At least 1 `"company"` + at least 1 `"industry"` (PRD §3.6.2) |
+| Mix of types | **1 `"company"` + 3 `"industry"`** — ensures the "Latest Industry News" 3-card block at news-detail bottom can always show 3 `type=="industry"` cards excluding the current article |
 | `body` word count | **≥800 words** per article |
 | `latestNews` card count (rendered at page bottom) | 3 cards (from this same articles array, excluding current) |
 
@@ -39,6 +39,7 @@ news.json
 | `title` | String | Required | Article headline (H1 on detail page, card heading on list) — unique, keyword-bearing, ≤80 chars | `{{article.title}}` as H1 in `news-detail`; as card heading in `news-list` |
 | `type` | String | Required | `"company"` or `"industry"` — determines which section the article appears in on `news-list` (PRD §3.6.1: two sections, not mixed) | `{{article.type}}` — used to assign to "Company News" or "Industry News" section |
 | `date` | String | Required | ISO 8601 publication date: e.g., `"2024-11-10"` | `{{article.date}}`; `NewsArticle.datePublished` |
+| `author` | String | Required | Author byline: e.g., `"BeiLuo Editorial Team"` or a named FAE (e.g., `"Li Wei"`) — maps to `NewsArticle.author.name` in JSON-LD; rendered below the article headline in `news-detail` banner | `{{article.author}}` rendered as byline on detail page (design §5.12); `NewsArticle.author.name` in JSON-LD |
 | `dateModified` | String | Optional | ISO 8601 last modified date | `NewsArticle.dateModified` |
 | `categoryTag` | String | Required | Display badge label: e.g., `"Company News"` or `"Industry News"` | `{{article.categoryTag}}` rendered as badge on detail banner and list card (design §5.12, §4.8) |
 | `summary` | String | Required | ≤60-word excerpt for card preview and meta description base | `{{article.summary}}` in news list card |
@@ -90,7 +91,7 @@ Articles are sorted by `date` descending within each section. The two sections a
 1. Full-width banner: `bannerImage.src` + overlay + `title` + `date` + `categoryTag` badge.
 2. Single-column centered body: `body` content (no sidebar — PRD C7).
 3. Share bar: uses `share.url` + `share.title` to build WhatsApp / copy-link / LinkedIn share links.
-4. "Latest Industry News" 3-card block: `articles.filter(a => a.slug !== currentSlug).slice(0, 3)` — serves as news navigation replacement for sidebar (PRD C7, design §5.12).
+4. "Latest Industry News" 3-card block: `articles.filter(a => a.type === "industry" && a.slug !== currentSlug).slice(0, 3)` — shows the 3 most recent `industry`-type articles, excluding the current article; with the 1+3 split quota (1 company + 3 industry), this block always yields exactly 3 cards even when viewing an industry article (PRD C7, design §5.12).
 5. Final CTA band: derived from `site.json` global CTA config.
 
 ---
@@ -106,6 +107,8 @@ Articles are sorted by `date` descending within each section. The two sections a
 | `NewsArticle.description` | `article.metaDescription` |
 | `NewsArticle.datePublished` | `article.date` |
 | `NewsArticle.dateModified` | `article.dateModified` (fallback to `date`) |
+| `NewsArticle.author.@type` | `"Person"` (or `"Organization"` when byline is `"BeiLuo Editorial Team"`) |
+| `NewsArticle.author.name` | `article.author` |
 | `NewsArticle.image` | `article.bannerImage.src` (absolute URL via `site.seo.baseUrl`) |
 | `NewsArticle.publisher.@type` | `"Organization"` |
 | `NewsArticle.publisher.name` | `site.brand.name` (`"BeiLuo"`) |

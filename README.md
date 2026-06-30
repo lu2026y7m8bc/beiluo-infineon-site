@@ -45,6 +45,8 @@ npm run build
 
 This runs the build script located at `src/build.js` and generates the static site in the `dist/` directory.
 
+> **Note**: `src/build.js` is created in the build phase (plan T1.7); `npm run build` becomes runnable from that task onward.
+
 ### Run Tests
 
 ```bash

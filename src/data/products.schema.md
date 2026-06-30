@@ -44,7 +44,8 @@ products.json
 | `description` | String | Required | **200–300 word** original category description (mentions series like AURIX™/XMC™/PSoC™, advantages, applications + target keywords) | `{{category.description}}` rendered as `<p>` blocks below H1 |
 | `faeNote` | String | Required | FAE application note / distributor commentary paragraph (≥50 words, written in first-person FAE voice, brand-differentiated) | `{{category.faeNote}}` in `<blockquote>` / pull-quote block (design §5.3) |
 | `icon` | String | Required | SVG icon path: `"/assets/svg/icons/<slug>.svg"` (design §9, same-family line icons) | `{{category.icon}}` in category card and sidebar |
-| `selectionGuideHref` | String | Required | Link to corresponding support article (Selection Guide): e.g., `"/support/guides/how-to-select-infineon-igbt/"` | `{{category.selectionGuideHref}}` on "Download Category Selection Guide" / "Selection Guide →" CTA (design §5.3) |
+| `selectionGuideHref` | String | Required | URL of the corresponding support article: e.g., `"/support/guides/how-to-select-infineon-igbt/"` — linked by the "Selection Guide →" ghost/text CTA (design §5.3) | `{{category.selectionGuideHref}}` on "Selection Guide →" ghost/text link |
+| `selectionGuideDownloadHref` | String | Required | Path to the category Selection Guide PDF (download): e.g., `"/assets/docs/beiluo-igbt-selection-guide.pdf"` — linked by the "Download Category Selection Guide" secondary CTA (design §5.3) | `{{category.selectionGuideDownloadHref}}` on "Download Category Selection Guide" secondary button |
 | `columns` | Array\<ColumnDef\> | Required | **Dynamic column definitions** for the spec table — varies per category | `{{category.columns}}` drives `render.js` table header + filter controls (design §4.9, §5.3) |
 | `models` | Array\<Model\> | Required | All models in this category (exactly 2 detail-level models) | `{{category.models}}` loop for table rows and detail pages |
 
@@ -59,7 +60,7 @@ One entry per column in the spec table (design §4.9). Column set is defined per
 | `key` | String | Required | camelCase key matching a field in `model.params` or a top-level model field (e.g., `"vce"`, `"ic"`, `"package"`) | Used by `render.js` to read value from model object |
 | `label` | String | Required | Column header display text: e.g., `"VCE (V)"`, `"IC (A)"`, `"Package"` | `{{col.label}}` as `<th>` content |
 | `type` | String | Required | Data type: `"text"` \| `"number"` \| `"enum"` | `{{col.type}}` in `data-type` attribute on `<th>` — tells `render.js` how to parse cell values (design §4.9, markup-contract §1.2) |
-| `filter` | String | Required | Filter widget type: `"select"` / `"range"` / `"multi"` / `"none"` | `{{col.filter}}` in `data-filter` attribute on `<th>`; `"none"` = display column only, no filter widget (markup-contract §1.2) |
+| `filter` | String | Optional | Filter widget type: `"select"` \| `"range"` \| `"multi"`; **omit this field entirely if the column is not filterable** — template must not render a `data-filter` attribute on `<th>`, and JS will not generate a filter control for that column. The value `"none"` is not valid. | `{{col.filter}}` in `data-filter` attribute on `<th>` — rendered only when field is present (markup-contract §1.2) |
 | `unit` | String | Optional | Unit suffix displayed in filter/cell: e.g., `"V"`, `"A"`, `"MHz"` | `{{col.unit}}` |
 | `sticky` | Boolean | Optional | `true` → freeze column on mobile horizontal scroll (first column: part number) | Applied as CSS class `.col-sticky` |
 

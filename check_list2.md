@@ -149,8 +149,8 @@
 
 ### D1 — Field Completeness
 - [ ] Top-level key `categories` is an array; no other spurious top-level keys
-- [ ] Each `Category` has: `slug`, `name`, `title`, `metaDescription`, `description` (200–300 words), `faeNote` (≥50 words, FAE voice), `icon`, `selectionGuideHref`, `columns` (Array\<ColumnDef\>), `models` (Array\<Model\>)
-- [ ] Each `ColumnDef` has `key`, `label`, `type` (`"text"`/`"number"`/`"enum"`), `filter` (`"select"`/`"range"`/`"multi"`/`"none"`); `unit` present where applicable; first column has `sticky: true`
+- [ ] Each `Category` has: `slug`, `name`, `title`, `metaDescription`, `description` (200–300 words), `faeNote` (≥50 words, FAE voice), `icon`, `selectionGuideHref`, `selectionGuideDownloadHref`, `columns` (Array\<ColumnDef\>), `models` (Array\<Model\>)
+- [ ] Each `ColumnDef` has `key`, `label`, `type` (`"text"`/`"number"`/`"enum"`); `filter` is **optional** (`"select"`/`"range"`/`"multi"`) — omit entirely if the column is not filterable (value `"none"` is invalid); `unit` present where applicable; first column has `sticky: true`
 - [ ] Each Model (all — table-row level) has: `partNo`, `series`, `params` (Object whose keys match `columns[].key` for that category), `package`, `stock` (`"inStock"` or `"rfq"`), `href`
 - [ ] Each detail-level model (≥2 per category) additionally has: `overview` (≥100 words), `shortDescription` (≤30 words), `image`, `imageAlt`, `datasheetHref`, `specs` (Array\<SpecRow\>), `applications` (Array\<String\>), `documents` (Array\<Document\>), `faq` (Array\<FaqItem\>), `alternativeParts` (Array\<PartRef\>), `companionParts` (Array\<PartRef\>), `brand`
 - [ ] Each `SpecRow` has `param`, `value`; `unit` present where applicable
@@ -190,7 +190,8 @@
 - [ ] `category.description` → `{{category.description}}` as `<p>` blocks below H1 (design §5.3)
 - [ ] `category.faeNote` → `{{category.faeNote}}` in `<blockquote>` / pull-quote block (design §5.3)
 - [ ] `category.icon` → `{{category.icon}}` in category card and sidebar (design §5.2)
-- [ ] `category.selectionGuideHref` → `{{category.selectionGuideHref}}` on "Selection Guide →" Ghost/Text CTA (design §5.3 / §4.6)
+- [ ] `category.selectionGuideHref` → `{{category.selectionGuideHref}}` on "Selection Guide →" ghost/text CTA (design §5.3 / §4.6)
+- [ ] `category.selectionGuideDownloadHref` → `{{category.selectionGuideDownloadHref}}` on "Download Category Selection Guide" secondary CTA button (design §5.3 / §4.6)
 - [ ] `category.columns` → `{{category.columns}}` drives `render.js` table header + filter controls (design §4.9 / §5.3)
 - [ ] `model.partNo` → `{{model.partNo}}` as H1 in detail page; `Product.sku` in JSON-LD (design §5.4 / §10)
 - [ ] `model.stock` → `{{model.stock}}` renders "In Stock" green badge or "RFQ" orange badge (design §4.8)
@@ -354,7 +355,7 @@
 
 ### D1 — Field Completeness
 - [ ] Top-level key `articles` is an array; no other spurious top-level keys
-- [ ] Each `NewsArticle` has preview fields: `slug`, `title`, `type` (`"company"` or `"industry"`), `date`, `categoryTag`, `summary` (≤60 words), `metaDescription`
+- [ ] Each `NewsArticle` has preview fields: `slug`, `title`, `type` (`"company"` or `"industry"`), `date`, `author` (String — byline, e.g. `"BeiLuo Editorial Team"`), `categoryTag`, `summary` (≤60 words), `metaDescription`
 - [ ] Each `NewsArticle` has banner fields: `bannerImage.src`, `bannerImage.alt`
 - [ ] Each `NewsArticle` has detail fields: `body` (≥800 words), `share.url`, `share.title`
 
@@ -377,14 +378,15 @@
 
 ### D5 — Count Quotas
 - [ ] `articles` array length = exactly 4 — PRD §1.3 / §3.6.2 / news.schema.md Count Quotas
-- [ ] At least 1 article has `type: "company"` and at least 1 has `type: "industry"` — PRD §3.6.2 / news.schema.md Count Quotas
+- [ ] Mix of types = **exactly 1 `"company"` + exactly 3 `"industry"`** — ensures the "Latest Industry News" 3-card block at `news-detail` bottom always yields 3 `type=="industry"` cards (excluding current article) — news.schema.md Count Quotas / PRD §3.6.2
 - [ ] Each article `body` ≥ 800 words — news.schema.md Count Quotas
-- [ ] Total articles ≥ 4 so that the "Latest Industry News" 3-card block can always be filled (`articles.filter(slug ≠ current).slice(0, 3)` always yields 3 cards) — news.schema.md §news-detail Template Rendering Logic
+- [ ] Total articles = exactly 4 (1 company + 3 industry); "Latest Industry News" block filters `type === "industry" && slug !== currentSlug`, always yielding 3 cards — news.schema.md §news-detail Template Rendering Logic
 
 ### D6 — Placeholder Alignment
 - [ ] `article.title` → `{{article.title}}` as H1 in `news-detail`; as card heading in `news-list` (design §5.11 / §5.12)
 - [ ] `article.type` → controls "Company News" vs "Industry News" section split in `news-list` (design §5.11 / PRD §3.6.1)
 - [ ] `article.date` → `{{article.date}}`; also `NewsArticle.datePublished` in JSON-LD (design §10)
+- [ ] `article.author` → `{{article.author}}` rendered as byline below headline in `news-detail` banner (design §5.12); also `NewsArticle.author.name` in JSON-LD (design §10)
 - [ ] `article.categoryTag` → `{{article.categoryTag}}` as badge on detail banner and list card (design §5.12 / §4.8)
 - [ ] `article.summary` → `{{article.summary}}` in news list card (design §5.11)
 - [ ] `article.metaDescription` → `{{article.metaDescription}}` in `<meta name="description">`
@@ -392,7 +394,7 @@
 - [ ] `article.bannerImage.alt` → `{{article.bannerImage.alt}}`
 - [ ] `article.body` → `{{article.body}}` rendered in single-column centered `.article-content` (max-width 800px, no left sidebar per PRD C7 / design §5.12)
 - [ ] `article.share.url` → `{{article.share.url}}` as share link target; `article.share.title` → `{{article.share.title}}` encoded in share links (design §5.12 share bar)
-- [ ] JSON-LD: `NewsArticle` on `news-detail` pages using `article.title`, `article.date`, `article.metaDescription`, `article.bannerImage.src`, `site.brand.name`, `site.logo.src`; `BreadcrumbList` (`Home → News → <article.title>`) (design §10 / PRD §3.6.2)
+- [ ] JSON-LD: `NewsArticle` on `news-detail` pages using `article.title` (→ `headline`), `article.author` (→ `author.name`), `article.date` (→ `datePublished`), `article.metaDescription` (→ `description`), `article.bannerImage.src` (→ `image`), `site.brand.name` + `site.logo.src` (→ `publisher`); `BreadcrumbList` (`Home → News → <article.title>`) (design §10 / PRD §3.6.2)
 
 ### D7 — No Residual Stubs
 - [ ] No `article.bannerImage.src` is empty or `"#"` — all have real SVG illustration paths (e.g., `"/assets/svg/illustrations/news-<slug>.svg"`)

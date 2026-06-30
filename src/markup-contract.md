@@ -114,7 +114,7 @@
 | `data-filter-bar` | `<div>`（在 `.spec-table-wrap` 内，`<table>` 之前） | 无值属性 | JS 在此挂载筛选控件 DOM |
 | `data-col="<key>"` | `<th>` 和对应 `<td>` | 驼峰字段键（如 `partNo`、`vce`） | 同一列的 `<th>` 与 `<td>` 必须使用相同 `data-col` 值 |
 | `data-type="text\|number\|enum"` | `<th>` | `text` / `number` / `enum` | 决定 JS 如何解析单元格值（字符串比较 / 数值比较 / 枚举匹配） |
-| `data-filter="select\|range\|multi"` | `<th>` | `select` / `range` / `multi` | 决定 JS 生成哪种筛选控件；`select`=单选下拉，`range`=最小-最大范围，`multi`=多选复选 |
+| `data-filter="select\|range\|multi"` | `<th>` | `select` / `range` / `multi` | 决定 JS 生成哪种筛选控件；`select`=单选下拉，`range`=最小-最大范围，`multi`=多选复选。列 `<th>` **无 `data-filter` 属性 = 该列不可筛选（无筛选控件）**，模板不渲染此属性，JS 跳过该列 |
 | `class="col-sticky"` | `<th>` 和 `<td>`（首列） | 固定值 | CSS 负责 `position:sticky;left:0`；JS 不修改此类 |
 
 ### 1.3 JS 读取与写入

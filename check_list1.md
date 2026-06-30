@@ -181,7 +181,7 @@ checked before a template is considered delivered. Items are verifiable against 
 - [ ] Outer scroll wrapper `<div class="spec-table-wrap">` present. (markup-contract §1.1)
 - [ ] `<div data-filter-bar></div>` inside `.spec-table-wrap` before `<table>` (JS filter mount point). (markup-contract §1.1, §1.2)
 - [ ] `<table class="spec-table">` present. (markup-contract §1.1)
-- [ ] All `<th>` have `scope="col"`, `data-col`, `data-type` (`text`/`number`/`enum`), `data-filter` (`select`/`range`/`multi`). (markup-contract §1.2)
+- [ ] All `<th>` have `scope="col"`, `data-col`, `data-type` (`text`/`number`/`enum`); `data-filter` (`select`/`range`/`multi`) is **optional** — omit on non-filterable columns (no attribute rendered, no filter control generated). (markup-contract §1.2)
 - [ ] Part No. `<th>` and `<td>` elements each have `class="col-sticky"`. (markup-contract §1.2)
 - [ ] Every `<td>` has `data-col` matching its column `<th>`. (markup-contract §1.2)
 - [ ] Stock `<td>` contains `<span class="badge badge--stock-in">` or `class="badge badge--stock-rfq"`. (markup-contract §1.1)
@@ -207,8 +207,8 @@ checked before a template is considered delivered. Items are verifiable against 
 
 ### D8 — CTA
 
-- [ ] "Download Category Selection Guide" secondary-style button below category description. (design §5.3, prd §3.3.2)
-- [ ] "Selection Guide →" ghost link to a corresponding support/tech-detail article. (design §5.3)
+- [ ] "Download Category Selection Guide" secondary-style button below category description; links to `category.selectionGuideDownloadHref` (PDF path, products.schema.md). (design §5.3, prd §3.3.2)
+- [ ] "Selection Guide →" ghost/text link to a corresponding support/tech-detail article; links to `category.selectionGuideHref` (URL, products.schema.md). (design §5.3)
 - [ ] FAE commentary / application-insight quote block present on page. (prd §3.3.2)
 
 ### D9 — zero empty links / zero 404
