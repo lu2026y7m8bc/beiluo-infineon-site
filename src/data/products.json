@@ -3,10 +3,10 @@
     {
       "slug": "mcu",
       "name": "MCU",
-      "title": "Infineon MCU Distributor — AURIX TC3xx, XMC4000, PSoC 6 Deep Stock",
+      "title": "Infineon MCU Distributor - AURIX TC3xx, XMC4000, PSoC 6 Deep Stock",
       "metaDescription": "Authorized Infineon MCU distributor. AURIX TC3xx, XMC4000, PSoC 6 in stock. FAE support, fast quote, global delivery from BeiLuo.",
-      "description": "Infineon microcontrollers span a comprehensive portfolio designed for the most demanding embedded applications in automotive, industrial, and IoT markets. The AURIX™ TC3xx family leads the way in automotive-grade safety computing, integrating up to six TriCore™ cores with lockstep redundancy and hardware security modules certified to ISO 26262 ASIL-D. These devices power advanced driver-assistance systems, domain controllers, and electrification platforms where determinism and functional safety are non-negotiable.\n\nFor industrial automation and motor drives, the XMC™ 4000 series combines an ARM® Cortex-M4F core with a rich set of peripherals including the Capture Compare Unit 4 (CCU4/CCU8) and the Position Interface (POSIF), enabling precision motor control without external signal processing hardware. The XMC1000 and XMC4000 lines are popular among engineers designing servo drives, PLC controllers, and energy-metering modules.\n\nIoT and edge applications benefit from the PSoC™ 6 dual-core architecture, pairing a Cortex-M4 application core with a Cortex-M0+ for ultra-low-power peripheral management. With BLE 5.0 connectivity and a programmable analog front-end, PSoC 6 enables sophisticated wearable devices, industrial sensors, and smart-building nodes.\n\nAs an authorized BeiLuo Infineon MCU distributor, we maintain substantial inventory across all major series and package variants. Our FAE team provides hands-on evaluation board support, migration guidance between MCU families, and application-specific code review. Whether you are scaling production or prototyping a new platform, BeiLuo delivers verified Infineon MCUs with full traceability and competitive lead times.",
-      "faeNote": "As a BeiLuo FAE with fifteen years in embedded design, I consistently recommend the AURIX TC3xx line when customers face ISO 26262 constraints — the on-chip lockstep and HSM save significant board-level BOM cost compared to discrete safety supervisors. For cost-sensitive industrial drives, the XMC4700 hits a sweet spot: 144 MHz Cortex-M4F, 2 MB flash, and hardware floating-point all on a 100-pin package. We stock both devices in volume and can typically ship within three business days. Our pre-sales review helps customers nail the right flash and RAM headroom on the first spin, avoiding costly re-spins.",
+      "description": "Infineon microcontrollers span a comprehensive portfolio designed for the most demanding embedded applications in automotive, industrial, and IoT markets. The AURIX(TM) TC3xx family leads the way in automotive-grade safety computing, integrating up to six TriCore(TM) cores with lockstep redundancy and hardware security modules certified to ISO 26262 ASIL-D. These devices power advanced driver-assistance systems, domain controllers, and electrification platforms where determinism and functional safety are non-negotiable.\n\nFor industrial automation and motor drives, the XMC(TM) 4000 series combines an ARM(R) Cortex-M4F core with a rich set of peripherals including the Capture Compare Unit 4 (CCU4/CCU8) and the Position Interface (POSIF), enabling precision motor control without external signal processing hardware. The XMC1000 and XMC4000 lines are popular among engineers designing servo drives, PLC controllers, and energy-metering modules.\n\nIoT and edge applications benefit from the PSoC(TM) 6 dual-core architecture, pairing a Cortex-M4 application core with a Cortex-M0+ for ultra-low-power peripheral management. With BLE 5.0 connectivity and a programmable analog front-end, PSoC 6 enables sophisticated wearable devices, industrial sensors, and smart-building nodes.\n\nAs an authorized BeiLuo Infineon MCU distributor, we maintain substantial inventory across all major series and package variants. Our FAE team provides hands-on evaluation board support, migration guidance between MCU families, and application-specific code review. Whether you are scaling production or prototyping a new platform, BeiLuo delivers verified Infineon MCUs with full traceability and competitive lead times.",
+      "faeNote": "As a BeiLuo FAE with fifteen years in embedded design, I consistently recommend the AURIX TC3xx line when customers face ISO 26262 constraints - the on-chip lockstep and HSM save significant board-level BOM cost compared to discrete safety supervisors. For cost-sensitive industrial drives, the XMC4700 hits a sweet spot: 144 MHz Cortex-M4F, 2 MB flash, and hardware floating-point all on a 100-pin package. We stock both devices in volume and can typically ship within three business days. Our pre-sales review helps customers nail the right flash and RAM headroom on the first spin, avoiding costly re-spins.",
       "icon": "/assets/svg/icons/mcu.svg",
       "selectionGuideHref": "/support/guides/how-to-select-infineon-mcu/",
       "selectionGuideDownloadHref": "/assets/docs/beiluo-mcu-selection-guide.pdf",
@@ -35,7 +35,7 @@
           "stockQty": 850,
           "href": "/products/mcu/tc264da/",
           "brand": "Infineon",
-          "overview": "The Infineon TC264DA is a high-performance dual-core automotive MCU from the AURIX™ TC2xx family, designed to address the rigorous demands of next-generation powertrain and chassis control systems. At its heart, two TriCore™ 1.6P cores operating at up to 200 MHz provide the raw compute throughput necessary for real-time engine management, transmission control, and hybrid-vehicle energy management algorithms. Each core features a hardware floating-point unit and a local memory subsystem that eliminates wait states on critical code paths.\n\nThe TC264DA integrates 4 MB of program flash with error-correcting code and 472 KB of SRAM distributed across multiple banks for deterministic data access. A dedicated safety architecture includes hardware-based dual-lock-step monitoring, an on-chip safety management unit, and a hardware security module capable of AES-128 encryption to protect firmware IP and secure boot sequences. These capabilities together enable ASIL-D compliance without external supervisory ICs.\n\nPeripheral integration is extensive: six CAN-FD nodes, five UART channels, two Ethernet MAC interfaces, and a 12-bit ADC with sixteen channels make the TC264DA suitable for gateway and domain-controller roles. BeiLuo maintains verified stock of genuine Infineon TC264DA devices with full lot traceability, and our FAE team provides startup code and MCAL configuration support to accelerate customer designs.",
+          "overview": "The Infineon TC264DA is a high-performance dual-core automotive MCU from the AURIX(TM) TC2xx family, designed to address the rigorous demands of next-generation powertrain and chassis control systems. At its heart, two TriCore(TM) 1.6P cores operating at up to 200 MHz provide the raw compute throughput necessary for real-time engine management, transmission control, and hybrid-vehicle energy management algorithms. Each core features a hardware floating-point unit and a local memory subsystem that eliminates wait states on critical code paths.\n\nThe TC264DA integrates 4 MB of program flash with error-correcting code and 472 KB of SRAM distributed across multiple banks for deterministic data access. A dedicated safety architecture includes hardware-based dual-lock-step monitoring, an on-chip safety management unit, and a hardware security module capable of AES-128 encryption to protect firmware IP and secure boot sequences. These capabilities together enable ASIL-D compliance without external supervisory ICs.\n\nPeripheral integration is extensive: six CAN-FD nodes, five UART channels, two Ethernet MAC interfaces, and a 12-bit ADC with sixteen channels make the TC264DA suitable for gateway and domain-controller roles. BeiLuo maintains verified stock of genuine Infineon TC264DA devices with full lot traceability, and our FAE team provides startup code and MCAL configuration support to accelerate customer designs.",
           "shortDescription": "Dual-core 200 MHz AURIX TriCore MCU with 4 MB flash, ASIL-D hardware safety, and six CAN-FD nodes for automotive control.",
           "image": "/assets/svg/products/mcu-cover.svg",
           "imageAlt": "Infineon TC264DA AURIX MCU LQFP-176 package automotive microcontroller",
@@ -48,7 +48,7 @@
             { "param": "CAN-FD Nodes", "value": "6", "unit": "" },
             { "param": "ADC Resolution", "value": "12", "unit": "bit" },
             { "param": "Operating Voltage", "value": "3.3 / 5", "unit": "V" },
-            { "param": "Temperature Range", "value": "-40 to +150", "unit": "°C" },
+            { "param": "Temperature Range", "value": "-40 to +150", "unit": " degreesC" },
             { "param": "Package", "value": "LQFP-176", "unit": "" },
             { "param": "Safety Rating", "value": "ASIL-D capable", "unit": "" }
           ],
@@ -92,7 +92,7 @@
             },
             {
               "question": "What development tools does Infineon provide for TC264DA firmware development?",
-              "answer": "Infineon supports the TC264DA with the AURIX™ Development Studio (ADS) IDE based on Eclipse CDT, the TASKING and HighTec compiler toolchains, and the DAS (Device Access Server) debugging protocol. MCAL drivers are available through Elektrobit and Vector for AUTOSAR-based projects. BeiLuo's FAE team can assist with initial toolchain setup and provide reference startup configurations to reduce bring-up time."
+              "answer": "Infineon supports the TC264DA with the AURIX(TM) Development Studio (ADS) IDE based on Eclipse CDT, the TASKING and HighTec compiler toolchains, and the DAS (Device Access Server) debugging protocol. MCAL drivers are available through Elektrobit and Vector for AUTOSAR-based projects. BeiLuo's FAE team can assist with initial toolchain setup and provide reference startup configurations to reduce bring-up time."
             }
           ],
           "alternativeParts": [
@@ -138,7 +138,7 @@
           "stockQty": 1200,
           "href": "/products/mcu/xmc4700-f100k2048/",
           "brand": "Infineon",
-          "overview": "The Infineon XMC4700-F100K2048 is the flagship device in the XMC™ 4700 series, combining an ARM® Cortex-M4F core clocked at 144 MHz with the most peripheral-rich feature set available in the XMC4000 family. Its 2 MB of embedded flash and 352 KB of SRAM accommodate complex real-time operating systems alongside application code, making it a natural choice for industrial servo drives, programmable logic controllers, and power conversion topologies where code density and data throughput matter.\n\nAt the core of its motor-control capability is the Capture Compare Unit 8 (CCU8), which generates twelve independently configurable PWM outputs with sub-nanosecond dead-time resolution — essential for three-phase inverter stages. The Position Interface (POSIF) module natively decodes quadrature encoder and hall-sensor signals without consuming CPU cycles, freeing the Cortex-M4F for higher-level control algorithms such as field-oriented control (FOC) and direct torque control (DTC).\n\nConnectivity options are equally broad: two CAN nodes, four UART channels, one USB 2.0 OTG interface, and a 10/100 Ethernet MAC with IEEE 1588 timestamp support enable real-time EtherCAT or PROFINET master implementations using companion ASICs. The on-chip 12-bit ADC with eight channels and hardware oversampling provides high-fidelity current sensing at switching frequencies up to 100 kHz.\n\nBeiLuo distributes the XMC4700-F100K2048 with full Infineon certification and offers complementary evaluation board rental and DAVE™ IDE configuration review through our FAE engagement program.",
+          "overview": "The Infineon XMC4700-F100K2048 is the flagship device in the XMC(TM) 4700 series, combining an ARM(R) Cortex-M4F core clocked at 144 MHz with the most peripheral-rich feature set available in the XMC4000 family. Its 2 MB of embedded flash and 352 KB of SRAM accommodate complex real-time operating systems alongside application code, making it a natural choice for industrial servo drives, programmable logic controllers, and power conversion topologies where code density and data throughput matter.\n\nAt the core of its motor-control capability is the Capture Compare Unit 8 (CCU8), which generates twelve independently configurable PWM outputs with sub-nanosecond dead-time resolution - essential for three-phase inverter stages. The Position Interface (POSIF) module natively decodes quadrature encoder and hall-sensor signals without consuming CPU cycles, freeing the Cortex-M4F for higher-level control algorithms such as field-oriented control (FOC) and direct torque control (DTC).\n\nConnectivity options are equally broad: two CAN nodes, four UART channels, one USB 2.0 OTG interface, and a 10/100 Ethernet MAC with IEEE 1588 timestamp support enable real-time EtherCAT or PROFINET master implementations using companion ASICs. The on-chip 12-bit ADC with eight channels and hardware oversampling provides high-fidelity current sensing at switching frequencies up to 100 kHz.\n\nBeiLuo distributes the XMC4700-F100K2048 with full Infineon certification and offers complementary evaluation board rental and DAVE(TM) IDE configuration review through our FAE engagement program.",
           "shortDescription": "144 MHz ARM Cortex-M4F MCU with 2 MB flash, 12-channel PWM, Ethernet MAC, and USB for industrial drives and PLCs.",
           "image": "/assets/svg/products/mcu-cover.svg",
           "imageAlt": "Infineon XMC4700-F100K2048 ARM Cortex-M4F MCU LQFP-100 package industrial motor control",
@@ -152,7 +152,7 @@
             { "param": "ADC Resolution", "value": "12", "unit": "bit" },
             { "param": "Ethernet", "value": "10/100 with IEEE 1588", "unit": "" },
             { "param": "Operating Voltage", "value": "3.3", "unit": "V" },
-            { "param": "Temperature Range", "value": "-40 to +85", "unit": "°C" },
+            { "param": "Temperature Range", "value": "-40 to +85", "unit": " degreesC" },
             { "param": "Package", "value": "LQFP-100", "unit": "" }
           ],
           "applications": [
@@ -183,15 +183,15 @@
             },
             {
               "question": "Is the XMC4700-F100K2048 suitable for EtherCAT real-time Ethernet applications?",
-              "answer": "The XMC4700 includes a 10/100 Ethernet MAC with IEEE 1588 precision timestamp support, and the LQFP-100 pinout exposes the MII interface required by external EtherCAT slave controller ASICs such as the Infineon XE166. Our FAE team has validated EtherCAT master topologies using the XMC4700 with LAN9252 slave controllers, and we can share reference schematics and DAVE™ application code to accelerate integration."
+              "answer": "The XMC4700 includes a 10/100 Ethernet MAC with IEEE 1588 precision timestamp support, and the LQFP-100 pinout exposes the MII interface required by external EtherCAT slave controller ASICs such as the Infineon XE166. Our FAE team has validated EtherCAT master topologies using the XMC4700 with LAN9252 slave controllers, and we can share reference schematics and DAVE(TM) application code to accelerate integration."
             },
             {
               "question": "What is the difference between XMC4700-F100K2048 and XMC4800-F144K2048?",
-              "answer": "The primary distinction is the integrated hardware trigonometric math accelerator (MATH coprocessor) in the XMC4800, which computes sine, cosine, and arctangent results in a fixed eight-cycle latency — significantly benefiting field-oriented control implementations. The XMC4700 relies on software or the FPU for trigonometric operations. If your motor drive firmware includes FOC with high switching frequencies above 20 kHz, the XMC4800 math coprocessor can reduce loop execution time by up to 40 percent."
+              "answer": "The primary distinction is the integrated hardware trigonometric math accelerator (MATH coprocessor) in the XMC4800, which computes sine, cosine, and arctangent results in a fixed eight-cycle latency - significantly benefiting field-oriented control implementations. The XMC4700 relies on software or the FPU for trigonometric operations. If your motor drive firmware includes FOC with high switching frequencies above 20 kHz, the XMC4800 math coprocessor can reduce loop execution time by up to 40 percent."
             },
             {
               "question": "Does BeiLuo provide XMC4700 evaluation kits along with device orders?",
-              "answer": "BeiLuo maintains a small inventory of Infineon XMC4700 Relax Lite evaluation boards for FAE-supported customer evaluations. For qualified design-win engagements, we can arrange evaluation board loans through our sample program. We also provide DAVE™ IDE project templates for common use cases — PWM generation, ADC triggered sampling, and CANopen master — to reduce initial bring-up time to under one day."
+              "answer": "BeiLuo maintains a small inventory of Infineon XMC4700 Relax Lite evaluation boards for FAE-supported customer evaluations. For qualified design-win engagements, we can arrange evaluation board loans through our sample program. We also provide DAVE(TM) IDE project templates for common use cases - PWM generation, ADC triggered sampling, and CANopen master - to reduce initial bring-up time to under one day."
             },
             {
               "question": "What supply voltage does the XMC4700-F100K2048 require?",
@@ -232,10 +232,10 @@
     {
       "slug": "igbt",
       "name": "IGBT",
-      "title": "Infineon IGBT Distributor — Full Series, Deep Stock",
+      "title": "Infineon IGBT Distributor - Full Series, Deep Stock",
       "metaDescription": "BeiLuo is your authorized Infineon IGBT distributor. IHV, H3, RB-IGBT series in stock. FAE support, fast quote, and global delivery.",
-      "description": "Infineon Technologies leads the global IGBT market with a portfolio spanning every power class from compact single-package devices to high-current press-pack modules. The H3 and H4 trench-field-stop IGBT families deliver the lowest saturation voltage in their class at both room temperature and 150 °C junction temperature, making them the preferred choice for string inverters, UPS systems, and induction-heating generators where efficiency directly impacts system profitability.\n\nFor high-voltage industrial converters and traction drives, the IHV and IHW series push breakdown voltages to 1700 V while maintaining competitive switching losses. These IGBTs use Infineon's patented carrier-stored trench-gate bipolar transistor (CSTBT) cell structure, which shortens tail current and reduces turn-off energy dissipation compared to conventional planar IGBT topologies.\n\nIn the consumer and motor-drive segment, the IKP and IKW TO-247 package devices balance cost and performance for variable-frequency drives (VFDs), servo amplifiers, and welding inverters. Reverse-blocking RB-IGBT devices enable ac-switch and matrix-converter topologies without antiparallel diodes, simplifying converter architectures and shrinking PCB footprint.\n\nBeiLuo's deep IGBT inventory covers all major package variants — TO-247, TO-263, D²PAK, and HSOF module formats — with genuine Infineon lot traceability. Our field application engineers support customers through device selection, thermal simulation review, gate-drive circuit design, and short-circuit ruggedness testing. Whether you are qualifying a new inverter platform or looking for a pin-compatible upgrade path, BeiLuo provides the technical depth and stock availability to keep your program on schedule.",
-      "faeNote": "I have specified Infineon IGBTs in solar inverter and EV charging designs for over a decade, and the H3 generation consistently surprises engineers with its turn-off energy at elevated junction temperatures. At 150 °C, the IKW40N120H3 shows less than 15 percent increase in Eoff compared to 25 °C — a characteristic that allows higher switching frequencies without derating the heatsink. BeiLuo stocks both the discrete devices and co-packed IGBT-diode modules for customers who need to prototype before committing to module formats. We also maintain a gate-drive reference design library for the most common topologies.",
+      "description": "Infineon Technologies leads the global IGBT market with a portfolio spanning every power class from compact single-package devices to high-current press-pack modules. The H3 and H4 trench-field-stop IGBT families deliver the lowest saturation voltage in their class at both room temperature and 150  degreesC junction temperature, making them the preferred choice for string inverters, UPS systems, and induction-heating generators where efficiency directly impacts system profitability.\n\nFor high-voltage industrial converters and traction drives, the IHV and IHW series push breakdown voltages to 1700 V while maintaining competitive switching losses. These IGBTs use Infineon's patented carrier-stored trench-gate bipolar transistor (CSTBT) cell structure, which shortens tail current and reduces turn-off energy dissipation compared to conventional planar IGBT topologies.\n\nIn the consumer and motor-drive segment, the IKP and IKW TO-247 package devices balance cost and performance for variable-frequency drives (VFDs), servo amplifiers, and welding inverters. Reverse-blocking RB-IGBT devices enable ac-switch and matrix-converter topologies without antiparallel diodes, simplifying converter architectures and shrinking PCB footprint.\n\nBeiLuo's deep IGBT inventory covers all major package variants - TO-247, TO-263, D2PAK, and HSOF module formats - with genuine Infineon lot traceability. Our field application engineers support customers through device selection, thermal simulation review, gate-drive circuit design, and short-circuit ruggedness testing. Whether you are qualifying a new inverter platform or looking for a pin-compatible upgrade path, BeiLuo provides the technical depth and stock availability to keep your program on schedule.",
+      "faeNote": "I have specified Infineon IGBTs in solar inverter and EV charging designs for over a decade, and the H3 generation consistently surprises engineers with its turn-off energy at elevated junction temperatures. At 150  degreesC, the IKW40N120H3 shows less than 15 percent increase in Eoff compared to 25  degreesC - a characteristic that allows higher switching frequencies without derating the heatsink. BeiLuo stocks both the discrete devices and co-packed IGBT-diode modules for customers who need to prototype before committing to module formats. We also maintain a gate-drive reference design library for the most common topologies.",
       "icon": "/assets/svg/icons/igbt.svg",
       "selectionGuideHref": "/support/guides/how-to-select-infineon-igbt/",
       "selectionGuideDownloadHref": "/assets/docs/beiluo-igbt-selection-guide.pdf",
@@ -260,21 +260,21 @@
           "stockQty": 3500,
           "href": "/products/igbt/ikw40n120h3/",
           "brand": "Infineon",
-          "overview": "The Infineon IKW40N120H3 is a 1200 V, 40 A trench-field-stop IGBT in the industry-standard TO-247-3 package, representing the third-generation H-series platform optimized for hard-switching converter topologies operating in the 10–40 kHz frequency range. The device achieves a maximum saturation voltage VCEsat of 1.7 V at IC = 40 A and TJ = 25 °C, while turn-off energy Eoff remains below 800 µJ at rated current — figures that enable photovoltaic string inverters and UPS rectifiers to achieve European efficiency ratings above 97 percent.\n\nThe co-packaged emitter-controlled freewheeling diode employs a soft-recovery optimization that limits reverse-recovery current overshoot to less than 20 percent of forward current, preventing excessive voltage spikes on the DC bus and reducing EMI filter requirements. The robust short-circuit withstand time of 10 µs at rated voltage simplifies protection circuit design for applications where ground faults or motor locked-rotor conditions must be safely cleared.\n\nGate threshold voltage VGEth is tightly specified between 5 V and 6.5 V across the full junction temperature range, ensuring predictable turn-on behavior in parallel-interleaved converter stages where matched switching timings are critical. The TO-247-3 Kelvin-emitter variant is recommended for gate-drive loop inductance minimization, though the standard three-terminal variant supported in this part offers broad supply chain availability.\n\nBeiLuo distributes the IKW40N120H3 in tape-and-reel and tray formats with full Infineon lot documentation. Our FAE team provides thermal simulation files and gate-resistor optimization guidance for customer heatsink designs.",
+          "overview": "The Infineon IKW40N120H3 is a 1200 V, 40 A trench-field-stop IGBT in the industry-standard TO-247-3 package, representing the third-generation H-series platform optimized for hard-switching converter topologies operating in the 10-40 kHz frequency range. The device achieves a maximum saturation voltage VCEsat of 1.7 V at IC = 40 A and TJ = 25  degreesC, while turn-off energy Eoff remains below 800 uJ at rated current - figures that enable photovoltaic string inverters and UPS rectifiers to achieve European efficiency ratings above 97 percent.\n\nThe co-packaged emitter-controlled freewheeling diode employs a soft-recovery optimization that limits reverse-recovery current overshoot to less than 20 percent of forward current, preventing excessive voltage spikes on the DC bus and reducing EMI filter requirements. The robust short-circuit withstand time of 10 us at rated voltage simplifies protection circuit design for applications where ground faults or motor locked-rotor conditions must be safely cleared.\n\nGate threshold voltage VGEth is tightly specified between 5 V and 6.5 V across the full junction temperature range, ensuring predictable turn-on behavior in parallel-interleaved converter stages where matched switching timings are critical. The TO-247-3 Kelvin-emitter variant is recommended for gate-drive loop inductance minimization, though the standard three-terminal variant supported in this part offers broad supply chain availability.\n\nBeiLuo distributes the IKW40N120H3 in tape-and-reel and tray formats with full Infineon lot documentation. Our FAE team provides thermal simulation files and gate-resistor optimization guidance for customer heatsink designs.",
           "shortDescription": "1200 V 40 A H3 trench-field-stop IGBT in TO-247-3 with co-packaged soft-recovery diode for solar inverters and UPS.",
           "image": "/assets/svg/products/igbt-cover.svg",
           "imageAlt": "Infineon IKW40N120H3 IGBT TO-247-3 package 1200V 40A power semiconductor",
           "datasheetHref": "https://www.infineon.com/dgdl/Infineon-IKW40N120H3-DS-v02_20-EN.pdf?fileId=5546d46269e1c019016a3027e23e0c8c",
           "specs": [
             { "param": "Collector-Emitter Voltage VCE", "value": "1200", "unit": "V" },
-            { "param": "Collector Current IC (25 °C)", "value": "40", "unit": "A" },
-            { "param": "Collector Current IC (100 °C)", "value": "40", "unit": "A" },
-            { "param": "Gate-Emitter Voltage VGE", "value": "±20", "unit": "V" },
-            { "param": "VCEsat (IC=40A, TJ=25°C)", "value": "1.70", "unit": "V" },
-            { "param": "Turn-Off Energy Eoff (25°C)", "value": "800", "unit": "µJ" },
-            { "param": "Short-Circuit Withstand Time", "value": "10", "unit": "µs" },
+            { "param": "Collector Current IC (25  degreesC)", "value": "40", "unit": "A" },
+            { "param": "Collector Current IC (100  degreesC)", "value": "40", "unit": "A" },
+            { "param": "Gate-Emitter Voltage VGE", "value": "+/-20", "unit": "V" },
+            { "param": "VCEsat (IC=40A, TJ=25 degreesC)", "value": "1.70", "unit": "V" },
+            { "param": "Turn-Off Energy Eoff (25 degreesC)", "value": "800", "unit": "uJ" },
+            { "param": "Short-Circuit Withstand Time", "value": "10", "unit": "us" },
             { "param": "Thermal Resistance RthJC", "value": "0.36", "unit": "K/W" },
-            { "param": "Maximum Junction Temperature", "value": "175", "unit": "°C" },
+            { "param": "Maximum Junction Temperature", "value": "175", "unit": " degreesC" },
             { "param": "Package", "value": "TO-247-3", "unit": "" }
           ],
           "applications": [
@@ -292,7 +292,7 @@
               "fileSize": "1.1 MB"
             },
             {
-              "title": "Infineon IGBT Selection Guide — BeiLuo Edition",
+              "title": "Infineon IGBT Selection Guide - BeiLuo Edition",
               "href": "/assets/docs/beiluo-igbt-selection-guide.pdf",
               "type": "selection-guide",
               "fileSize": "0.9 MB"
@@ -305,15 +305,15 @@
             },
             {
               "question": "How should gate resistance be selected for the IKW40N120H3 in a solar inverter application?",
-              "answer": "Gate resistance controls the dIC/dt slope during turn-on and the dVCE/dt slope during turn-off, balancing switching losses against EMI and voltage overshoot. For a 1200 V bus with a 200 nH total stray inductance, a gate-turn-on resistance of 10 to 22 Ω and gate-turn-off resistance of 4.7 to 10 Ω provides a good starting point. BeiLuo's FAE team can model your specific bus inductance and stray layout to refine these values before board assembly."
+              "answer": "Gate resistance controls the dIC/dt slope during turn-on and the dVCE/dt slope during turn-off, balancing switching losses against EMI and voltage overshoot. For a 1200 V bus with a 200 nH total stray inductance, a gate-turn-on resistance of 10 to 22 Ohm and gate-turn-off resistance of 4.7 to 10 Ohm provides a good starting point. BeiLuo's FAE team can model your specific bus inductance and stray layout to refine these values before board assembly."
             },
             {
               "question": "Is the IKW40N120H3 pin-compatible with the previous H2 generation?",
-              "answer": "Yes. The IKW40N120H3 is drop-in compatible with H2 generation devices in the same TO-247-3 package. The pin assignment — gate, collector, emitter — is identical, and the gate threshold voltage window overlaps with H2, so existing gate-drive circuits require no modification. Engineers upgrading from H2 to H3 typically observe a five to eight percent reduction in total switching losses at comparable operating conditions, improving inverter efficiency without any board redesign."
+              "answer": "Yes. The IKW40N120H3 is drop-in compatible with H2 generation devices in the same TO-247-3 package. The pin assignment - gate, collector, emitter - is identical, and the gate threshold voltage window overlaps with H2, so existing gate-drive circuits require no modification. Engineers upgrading from H2 to H3 typically observe a five to eight percent reduction in total switching losses at comparable operating conditions, improving inverter efficiency without any board redesign."
             },
             {
               "question": "What parallel derating should be applied when running IKW40N120H3 devices in a two-parallel configuration?",
-              "answer": "When paralleling two IKW40N120H3 IGBTs, Infineon recommends applying a current derating factor of approximately 0.85 per device to account for static and dynamic current imbalance driven by VCEsat and threshold voltage spread. Individual Kelvin-emitter connections and matched gate resistors within ±5 percent tolerance further reduce current sharing asymmetry. BeiLuo can source matched-lot pairs for qualification builds where current sharing is critical."
+              "answer": "When paralleling two IKW40N120H3 IGBTs, Infineon recommends applying a current derating factor of approximately 0.85 per device to account for static and dynamic current imbalance driven by VCEsat and threshold voltage spread. Individual Kelvin-emitter connections and matched gate resistors within +/-5 percent tolerance further reduce current sharing asymmetry. BeiLuo can source matched-lot pairs for qualification builds where current sharing is critical."
             },
             {
               "question": "Does BeiLuo offer IKW40N120H3 samples for engineering evaluation?",
@@ -360,21 +360,21 @@
           "stock": "rfq",
           "href": "/products/igbt/ikd06n60rf/",
           "brand": "Infineon",
-          "overview": "The Infineon IKD06N60RF is a 600 V, 6 A RapidSwitch™ IGBT in the compact TO-252-3 (DPAK) surface-mount package, purpose-engineered for high-frequency resonant topologies such as LLC converters, phase-shifted full-bridge circuits, and class-D audio amplifiers where ultrafast switching transitions and minimal tail current are the dominant selection criteria.\n\nThe RapidSwitch generation uses an advanced thin-wafer field-stop IGBT process that dramatically reduces minority-carrier lifetime in the N-base, shortening the collector-current tail to less than 50 ns at rated voltage. This results in turn-off energy Eoff below 25 µJ at IC = 6 A and VCE = 400 V — enabling switching frequencies above 150 kHz without thermal runway in low-profile heatsink configurations. The co-packaged soft-recovery diode has a reverse-recovery charge Qrr of only 70 nC, preserving the efficiency benefit of fast IGBT switching in the body-diode commutation path.\n\nThe TO-252-3 package's large exposed copper pad provides a junction-to-case thermal resistance of 3.5 K/W, compatible with PCB copper-pour cooling strategies that eliminate discrete heatsinks in low-power auxiliary converter stages. Input impedance is normalized for 10–15 V gate drive with a 10 Ω series resistor, making the IKD06N60RF straightforward to control from standard single-channel gate-driver ICs.\n\nBeiLuo stocks the IKD06N60RF for rapid prototype support and offers engineering samples through our FAE-led sample program. Lead time for production quantities is available upon request quotation.",
+          "overview": "The Infineon IKD06N60RF is a 600 V, 6 A RapidSwitch(TM) IGBT in the compact TO-252-3 (DPAK) surface-mount package, purpose-engineered for high-frequency resonant topologies such as LLC converters, phase-shifted full-bridge circuits, and class-D audio amplifiers where ultrafast switching transitions and minimal tail current are the dominant selection criteria.\n\nThe RapidSwitch generation uses an advanced thin-wafer field-stop IGBT process that dramatically reduces minority-carrier lifetime in the N-base, shortening the collector-current tail to less than 50 ns at rated voltage. This results in turn-off energy Eoff below 25 uJ at IC = 6 A and VCE = 400 V - enabling switching frequencies above 150 kHz without thermal runway in low-profile heatsink configurations. The co-packaged soft-recovery diode has a reverse-recovery charge Qrr of only 70 nC, preserving the efficiency benefit of fast IGBT switching in the body-diode commutation path.\n\nThe TO-252-3 package's large exposed copper pad provides a junction-to-case thermal resistance of 3.5 K/W, compatible with PCB copper-pour cooling strategies that eliminate discrete heatsinks in low-power auxiliary converter stages. Input impedance is normalized for 10-15 V gate drive with a 10 Ohm series resistor, making the IKD06N60RF straightforward to control from standard single-channel gate-driver ICs.\n\nBeiLuo stocks the IKD06N60RF for rapid prototype support and offers engineering samples through our FAE-led sample program. Lead time for production quantities is available upon request quotation.",
           "shortDescription": "600 V 6 A RapidSwitch IGBT in DPAK for LLC converters and class-D amplifiers operating above 150 kHz.",
           "image": "/assets/svg/products/igbt-cover.svg",
           "imageAlt": "Infineon IKD06N60RF IGBT TO-252-3 DPAK 600V 6A RapidSwitch surface-mount power semiconductor",
           "datasheetHref": "https://www.infineon.com/dgdl/Infineon-IKD06N60RF-DS-v01_00-EN.pdf?fileId=5546d46269bda8df0169cbcb3b4d75b2",
           "specs": [
             { "param": "Collector-Emitter Voltage VCE", "value": "600", "unit": "V" },
-            { "param": "Collector Current IC (25 °C)", "value": "6", "unit": "A" },
-            { "param": "Gate-Emitter Voltage VGE", "value": "±20", "unit": "V" },
-            { "param": "VCEsat (IC=6A, TJ=25°C)", "value": "1.55", "unit": "V" },
-            { "param": "Turn-Off Energy Eoff (25°C)", "value": "25", "unit": "µJ" },
+            { "param": "Collector Current IC (25  degreesC)", "value": "6", "unit": "A" },
+            { "param": "Gate-Emitter Voltage VGE", "value": "+/-20", "unit": "V" },
+            { "param": "VCEsat (IC=6A, TJ=25 degreesC)", "value": "1.55", "unit": "V" },
+            { "param": "Turn-Off Energy Eoff (25 degreesC)", "value": "25", "unit": "uJ" },
             { "param": "Reverse Recovery Charge Qrr", "value": "70", "unit": "nC" },
             { "param": "Collector Current Tail Duration", "value": "50", "unit": "ns" },
             { "param": "Thermal Resistance RthJC", "value": "3.5", "unit": "K/W" },
-            { "param": "Maximum Junction Temperature", "value": "175", "unit": "°C" },
+            { "param": "Maximum Junction Temperature", "value": "175", "unit": " degreesC" },
             { "param": "Package", "value": "TO-252-3 (DPAK)", "unit": "" }
           ],
           "applications": [
@@ -405,11 +405,11 @@
             },
             {
               "question": "What gate drive voltage is recommended for the IKD06N60RF?",
-              "answer": "Infineon specifies a nominal positive gate drive of 15 V and a negative clamp of 0 V or −5 V for the IKD06N60RF. A 10 Ω series gate resistor is recommended to limit dIC/dt. Using a negative clamp voltage reduces the risk of parasitic turn-on during fast dVCE/dt transitions at the complementary switch. Standard single-channel gate-driver ICs such as the Infineon EiceDRIVER 1ED020I12-F2 are fully compatible."
+              "answer": "Infineon specifies a nominal positive gate drive of 15 V and a negative clamp of 0 V or -5 V for the IKD06N60RF. A 10 Ohm series gate resistor is recommended to limit dIC/dt. Using a negative clamp voltage reduces the risk of parasitic turn-on during fast dVCE/dt transitions at the complementary switch. Standard single-channel gate-driver ICs such as the Infineon EiceDRIVER 1ED020I12-F2 are fully compatible."
             },
             {
               "question": "How does the IKD06N60RF tail current affect dead-time selection in resonant topologies?",
-              "answer": "The IKD06N60RF RapidSwitch tail current duration is below 50 ns at rated voltage and 25 °C junction temperature, making dead-time selection relatively forgiving compared to standard punch-through IGBTs. A dead time of 150 to 300 ns is typically adequate in half-bridge LLC stages operating at 150 to 250 kHz. As junction temperature rises toward 150 °C, tail current duration increases approximately 20 percent, so some margin in the dead-time should be maintained to prevent cross-conduction at elevated operating temperatures."
+              "answer": "The IKD06N60RF RapidSwitch tail current duration is below 50 ns at rated voltage and 25  degreesC junction temperature, making dead-time selection relatively forgiving compared to standard punch-through IGBTs. A dead time of 150 to 300 ns is typically adequate in half-bridge LLC stages operating at 150 to 250 kHz. As junction temperature rises toward 150  degreesC, tail current duration increases approximately 20 percent, so some margin in the dead-time should be maintained to prevent cross-conduction at elevated operating temperatures."
             },
             {
               "question": "Is the IKD06N60RF available in tape-and-reel format for SMT assembly?",
@@ -417,7 +417,7 @@
             },
             {
               "question": "What is the thermal capability of the TO-252-3 package when PCB copper cooling is used?",
-              "answer": "The IKD06N60RF's TO-252-3 package provides a junction-to-case thermal resistance RthJC of 3.5 K/W. With a 1,000 mm² copper pour area on a standard FR4 PCB with one-ounce copper, the board thermal resistance RthCA is approximately 25 to 35 K/W at natural convection. At an ambient temperature of 50 °C and 1 W total power dissipation, this results in a junction temperature well within the 175 °C rating, making heatsink-free operation viable for auxiliary converter stages dissipating under 1 W."
+              "answer": "The IKD06N60RF's TO-252-3 package provides a junction-to-case thermal resistance RthJC of 3.5 K/W. With a 1,000 mm2 copper pour area on a standard FR4 PCB with one-ounce copper, the board thermal resistance RthCA is approximately 25 to 35 K/W at natural convection. At an ambient temperature of 50  degreesC and 1 W total power dissipation, this results in a junction temperature well within the 175  degreesC rating, making heatsink-free operation viable for auxiliary converter stages dissipating under 1 W."
             }
           ],
           "alternativeParts": [
@@ -431,7 +431,7 @@
               "partNo": "BSC011N04LS",
               "slug": "bsc011n04ls",
               "categorySlug": "mosfet",
-              "summary": "40 V 1.1 mΩ OptiMOS MOSFET for low-voltage resonant topologies"
+              "summary": "40 V 1.1 mOhm OptiMOS MOSFET for low-voltage resonant topologies"
             }
           ],
           "companionParts": [
@@ -454,10 +454,10 @@
     {
       "slug": "mosfet",
       "name": "MOSFET",
-      "title": "Infineon MOSFET Distributor — OptiMOS, StrongIRFET, CoolMOS Full Range",
+      "title": "Infineon MOSFET Distributor - OptiMOS, StrongIRFET, CoolMOS Full Range",
       "metaDescription": "BeiLuo stocks Infineon MOSFETs: OptiMOS, CoolMOS, StrongIRFET. Low RDSon, fast switching. Authorized Infineon MOSFET distributor with FAE support.",
-      "description": "Infineon's MOSFET portfolio spans voltages from 20 V to 950 V and on-state resistances from sub-milliohm to several ohms, giving power engineers a single-vendor solution for every stage of a modern power system. The OptiMOS™ 5 and OptiMOS™ 6 families redefine the figure of merit for low-voltage MOSFETs below 100 V, achieving RDSon × Qg products that cut synchronous-rectifier conduction losses by up to 25 percent versus competing silicon technologies.\n\nAt medium voltages from 100 V to 600 V, the CoolMOS™ series uses Infineon's superjunction cell structure to break the silicon limit. The CoolMOS™ CE and CFD2 generations achieve specific RDSon below 50 mΩ·mm² at 600 V — performance previously only available in gallium nitride — while maintaining robust avalanche and ESD ruggedness suitable for volume production. These devices dominate in PFC boost stages, active-clamp flyback converters, and totem-pole bridgeless PFC topologies.\n\nThe StrongIRFET™ and HEXFET® lineages from the legacy IR brand carry over into Infineon's portfolio with proven field reliability in industrial motor drives, battery disconnect switches, and automotive body electronics. The TO-263, D²PAK, and DirectFET® packages offer the lowest possible parasitic inductance for high-frequency synchronous buck regulators in dense server and telecom power conversion units.\n\nBeiLuo's authorized MOSFET distribution covers the complete Infineon catalog with inventory depth in popular series across standard TO-220, TO-247, D²PAK, and SOT-23 surface-mount packages. Our FAE team provides PCB layout review, gate-drive sizing, and thermal design guidance to maximize the efficiency potential of every Infineon MOSFET design.",
-      "faeNote": "OptiMOS 5 consistently delivers the lowest conduction loss I measure in bench tests at voltages below 60 V. When customers come to me with a synchronous buck or bidirectional battery switch design, my first recommendation is the BSC011N04LS — 1.1 mΩ at 40 V in a tiny TDSON-8 footprint is genuinely difficult to beat without moving to GaN. For applications above 400 V where a full-bridge topology demands both low conduction and switching losses, the CoolMOS CFD2 family is my go-to. BeiLuo keeps buffer stock on both product lines and we can support urgent prototype deliveries within 48 hours for registered customers.",
+      "description": "Infineon's MOSFET portfolio spans voltages from 20 V to 950 V and on-state resistances from sub-milliohm to several ohms, giving power engineers a single-vendor solution for every stage of a modern power system. The OptiMOS(TM) 5 and OptiMOS(TM) 6 families redefine the figure of merit for low-voltage MOSFETs below 100 V, achieving RDSon x Qg products that cut synchronous-rectifier conduction losses by up to 25 percent versus competing silicon technologies.\n\nAt medium voltages from 100 V to 600 V, the CoolMOS(TM) series uses Infineon's superjunction cell structure to break the silicon limit. The CoolMOS(TM) CE and CFD2 generations achieve specific RDSon below 50 mOhm-mm2 at 600 V - performance previously only available in gallium nitride - while maintaining robust avalanche and ESD ruggedness suitable for volume production. These devices dominate in PFC boost stages, active-clamp flyback converters, and totem-pole bridgeless PFC topologies.\n\nThe StrongIRFET(TM) and HEXFET(R) lineages from the legacy IR brand carry over into Infineon's portfolio with proven field reliability in industrial motor drives, battery disconnect switches, and automotive body electronics. The TO-263, D2PAK, and DirectFET(R) packages offer the lowest possible parasitic inductance for high-frequency synchronous buck regulators in dense server and telecom power conversion units.\n\nBeiLuo's authorized MOSFET distribution covers the complete Infineon catalog with inventory depth in popular series across standard TO-220, TO-247, D2PAK, and SOT-23 surface-mount packages. Our FAE team provides PCB layout review, gate-drive sizing, and thermal design guidance to maximize the efficiency potential of every Infineon MOSFET design.",
+      "faeNote": "OptiMOS 5 consistently delivers the lowest conduction loss I measure in bench tests at voltages below 60 V. When customers come to me with a synchronous buck or bidirectional battery switch design, my first recommendation is the BSC011N04LS - 1.1 mOhm at 40 V in a tiny TDSON-8 footprint is genuinely difficult to beat without moving to GaN. For applications above 400 V where a full-bridge topology demands both low conduction and switching losses, the CoolMOS CFD2 family is my go-to. BeiLuo keeps buffer stock on both product lines and we can support urgent prototype deliveries within 48 hours for registered customers.",
       "icon": "/assets/svg/icons/mosfet.svg",
       "selectionGuideHref": "/support/guides/how-to-select-infineon-mosfet/",
       "selectionGuideDownloadHref": "/assets/docs/beiluo-mosfet-selection-guide.pdf",
@@ -465,7 +465,7 @@
         { "key": "partNo", "label": "Part No.", "type": "text", "filter": "select", "sticky": true },
         { "key": "series", "label": "Series", "type": "text", "filter": "select" },
         { "key": "vds", "label": "VDS (V)", "type": "number", "filter": "range", "unit": "V" },
-        { "key": "rdsOn", "label": "RDSon (mΩ)", "type": "number", "filter": "range", "unit": "mΩ" },
+        { "key": "rdsOn", "label": "RDSon (mOhm)", "type": "number", "filter": "range", "unit": "mOhm" },
         { "key": "id", "label": "ID (A)", "type": "number", "filter": "range", "unit": "A" },
         { "key": "package", "label": "Package", "type": "enum", "filter": "multi" },
         { "key": "stock", "label": "Stock", "type": "enum", "filter": "select" }
@@ -484,20 +484,20 @@
           "stockQty": 2800,
           "href": "/products/mosfet/irfs4321pbf/",
           "brand": "Infineon",
-          "overview": "The Infineon IRFS4321PBF is a 150 V, 170 A StrongIRFET™ N-channel MOSFET in the surface-mount D2PAK (TO-263) package, engineered for synchronous rectification, ORing switch, and high-current DC bus switching applications where minimal conduction resistance and robust avalanche ruggedness are equally important. Its maximum RDSon of 3.4 mΩ at VGS = 10 V positions it at the top of the 150 V silicon MOSFET performance tier, enabling DC/DC converters and battery management systems to achieve rectifier stages with power densities previously requiring copper-bonded die technologies.\n\nThe StrongIRFET process employs a deep trench cell architecture that concentrates the channel width per unit area, allowing the D2PAK die to handle 170 A continuous drain current with a junction temperature limit of 175 °C. The large molded package die-pad provides a junction-to-case thermal resistance of only 0.65 K/W, enabling heat dissipation through PCB copper planes or clip-mount heatsinks without through-hole mounting hardware.\n\nGate charge Qg is specified at 230 nC at VGS = 10 V — a relatively high value that reflects the large die size — so gate driver current capability should be sized accordingly. The device also exhibits excellent unclamped inductive switching (UIS) ruggedness with a single-pulse avalanche energy rating of 3 J at 25 °C, providing margin against inductive load switching transients in high-current motor drives and DC disconnect switches.\n\nBeiLuo distributes the IRFS4321PBF in volume with documented lot traceability and provides PCB layout templates for optimal thermal performance with D2PAK copper-pour cooling.",
-          "shortDescription": "150 V 170 A StrongIRFET MOSFET in D2PAK with 3.4 mΩ RDSon for high-current synchronous rectifiers and battery switches.",
+          "overview": "The Infineon IRFS4321PBF is a 150 V, 170 A StrongIRFET(TM) N-channel MOSFET in the surface-mount D2PAK (TO-263) package, engineered for synchronous rectification, ORing switch, and high-current DC bus switching applications where minimal conduction resistance and robust avalanche ruggedness are equally important. Its maximum RDSon of 3.4 mOhm at VGS = 10 V positions it at the top of the 150 V silicon MOSFET performance tier, enabling DC/DC converters and battery management systems to achieve rectifier stages with power densities previously requiring copper-bonded die technologies.\n\nThe StrongIRFET process employs a deep trench cell architecture that concentrates the channel width per unit area, allowing the D2PAK die to handle 170 A continuous drain current with a junction temperature limit of 175  degreesC. The large molded package die-pad provides a junction-to-case thermal resistance of only 0.65 K/W, enabling heat dissipation through PCB copper planes or clip-mount heatsinks without through-hole mounting hardware.\n\nGate charge Qg is specified at 230 nC at VGS = 10 V - a relatively high value that reflects the large die size - so gate driver current capability should be sized accordingly. The device also exhibits excellent unclamped inductive switching (UIS) ruggedness with a single-pulse avalanche energy rating of 3 J at 25  degreesC, providing margin against inductive load switching transients in high-current motor drives and DC disconnect switches.\n\nBeiLuo distributes the IRFS4321PBF in volume with documented lot traceability and provides PCB layout templates for optimal thermal performance with D2PAK copper-pour cooling.",
+          "shortDescription": "150 V 170 A StrongIRFET MOSFET in D2PAK with 3.4 mOhm RDSon for high-current synchronous rectifiers and battery switches.",
           "image": "/assets/svg/products/mosfet-cover.svg",
           "imageAlt": "Infineon IRFS4321PBF MOSFET D2PAK 150V 170A StrongIRFET surface-mount power transistor",
           "datasheetHref": "https://www.infineon.com/dgdl/irfs4321pbf.pdf?fileId=5546d462533600a40153567c67e22cfe",
           "specs": [
             { "param": "Drain-Source Voltage VDS", "value": "150", "unit": "V" },
-            { "param": "Continuous Drain Current ID (25°C)", "value": "170", "unit": "A" },
-            { "param": "RDSon Max (VGS=10V)", "value": "3.4", "unit": "mΩ" },
+            { "param": "Continuous Drain Current ID (25 degreesC)", "value": "170", "unit": "A" },
+            { "param": "RDSon Max (VGS=10V)", "value": "3.4", "unit": "mOhm" },
             { "param": "Gate Charge Qg (VGS=10V)", "value": "230", "unit": "nC" },
-            { "param": "Gate Threshold Voltage VGSth", "value": "2.0 – 4.0", "unit": "V" },
+            { "param": "Gate Threshold Voltage VGSth", "value": "2.0 - 4.0", "unit": "V" },
             { "param": "Single-Pulse Avalanche Energy EAS", "value": "3000", "unit": "mJ" },
             { "param": "Thermal Resistance RthJC", "value": "0.65", "unit": "K/W" },
-            { "param": "Maximum Junction Temperature", "value": "175", "unit": "°C" },
+            { "param": "Maximum Junction Temperature", "value": "175", "unit": " degreesC" },
             { "param": "Package", "value": "D2PAK (TO-263)", "unit": "" },
             { "param": "Body Diode Forward Voltage VSD", "value": "1.3", "unit": "V" }
           ],
@@ -525,23 +525,23 @@
           "faq": [
             {
               "question": "What gate driver current is recommended to drive the IRFS4321PBF at high switching frequencies?",
-              "answer": "The IRFS4321PBF has a total gate charge Qg of 230 nC at 10 V drive. To achieve a 100 ns rise time at a 100 kHz switching frequency, a peak gate source current of approximately 2.3 A is required. Dedicated gate driver ICs rated for 2 to 4 A peak output — such as the Infineon EiceDRIVER 2EDL series — are appropriate. Reducing the switching frequency to 20 to 50 kHz allows smaller gate drivers, trading switching losses for driver simplicity in cost-sensitive designs."
+              "answer": "The IRFS4321PBF has a total gate charge Qg of 230 nC at 10 V drive. To achieve a 100 ns rise time at a 100 kHz switching frequency, a peak gate source current of approximately 2.3 A is required. Dedicated gate driver ICs rated for 2 to 4 A peak output - such as the Infineon EiceDRIVER 2EDL series - are appropriate. Reducing the switching frequency to 20 to 50 kHz allows smaller gate drivers, trading switching losses for driver simplicity in cost-sensitive designs."
             },
             {
               "question": "Can the IRFS4321PBF be used as a synchronous rectifier in a bidirectional battery charger?",
-              "answer": "Yes. The IRFS4321PBF's 3.4 mΩ maximum RDSon and 170 A current rating make it well-suited for synchronous rectification stages in bidirectional on-board charger (OBC) designs up to approximately 11 kW at 48 V bus voltage. The body diode's forward voltage of 1.3 V is relatively high for a synchronous rectifier, so gate drive timing should enable the MOSFET channel before body-diode conduction begins in each half-cycle, minimizing dead-time losses."
+              "answer": "Yes. The IRFS4321PBF's 3.4 mOhm maximum RDSon and 170 A current rating make it well-suited for synchronous rectification stages in bidirectional on-board charger (OBC) designs up to approximately 11 kW at 48 V bus voltage. The body diode's forward voltage of 1.3 V is relatively high for a synchronous rectifier, so gate drive timing should enable the MOSFET channel before body-diode conduction begins in each half-cycle, minimizing dead-time losses."
             },
             {
               "question": "How should D2PAK devices like the IRFS4321PBF be thermally managed on a PCB?",
-              "answer": "The D2PAK (TO-263) exposed die-pad should be soldered to a dedicated copper pour area of at least 1,000 mm² on the top PCB layer. For power dissipation above 5 W, thermal vias connecting the top copper pour to an internal ground plane reduce the board-to-ambient resistance significantly. A clip-mount heatsink adhesively bonded over the molded body further reduces thermal resistance for dissipation above 10 W. BeiLuo's FAE team can provide a thermal model in PLECS or Simscape for accurate junction temperature estimation."
+              "answer": "The D2PAK (TO-263) exposed die-pad should be soldered to a dedicated copper pour area of at least 1,000 mm2 on the top PCB layer. For power dissipation above 5 W, thermal vias connecting the top copper pour to an internal ground plane reduce the board-to-ambient resistance significantly. A clip-mount heatsink adhesively bonded over the molded body further reduces thermal resistance for dissipation above 10 W. BeiLuo's FAE team can provide a thermal model in PLECS or Simscape for accurate junction temperature estimation."
             },
             {
               "question": "Is the IRFS4321PBF rated for automotive applications?",
-              "answer": "The standard IRFS4321PBF is an industrial-grade device rated for junction temperatures to 175 °C but not specifically AEC-Q101 qualified. For automotive applications requiring full AEC-Q101 qualification and PPAP documentation, Infineon offers the AUIRFS4321 with equivalent electrical parameters but the full automotive qualification package. BeiLuo can source both variants — please specify your qualification requirement when requesting a quote."
+              "answer": "The standard IRFS4321PBF is an industrial-grade device rated for junction temperatures to 175  degreesC but not specifically AEC-Q101 qualified. For automotive applications requiring full AEC-Q101 qualification and PPAP documentation, Infineon offers the AUIRFS4321 with equivalent electrical parameters but the full automotive qualification package. BeiLuo can source both variants - please specify your qualification requirement when requesting a quote."
             },
             {
               "question": "What is the avalanche ruggedness of the IRFS4321PBF and why does it matter?",
-              "answer": "The IRFS4321PBF is rated for a single-pulse avalanche energy EAS of 3,000 mJ at 25 °C starting temperature. This specification indicates the device can absorb the energy stored in a stray inductance during unclamped inductive switching without destructive failure. In practical terms, a 100 µH stray inductance with 60 A of inductor current produces an avalanche energy of 180 mJ, well within the rated limit. Avalanche ruggedness is particularly important in motor-drive H-bridges where unexpected current paths can arise during fault conditions."
+              "answer": "The IRFS4321PBF is rated for a single-pulse avalanche energy EAS of 3,000 mJ at 25  degreesC starting temperature. This specification indicates the device can absorb the energy stored in a stray inductance during unclamped inductive switching without destructive failure. In practical terms, a 100 uH stray inductance with 60 A of inductor current produces an avalanche energy of 180 mJ, well within the rated limit. Avalanche ruggedness is particularly important in motor-drive H-bridges where unexpected current paths can arise during fault conditions."
             }
           ],
           "alternativeParts": [
@@ -549,7 +549,7 @@
               "partNo": "BSC011N04LS",
               "slug": "bsc011n04ls",
               "categorySlug": "mosfet",
-              "summary": "40 V 1.1 mΩ OptiMOS 5 MOSFET in TDSON-8 for low-voltage synchronous buck"
+              "summary": "40 V 1.1 mOhm OptiMOS 5 MOSFET in TDSON-8 for low-voltage synchronous buck"
             },
             {
               "partNo": "IRFP4568PBF",
@@ -586,22 +586,22 @@
           "stockQty": 5200,
           "href": "/products/mosfet/bsc011n04ls/",
           "brand": "Infineon",
-          "overview": "The Infineon BSC011N04LS is the flagship device of the OptiMOS™ 5 40 V product family, delivering an industry-leading maximum RDSon of 1.1 mΩ at VGS = 10 V in the compact TDSON-8 (3.3 mm × 3.3 mm) surface-mount package. This combination of ultra-low on-state resistance and small package footprint translates directly into the highest efficiency and smallest board area for synchronous DC/DC buck regulators, bidirectional battery management switches, and point-of-load converters in server, telecom, and automotive 12 V bus applications.\n\nThe OptiMOS 5 cell structure achieves a specific RDSon of 13 mΩ·mm² at 40 V — approximately 35 percent lower than comparable OptiMOS 3 devices — through a refined trench-gate topology and optimized doping profile that simultaneously improves gate charge characteristics. Total gate charge Qg is only 41 nC, yielding a figure of merit RDSon × Qg of 45 mΩ·nC, enabling high-efficiency operation at switching frequencies up to 1 MHz.\n\nThe dual MOSFET configuration in the TDSON-8 package places two matched N-channel devices side by side in a single footprint, allowing a complete synchronous buck stage — high-side and low-side switch — to occupy less than 11 mm² of PCB area. Thermal resistance junction-to-case is 1.2 K/W per MOSFET, and the exposed copper drain pad provides a low-inductance current path that minimizes AC losses in fast-switching synchronous stages.\n\nBeiLuo maintains significant stock of the BSC011N04LS with full Infineon traceability and offers SPICE simulation models and PCB layout review for design-in support.",
-          "shortDescription": "40 V 100 A OptiMOS 5 dual MOSFET in TDSON-8 with 1.1 mΩ RDSon for high-efficiency synchronous buck converters.",
+          "overview": "The Infineon BSC011N04LS is the flagship device of the OptiMOS(TM) 5 40 V product family, delivering an industry-leading maximum RDSon of 1.1 mOhm at VGS = 10 V in the compact TDSON-8 (3.3 mm x 3.3 mm) surface-mount package. This combination of ultra-low on-state resistance and small package footprint translates directly into the highest efficiency and smallest board area for synchronous DC/DC buck regulators, bidirectional battery management switches, and point-of-load converters in server, telecom, and automotive 12 V bus applications.\n\nThe OptiMOS 5 cell structure achieves a specific RDSon of 13 mOhm-mm2 at 40 V - approximately 35 percent lower than comparable OptiMOS 3 devices - through a refined trench-gate topology and optimized doping profile that simultaneously improves gate charge characteristics. Total gate charge Qg is only 41 nC, yielding a figure of merit RDSon x Qg of 45 mOhm-nC, enabling high-efficiency operation at switching frequencies up to 1 MHz.\n\nThe dual MOSFET configuration in the TDSON-8 package places two matched N-channel devices side by side in a single footprint, allowing a complete synchronous buck stage - high-side and low-side switch - to occupy less than 11 mm2 of PCB area. Thermal resistance junction-to-case is 1.2 K/W per MOSFET, and the exposed copper drain pad provides a low-inductance current path that minimizes AC losses in fast-switching synchronous stages.\n\nBeiLuo maintains significant stock of the BSC011N04LS with full Infineon traceability and offers SPICE simulation models and PCB layout review for design-in support.",
+          "shortDescription": "40 V 100 A OptiMOS 5 dual MOSFET in TDSON-8 with 1.1 mOhm RDSon for high-efficiency synchronous buck converters.",
           "image": "/assets/svg/products/mosfet-cover.svg",
           "imageAlt": "Infineon BSC011N04LS MOSFET TDSON-8 40V OptiMOS 5 dual N-channel low RDSon surface mount",
           "datasheetHref": "https://www.infineon.com/dgdl/Infineon-BSC011N04LS-DS-v02_00-EN.pdf?fileId=5546d46269bda8df016a218e3e3b0f00",
           "specs": [
             { "param": "Drain-Source Voltage VDS", "value": "40", "unit": "V" },
-            { "param": "Continuous Drain Current ID (25°C)", "value": "100", "unit": "A" },
-            { "param": "RDSon Max (VGS=10V)", "value": "1.1", "unit": "mΩ" },
+            { "param": "Continuous Drain Current ID (25 degreesC)", "value": "100", "unit": "A" },
+            { "param": "RDSon Max (VGS=10V)", "value": "1.1", "unit": "mOhm" },
             { "param": "Total Gate Charge Qg", "value": "41", "unit": "nC" },
-            { "param": "Figure of Merit RDSon × Qg", "value": "45", "unit": "mΩ·nC" },
-            { "param": "Gate Threshold Voltage VGSth", "value": "1.4 – 2.5", "unit": "V" },
+            { "param": "Figure of Merit RDSon x Qg", "value": "45", "unit": "mOhm-nC" },
+            { "param": "Gate Threshold Voltage VGSth", "value": "1.4 - 2.5", "unit": "V" },
             { "param": "Thermal Resistance RthJC (each FET)", "value": "1.2", "unit": "K/W" },
-            { "param": "Maximum Junction Temperature", "value": "175", "unit": "°C" },
+            { "param": "Maximum Junction Temperature", "value": "175", "unit": " degreesC" },
             { "param": "Package", "value": "TDSON-8 (Dual N-Ch)", "unit": "" },
-            { "param": "Specific RDSon", "value": "13", "unit": "mΩ·mm²" }
+            { "param": "Specific RDSon", "value": "13", "unit": "mOhm-mm2" }
           ],
           "applications": [
             "Synchronous DC/DC Buck Converters",
@@ -627,19 +627,19 @@
           "faq": [
             {
               "question": "What does the dual MOSFET configuration in the TDSON-8 package mean for buck converter design?",
-              "answer": "The BSC011N04LS TDSON-8 package integrates two independent N-channel MOSFETs sharing a common source pin, allowing a complete synchronous buck converter high-side and low-side switch pair to fit in a single 3.3 × 3.3 mm footprint. This halves the PCB area used by the switching stage compared to two individual packages. The two MOSFETs have matched electrical characteristics and a shared thermal pad, simplifying gate driver layout and thermal management simultaneously."
+              "answer": "The BSC011N04LS TDSON-8 package integrates two independent N-channel MOSFETs sharing a common source pin, allowing a complete synchronous buck converter high-side and low-side switch pair to fit in a single 3.3 x 3.3 mm footprint. This halves the PCB area used by the switching stage compared to two individual packages. The two MOSFETs have matched electrical characteristics and a shared thermal pad, simplifying gate driver layout and thermal management simultaneously."
             },
             {
               "question": "What switching frequency can the BSC011N04LS support without significant efficiency penalty?",
-              "answer": "The BSC011N04LS's figure of merit RDSon × Qg of 45 mΩ·nC is one of the lowest available in silicon MOSFETs at 40 V. At a 500 kHz switching frequency with a 12 V input and 5 V output, total switching losses in both the high-side and low-side devices typically account for less than 25 percent of total converter losses, with conduction losses dominating. At 1 MHz, switching losses become comparable to conduction losses. Beyond 1 MHz, wide-bandgap alternatives such as GaN may offer better efficiency trade-offs."
+              "answer": "The BSC011N04LS's figure of merit RDSon x Qg of 45 mOhm-nC is one of the lowest available in silicon MOSFETs at 40 V. At a 500 kHz switching frequency with a 12 V input and 5 V output, total switching losses in both the high-side and low-side devices typically account for less than 25 percent of total converter losses, with conduction losses dominating. At 1 MHz, switching losses become comparable to conduction losses. Beyond 1 MHz, wide-bandgap alternatives such as GaN may offer better efficiency trade-offs."
             },
             {
               "question": "Is the BSC011N04LS compatible with 5 V gate drive voltage from a low-voltage microcontroller?",
-              "answer": "The BSC011N04LS gate threshold voltage VGSth ranges from 1.4 V to 2.5 V across the operating temperature range. At VGS = 4.5 V, the datasheet specifies a maximum RDSon of 1.6 mΩ — 45 percent higher than at 10 V drive. For direct microcontroller PWM outputs at 3.3 V logic, a dedicated gate driver is strongly recommended to avoid operating in the linear region. BeiLuo's FAE team can recommend appropriate gate driver ICs from Infineon's EiceDRIVER portfolio."
+              "answer": "The BSC011N04LS gate threshold voltage VGSth ranges from 1.4 V to 2.5 V across the operating temperature range. At VGS = 4.5 V, the datasheet specifies a maximum RDSon of 1.6 mOhm - 45 percent higher than at 10 V drive. For direct microcontroller PWM outputs at 3.3 V logic, a dedicated gate driver is strongly recommended to avoid operating in the linear region. BeiLuo's FAE team can recommend appropriate gate driver ICs from Infineon's EiceDRIVER portfolio."
             },
             {
               "question": "How does the BSC011N04LS perform in battery disconnect switch applications?",
-              "answer": "In bidirectional battery disconnect applications, both MOSFETs in the TDSON-8 package can be wired with their sources connected back-to-back to block voltage in either polarity when both gates are driven low. The ultralow RDSon of 1.1 mΩ per FET results in only 0.22 mΩ effective conduction resistance for the series stack at 100 A — translating to 2.2 W total conduction loss at full current. This is substantially lower than equivalent fuse or relay solutions and enables real-time current measurement via shunt voltage without a dedicated current-sense resistor."
+              "answer": "In bidirectional battery disconnect applications, both MOSFETs in the TDSON-8 package can be wired with their sources connected back-to-back to block voltage in either polarity when both gates are driven low. The ultralow RDSon of 1.1 mOhm per FET results in only 0.22 mOhm effective conduction resistance for the series stack at 100 A - translating to 2.2 W total conduction loss at full current. This is substantially lower than equivalent fuse or relay solutions and enables real-time current measurement via shunt voltage without a dedicated current-sense resistor."
             },
             {
               "question": "Does BeiLuo maintain BSC011N04LS in volume for production-scale orders?",
@@ -680,9 +680,9 @@
     {
       "slug": "sensors",
       "name": "Sensors",
-      "title": "Infineon Sensors Distributor — Hall, Pressure, Current, Radar Full Series",
+      "title": "Infineon Sensors Distributor - Hall, Pressure, Current, Radar Full Series",
       "metaDescription": "BeiLuo is an authorized Infineon sensors distributor. Hall, pressure, current sense, radar sensors in stock with FAE support and fast delivery.",
-      "description": "Infineon Technologies delivers one of the broadest sensor portfolios in the semiconductor industry, covering magnetic sensing, pressure measurement, current sensing, and millimeter-wave radar in a single product family optimized for both automotive and industrial end markets. The TLE Hall-effect sensor lineup spans latching switches, speed sensors, and angle sensors, all manufactured on a proprietary magnetic BiCMOS process that achieves sub-1 mT sensitivity while rejecting common-mode stray fields from adjacent current-carrying conductors.\n\nThe DPS pressure sensor series represents Infineon's contribution to high-accuracy MEMS sensing for consumer, industrial, and medical applications. The DPS310 combines a resistive pressure sensing element with a MEMS temperature sensor on a single die, achieving ±0.06 hPa relative accuracy at 1 Hz output data rate — sufficient for floor-level altitude determination in indoor navigation and ventilation control systems.\n\nFor current sensing in power conversion and motor drive applications, the TLI current sensor family uses a coreless transformer approach that eliminates the magnetic saturation issues of traditional Hall-based current sensors, achieving bandwidths above 150 kHz with intrinsic galvanic isolation. The XENSIV™ radar sensors — KIT_XMC4700_RADAR and BGT60TR13C — bring 60 GHz FMCW radar to industrial presence detection and gesture recognition in form factors smaller than a postage stamp.\n\nBeiLuo distributes Infineon sensors with particular depth in the Hall-effect and pressure segments, maintaining stock of over thirty active part numbers across the TLE4900, TLE4966, and DPS families. Our FAE engineers bring hands-on calibration experience and can provide Python and embedded C reference code for accelerating sensor integration in customer platforms.",
+      "description": "Infineon Technologies delivers one of the broadest sensor portfolios in the semiconductor industry, covering magnetic sensing, pressure measurement, current sensing, and millimeter-wave radar in a single product family optimized for both automotive and industrial end markets. The TLE Hall-effect sensor lineup spans latching switches, speed sensors, and angle sensors, all manufactured on a proprietary magnetic BiCMOS process that achieves sub-1 mT sensitivity while rejecting common-mode stray fields from adjacent current-carrying conductors.\n\nThe DPS pressure sensor series represents Infineon's contribution to high-accuracy MEMS sensing for consumer, industrial, and medical applications. The DPS310 combines a resistive pressure sensing element with a MEMS temperature sensor on a single die, achieving +/-0.06 hPa relative accuracy at 1 Hz output data rate - sufficient for floor-level altitude determination in indoor navigation and ventilation control systems.\n\nFor current sensing in power conversion and motor drive applications, the TLI current sensor family uses a coreless transformer approach that eliminates the magnetic saturation issues of traditional Hall-based current sensors, achieving bandwidths above 150 kHz with intrinsic galvanic isolation. The XENSIV(TM) radar sensors - KIT_XMC4700_RADAR and BGT60TR13C - bring 60 GHz FMCW radar to industrial presence detection and gesture recognition in form factors smaller than a postage stamp.\n\nBeiLuo distributes Infineon sensors with particular depth in the Hall-effect and pressure segments, maintaining stock of over thirty active part numbers across the TLE4900, TLE4966, and DPS families. Our FAE engineers bring hands-on calibration experience and can provide Python and embedded C reference code for accelerating sensor integration in customer platforms.",
       "faeNote": "Sensor selection questions are where BeiLuo's FAE engagement genuinely adds value. I regularly help customers choose between the TLI4966G dual-channel Hall speed sensor and the TLE5012B angle sensor depending on whether they need rotational direction detection or absolute angle output. For pressure applications, the DPS310's SPI and I2C interfaces with hardware FIFO make it far easier to integrate than discrete sensing bridges with external ADCs. BeiLuo maintains evaluation boards for the most commonly requested sensor families and our team can provide complete driver code to cut typical sensor bring-up from days to hours.",
       "icon": "/assets/svg/icons/sensors.svg",
       "selectionGuideHref": "/support/guides/how-to-select-infineon-sensors/",
@@ -710,22 +710,22 @@
           "stockQty": 4100,
           "href": "/products/sensors/tli4966g/",
           "brand": "Infineon",
-          "overview": "The Infineon TLI4966G is a dual-channel Hall-effect speed and direction sensor in the miniature PG-SSO-3-1 package, designed for non-contacting rotational speed measurement and direction detection in automotive transmission sensors, industrial conveyor monitoring, and BLDC motor commutation feedback systems. The device integrates two magnetically biased Hall elements separated by a precisely controlled pitch on a single silicon die, enabling the detection of both rotating speed and direction of rotation from a single passive gear or ring magnet target — eliminating the separate directional encoder track required by single-channel designs.\n\nOperating from a 3.3 V or 5 V supply rail with a current consumption of only 4.2 mA, the TLI4966G generates two complementary push-pull digital output channels with edge separation that encodes rotational direction: a leading edge on channel A versus channel B indicates clockwise rotation, while a lagging pattern indicates counterclockwise motion. This signal format is directly compatible with standard MCU quadrature decoder peripherals such as the Infineon XMC4700 POSIF module, enabling hardware-accelerated direction detection without software polling overhead.\n\nThe sensor operates across a junction temperature range of −40 °C to +150 °C and withstands external magnetic fields up to 50 mT before operational upset, meeting the stray-field rejection requirements of proximity to electric motor windings and high-current bus bars. AEC-Q100 qualification at Grade 0 confirms suitability for underhood automotive environments.\n\nBeiLuo stocks the TLI4966G with application support including reference PCB layouts and C driver code for XMC and AURIX MCU integration.",
+          "overview": "The Infineon TLI4966G is a dual-channel Hall-effect speed and direction sensor in the miniature PG-SSO-3-1 package, designed for non-contacting rotational speed measurement and direction detection in automotive transmission sensors, industrial conveyor monitoring, and BLDC motor commutation feedback systems. The device integrates two magnetically biased Hall elements separated by a precisely controlled pitch on a single silicon die, enabling the detection of both rotating speed and direction of rotation from a single passive gear or ring magnet target - eliminating the separate directional encoder track required by single-channel designs.\n\nOperating from a 3.3 V or 5 V supply rail with a current consumption of only 4.2 mA, the TLI4966G generates two complementary push-pull digital output channels with edge separation that encodes rotational direction: a leading edge on channel A versus channel B indicates clockwise rotation, while a lagging pattern indicates counterclockwise motion. This signal format is directly compatible with standard MCU quadrature decoder peripherals such as the Infineon XMC4700 POSIF module, enabling hardware-accelerated direction detection without software polling overhead.\n\nThe sensor operates across a junction temperature range of -40  degreesC to +150  degreesC and withstands external magnetic fields up to 50 mT before operational upset, meeting the stray-field rejection requirements of proximity to electric motor windings and high-current bus bars. AEC-Q100 qualification at Grade 0 confirms suitability for underhood automotive environments.\n\nBeiLuo stocks the TLI4966G with application support including reference PCB layouts and C driver code for XMC and AURIX MCU integration.",
           "shortDescription": "Dual-channel Hall speed and direction sensor in SSO-3 for automotive and industrial rotational measurement with quadrature output.",
           "image": "/assets/svg/products/sensors-cover.svg",
           "imageAlt": "Infineon TLI4966G dual-channel Hall speed direction sensor PG-SSO-3-1 package automotive industrial",
           "datasheetHref": "https://www.infineon.com/dgdl/Infineon-TLI4966G-DS-v02_20-EN.pdf?fileId=5546d46269bda8df0169ca18e52e7ad1",
           "specs": [
             { "param": "Sensor Type", "value": "Dual Hall Speed & Direction", "unit": "" },
-            { "param": "Supply Voltage VCC", "value": "3.3 – 5.5", "unit": "V" },
+            { "param": "Supply Voltage VCC", "value": "3.3 - 5.5", "unit": "V" },
             { "param": "Supply Current ICC", "value": "4.2", "unit": "mA" },
             { "param": "Output Type", "value": "Push-Pull Digital (2 channels)", "unit": "" },
-            { "param": "Air Gap Range", "value": "0.3 – 3.0", "unit": "mm" },
+            { "param": "Air Gap Range", "value": "0.3 - 3.0", "unit": "mm" },
             { "param": "Magnetic Stray-Field Rejection", "value": "50", "unit": "mT" },
-            { "param": "Operating Temperature Range", "value": "-40 to +150", "unit": "°C" },
+            { "param": "Operating Temperature Range", "value": "-40 to +150", "unit": " degreesC" },
             { "param": "AEC-Q100 Grade", "value": "Grade 0", "unit": "" },
             { "param": "Package", "value": "PG-SSO-3-1", "unit": "" },
-            { "param": "Speed Range (typical)", "value": "0 – 20,000", "unit": "RPM" }
+            { "param": "Speed Range (typical)", "value": "0 - 20,000", "unit": "RPM" }
           ],
           "applications": [
             "Automotive Transmission Speed Sensing",
@@ -775,7 +775,7 @@
               "partNo": "TLE5012B",
               "slug": "tle5012b",
               "categorySlug": "sensors",
-              "summary": "Giant magneto-resistance absolute angle sensor for 0-360° position"
+              "summary": "Giant magneto-resistance absolute angle sensor for 0-360 degrees position"
             },
             {
               "partNo": "TLE4905L",
@@ -812,22 +812,22 @@
           "stockQty": 6700,
           "href": "/products/sensors/dps310/",
           "brand": "Infineon",
-          "overview": "The Infineon DPS310 is a miniature MEMS-based barometric pressure and temperature sensor in an 8-pin wafer-level chip-scale package (WLCSP) measuring only 2.0 × 2.5 × 1.1 mm, purpose-designed for high-accuracy altitude determination, weather monitoring, and indoor navigation in portable consumer electronics, smart building controllers, and industrial IoT nodes. The sensing element combines a capacitive pressure cell with a highly stable integrated temperature sensor on a single die, enabling the compensation of pressure readings for temperature-induced drift through a factory-calibrated coefficient set stored in on-chip OTP memory.\n\nOperating from a supply voltage of 1.71 V to 3.6 V, the DPS310 achieves an absolute pressure accuracy of ±1.0 hPa over the full −40 °C to +85 °C range and a relative accuracy of ±0.06 hPa at 1 Hz output data rate — corresponding to approximately ±0.5 m altitude resolution. A configurable hardware FIFO stores up to 32 measurement results, allowing the host MCU to remain in a low-power sleep state and collect sensor readings in batches, minimizing average system power consumption in battery-operated applications.\n\nThe DPS310 communicates over I2C at up to 3.4 MHz (high-speed mode) or SPI at up to 10 MHz, with configurable I2C addresses for multi-sensor implementations. Pressure and temperature measurement rates are independently configurable from 1 Hz to 128 Hz, and oversampling rates from 1× to 128× trade resolution for bandwidth according to application requirements.\n\nBeiLuo stocks the DPS310 in volume with complete documentation and provides Arduino and embedded C driver libraries for rapid prototyping on XMC and STM32 platforms.",
-          "shortDescription": "2.5 × 2.0 mm MEMS barometric pressure and temperature sensor with I2C/SPI and FIFO for altitude-aware IoT and wearable devices.",
+          "overview": "The Infineon DPS310 is a miniature MEMS-based barometric pressure and temperature sensor in an 8-pin wafer-level chip-scale package (WLCSP) measuring only 2.0 x 2.5 x 1.1 mm, purpose-designed for high-accuracy altitude determination, weather monitoring, and indoor navigation in portable consumer electronics, smart building controllers, and industrial IoT nodes. The sensing element combines a capacitive pressure cell with a highly stable integrated temperature sensor on a single die, enabling the compensation of pressure readings for temperature-induced drift through a factory-calibrated coefficient set stored in on-chip OTP memory.\n\nOperating from a supply voltage of 1.71 V to 3.6 V, the DPS310 achieves an absolute pressure accuracy of +/-1.0 hPa over the full -40  degreesC to +85  degreesC range and a relative accuracy of +/-0.06 hPa at 1 Hz output data rate - corresponding to approximately +/-0.5 m altitude resolution. A configurable hardware FIFO stores up to 32 measurement results, allowing the host MCU to remain in a low-power sleep state and collect sensor readings in batches, minimizing average system power consumption in battery-operated applications.\n\nThe DPS310 communicates over I2C at up to 3.4 MHz (high-speed mode) or SPI at up to 10 MHz, with configurable I2C addresses for multi-sensor implementations. Pressure and temperature measurement rates are independently configurable from 1 Hz to 128 Hz, and oversampling rates from 1x to 128x trade resolution for bandwidth according to application requirements.\n\nBeiLuo stocks the DPS310 in volume with complete documentation and provides Arduino and embedded C driver libraries for rapid prototyping on XMC and STM32 platforms.",
+          "shortDescription": "2.5 x 2.0 mm MEMS barometric pressure and temperature sensor with I2C/SPI and FIFO for altitude-aware IoT and wearable devices.",
           "image": "/assets/svg/products/sensors-cover.svg",
           "imageAlt": "Infineon DPS310 MEMS barometric pressure temperature sensor WLCSP-8 package IoT wearable",
           "datasheetHref": "https://www.infineon.com/dgdl/Infineon-DPS310-DS-v01_00-EN.pdf?fileId=5546d462576f34750157750826c42242",
           "specs": [
-            { "param": "Pressure Range", "value": "300 – 1200", "unit": "hPa" },
-            { "param": "Pressure Absolute Accuracy", "value": "±1.0", "unit": "hPa" },
-            { "param": "Pressure Relative Accuracy", "value": "±0.06", "unit": "hPa" },
-            { "param": "Temperature Range", "value": "-40 to +85", "unit": "°C" },
-            { "param": "Temperature Accuracy", "value": "±0.5", "unit": "°C" },
-            { "param": "Supply Voltage VDD", "value": "1.71 – 3.6", "unit": "V" },
-            { "param": "Current Consumption (1 Hz active)", "value": "1.7", "unit": "µA" },
+            { "param": "Pressure Range", "value": "300 - 1200", "unit": "hPa" },
+            { "param": "Pressure Absolute Accuracy", "value": "+/-1.0", "unit": "hPa" },
+            { "param": "Pressure Relative Accuracy", "value": "+/-0.06", "unit": "hPa" },
+            { "param": "Temperature Range", "value": "-40 to +85", "unit": " degreesC" },
+            { "param": "Temperature Accuracy", "value": "+/-0.5", "unit": " degreesC" },
+            { "param": "Supply Voltage VDD", "value": "1.71 - 3.6", "unit": "V" },
+            { "param": "Current Consumption (1 Hz active)", "value": "1.7", "unit": "uA" },
             { "param": "Interface", "value": "I2C (up to 3.4 MHz) / SPI (up to 10 MHz)", "unit": "" },
             { "param": "FIFO Depth", "value": "32", "unit": "measurements" },
-            { "param": "Package", "value": "WLCSP-8 (2.0 × 2.5 mm)", "unit": "" }
+            { "param": "Package", "value": "WLCSP-8 (2.0 x 2.5 mm)", "unit": "" }
           ],
           "applications": [
             "Indoor Navigation and Floor Detection",
@@ -853,7 +853,7 @@
           "faq": [
             {
               "question": "What altitude resolution does the DPS310 achieve in an indoor navigation application?",
-              "answer": "The DPS310's relative pressure accuracy of ±0.06 hPa at 1 Hz corresponds to an altitude resolution of approximately ±0.5 m under static atmospheric conditions. At 8× oversampling and 4 Hz output rate, resolution improves further to approximately ±0.15 m, enabling floor-level discrimination in multi-story buildings with typical 3 m ceiling heights. For best results, the sensor should be housed in a ported enclosure that isolates it from airflow turbulence while allowing barometric pressure equilibration."
+              "answer": "The DPS310's relative pressure accuracy of +/-0.06 hPa at 1 Hz corresponds to an altitude resolution of approximately +/-0.5 m under static atmospheric conditions. At 8x oversampling and 4 Hz output rate, resolution improves further to approximately +/-0.15 m, enabling floor-level discrimination in multi-story buildings with typical 3 m ceiling heights. For best results, the sensor should be housed in a ported enclosure that isolates it from airflow turbulence while allowing barometric pressure equilibration."
             },
             {
               "question": "How is the DPS310 calibrated and where are calibration coefficients stored?",
@@ -861,7 +861,7 @@
             },
             {
               "question": "Can the DPS310 be used in a low-power IoT node running on coin cell battery?",
-              "answer": "Yes. In background mode at a pressure measurement rate of 1 Hz with 1× oversampling, the DPS310 draws only 1.7 µA average supply current. With a 220 mAh CR2032 coin cell, this translates to a theoretical operational lifetime of over 14 years under continuous measurement — far exceeding the sensor's intended product lifetime. In practice, the MCU's own current consumption dominates system power draw, so pairing the DPS310 with a low-power MCU in deep-sleep mode and batch-reading the 32-entry FIFO every 30 seconds allows very long battery life in weather monitoring applications."
+              "answer": "Yes. In background mode at a pressure measurement rate of 1 Hz with 1x oversampling, the DPS310 draws only 1.7 uA average supply current. With a 220 mAh CR2032 coin cell, this translates to a theoretical operational lifetime of over 14 years under continuous measurement - far exceeding the sensor's intended product lifetime. In practice, the MCU's own current consumption dominates system power draw, so pairing the DPS310 with a low-power MCU in deep-sleep mode and batch-reading the 32-entry FIFO every 30 seconds allows very long battery life in weather monitoring applications."
             },
             {
               "question": "Does the DPS310 require an external decoupling capacitor and what PCB layout precautions apply?",
@@ -883,7 +883,7 @@
               "partNo": "DPS368",
               "slug": "dps368",
               "categorySlug": "sensors",
-              "summary": "Higher-accuracy successor to DPS310 with ±0.5 Pa relative precision"
+              "summary": "Higher-accuracy successor to DPS310 with +/-0.5 Pa relative precision"
             }
           ],
           "companionParts": [
