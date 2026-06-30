@@ -122,10 +122,12 @@ export function buildPageList(data) {
         bc(model.partNo, modelUrl),
       ]);
       const seo = { ...site.seo, title: `${model.partNo} ${category.name} | ${site.brand.name}`, description: model.shortDescription, canonical: modelUrl };
+      const availabilityUrl = model.stock === 'inStock' ? 'https://schema.org/InStock' : 'https://schema.org/BackOrder';
+      const modelWithAvailability = { ...model, availabilityUrl };
       pages.push({
         url: modelUrl,
         template: 'product-detail',
-        context: { ...site, seo, category, model, breadcrumb },
+        context: { ...site, seo, category, model: modelWithAvailability, breadcrumb },
         breadcrumb,
       });
     }

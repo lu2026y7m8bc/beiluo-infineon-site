@@ -13,7 +13,7 @@
   "description": "{{model.shortDescription}}",
   "offers": {
     "@type": "Offer",
-    "availability": "{{#if model.stock}}https://schema.org/InStock{{else}}https://schema.org/PreOrder{{/if}}",
+    "availability": "{{model.availabilityUrl}}",
     "url": "{{seo.canonical}}"
   }
 }
