@@ -21,6 +21,7 @@ import { render } from './lib/render.js';
 import { buildSitemap } from './lib/sitemap.js';
 import { buildRobots } from './lib/robots.js';
 import { findLinkIssues } from './lib/links.js';
+import { validateData } from './lib/validate-data.js';
 
 // ── URL → dist path mapping ───────────────────────────────────────────────────
 
@@ -94,7 +95,7 @@ export function assembleSite({
   validate,
 } = {}) {
   // T4.7 接入 — data validation hook (wired in T4.7)
-  // validate?.(data);
+  validate?.(data);
 
   const pages = buildPageList(data);
   const files = [];
@@ -214,6 +215,9 @@ export async function buildSite({
     );
     return { written: 0, issues: [] };
   }
+
+  // T4.7 — validate data before assembling (throws on invalid data)
+  validateData(data);
 
   // Read HTML templates and partials
   const templates = await readHtmlDir(templateDir);
