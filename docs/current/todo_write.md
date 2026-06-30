@@ -6,10 +6,10 @@
 
 ```json
 [
-  { "content": "T0.1 初始化项目结构(/src{templates,partials,data,lib,assets/{css,js,svg}},/tests,/dist,package.json type=module,.gitignore,README) 并 git init 建立基线首次提交 — 完成标准：目录与 package.json 就位，git 仓库已初始化且有首次提交，node/npm 可用", "status": "in_progress" },
-  { "content": "T0.2 配置测试运行器(npm test → node --test) — 完成标准：npm test 能运行空测试套件并通过", "status": "pending" },
-  { "content": "T0.3 编写 JSON 数据 schema 草案 /src/data/*.schema.md(各文件字段清单,与 design 占位符对应) — 完成标准：site/home/products/solutions/support/news/about 字段约定齐全可作模板/校验对齐依据", "status": "pending" },
-  { "content": "T0.4 编写模板↔交互JS 的 markup 契约 /src/markup-contract.md(.spec-table/data-col、.tab-container/data-tab、.sticky-sidebar/[data-toc]、form[data-validate]) — 完成标准：契约文档定义全部 data 属性/容器/类名,供模板与 T6.x 对齐", "status": "pending" },
+  { "content": "T0.1 初始化项目结构(/src{templates,partials,data,lib,assets/{css,js,svg}},/tests,/dist,package.json type=module,.gitignore,README) 并 git init 建立基线首次提交 — 完成标准：目录与 package.json 就位，git 仓库已初始化且有首次提交，node/npm 可用", "status": "completed" },
+  { "content": "T0.2 配置测试运行器(npm test → node --test) — 完成标准：npm test 能运行空测试套件并通过", "status": "completed" },
+  { "content": "T0.3 编写 JSON 数据 schema 草案 /src/data/*.schema.md(各文件字段清单,与 design 占位符对应) — 完成标准：site/home/products/solutions/support/news/about 字段约定齐全可作模板/校验对齐依据", "status": "completed" },
+  { "content": "T0.4 编写模板↔交互JS 的 markup 契约 /src/markup-contract.md(.spec-table/data-col、.tab-container/data-tab、.sticky-sidebar/[data-toc]、form[data-validate]) — 完成标准：契约文档定义全部 data 属性/容器/类名,供模板与 T6.x 对齐", "status": "in_progress" },
   { "content": "T0.5 前置编写 check_list1.md(12模板×9维:nav/footer/breadcrumb一致性、令牌、三档断点、关键CSS类、SVG、Meta、JSON-LD、CTA、零空链接) — 完成标准：清单覆盖全模板全维度,作为阶段5模板验收准绳", "status": "pending" },
   { "content": "T0.6 前置编写 check_list2.md(7JSON×7维:字段完整、纯英文、品牌差异化、关键词嵌入、数量口径、占位符一一对应、无残留中文/占位) — 完成标准：清单覆盖全 JSON 全维度,作为阶段4内容验收准绳", "status": "pending" },
 
