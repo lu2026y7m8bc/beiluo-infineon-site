@@ -182,6 +182,34 @@ describe('render – partials', () => {
   });
 });
 
+// ─── Parser edges ────────────────────────────────────────────────────────────
+describe('render — parser edges', () => {
+  it('sibling same-type blocks: a and b each with primitives', () => {
+    assert.equal(
+      render('{{#each a}}A{{/each}}|{{#each b}}B{{/each}}', { a: [1, 2], b: [1] }),
+      'AA|B'
+    );
+  });
+
+  it('sibling same-type blocks: xs and ys with objects', () => {
+    assert.equal(
+      render('{{#each xs}}[{{n}}]{{/each}}{{#each ys}}({{n}}){{/each}}', {
+        xs: [{ n: 1 }, { n: 2 }],
+        ys: [{ n: 9 }]
+      }),
+      '[1][2](9)'
+    );
+  });
+
+  it('data containing {{...}} is not re-rendered (double-brace)', () => {
+    assert.equal(render('{{x}}', { x: '{{missing}}' }), '{{missing}}');
+  });
+
+  it('data containing {{...}} is not re-rendered (triple-brace)', () => {
+    assert.equal(render('{{{x}}}', { x: '{{missing}}' }), '{{missing}}');
+  });
+});
+
 // ─── Nesting ─────────────────────────────────────────────────────────────────
 describe('render – nesting', () => {
   it('each containing if with {{field}}', () => {
