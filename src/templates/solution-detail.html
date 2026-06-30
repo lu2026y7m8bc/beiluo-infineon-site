@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {{> head-meta}}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type":"ListItem","position":1,"name":"Home","item":"{{jsonLd.organizationUrl}}/"},
+      {"@type":"ListItem","position":2,"name":"Solutions","item":"{{jsonLd.organizationUrl}}/solutions/"},
+      {"@type":"ListItem","position":3,"name":"{{solution.title}}","item":"{{seo.canonical}}"}
+    ]
+  }
+  </script>
+</head>
+<body>
+  {{> nav}}
+  <main id="main">
+    {{> breadcrumb}}
+    <div class="container">
+      <div class="layout-with-sidebar">
+        <div class="layout-with-sidebar__main">
+
+          <!-- 1. Hero -->
+          <header class="solution-hero">
+            <h1 class="solution-hero__title">{{solution.title}}</h1>
+            <span class="solution-hero__industry">{{solution.industry}}</span>
+            <p class="solution-hero__summary">{{solution.summary}}</p>
+          </header>
+
+          <!-- 2. Diagram -->
+          {{#if solution.diagramSrc}}
+          <figure class="solution-diagram">
+            <img src="{{solution.diagramSrc}}" alt="{{solution.diagramAlt}}" class="solution-diagram__img" loading="lazy">
+          </figure>
+          {{/if}}
+
+          <!-- 3. Advantages -->
+          <section class="solution-advantages">
+            <h2>Key Advantages</h2>
+            <ul>{{#each solution.advantages}}<li>{{this}}</li>{{/each}}</ul>
+          </section>
+
+          <!-- 4. Body (pre-rendered HTML) -->
+          <div class="solution-body">{{{solution.body}}}</div>
+
+          <!-- 5. Bill of Materials -->
+          <section class="solution-bom">
+            <h2>Bill of Materials</h2>
+            <table class="bom-table">
+              <thead>
+                <tr>
+                  <th scope="col">Part No.</th>
+                  <th scope="col">Description</th>
+                  <th scope="col">Qty</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#each solution.bomList}}
+                <tr>
+                  <td><a href="{{href}}">{{partNo}}</a></td>
+                  <td>{{description}}</td>
+                  <td>{{qty}}</td>
+                </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          </section>
+
+          <!-- 6. CTA -->
+          <div class="solution-cta">
+            <h2>Ready to Build This Solution?</h2>
+            <p>Contact BeiLuo for component sourcing, FAE support, and reference designs.</p>
+            <a class="btn btn--cta" href="{{#if solution.ctaHref}}{{solution.ctaHref}}{{else}}/contact/{{/if}}">
+              {{#if solution.ctaLabel}}{{solution.ctaLabel}}{{else}}Get a Quote{{/if}}
+            </a>
+          </div>
+
+        </div>
+        <aside class="layout-with-sidebar__sidebar">
+          {{> sidebar}}
+        </aside>
+      </div>
+    </div>
+  </main>
+  {{> footer}}
+  {{> contact-float}}
+  <script type="module" src="/assets/js/nav.js"></script>
+</body>
+</html>

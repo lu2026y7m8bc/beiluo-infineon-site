@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {{> head-meta}}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "{{seo.title}}",
+    "description": "{{seo.description}}"
+  }
+  </script>
+</head>
+<body>
+  {{> nav}}
+  <main id="main">
+    {{> breadcrumb}}
+    <div class="container">
+      <div class="layout-with-sidebar">
+        <div class="layout-with-sidebar__main">
+
+          <header class="page-hero">
+            <h1 class="page-hero__title">Infineon Application Solutions</h1>
+            <p class="page-hero__desc">BeiLuo provides turnkey Infineon-based application solutions for motor drive, EV charging, industrial IoT, embedded control, and solar inverter designs. Each solution includes a bill of materials with part numbers from our authorized Infineon stock.</p>
+          </header>
+
+          <div class="solutions-grid">
+            {{#each solutions}}
+            <div class="solution-card">
+              <h2 class="solution-card__title"><a href="/solutions/{{slug}}/">{{title}}</a></h2>
+              <span class="solution-card__industry">{{industry}}</span>
+              <p class="solution-card__summary">{{summary}}</p>
+              <a class="btn btn--outline solution-card__link" href="/solutions/{{slug}}/">View Solution</a>
+            </div>
+            {{/each}}
+          </div>
+
+        </div>
+        <aside class="layout-with-sidebar__sidebar">
+          {{> sidebar}}
+        </aside>
+      </div>
+    </div>
+  </main>
+  {{> footer}}
+  {{> contact-float}}
+  <script type="module" src="/assets/js/nav.js"></script>
+</body>
+</html>
