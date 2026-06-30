@@ -332,6 +332,89 @@ describe('buildPageList', () => {
     assert.ok(p, '/products/mcu/tc387qp/ not found');
   });
 
+  it('per-category namespace isolation: same partNo in different categories yields separate URLs without -2 suffix', () => {
+    // Regression test: verify that dedup is per-category, not global.
+    // Create data with three categories:
+    // - igbt: has TWO models with same partNo (to test dedup within category)
+    // - mosfet: has ONE model with the SAME partNo as igbt (to test isolation across categories)
+    const testData = {
+      ...data,
+      products: {
+        categories: [
+          {
+            slug: 'igbt',
+            name: 'IGBT',
+            title: 'Infineon IGBT Distributor',
+            metaDescription: 'IGBT meta',
+            description: 'IGBT desc',
+            faeNote: 'FAE note',
+            icon: '/assets/svg/icons/igbt.svg',
+            selectionGuideHref: '/support/guides/how-to-select-infineon-igbt/',
+            selectionGuideDownloadHref: '/assets/docs/igbt-guide.pdf',
+            columns: [],
+            models: [
+              {
+                partNo: 'IKW40N120H3',
+                series: 'H3',
+                params: {},
+                package: 'TO-247',
+                stock: 'inStock',
+                href: '/products/igbt/ikw40n120h3/',
+              },
+              {
+                partNo: 'IKW40N120H3',  // Duplicate within same category
+                series: 'H3',
+                params: {},
+                package: 'TO-247',
+                stock: 'inStock',
+                href: '/products/igbt/ikw40n120h3-2/',
+              },
+            ],
+          },
+          {
+            slug: 'mosfet',
+            name: 'MOSFET',
+            title: 'Infineon MOSFET Distributor',
+            metaDescription: 'MOSFET meta',
+            description: 'MOSFET desc',
+            faeNote: 'FAE note',
+            icon: '/assets/svg/icons/mosfet.svg',
+            selectionGuideHref: '/support/guides/how-to-select-infineon-mosfet/',
+            selectionGuideDownloadHref: '/assets/docs/mosfet-guide.pdf',
+            columns: [],
+            models: [
+              {
+                partNo: 'IKW40N120H3',  // Same partNo as igbt!
+                series: 'H3',
+                params: {},
+                package: 'TO-247',
+                stock: 'inStock',
+                href: '/products/mosfet/ikw40n120h3/',
+              },
+            ],
+          },
+        ],
+      },
+    };
+
+    const testPages = buildPageList(testData);
+
+    // Assert: IGBT category dedup still works (within-category duplicates get -2)
+    const igbtPage1 = findPage(testPages, '/products/igbt/ikw40n120h3/');
+    assert.ok(igbtPage1, '/products/igbt/ikw40n120h3/ should exist');
+
+    const igbtPage2 = findPage(testPages, '/products/igbt/ikw40n120h3-2/');
+    assert.ok(igbtPage2, '/products/igbt/ikw40n120h3-2/ should exist (dedup within category)');
+
+    // Assert: MOSFET category gets same slug WITHOUT -2 (per-category isolation)
+    const mosfetPage = findPage(testPages, '/products/mosfet/ikw40n120h3/');
+    assert.ok(mosfetPage, '/products/mosfet/ikw40n120h3/ should exist (per-category isolation)');
+
+    // Sanity: mosfet should NOT get -2 suffix
+    const mosfetPageWithSuffix = findPage(testPages, '/products/mosfet/ikw40n120h3-2/');
+    assert.ok(!mosfetPageWithSuffix, '/products/mosfet/ikw40n120h3-2/ should NOT exist (no conflict in mosfet category)');
+  });
+
   it('product detail breadcrumb has 4 levels (Home / Products / Category / PartNo)', () => {
     const p = findPage(pages, '/products/igbt/ikw40n120h3/');
     assert.equal(p.breadcrumb.length, 4);
