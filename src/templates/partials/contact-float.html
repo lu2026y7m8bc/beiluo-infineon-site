@@ -1,0 +1,19 @@
+<aside class="contact-float" aria-label="Quick contact">
+  <a class="contact-float__btn contact-float__btn--wa" href="https://wa.me/8615013702378" target="_blank" rel="noopener noreferrer" aria-label="Contact us on WhatsApp">
+    <!-- placeholder WhatsApp icon (Phase 3: real SVG) -->
+    <svg class="contact-float__icon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <rect width="24" height="24" rx="12" fill="#25D366"/>
+      <path d="M7 12 Q12 6 17 12 Q12 18 7 12Z" fill="#fff"/>
+    </svg>
+    <span class="contact-float__label">WhatsApp</span>
+  </a>
+  <button class="contact-float__btn contact-float__btn--wc" type="button" aria-label="Show WeChat QR" data-wechat-toggle data-wechat="{{#if contact}}{{contact.wechat}}{{/if}}">
+    <!-- placeholder WeChat icon (Phase 3: real SVG) -->
+    <svg class="contact-float__icon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <rect width="24" height="24" rx="12" fill="#07C160"/>
+      <circle cx="9" cy="12" r="2" fill="#fff"/>
+      <circle cx="15" cy="12" r="2" fill="#fff"/>
+    </svg>
+    <span class="contact-float__label">WeChat</span>
+  </button>
+</aside>

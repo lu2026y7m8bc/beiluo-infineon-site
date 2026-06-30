@@ -914,3 +914,230 @@ body.nav-drawer-open {
 .breadcrumb__current {
   color: var(--c-text-muted);
 }
+
+/* ==========================================================================
+   11. Contact Float — T2.7 (right-side fixed quick contact)
+   ========================================================================== */
+
+.contact-float {
+  position: fixed;
+  right: var(--space-4);
+  top: 40%;
+  z-index: var(--z-float);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  transform: translateY(-50%);
+}
+
+.contact-float__btn {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  padding: var(--space-2);
+  border-radius: var(--r-card);
+  background: var(--c-bg);
+  box-shadow: var(--sh-card);
+  color: var(--c-text);
+  text-decoration: none;
+  border: 1px solid var(--c-border);
+  cursor: pointer;
+  transition: box-shadow 0.2s, transform 0.2s;
+  gap: var(--space-1);
+}
+
+.contact-float__btn:hover {
+  box-shadow: var(--sh-hover);
+  transform: translateX(-2px);
+  color: var(--c-text);
+  text-decoration: none;
+}
+
+.contact-float__icon {
+  flex-shrink: 0;
+}
+
+.contact-float__label {
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-medium);
+  line-height: var(--lh-caption);
+  white-space: nowrap;
+}
+
+@media (max-width: 767px) {
+  .contact-float {
+    top: auto;
+    bottom: var(--space-4);
+    transform: none;
+    flex-direction: row;
+    right: var(--space-4);
+  }
+
+  .contact-float__label {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   12. CTA Block — T2.7 (detail-page distributor call-to-action)
+   ========================================================================== */
+
+.cta-block {
+  background: var(--c-primary);
+  padding-block: var(--space-12);
+}
+
+.cta-block__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-6);
+}
+
+.cta-block__title {
+  color: var(--c-footer-heading);
+}
+
+.cta-block__text {
+  color: var(--c-footer-text);
+  max-width: 640px;
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+}
+
+/* .btn--cta (dark text on orange) is reused from section 4 — no override needed */
+
+/* ==========================================================================
+   13. Card Teaser — T2.7 (generic content card: category / article teaser)
+   ========================================================================== */
+
+/* .card base is already defined in section 5 — only modifiers added here */
+
+.card--teaser {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.card__icon {
+  display: flex;
+  align-items: center;
+  color: var(--c-primary);
+  flex-shrink: 0;
+}
+
+.card__image {
+  width: 100%;
+  height: auto;
+  border-radius: var(--r-base);
+  object-fit: cover;
+}
+
+.card__title {
+  font-family: var(--font-heading);
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-h3);
+  margin: 0;
+}
+
+.card__title a {
+  color: var(--c-text);
+  text-decoration: none;
+}
+
+.card__title a:hover {
+  color: var(--c-primary);
+  text-decoration: none;
+}
+
+.card__summary {
+  color: var(--c-text-muted);
+  font-size: var(--fs-small);
+  line-height: var(--lh-body);
+  margin: 0;
+  flex: 1;
+}
+
+.card__date {
+  color: var(--c-text-muted);
+  font-size: var(--fs-caption);
+}
+
+.card__more {
+  color: var(--c-primary);
+  font-size: var(--fs-small);
+  font-weight: var(--fw-medium);
+  text-decoration: none;
+  margin-top: auto;
+}
+
+.card__more:hover {
+  color: var(--c-primary-dark);
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   14. Sidebar — T2.7 (navigation sidebar: categories / related entries)
+   ========================================================================== */
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.sidebar__group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.sidebar__heading {
+  font-family: var(--font-heading);
+  font-size: var(--fs-h4);
+  font-weight: var(--fw-semibold);
+  color: var(--c-text);
+  padding-bottom: var(--space-2);
+  border-bottom: 2px solid var(--c-border);
+}
+
+.sidebar__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.sidebar__item {
+  display: block;
+}
+
+.sidebar__link {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding-inline: var(--space-3);
+  font-size: var(--fs-small);
+  color: var(--c-text);
+  text-decoration: none;
+  border-radius: var(--r-base);
+  transition: color 0.15s, background-color 0.15s;
+}
+
+.sidebar__link:hover {
+  color: var(--c-primary);
+  background: var(--c-primary-tint);
+  text-decoration: none;
+}
+
+.sidebar__link.is-active {
+  color: var(--c-primary);
+  background: var(--c-primary-tint);
+  font-weight: var(--fw-semibold);
+  border-left: 3px solid var(--c-primary);
+  padding-left: calc(var(--space-3) - 3px);
+}
