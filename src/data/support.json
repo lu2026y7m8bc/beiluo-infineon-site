@@ -110,6 +110,16 @@
           "title": "Infineon IGBT Product Overview PDF",
           "href": "/assets/docs/beiluo-igbt-selection-guide.pdf"
         }
+      ],
+      "contextLinks": [
+        {
+          "text": "Infineon IKW40N120H3 IGBT",
+          "href": "/products/igbt/ikw40n120h3/"
+        },
+        {
+          "text": "Infineon IGBT category",
+          "href": "/products/igbt/"
+        }
       ]
     },
     {
@@ -145,6 +155,16 @@
         {
           "title": "BeiLuo MCU Selection Guide PDF",
           "href": "/assets/docs/beiluo-mcu-selection-guide.pdf"
+        }
+      ],
+      "contextLinks": [
+        {
+          "text": "Infineon TC264DA MCU",
+          "href": "/products/mcu/tc264da/"
+        },
+        {
+          "text": "Infineon MCU category",
+          "href": "/products/mcu/"
         }
       ]
     },
@@ -182,6 +202,16 @@
           "title": "OptiMOS MOSFET Application Note PDF",
           "href": "/assets/docs/beiluo-mosfet-application-note.pdf"
         }
+      ],
+      "contextLinks": [
+        {
+          "text": "Infineon IRFS4321PBF MOSFET",
+          "href": "/products/mosfet/irfs4321pbf/"
+        },
+        {
+          "text": "Infineon MOSFET category",
+          "href": "/products/mosfet/"
+        }
       ]
     },
     {
@@ -217,6 +247,16 @@
         {
           "title": "Infineon Sensor Application Note PDF",
           "href": "/assets/docs/beiluo-sensor-application-note.pdf"
+        }
+      ],
+      "contextLinks": [
+        {
+          "text": "Infineon TLI4966G sensor",
+          "href": "/products/sensors/tli4966g/"
+        },
+        {
+          "text": "Infineon Sensors category",
+          "href": "/products/sensors/"
         }
       ]
     }

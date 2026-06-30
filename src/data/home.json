@@ -32,6 +32,24 @@
       }
     ]
   },
+  "trustBar": [
+    {
+      "value": "10,000+",
+      "label": "Part Numbers in Stock"
+    },
+    {
+      "value": "24h",
+      "label": "Quotation Response Time"
+    },
+    {
+      "value": "Top 8",
+      "label": "Infineon Distributor in China"
+    },
+    {
+      "value": "FAE",
+      "label": "Technical Support Team"
+    }
+  ],
   "whyChooseUs": [
     {
       "icon": "/assets/svg/icons/inventory.svg",
