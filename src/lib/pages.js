@@ -101,10 +101,11 @@ export function buildPageList(data) {
     // Category index page
     {
       const breadcrumb = markCurrentLast([bc('Home', '/'), bc('Products', '/products/')]);
+      const seo = { ...site.seo, title: category.title, description: category.metaDescription, canonical: catUrl };
       pages.push({
         url: catUrl,
         template: 'product-category',
-        context: { ...site, category, breadcrumb },
+        context: { ...site, seo, category, breadcrumb },
         breadcrumb,
       });
     }
@@ -120,10 +121,11 @@ export function buildPageList(data) {
         bc(category.name, catUrl),
         bc(model.partNo, modelUrl),
       ]);
+      const seo = { ...site.seo, title: `${model.partNo} ${category.name} | ${site.brand.name}`, description: model.shortDescription, canonical: modelUrl };
       pages.push({
         url: modelUrl,
         template: 'product-detail',
-        context: { ...site, category, model, breadcrumb },
+        context: { ...site, seo, category, model, breadcrumb },
         breadcrumb,
       });
     }
@@ -145,10 +147,11 @@ export function buildPageList(data) {
   for (const solution of solutions.solutions) {
     const solutionUrl = `/solutions/${solution.slug}/`;
     const breadcrumb = markCurrentLast([bc('Home', '/'), bc('Solutions', '/solutions/')]);
+    const seo = { ...site.seo, title: `${solution.title} | ${site.brand.name}`, description: solution.metaDescription, canonical: solutionUrl };
     pages.push({
       url: solutionUrl,
       template: 'solution-detail',
-      context: { ...site, solution, breadcrumb },
+      context: { ...site, seo, solution, breadcrumb },
       breadcrumb,
     });
   }
@@ -212,10 +215,11 @@ export function buildPageList(data) {
       bc(catName, `/support/${article.category}/`),
       bc(article.title, articleUrl),
     ]);
+    const seo = { ...site.seo, title: `${article.title} | ${site.brand.name}`, description: article.metaDescription || article.title, canonical: articleUrl };
     pages.push({
       url: articleUrl,
       template: 'tech-detail',
-      context: { ...site, article, breadcrumb },
+      context: { ...site, seo, article, breadcrumb },
       breadcrumb,
     });
   }
@@ -236,10 +240,11 @@ export function buildPageList(data) {
   for (const article of news.articles) {
     const articleUrl = `/news/${article.slug}/`;
     const breadcrumb = markCurrentLast([bc('Home', '/'), bc('News', '/news/')]);
+    const seo = { ...site.seo, title: `${article.title} | ${site.brand.name}`, description: article.summary || article.title, canonical: articleUrl };
     pages.push({
       url: articleUrl,
       template: 'news-detail',
-      context: { ...site, article, breadcrumb },
+      context: { ...site, seo, article, breadcrumb },
       breadcrumb,
     });
   }
