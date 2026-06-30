@@ -11,7 +11,7 @@
 | Code | Dimension | What is verified |
 |------|-----------|-----------------|
 | D1 | Field Completeness | All required fields from `*.schema.md` are present; no required key is absent |
-| D2 | Pure English | Zero Chinese characters or non-ASCII residue in any string value |
+| D2 | Pure English | Prohibits Chinese characters, mojibake (garbled encoding), and residual placeholder text; intentional technical symbols / units (™, °C, µ, ≥, Ω, × etc.) are allowed |
 | D3 | Brand Differentiation | Content is original and BeiLuo-specific; not generic distributor boilerplate (anti-demotion) |
 | D4 | Keyword Embedding | Target keywords (`infineon distributor`, category long-tails) appear naturally, not stuffed |
 | D5 | Count Quotas | Numeric quotas from `*.schema.md` "Count Quotas" table and PRD §1.3 are met |
@@ -133,7 +133,7 @@
 - [ ] Organization + WebSite JSON-LD are derived at build time from `site.json` only — no additional home.json fields needed (home.schema.md §JSON-LD Mapping)
 
 ### D7 — No Residual Stubs
-- [ ] No required field contains `"TBD"`, `"TODO"`, `"lorem ipsum"`, `"placeholder"`, or empty string
+- [ ] No required field contains `"TBD"`, `"TODO"`, `"lorem ipsum"`, `"placeholder"`, or empty string — **exception: `hero.bgSvgAlt` may be `""` when the background SVG is purely decorative** (home.schema.md §hero `hero.bgSvgAlt` — declared Optional/decorative; empty string is correct per WCAG for decorative images)
 - [ ] `hero.ctaPrimary.href` is a real path (`"/contact/"`) — not `"#"` (iron rule §9 #2)
 - [ ] All `href` fields in `productsTeaser`, `solutionsTeaser`, `supportTeaser`, `newsTeaser` resolve to real paths — no empty `#` links
 - [ ] `hero.bgSvgSrc` is a real SVG path (e.g., `"/assets/svg/backgrounds/hero-circuit.svg"`) — not a placeholder string
@@ -378,9 +378,9 @@
 
 ### D5 — Count Quotas
 - [ ] `articles` array length = exactly 4 — PRD §1.3 / §3.6.2 / news.schema.md Count Quotas
-- [ ] Mix of types = **exactly 1 `"company"` + exactly 3 `"industry"`** — required for `news-list` Company / Industry section split (design §5.11); with 4 total articles, the "Latest News" 3-card block at `news-detail` bottom always yields exactly 3 cards (any type, excluding current article) — news.schema.md Count Quotas / PRD §3.6.2
+- [ ] Mix of types: **≥1 `"company"` + ≥1 `"industry"`** (total 4 articles) — both types required so `news-list` Company / Industry sections each have content (design §5.11); "Latest News" 3-card block at `news-detail` bottom always yields exactly 3 cards (any type, excluding current article) — news.schema.md Count Quotas / PRD §3.6.2
 - [ ] Each article `body` ≥ 800 words — news.schema.md Count Quotas
-- [ ] Total articles = exactly 4 (1 company + 3 industry); "Latest News" block picks the 3 most recent articles of any type excluding the current article, always yielding exactly 3 cards — news.schema.md §news-detail Template Rendering Logic
+- [ ] Total articles = exactly 4 (≥1 company + ≥1 industry, any valid split); "Latest News" block picks the 3 most recent articles of any type excluding the current article, always yielding exactly 3 cards — news.schema.md §news-detail Template Rendering Logic
 
 ### D6 — Placeholder Alignment
 - [ ] `article.title` → `{{article.title}}` as H1 in `news-detail`; as card heading in `news-list` (design §5.11 / §5.12)

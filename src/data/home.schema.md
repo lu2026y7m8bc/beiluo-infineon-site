@@ -58,7 +58,7 @@
 | `hero.ctaSecondary.label` | String | Required | e.g., `"Browse Products"` | |
 | `hero.ctaSecondary.href` | String | Required | e.g., `"/products/"` | |
 | `hero.bgSvgSrc` | String | Required | Path to abstract circuit-board background SVG: `"/assets/svg/backgrounds/hero-circuit.svg"` | `{{hero.bgSvgSrc}}` as background or `<img>` with decorative alt |
-| `hero.bgSvgAlt` | String | Required | Alt text for hero SVG (decorative: use `""` if purely decorative, else describe) | `{{hero.bgSvgAlt}}` |
+| `hero.bgSvgAlt` | String | Optional | Alt text for hero background SVG. Decorative-only background: use `alt=""` or `role="presentation"` — empty string is allowed and correct for purely decorative images. If the SVG carries meaningful content, provide a descriptive alt. | `{{hero.bgSvgAlt}}` |
 | `hero.trustBadges` | Array\<TrustBadge\> | Required | 3 trust indicators below CTA buttons | `{{hero.trustBadges}}` loop |
 
 ### `TrustBadge` Shape

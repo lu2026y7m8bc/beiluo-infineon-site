@@ -592,7 +592,7 @@ checked before a template is considered delivered. Items are verifiable against 
 ### D1 — nav / footer / breadcrumb
 
 - [ ] Breadcrumb: `Home / News / <Article Title>`. (design §4.3)
-- [ ] **NO sidebar** on news-detail (PRD C7: single-column centered; "Latest Industry News" 3 cards at bottom substitute for sidebar navigation). (design §5.12, prd §1.2 C7)
+- [ ] **NO sidebar** on news-detail (PRD C7: single-column centered; **"Latest News"** 3-card block at bottom — 3 most recent articles of any type, excluding current — serves as news navigation). (design §5.12, prd §1.2 C7)
 - [ ] Globally consistent `<nav>`, `<footer>`, right-side contact float. (design §4.1, §4.2, §4.5)
 
 ### D2 — design tokens

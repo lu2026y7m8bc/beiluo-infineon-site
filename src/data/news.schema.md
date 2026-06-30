@@ -14,7 +14,7 @@
 | Item | Quota |
 |------|-------|
 | `articles` array length | **exactly 4** |
-| Mix of types | **1 `"company"` + 3 `"industry"`** — required for `news-list` Company / Industry section split (design §5.11); with 4 total articles the "Latest News" 3-card block at `news-detail` bottom always yields exactly 3 cards (any type, excluding current article) |
+| Mix of types | **≥1 `"company"` + ≥1 `"industry"`** (total 4 articles) — both types required so `news-list` Company / Industry sections each have content (design §5.11); "Latest News" 3-card block at `news-detail` bottom always yields exactly 3 cards (any type, excluding current article) |
 | `body` word count | **≥800 words** per article |
 | `latestNews` card count (rendered at page bottom) | 3 cards (from this same articles array, excluding current) |
 
