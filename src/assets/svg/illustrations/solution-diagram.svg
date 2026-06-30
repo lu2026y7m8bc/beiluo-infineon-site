@@ -45,7 +45,7 @@
     <rect x="340" y="110" width="100" height="80" class="block" rx="4"/>
     <text x="390" y="150" class="label">Infineon</text>
     <text x="390" y="170" class="label">Components</text>
-    <text x="390" y="187" class="label-sub">& Parts</text>
+    <text x="390" y="187" class="label-sub">&amp; Parts</text>
   </g>
 
   <!-- Supporting connections with component icons -->
