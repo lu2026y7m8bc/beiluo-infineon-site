@@ -84,6 +84,20 @@ function validateSite(site, errors) {
   if (!nonEmptyString(jsonLd.organizationType)) {
     errors.push('site: jsonLd.organizationType must exist and be a non-empty string');
   }
+
+  // JSON-LD safety: fields embedded as raw strings in <script type="application/ld+json">
+  // must not contain characters that would break JSON syntax
+  const jsonLdFields = [
+    ['brand.name', brand.name],
+    ['brand.oneLiner', brand.oneLiner],
+    ['jsonLd.organizationUrl', jsonLd.organizationUrl],
+    ['jsonLd.organizationType', jsonLd.organizationType],
+  ];
+  for (const [path, val] of jsonLdFields) {
+    if (typeof val === 'string' && /["\\\n\r]/.test(val)) {
+      errors.push(`site: ${path} contains JSON-unsafe characters (" \\ or newline) — breaks JSON-LD output`);
+    }
+  }
 }
 
 function validateProducts(products, errors) {
