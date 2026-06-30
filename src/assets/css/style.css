@@ -897,7 +897,7 @@ body.nav-drawer-open {
 }
 
 .breadcrumb__item + .breadcrumb__item::before {
-  content: '/';
+  content: '/' / ''; /* decorative: empty alt-text so screen readers skip the separator */
   margin-right: var(--space-2);
   color: var(--c-text-muted);
 }
