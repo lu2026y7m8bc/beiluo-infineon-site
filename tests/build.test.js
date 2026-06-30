@@ -1,6 +1,6 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
-import { assembleSite } from '../src/build.js';
+import { assembleSite, checkPathSafe } from '../src/build.js';
 
 // ── Minimal in-memory fixtures ────────────────────────────────────────────────
 // Produces exactly 7 pages: home / about / contact /
@@ -183,6 +183,62 @@ describe('assembleSite', () => {
         }),
       /Missing field/,
       'assembleSite should throw when a template references a missing data field',
+    );
+  });
+
+  // ── Fix 2: link checker uses original page URLs ──────────────────────────────
+
+  it('dead-link issue.page equals the page URL not the dist file path', () => {
+    const deadTemplates = {
+      ...minTemplates,
+      home: '<html><body><a href="/nope/">Dead link</a>{{> nav}}</body></html>',
+    };
+    const { issues } = assembleSite({
+      data: minData,
+      templates: deadTemplates,
+      partials: minPartials,
+      baseUrl: BASE_URL,
+    });
+    const deadIssue = issues.find(i => i.href === '/nope/' && i.reason === 'dead');
+    assert.ok(deadIssue, 'dead link /nope/ should be reported');
+    assert.equal(
+      deadIssue.page,
+      '/',
+      'issue.page should be the page URL "/" not a dist file path like "/index.html"',
+    );
+  });
+});
+
+// ── checkPathSafe (Fix 1: path-traversal guard) ───────────────────────────────
+
+describe('checkPathSafe', () => {
+  it('rejects relPath containing ".." at the start', () => {
+    assert.throws(
+      () => checkPathSafe('dist', '../escape.html'),
+      /traversal/i,
+      'should throw for "../escape.html"',
+    );
+  });
+
+  it('rejects relPath containing ".." in a nested position', () => {
+    assert.throws(
+      () => checkPathSafe('dist', 'sub/../../escape.html'),
+      /traversal/i,
+      'should throw for "sub/../../escape.html"',
+    );
+  });
+
+  it('accepts a normal safe relPath at root level', () => {
+    assert.doesNotThrow(
+      () => checkPathSafe('dist', 'index.html'),
+      'index.html should be safe',
+    );
+  });
+
+  it('accepts a normal safe nested relPath', () => {
+    assert.doesNotThrow(
+      () => checkPathSafe('dist', 'about/index.html'),
+      'about/index.html should be safe',
     );
   });
 });

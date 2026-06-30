@@ -13,7 +13,7 @@
  */
 
 import { readdir, readFile, mkdir, writeFile } from 'node:fs/promises';
-import { join, extname, basename, dirname, resolve } from 'node:path';
+import { join, extname, basename, dirname, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { buildPageList } from './lib/pages.js';
@@ -43,6 +43,35 @@ function urlToDistPath(url) {
   return url.replace(/^\//, '').replace(/\/$/, '') + '/index.html';
 }
 
+// ── Path-traversal guard ──────────────────────────────────────────────────────
+
+/**
+ * Verify that a relative output path does not escape outDir.
+ * Rejects any relPath containing '..' segments (first-line defence) and any
+ * path whose resolved absolute form falls outside resolve(outDir).
+ *
+ * @param {string} outDir  - output directory (may be relative or absolute)
+ * @param {string} relPath - relative path to be written under outDir
+ * @throws {Error} if the path would escape outDir
+ */
+export function checkPathSafe(outDir, relPath) {
+  // Reject '..' segments explicitly (works for both / and \ separators)
+  const segments = String(relPath).split(/[/\\]/);
+  if (segments.some(seg => seg === '..')) {
+    throw new Error(
+      `Path traversal detected: relPath "${relPath}" contains ".." segments`,
+    );
+  }
+  // Resolve-based check (defense-in-depth against encoded or exotic forms)
+  const outRoot = resolve(outDir);
+  const abs = resolve(outDir, relPath);
+  if (abs !== outRoot && !abs.startsWith(outRoot + sep)) {
+    throw new Error(
+      `Path traversal detected: resolved path "${abs}" escapes outDir "${outRoot}"`,
+    );
+  }
+}
+
 // ── Pure core ─────────────────────────────────────────────────────────────────
 
 /**
@@ -70,6 +99,9 @@ export function assembleSite({
   const pages = buildPageList(data);
   const files = [];
 
+  // Collect rendered HTML pages keyed by their original URL (for link checker)
+  const htmlPagesForLinkCheck = [];
+
   for (const page of pages) {
     const templateStr = templates[page.template];
     if (!templateStr) {
@@ -80,6 +112,8 @@ export function assembleSite({
     // render() throws on missing context fields — let the error bubble up
     const content = render(templateStr, page.context, partials);
     files.push({ path: urlToDistPath(page.url), content });
+    // Use the original page URL so issue.page reports e.g. "/" not "/index.html"
+    htmlPagesForLinkCheck.push({ path: page.url, html: content });
   }
 
   // Append sitemap.xml (all page URLs)
@@ -89,12 +123,8 @@ export function assembleSite({
   // Append robots.txt
   files.push({ path: 'robots.txt', content: buildRobots(baseUrl) });
 
-  // Dead / empty link validation — HTML files only
-  const htmlPages = files
-    .filter(f => f.path.endsWith('.html'))
-    .map(f => ({ path: '/' + f.path, html: f.content }));
-
-  const issues = findLinkIssues(htmlPages);
+  // Dead / empty link validation — use original page URLs, not dist file paths
+  const issues = findLinkIssues(htmlPagesForLinkCheck);
 
   return { files, issues };
 }
@@ -195,6 +225,8 @@ export async function buildSite({
   // Write output files
   let written = 0;
   for (const { path: relPath, content } of files) {
+    // Guard against path-traversal before touching the filesystem
+    checkPathSafe(outDir, relPath);
     const outPath = join(outDir, relPath);
     await mkdir(dirname(outPath), { recursive: true });
     await writeFile(outPath, content, 'utf8');
