@@ -46,7 +46,7 @@
         "href": "/news/"
       },
       {
-        "label": "About",
+        "label": "About Us",
         "href": "/about/"
       },
       {
@@ -142,7 +142,7 @@
   },
   "seo": {
     "defaultTitle": "Infineon Distributor | BeiLuo",
-    "defaultDescription": "BeiLuo is a leading Infineon distributor offering MCU, IGBT, MOSFET, and sensors with global reliability.",
+    "defaultDescription": "BeiLuo is a leading infineon distributor offering MCU, IGBT, MOSFET, and sensors with global reliability.",
     "siteName": "BeiLuo",
     "baseUrl": "https://www.beiluo.com"
   },
