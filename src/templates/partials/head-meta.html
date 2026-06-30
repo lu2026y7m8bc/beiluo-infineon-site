@@ -1,14 +1,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{{seo.title}}</title>
-<meta name="description" content="{{seo.description}}">
-<link rel="canonical" href="{{seo.canonical}}">
+<title>{{#if seo.title}}{{seo.title}}{{else}}{{seo.defaultTitle}}{{/if}}</title>
+<meta name="description" content="{{#if seo.description}}{{seo.description}}{{else}}{{seo.defaultDescription}}{{/if}}">
+{{#if seo.canonical}}<link rel="canonical" href="{{seo.canonical}}">{{/if}}
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="{{seo.title}}">
-<meta property="og:description" content="{{seo.description}}">
-<meta property="og:url" content="{{seo.canonical}}">
+<meta property="og:title" content="{{#if seo.title}}{{seo.title}}{{else}}{{seo.defaultTitle}}{{/if}}">
+<meta property="og:description" content="{{#if seo.description}}{{seo.description}}{{else}}{{seo.defaultDescription}}{{/if}}">
+{{#if seo.canonical}}<meta property="og:url" content="{{seo.canonical}}">{{/if}}
 {{#if seo.ogImage}}<meta property="og:image" content="{{seo.ogImage}}">{{/if}}
 <meta name="twitter:card" content="summary_large_image">
 

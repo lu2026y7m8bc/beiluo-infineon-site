@@ -85,10 +85,11 @@ export function buildPageList(data) {
   // ── 4. Products list ─────────────────────────────────────────────────────────
   {
     const breadcrumb = markCurrentLast([bc('Home', '/')]);
+    const seo = { ...site.seo, title: `Infineon Products | ${site.brand.name}`, description: `Browse ${site.brand.name} authorized Infineon products: MCU, IGBT, MOSFET and Sensors. Deep stock, FAE support, global delivery.`, canonical: '/products/' };
     pages.push({
       url: '/products/',
       template: 'products-list',
-      context: { ...site, categories: products.categories, breadcrumb },
+      context: { ...site, seo, categories: products.categories, breadcrumb },
       breadcrumb,
     });
   }
@@ -131,10 +132,11 @@ export function buildPageList(data) {
   // ── 7. Solutions list ────────────────────────────────────────────────────────
   {
     const breadcrumb = markCurrentLast([bc('Home', '/')]);
+    const seo = { ...site.seo, title: `Infineon Application Solutions | ${site.brand.name}`, description: `Explore ${site.brand.name} Infineon-based application solutions: motor drive, EV charger, industrial IoT, MCU embedded control, and solar inverter.`, canonical: '/solutions/' };
     pages.push({
       url: '/solutions/',
       template: 'solutions-list',
-      context: { ...site, solutions: solutions.solutions, breadcrumb },
+      context: { ...site, seo, solutions: solutions.solutions, breadcrumb },
       breadcrumb,
     });
   }
@@ -154,10 +156,11 @@ export function buildPageList(data) {
   // ── 9. Support overview ──────────────────────────────────────────────────────
   {
     const breadcrumb = markCurrentLast([bc('Home', '/')]);
+    const seo = { ...site.seo, title: `Technical Support & Guides | ${site.brand.name}`, description: `${site.brand.name} technical support: Infineon component selection guides, application notes, and FAE Q&A for MCU, IGBT, MOSFET and Sensors.`, canonical: '/support/' };
     pages.push({
       url: '/support/',
       template: 'support-list',
-      context: { ...site, ...support, breadcrumb },
+      context: { ...site, seo, ...support, breadcrumb },
       breadcrumb,
     });
   }
@@ -220,10 +223,11 @@ export function buildPageList(data) {
   // ── 13. News list ────────────────────────────────────────────────────────────
   {
     const breadcrumb = markCurrentLast([bc('Home', '/')]);
+    const seo = { ...site.seo, title: `News | ${site.brand.name} Infineon Distributor`, description: `Latest news from ${site.brand.name}: Infineon distributor updates, stock announcements, industry insights, and wide-bandgap semiconductor market coverage.`, canonical: '/news/' };
     pages.push({
       url: '/news/',
       template: 'news-list',
-      context: { ...site, articles: news.articles, breadcrumb },
+      context: { ...site, seo, articles: news.articles, breadcrumb },
       breadcrumb,
     });
   }
