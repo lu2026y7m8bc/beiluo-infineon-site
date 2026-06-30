@@ -378,9 +378,9 @@
 
 ### D5 — Count Quotas
 - [ ] `articles` array length = exactly 4 — PRD §1.3 / §3.6.2 / news.schema.md Count Quotas
-- [ ] Mix of types = **exactly 1 `"company"` + exactly 3 `"industry"`** — ensures the "Latest Industry News" 3-card block at `news-detail` bottom always yields 3 `type=="industry"` cards (excluding current article) — news.schema.md Count Quotas / PRD §3.6.2
+- [ ] Mix of types = **exactly 1 `"company"` + exactly 3 `"industry"`** — required for `news-list` Company / Industry section split (design §5.11); with 4 total articles, the "Latest News" 3-card block at `news-detail` bottom always yields exactly 3 cards (any type, excluding current article) — news.schema.md Count Quotas / PRD §3.6.2
 - [ ] Each article `body` ≥ 800 words — news.schema.md Count Quotas
-- [ ] Total articles = exactly 4 (1 company + 3 industry); "Latest Industry News" block filters `type === "industry" && slug !== currentSlug`, always yielding 3 cards — news.schema.md §news-detail Template Rendering Logic
+- [ ] Total articles = exactly 4 (1 company + 3 industry); "Latest News" block picks the 3 most recent articles of any type excluding the current article, always yielding exactly 3 cards — news.schema.md §news-detail Template Rendering Logic
 
 ### D6 — Placeholder Alignment
 - [ ] `article.title` → `{{article.title}}` as H1 in `news-detail`; as card heading in `news-list` (design §5.11 / §5.12)

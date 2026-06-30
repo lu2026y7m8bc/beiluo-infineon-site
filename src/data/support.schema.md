@@ -140,6 +140,16 @@ Used by `validate-data.js` to verify that inline links in `body` actually resolv
 
 ## JSON-LD Mapping
 
+### `support-list` template — overview, category index, and tag pages (design §10, PRD §3.5.1–3.5.3)
+
+All three URL variants of the `support-list` template are non-home pages and therefore carry `BreadcrumbList`.
+
+| URL Pattern | Schema Type | Breadcrumb Items |
+|-------------|-------------|-----------------|
+| `/support/` | `BreadcrumbList` | `Home → Support` |
+| `/support/<category>/` | `BreadcrumbList` | `Home → Support → <category.name>` |
+| `/support/tags/<tag>/` | `BreadcrumbList` | `Home → Support → Tags → <tag.name>` |
+
 ### `tech-detail` template (design §10, PRD §3.5.4)
 
 | Schema Type | Field Mapping |

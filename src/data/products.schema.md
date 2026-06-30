@@ -105,7 +105,7 @@ These fields power the `product-detail` template (design §5.4).
 | `faq` | Array\<FaqItem\> | Required | 3–5 FAQ items (accordion pattern — GEO-optimized Q&A) | `{{model.faq}}` loop as accordion (design §5.4, PRD §3.3.3) |
 | `alternativeParts` | Array\<PartRef\> | Required | Alternative/substitute part numbers (internal links to product pages) | `{{model.alternativeParts}}` in carousel/card section (design §5.4, PRD §3.3.3) |
 | `companionParts` | Array\<PartRef\> | Required | Companion/complementary parts (gate drivers, capacitors, etc.) | `{{model.companionParts}}` in carousel/card section |
-| `brand` | String | Required | Always `"Infineon Technologies"` — for JSON-LD | `Product.brand.name` in JSON-LD |
+| `brand` | String | Required | Always `"Infineon"` — maps to `Product.brand` as `{"@type":"Brand","name":"Infineon"}` in JSON-LD | `Product.brand` in JSON-LD |
 | `mpn` | String | Optional | Manufacturer part number (if different from partNo) | `Product.mpn` in JSON-LD |
 | `gtin` | String | Optional | GTIN if available | `Product.gtin` in JSON-LD |
 
@@ -154,12 +154,19 @@ These fields power the `product-detail` template (design §5.4).
 
 ## JSON-LD Mapping
 
+### `products-list` template (design §10, PRD §3.3.1)
+
+| Schema Type | Data Source |
+|-------------|------------|
+| `BreadcrumbList` | Auto-built: `Home → Products` (`Home` = `"/"`, `Products` = `"/products/"`) |
+
 ### `product-category` template (design §10, PRD §3.3.2)
 
 | Schema Type | Data Source |
 |-------------|------------|
+| `BreadcrumbList` | Auto-built: `Home → Products → <category.name>` |
 | `ItemList` | `category.models[]` — each item is a `ListItem` with `item.@type = "Product"` |
-| `Product` (per item) | `model.partNo` → `sku`, `model.brand` → `brand.name`, `model.href` → `url`, `model.image` → `image`, `model.shortDescription` → `description` |
+| `Product` (per item) | `model.partNo` → `sku`, `{"@type":"Brand","name":"Infineon"}` → `brand`, `model.href` → `url`, `model.image` → `image`, `model.shortDescription` → `description` |
 
 ### `product-detail` template (design §10, PRD §3.3.3)
 
@@ -168,11 +175,12 @@ These fields power the `product-detail` template (design §5.4).
 | `Product.name` | `model.partNo` |
 | `Product.sku` | `model.partNo` |
 | `Product.mpn` | `model.mpn` (fallback to `partNo`) |
-| `Product.brand.name` | `model.brand` (`"Infineon Technologies"`) |
+| `Product.brand` | `{"@type":"Brand","name":"Infineon"}` (derived from `model.brand` = `"Infineon"`) |
 | `Product.description` | `model.shortDescription` |
 | `Product.image` | `model.image` |
 | `Product.url` | `model.href` (absolute, via `site.seo.baseUrl`) |
 | `Product.category` | `model.applications[0]` |
+| `Product.offers` | `{"@type":"Offer","availability":"https://schema.org/InStock"}` when `model.stock=="inStock"`; `{"@type":"Offer","availability":"https://schema.org/PreOrder"}` when `model.stock=="rfq"`. In both cases `"url"` = `model.href` (absolute). `price` and `priceCurrency` are **omitted** — this site operates on RFQ inquiry-based pricing with no public listed price. |
 | `BreadcrumbList` | Auto-built from `Home → Products → <category.name> → <model.partNo>` |
 
 ---

@@ -4,8 +4,8 @@
 > **Templates used**:
 >   - `news-list` (§5.11) — news landing page with Company / Industry News split sections
 >   - `news-detail` (§5.12) — individual news article (single-column magazine layout, **no sidebar**, per PRD C7)
-> **JSON-LD**: `NewsArticle` → `news-detail` pages; `BreadcrumbList` → `news-detail` pages (design §10, PRD §3.6.2).
-> **Constraint**: All values **pure English**. Body text ≥800 words per article. Articles must naturally embed `"infineon distributor"` / `"Infineon"` and BeiLuo context. Design C7: news detail is **single-column centered, no left sidebar** — "Latest Industry News" 3-card block at bottom replaces sidebar navigation.
+> **JSON-LD**: `NewsArticle` → `news-detail` pages; `BreadcrumbList` → `news-list` page and `news-detail` pages (design §10, PRD §3.6.2).
+> **Constraint**: All values **pure English**. Body text ≥800 words per article. Articles must naturally embed `"infineon distributor"` / `"Infineon"` and BeiLuo context. Design C7: news detail is **single-column centered, no left sidebar** — "Latest News" 3-card block at bottom (3 most recent articles, any type, excluding current article) replaces sidebar navigation.
 
 ---
 
@@ -14,7 +14,7 @@
 | Item | Quota |
 |------|-------|
 | `articles` array length | **exactly 4** |
-| Mix of types | **1 `"company"` + 3 `"industry"`** — ensures the "Latest Industry News" 3-card block at news-detail bottom can always show 3 `type=="industry"` cards excluding the current article |
+| Mix of types | **1 `"company"` + 3 `"industry"`** — required for `news-list` Company / Industry section split (design §5.11); with 4 total articles the "Latest News" 3-card block at `news-detail` bottom always yields exactly 3 cards (any type, excluding current article) |
 | `body` word count | **≥800 words** per article |
 | `latestNews` card count (rendered at page bottom) | 3 cards (from this same articles array, excluding current) |
 
@@ -31,7 +31,7 @@ news.json
 
 ## `NewsArticle` Object
 
-### Preview Fields (used in cards on `news-list` and "Latest Industry News" bottom block)
+### Preview Fields (used in cards on `news-list` and "Latest News" bottom block)
 
 | Field | Type | Required | Meaning | Template Placeholder |
 |-------|------|----------|---------|---------------------|
@@ -91,12 +91,18 @@ Articles are sorted by `date` descending within each section. The two sections a
 1. Full-width banner: `bannerImage.src` + overlay + `title` + `date` + `categoryTag` badge.
 2. Single-column centered body: `body` content (no sidebar — PRD C7).
 3. Share bar: uses `share.url` + `share.title` to build WhatsApp / copy-link / LinkedIn share links.
-4. "Latest Industry News" 3-card block: `articles.filter(a => a.type === "industry" && a.slug !== currentSlug).slice(0, 3)` — shows the 3 most recent `industry`-type articles, excluding the current article; with the 1+3 split quota (1 company + 3 industry), this block always yields exactly 3 cards even when viewing an industry article (PRD C7, design §5.12).
+4. "Latest News" 3-card block: the 3 most recent articles of **any type**, sorted by `date` descending, excluding the current article — with exactly 4 articles total this block always yields exactly 3 cards regardless of the current article's type (PRD C7, design §5.12).
 5. Final CTA band: derived from `site.json` global CTA config.
 
 ---
 
 ## JSON-LD Mapping
+
+### `news-list` template (design §10, PRD §3.6.1)
+
+| Schema Type | Data Source |
+|-------------|------------|
+| `BreadcrumbList` | Auto-built: `Home → News` (`Home` = `"/"`, `News` = `"/news/"`) |
 
 ### `news-detail` template (design §10, PRD §3.6.2)
 

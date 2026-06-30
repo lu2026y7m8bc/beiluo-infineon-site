@@ -81,7 +81,9 @@ Each BOM entry is an Infineon component that links to its product detail page (i
 
 ### `solutions-list` template
 
-No dedicated structured data type; page SEO relies on standard meta tags.
+| Schema Type | Data Source |
+|-------------|------------|
+| `BreadcrumbList` | Auto-built: `Home → Solutions` (`Home` = `"/"`, `Solutions` = `"/solutions/"`) |
 
 ### `solution-detail` template (design §10)
 

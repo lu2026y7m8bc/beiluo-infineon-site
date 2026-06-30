@@ -1,7 +1,7 @@
 # check_list1.md — Template Acceptance Rubric
 # BeiLuo Infineon Distributor Site — Phase 5 Template Delivery Gate
 
-**Purpose**: Acceptance rubric for all 13 templates (12 + author page). Every `- [ ]` must be
+**Purpose**: Acceptance rubric for all 12 templates + author page variant (reuses `about`). Every `- [ ]` must be
 checked before a template is considered delivered. Items are verifiable against the listed source.
 
 **Source references**:
@@ -268,7 +268,7 @@ checked before a template is considered delivered. Items are verifiable against 
 ### D7 — JSON-LD
 
 - [ ] `@type: "BreadcrumbList"` matching visible breadcrumb. (design §10)
-- [ ] `@type: "Product"` with `name` (part number), `sku`, `brand` (`{"@type":"Brand","name":"Infineon"}`), `description`, `offers`. (design §10, §5.4)
+- [ ] `@type: "Product"` with `name` (part number), `sku`, `brand` (`{"@type":"Brand","name":"Infineon"}`), `description`, `offers` (`{"@type":"Offer","availability":"...","url":"..."}` — RFQ inquiry-based model: `price` and `priceCurrency` are **omitted**, only `availability` and `url` are present). (design §10, §5.4)
 - [ ] JSON-LD blocks are valid JSON. (prd §4.2)
 
 ### D8 — CTA
@@ -633,12 +633,12 @@ checked before a template is considered delivered. Items are verifiable against 
 ### D8 — CTA
 
 - [ ] Social sharing bar below article body. (design §5.12, prd §3.6.2)
-- [ ] "Latest Industry News" 3-card section at page bottom (serves as news navigation per C7). (design §5.12, prd §3.6.2)
+- [ ] "Latest News" 3-card section at page bottom — 3 most recent articles of any type, excluding the current article (serves as news navigation per C7). (design §5.12, prd §3.6.2)
 - [ ] Distributor CTA block at end of page. (design §5.12, prd §3.6.2)
 
 ### D9 — zero empty links / zero 404
 
-- [ ] "Latest Industry News" 3 cards all link to existing news-detail pages. (prd iron rule #2)
+- [ ] "Latest News" 3 cards all link to existing news-detail pages. (prd iron rule #2)
 - [ ] Social sharing links use valid `href` targets (not empty `#`). (prd iron rule #2)
 - [ ] Breadcrumb links valid. (prd iron rule #2)
 
