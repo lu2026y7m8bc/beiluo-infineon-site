@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {{> head-meta}}
+
+  <!-- JSON-LD: Organization -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "{{{jsonLd.organizationType}}}",
+  "name": "{{{brand.name}}}",
+  "url": "{{{jsonLd.organizationUrl}}}",
+  "description": "{{{brand.oneLiner}}}"
+}
+  </script>
+
+  <!-- JSON-LD: WebSite -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "{{{brand.name}}}",
+  "url": "{{{jsonLd.organizationUrl}}}"
+}
+  </script>
+</head>
+<body>
+  {{> nav}}
+  <main id="main">
+    {{> breadcrumb}}
+
+    <!-- ═══════════════════════════════════════════════════════════
+         1. Hero Section
+    ════════════════════════════════════════════════════════════════ -->
+    <section class="hero">
+      <img src="{{hero.bgSvgSrc}}" alt="" aria-hidden="true" class="hero__bg">
+      <div class="container">
+        <div class="hero__content">
+          <h1 class="hero__headline">{{hero.headline}}</h1>
+          <p class="hero__subtext">{{hero.subText}}</p>
+          <div class="hero__ctas">
+            <a class="btn btn--cta" href="{{hero.ctaPrimary.href}}">{{hero.ctaPrimary.label}}</a>
+            <a class="btn btn--outline" href="{{hero.ctaSecondary.href}}">{{hero.ctaSecondary.label}}</a>
+          </div>
+          <div class="hero__trust-badges">
+            {{#each hero.trustBadges}}
+            <div class="hero__badge">
+              <img src="{{icon}}" alt="" aria-hidden="true" class="hero__badge-icon">
+              <span class="hero__badge-label">{{label}}</span>
+            </div>
+            {{/each}}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         2. Trust Bar (4 stats)
+    ════════════════════════════════════════════════════════════════ -->
+    <section class="trust-bar section">
+      <div class="container">
+        <div class="trust-bar__grid">
+          {{#each trustBar}}
+          <div class="trust-bar__item">
+            <strong class="trust-bar__value">{{value}}</strong>
+            <span class="trust-bar__label">{{label}}</span>
+          </div>
+          {{/each}}
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         3. Why Choose BeiLuo (4 cards)
+    ════════════════════════════════════════════════════════════════ -->
+    <section class="why-choose section">
+      <div class="container">
+        <h2 class="section__title">Why Choose BeiLuo as Your Infineon Distributor</h2>
+        <div class="why-choose__grid">
+          {{#each whyChooseUs}}
+          <div class="card why-choose__card">
+            <img src="{{icon}}" alt="" aria-hidden="true" class="why-choose__icon">
+            <h3 class="card__title">{{title}}</h3>
+            <p class="card__text">{{description}}</p>
+          </div>
+          {{/each}}
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         4. Products Teaser (4 category cards)
+    ════════════════════════════════════════════════════════════════ -->
+    <section class="products-teaser section">
+      <div class="container">
+        <h2 class="section__title">Infineon Product Categories</h2>
+        <p class="products-teaser__sub">Browse our in-stock Infineon components</p>
+        <div class="products-teaser__grid">
+          {{#each productsTeaser}}
+          <div class="card products-teaser__card">
+            <img src="{{icon}}" alt="{{name}} icon" class="products-teaser__icon">
+            <h3 class="card__title"><a href="{{href}}">{{name}}</a></h3>
+            <p class="card__text">{{summary}}</p>
+          </div>
+          {{/each}}
+        </div>
+        <div class="products-teaser__cta">
+          <a class="btn btn--outline" href="/products/">View All Products</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         5. Solutions Teaser (3 cards)
+    ════════════════════════════════════════════════════════════════ -->
+    <section class="solutions-teaser section">
+      <div class="container">
+        <h2 class="section__title">Application Solutions</h2>
+        <div class="solutions-teaser__grid">
+          {{#each solutionsTeaser}}
+          <div class="card solutions-teaser__card">
+            <h3 class="card__title"><a href="{{href}}">{{title}}</a></h3>
+            <p class="card__text">{{summary}}</p>
+          </div>
+          {{/each}}
+        </div>
+        <div class="solutions-teaser__cta">
+          <a class="btn btn--outline" href="/solutions/">View All Solutions</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         6. Support Teaser (3 article links)
+    ════════════════════════════════════════════════════════════════ -->
+    <section class="support-teaser section">
+      <div class="container">
+        <h2 class="section__title">Technical Support &amp; Guides</h2>
+        <div class="support-teaser__list">
+          {{#each supportTeaser}}
+          <article class="support-teaser__item card">
+            <h3 class="card__title"><a href="{{href}}">{{title}}</a></h3>
+            <p class="card__text">{{summary}}</p>
+          </article>
+          {{/each}}
+        </div>
+        <div class="support-teaser__cta">
+          <a class="btn btn--outline" href="/support/">Browse Support</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         7. News Teaser (3 cards)
+    ════════════════════════════════════════════════════════════════ -->
+    <section class="news-teaser section">
+      <div class="container">
+        <h2 class="section__title">Latest News</h2>
+        <div class="news-teaser__grid">
+          {{#each newsTeaser}}
+          <div class="card news-card">
+            <span class="news-card__tag">{{categoryTag}}</span>
+            <h3 class="card__title"><a href="{{href}}">{{title}}</a></h3>
+            <time class="news-card__date" datetime="{{date}}">{{date}}</time>
+          </div>
+          {{/each}}
+        </div>
+        <div class="news-teaser__cta">
+          <a class="btn btn--outline" href="/news/">All News</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         8. Final CTA (inline — custom headline + ctaHref)
+    ════════════════════════════════════════════════════════════════ -->
+    <section class="final-cta">
+      <div class="container">
+        <h2>{{finalCta.headline}}</h2>
+        <p>{{finalCta.subText}}</p>
+        <a class="btn btn--cta" href="{{finalCta.ctaHref}}">{{finalCta.ctaLabel}}</a>
+      </div>
+    </section>
+
+  </main>
+  {{> footer}}
+  {{> contact-float}}
+  <script type="module" src="/assets/js/nav.js"></script>
+</body>
+</html>
