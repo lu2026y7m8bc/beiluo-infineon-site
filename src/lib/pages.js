@@ -174,10 +174,12 @@ export function buildPageList(data) {
   for (const category of support.categories) {
     const catUrl = `/support/${category.slug}/`;
     const breadcrumb = markCurrentLast([bc('Home', '/'), bc('Support', '/support/')]);
+    const seo = { ...site.seo, title: `${category.title} | ${site.brand.name}`, description: category.metaDescription, canonical: catUrl };
+    const catArticles = support.articles.filter(a => a.category === category.slug);
     pages.push({
       url: catUrl,
       template: 'support-list',
-      context: { ...site, category, filterCategory: category.slug, breadcrumb },
+      context: { ...site, seo, category, filterCategory: category.slug, articles: catArticles, breadcrumb },
       breadcrumb,
     });
   }
@@ -195,11 +197,15 @@ export function buildPageList(data) {
     const tagInfo = support.tags
       ? support.tags.find(t => t.slug === tagSlug) ?? null
       : null;
+    const tagName = tagInfo ? tagInfo.name : tagSlug;
+    const tagUrl = `/support/tags/${tagSlug}/`;
     const breadcrumb = markCurrentLast([bc('Home', '/'), bc('Support', '/support/')]);
+    const seo = { ...site.seo, title: `${tagName} | Technical Support | ${site.brand.name}`, description: `${site.brand.name} technical resources tagged with ${tagName}: guides, application notes, and FAE support.`, canonical: tagUrl };
+    const tagArticles = support.articles.filter(a => Array.isArray(a.tags) && a.tags.some(t => slugify(t) === tagSlug));
     pages.push({
-      url: `/support/tags/${tagSlug}/`,
+      url: tagUrl,
       template: 'support-list',
-      context: { ...site, filterTag: tagSlug, tag: tagInfo, breadcrumb },
+      context: { ...site, seo, filterTag: tagSlug, tag: tagInfo, articles: tagArticles, breadcrumb },
       breadcrumb,
     });
   }
