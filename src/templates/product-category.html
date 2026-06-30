@@ -3,15 +3,22 @@
 <head>
   {{> head-meta}}
 
-  <!-- JSON-LD: ItemList -->
+  <!-- JSON-LD: Product per model -->
+  {{#each category.models}}
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "ItemList",
-  "name": "{{{category.name}}} from {{{brand.name}}}",
-  "description": "{{{category.metaDescription}}}"
+  "@type": "Product",
+  "name": "{{partNo}}",
+  "brand": {"@type": "Brand", "name": "{{brand}}"},
+  "offers": {
+    "@type": "Offer",
+    "availability": "{{#if stock}}https://schema.org/InStock{{else}}https://schema.org/PreOrder{{/if}}",
+    "url": "{{href}}"
+  }
 }
   </script>
+  {{/each}}
 </head>
 <body>
   {{> nav}}
@@ -29,12 +36,15 @@
           </header>
 
           <!-- 2. FAE Note Box -->
-          <div class="fae-note">
-            <p><strong>FAE Support:</strong> {{category.faeNote}}</p>
+          <section class="fae-note" aria-labelledby="fae-heading">
+            <h2 id="fae-heading" class="fae-note__title">FAE Technical Support</h2>
+            <p>{{category.faeNote}}</p>
             <a class="btn btn--cta" href="/contact/">Get FAE Consultation</a>
-          </div>
+          </section>
 
           <!-- 3. Models Table -->
+          <section aria-labelledby="models-heading">
+            <h2 id="models-heading" class="section__title">Available {{category.name}} Models</h2>
           <div class="table-wrapper" role="region" aria-label="{{category.name}} models" tabindex="0">
             <table class="models-table" data-table="product-filter">
               <thead>
@@ -51,13 +61,15 @@
                   <td data-col="partNo"><a href="{{href}}">{{partNo}}</a></td>
                   <td data-col="series">{{series}}</td>
                   <td data-col="package">{{package}}</td>
-                  <td data-col="stock"><span class="stock-badge stock-badge--{{stock}}">{{#if stock}}{{stock}}{{/if}}</span></td>
+                  <td data-col="stock"><span class="stock-badge{{#if stock}} stock-badge--{{stock}}{{/if}}">{{stock}}</span></td>
                   <td><a class="btn btn--sm btn--outline" href="{{href}}">Details</a></td>
                 </tr>
                 {{/each}}
               </tbody>
             </table>
           </div>
+
+          </section>
 
           <!-- 4. Category CTA -->
           <div class="cat-cta">
