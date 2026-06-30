@@ -25,6 +25,11 @@
   /* Colors - Special */
   --c-ink-banner: #0B1B2B;
 
+  /* Colors - Footer */
+  --c-footer-text: #CBD5E1;
+  --c-footer-heading: #FFFFFF;
+  --c-footer-border: rgba(255, 255, 255, 0.1);
+
   /* Typography - Font Families */
   --font-heading: 'Inter', system-ui, sans-serif;
   --font-body: 'Roboto', system-ui, sans-serif;

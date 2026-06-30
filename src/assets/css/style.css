@@ -742,18 +742,18 @@ body.nav-drawer-open {
 
 .site-footer {
   background: var(--c-ink-banner);
-  color: #cbd5e1;
+  color: var(--c-footer-text);
   padding-block: var(--space-12);
 }
 
 .site-footer a {
-  color: #cbd5e1;
+  color: var(--c-footer-text);
   text-decoration: none;
   transition: color 0.15s;
 }
 
 .site-footer a:hover {
-  color: #fff;
+  color: var(--c-footer-heading);
 }
 
 .site-footer__grid {
@@ -784,20 +784,20 @@ body.nav-drawer-open {
   font-family: var(--font-heading);
   font-size: var(--fs-h4);
   font-weight: var(--fw-semibold);
-  color: #fff;
+  color: var(--c-footer-heading);
   margin-bottom: var(--space-4);
 }
 
 .site-footer__tagline {
   font-size: var(--fs-small);
-  color: #cbd5e1;
+  color: var(--c-footer-text);
   margin-bottom: var(--space-2);
   line-height: var(--lh-body);
 }
 
 .site-footer__intro {
   font-size: var(--fs-small);
-  color: #cbd5e1;
+  color: var(--c-footer-text);
   line-height: var(--lh-body);
 }
 
@@ -819,23 +819,23 @@ body.nav-drawer-open {
   min-height: 44px;
   padding: 0.5em 0;
   font-size: var(--fs-body);
-  color: #cbd5e1;
+  color: var(--c-footer-text);
   text-decoration: none;
   transition: color 0.15s;
 }
 
 .site-footer__link:hover {
-  color: #fff;
+  color: var(--c-footer-heading);
   text-decoration: underline;
 }
 
 .site-footer__label {
   font-size: var(--fs-body);
-  color: #cbd5e1;
+  color: var(--c-footer-text);
 }
 
 .site-footer__bottom {
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid var(--c-footer-border);
   margin-top: var(--space-8);
   padding-top: var(--space-6);
   display: flex;
@@ -854,7 +854,7 @@ body.nav-drawer-open {
 
 .site-footer__copyright {
   font-size: var(--fs-small);
-  color: #cbd5e1;
+  color: var(--c-footer-text);
   margin: 0;
 }
 
@@ -869,12 +869,12 @@ body.nav-drawer-open {
   min-height: 44px;
   padding: 0.5em 0;
   font-size: var(--fs-small);
-  color: #cbd5e1;
+  color: var(--c-footer-text);
   text-decoration: none;
   transition: color 0.15s;
 }
 
 .site-footer__meta-link:hover {
-  color: #fff;
+  color: var(--c-footer-heading);
   text-decoration: underline;
 }
