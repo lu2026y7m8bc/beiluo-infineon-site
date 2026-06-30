@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {{> head-meta}}
+
+  <!-- JSON-LD: ItemList -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "{{{category.name}}} from {{{brand.name}}}",
+  "description": "{{{category.metaDescription}}}"
+}
+  </script>
+</head>
+<body>
+  {{> nav}}
+  <main id="main">
+    {{> breadcrumb}}
+    <div class="container">
+      <div class="layout-with-sidebar">
+        <div class="layout-with-sidebar__main">
+
+          <!-- 1. Category Hero -->
+          <header class="cat-hero">
+            <img src="{{category.icon}}" alt="" aria-hidden="true" class="cat-hero__icon">
+            <h1 class="cat-hero__title">{{category.name}} from {{brand.name}} — Authorized Infineon Distributor</h1>
+            <div class="cat-hero__desc">{{category.description}}</div>
+          </header>
+
+          <!-- 2. FAE Note Box -->
+          <div class="fae-note">
+            <p><strong>FAE Support:</strong> {{category.faeNote}}</p>
+            <a class="btn btn--cta" href="/contact/">Get FAE Consultation</a>
+          </div>
+
+          <!-- 3. Models Table -->
+          <div class="table-wrapper" role="region" aria-label="{{category.name}} models" tabindex="0">
+            <table class="models-table" data-table="product-filter">
+              <thead>
+                <tr>
+                  {{#each category.columns}}
+                  <th data-col-key="{{key}}" data-col-type="{{type}}" {{#if filter}}data-filter="{{filter}}"{{/if}} {{#if sticky}}data-sticky="true"{{/if}} scope="col">{{label}}</th>
+                  {{/each}}
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#each category.models}}
+                <tr class="models-table__row">
+                  <td data-col="partNo"><a href="{{href}}">{{partNo}}</a></td>
+                  <td data-col="series">{{series}}</td>
+                  <td data-col="package">{{package}}</td>
+                  <td data-col="stock"><span class="stock-badge stock-badge--{{stock}}">{{#if stock}}{{stock}}{{/if}}</span></td>
+                  <td><a class="btn btn--sm btn--outline" href="{{href}}">Details</a></td>
+                </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          </div>
+
+          <!-- 4. Category CTA -->
+          <div class="cat-cta">
+            <p>Need more {{category.name}} options or bulk pricing? Contact our FAE team.</p>
+            <a class="btn btn--cta" href="/contact/">Request a Quote</a>
+            <a class="btn btn--outline" href="/products/">Browse All Products</a>
+          </div>
+
+        </div>
+        <aside class="layout-with-sidebar__sidebar">
+          {{> sidebar}}
+        </aside>
+      </div>
+    </div>
+  </main>
+  {{> footer}}
+  {{> contact-float}}
+  <script type="module" src="/assets/js/nav.js"></script>
+</body>
+</html>
