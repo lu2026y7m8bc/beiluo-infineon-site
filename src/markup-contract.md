@@ -413,7 +413,7 @@
       placeholder="Your full name"
     >
     <!-- 错误容器：JS 写入错误文本 -->
-    <span id="error-name" data-error-for="name" role="alert" aria-live="polite"></span>
+    <span id="error-name" data-error-for="name" role="alert"></span>
   </div>
 
   <!-- 字段组：Email -->
@@ -430,7 +430,7 @@
       aria-describedby="error-email"
       placeholder="you@company.com"
     >
-    <span id="error-email" data-error-for="email" role="alert" aria-live="polite"></span>
+    <span id="error-email" data-error-for="email" role="alert"></span>
   </div>
 
   <!-- 字段组：Part No. -->
@@ -446,7 +446,7 @@
       aria-describedby="error-partno"
       placeholder="e.g. IKW40N120H3"
     >
-    <span id="error-partno" data-error-for="partNo" role="alert" aria-live="polite"></span>
+    <span id="error-partno" data-error-for="partNo" role="alert"></span>
   </div>
 
   <!-- 字段组：Message -->
@@ -460,7 +460,7 @@
       rows="4"
       placeholder="Describe your requirement..."
     ></textarea>
-    <span id="error-message" data-error-for="message" role="alert" aria-live="polite"></span>
+    <span id="error-message" data-error-for="message" role="alert"></span>
   </div>
 
   <!-- 提交按钮 -->
@@ -486,11 +486,10 @@
 | `required` | `<input>`/`<textarea>` | 无值属性 | 模板标记必填；JS 校验时读取此属性 |
 | `data-rule="email\|text\|partno"` | `<input>`/`<textarea>` | `email` / `text` / `partno` | JS 依此选择校验规则：`email`=标准邮箱格式、`text`=非空字符串（去除首尾空格）、`partno`=非空且仅允许字母数字连字符 |
 | `aria-required="true"` | 必填 `<input>`/`<textarea>` | `"true"` | 语义化声明，JS 不修改 |
-| `aria-describedby="<error-id>"` | `<input>`/`<textarea>` | 对应 `[data-error-for]` 元素的 `id` | 值格式固定为 `error-<fieldName>`（`fieldName` 与 `name` 属性值一致） |
+| `aria-describedby="<error-id>"` | `<input>`/`<textarea>` | 对应 `[data-error-for]` 元素的 `id` | 值格式固定为 `error-<fieldname-lowercase>`（字段名转小写斜杆，例：`partNo` → `error-partno`） |
 | `data-error-for="<fieldName>"` | `<span>`（错误容器） | 对应字段的 `name` 属性值 | JS 通过此属性定位错误展示容器，写入错误文本 |
-| `id="error-<fieldName>"` | `[data-error-for]` 的 `<span>` | `error-` 前缀 + 字段 `name` | 与字段 `aria-describedby` 对应 |
-| `role="alert"` | `[data-error-for]` | 固定值 | 确保屏幕阅读器在错误写入时立即播报 |
-| `aria-live="polite"` | `[data-error-for]` | `"polite"` | 与 `role="alert"` 配合；`polite` 适合表单错误 |
+| `id="error-<fieldname-lowercase>"` | `[data-error-for]` 的 `<span>` | `error-` 前缀 + 字段 `name` 的小写形式 | JS 通过 `data-error-for` 映射到该 `id`（例：`data-error-for="partNo"` 映射到 `id="error-partno"`） |
+| `role="alert"` | `[data-error-for]` | 固定值 | 确保屏幕阅读器在错误写入时立即播报（role=alert 隐含 aria-live=assertive，无需额外声明） |
 | `data-submit` | `<button type="submit">` | 无值属性 | JS 定位提交按钮，用于提交时设置 `disabled` 和 spinner |
 | `data-success` | `<div>` | 无值属性 | JS 定位成功提示容器；初始状态必须有 `hidden` 属性 |
 | `hidden` | `[data-success]` | 无值属性 | 模板输出初始状态；JS 在提交成功后移除 |
@@ -533,6 +532,9 @@
 - 不修改 `<label>` 文本
 - 不修改 `placeholder` 属性
 - 不修改 `data-rule`、`aria-describedby`、`id` 等结构属性
+
+**ID 映射规则说明：**
+`data-error-for` 的值保持字段的原始 `name`（例如 `partNo` 驼峰形式），而对应的 `id` 采用小写斜杆形式（例如 `error-partno`）。JS 在运行时通过此规则将错误信息与容器关联：读取 `data-error-for="partNo"`，转换为小写后查找对应的 `id="error-partno"` 元素。
 
 ### 4.5 降级行为
 
