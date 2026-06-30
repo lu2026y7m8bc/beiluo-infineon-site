@@ -13,6 +13,7 @@ const ASSET_PATH_PREFIX = '/assets/';
  * Extracts the value of every href attribute found inside <a> tags.
  * Handles both single- and double-quoted values and ignores <a> tags
  * that have no href attribute.
+ * Note: only quoted href values (single/double quotes) are extracted; unquoted href attributes are not supported.
  */
 export function extractHrefs(html) {
   const results = [];
@@ -39,22 +40,24 @@ export function extractHrefs(html) {
  * Classifies a single href string.
  */
 export function classifyHref(href) {
-  if (href.trim() === '' || href.trim() === '#') {
+  const trimmed = String(href).trim();
+
+  if (trimmed === '' || trimmed === '#') {
     return 'empty';
   }
-  if (href.startsWith('#')) {
+  if (trimmed.startsWith('#')) {
     return 'anchor';
   }
   if (
-    href.startsWith('http://') ||
-    href.startsWith('https://') ||
-    href.startsWith('mailto:') ||
-    href.startsWith('tel:') ||
-    href.startsWith('//')
+    trimmed.startsWith('http://') ||
+    trimmed.startsWith('https://') ||
+    trimmed.startsWith('mailto:') ||
+    trimmed.startsWith('tel:') ||
+    trimmed.startsWith('//')
   ) {
     return 'external';
   }
-  if (href.startsWith('/')) {
+  if (trimmed.startsWith('/')) {
     return 'internal';
   }
   // Fallback: treat unknown schemes as external to avoid false positives
@@ -76,8 +79,6 @@ export function normalizeInternal(href) {
   // Strip trailing index.html
   if (path.endsWith('/index.html')) {
     path = path.slice(0, -'index.html'.length);
-  } else if (path === '/index.html') {
-    path = '/';
   }
 
   // If the path ends with a file extension, leave as-is

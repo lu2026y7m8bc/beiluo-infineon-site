@@ -82,6 +82,10 @@ describe('classifyHref', () => {
     assert.equal(classifyHref('#section-1'), 'anchor');
   });
 
+  it('classifies " #x " with surrounding whitespace as anchor', () => {
+    assert.equal(classifyHref(' #x '), 'anchor');
+  });
+
   // external cases
   it('classifies https:// URL as external', () => {
     assert.equal(classifyHref('https://example.com'), 'external');
@@ -118,6 +122,10 @@ describe('classifyHref', () => {
 
   it('classifies /sitemap.xml as internal', () => {
     assert.equal(classifyHref('/sitemap.xml'), 'internal');
+  });
+
+  it('classifies " /products/ " with surrounding whitespace as internal', () => {
+    assert.equal(classifyHref(' /products/ '), 'internal');
   });
 });
 
@@ -285,5 +293,16 @@ describe('findLinkIssues', () => {
       { path: '/about/', html: '<a href="/">Home</a>' },
     ];
     assert.deepEqual(findLinkIssues(pages), []);
+  });
+
+  it('reports dead for internal href with surrounding whitespace pointing to non-existent page', () => {
+    const pages = [
+      { path: '/', html: '<a href=" /nope/ ">Nope</a>' },
+    ];
+    const issues = findLinkIssues(pages);
+    assert.equal(issues.length, 1);
+    assert.equal(issues[0].reason, 'dead');
+    assert.equal(issues[0].href, ' /nope/ ');
+    assert.equal(issues[0].page, '/');
   });
 });
