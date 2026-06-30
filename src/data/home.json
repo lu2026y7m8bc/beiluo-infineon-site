@@ -1,0 +1,175 @@
+{
+  "seo": {
+    "title": "Infineon Distributor | BeiLuo Electronics",
+    "description": "BeiLuo is an authorized infineon distributor supplying MCU, IGBT, MOSFET and sensors with deep stock, 24-hour quotation and FAE technical support.",
+    "canonical": "/"
+  },
+  "hero": {
+    "headline": "Your Trusted Infineon Distributor",
+    "subText": "BeiLuo provides authorized Infineon components including MCU, IGBT, MOSFET, and sensors with deep Infineon stock, same-day quotation, and dedicated FAE technical support for industrial and automotive engineers worldwide.",
+    "ctaPrimary": {
+      "label": "Get a Quote",
+      "href": "/contact/"
+    },
+    "ctaSecondary": {
+      "label": "Browse Products",
+      "href": "/products/"
+    },
+    "bgSvgSrc": "/assets/svg/bg/hero-bg.svg",
+    "bgSvgAlt": "",
+    "trustBadges": [
+      {
+        "icon": "/assets/svg/badges/parts.svg",
+        "label": "10,000+ Part Numbers"
+      },
+      {
+        "icon": "/assets/svg/badges/quote.svg",
+        "label": "24-Hour Quotation"
+      },
+      {
+        "icon": "/assets/svg/badges/distributor.svg",
+        "label": "Top 8 Infineon Distributor"
+      }
+    ]
+  },
+  "whyChooseUs": [
+    {
+      "icon": "/assets/svg/icons/inventory.svg",
+      "title": "Deep Infineon Inventory",
+      "description": "BeiLuo maintains over 10,000 Infineon part numbers in bonded warehouse stock, enabling fast fulfillment for production-scale orders with full lot traceability and certificate of conformance."
+    },
+    {
+      "icon": "/assets/svg/icons/fae.svg",
+      "title": "FAE Technical Support",
+      "description": "Our field application engineers provide hands-on design review, component selection guidance, and reference code to accelerate your time to market with Infineon products."
+    },
+    {
+      "icon": "/assets/svg/icons/genuine.svg",
+      "title": "Genuine Authorized Stock",
+      "description": "Every Infineon component BeiLuo distributes is sourced directly through authorized channels with complete date-code documentation and anti-counterfeit verification."
+    },
+    {
+      "icon": "/assets/svg/icons/logistics.svg",
+      "title": "Fast Global Delivery",
+      "description": "BeiLuo ships to customers in over 40 countries via DHL, FedEx, and UPS express, typically delivering within 3 to 5 business days after quotation confirmation."
+    }
+  ],
+  "productsTeaser": [
+    {
+      "slug": "mcu",
+      "name": "MCU",
+      "icon": "/assets/svg/icons/mcu.svg",
+      "summary": "Infineon MCU portfolio including AURIX TC3xx automotive safety MCUs, XMC4000 industrial motor control MCUs, and PSoC 6 IoT devices - all in verified BeiLuo stock.",
+      "href": "/products/mcu/"
+    },
+    {
+      "slug": "igbt",
+      "name": "IGBT",
+      "icon": "/assets/svg/icons/igbt.svg",
+      "summary": "Infineon IGBT H3 and H4 trench-field-stop devices for solar inverters, UPS, and variable-frequency drives, stocked across TO-247, HSOF, and module package formats.",
+      "href": "/products/igbt/"
+    },
+    {
+      "slug": "mosfet",
+      "name": "MOSFET",
+      "icon": "/assets/svg/icons/mosfet.svg",
+      "summary": "Infineon MOSFET lineup spanning OptiMOS, CoolMOS, and StrongIRFET families from 20 V to 950 V for power conversion and motor drive applications.",
+      "href": "/products/mosfet/"
+    },
+    {
+      "slug": "sensors",
+      "name": "Sensors",
+      "icon": "/assets/svg/icons/sensors.svg",
+      "summary": "Infineon Hall-effect, pressure, and current sensor families including TLE speed sensors, DPS310 barometric sensors, and XENSIV radar for automotive and industrial IoT.",
+      "href": "/products/sensors/"
+    }
+  ],
+  "solutionsTeaser": [
+    {
+      "slug": "motor-drive",
+      "title": "Motor Drive Solutions",
+      "industry": "Motor Drive",
+      "summary": "Combine Infineon XMC4000 MCUs with H3 IGBT devices and gate driver ICs for high-efficiency three-phase inverter and servo drive designs supported by BeiLuo FAE review.",
+      "href": "/solutions/motor-drive/",
+      "icon": "/assets/svg/icons/motor-drive.svg"
+    },
+    {
+      "slug": "ev-charging",
+      "title": "EV Charging Infrastructure",
+      "industry": "Electric Vehicle",
+      "summary": "BeiLuo supplies Infineon CoolMOS and IGBT components for AC and DC EV chargers, backed by FAE thermal design assistance and gate-drive circuit layout review.",
+      "href": "/solutions/ev-charging/",
+      "icon": "/assets/svg/icons/ev-charging.svg"
+    },
+    {
+      "slug": "industrial-automation",
+      "title": "Industrial Automation",
+      "industry": "Industrial Automation",
+      "summary": "AURIX TC3xx safety MCUs and TLE Hall sensors from Infineon enable functional-safety-rated PLCs, conveyor monitoring, and robotic motion control platforms.",
+      "href": "/solutions/industrial-automation/",
+      "icon": "/assets/svg/icons/automation.svg"
+    }
+  ],
+  "supportTeaser": [
+    {
+      "slug": "how-to-select-infineon-igbt",
+      "category": "guides",
+      "title": "How to Select the Right Infineon IGBT for Your Inverter Design",
+      "summary": "Step-by-step guide covering voltage class, switching frequency range, package selection, and thermal design for Infineon H3 and H4 IGBT families.",
+      "date": "2024-06-10",
+      "href": "/support/guides/how-to-select-infineon-igbt/"
+    },
+    {
+      "slug": "how-to-select-infineon-mcu",
+      "category": "guides",
+      "title": "Choosing Between Infineon AURIX and XMC MCUs for Industrial Applications",
+      "summary": "Comparison of AURIX TC3xx and XMC4000 series across safety certification, peripheral set, and development toolchain for industrial embedded designs.",
+      "date": "2024-05-22",
+      "href": "/support/guides/how-to-select-infineon-mcu/"
+    },
+    {
+      "slug": "infineon-coolmos-pfc-application",
+      "category": "application-notes",
+      "title": "Infineon CoolMOS CFD2 in Totem-Pole Bridgeless PFC: Application Guide",
+      "summary": "Application note on gate-drive timing, dead-time selection, and PCB layout for CoolMOS CFD2 in high-efficiency PFC boost stages above 90 percent efficiency.",
+      "date": "2024-04-15",
+      "href": "/support/application-notes/infineon-coolmos-pfc-application/"
+    }
+  ],
+  "newsTeaser": [
+    {
+      "slug": "beiluo-expands-infineon-igbt-stock-2024",
+      "type": "company",
+      "title": "BeiLuo Expands Infineon IGBT Stock Capacity for 2024 Production Season",
+      "date": "2024-09-18",
+      "categoryTag": "Company News",
+      "href": "/news/beiluo-expands-infineon-igbt-stock-2024/",
+      "coverSvgSrc": "/assets/svg/illustrations/news-igbt-stock.svg"
+    },
+    {
+      "slug": "infineon-aurix-mcu-automotive-applications",
+      "type": "industry",
+      "title": "Infineon AURIX TC3xx MCU Adoption Grows in Automotive Domain Controllers",
+      "date": "2024-08-05",
+      "categoryTag": "Industry News",
+      "href": "/news/infineon-aurix-mcu-automotive-applications/",
+      "coverSvgSrc": "/assets/svg/illustrations/news-aurix.svg"
+    },
+    {
+      "slug": "beiluo-fae-support-program-launch",
+      "type": "company",
+      "title": "BeiLuo Launches Enhanced FAE Support Program for Infineon Design Partners",
+      "date": "2024-07-12",
+      "categoryTag": "Company News",
+      "href": "/news/beiluo-fae-support-program-launch/",
+      "coverSvgSrc": "/assets/svg/illustrations/news-fae-launch.svg"
+    }
+  ],
+  "finalCta": {
+    "headline": "Ready to Source Infineon Components?",
+    "subText": "Get a competitive quote from BeiLuo within 24 hours. Genuine Infineon stock, FAE support, and global delivery.",
+    "ctaLabel": "Contact Sales",
+    "ctaHref": "/contact/",
+    "bgStyle": "bg-cta-orange"
+  }
+}

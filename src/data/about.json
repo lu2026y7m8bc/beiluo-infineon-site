@@ -1,0 +1,151 @@
+{
+  "seo": {
+    "title": "About BeiLuo Infineon Distributor | Since 2010",
+    "description": "Learn about BeiLuo, a Top 8 Infineon authorized distributor founded in 2010. Deep Infineon stock, expert FAE support, and global logistics from Shenzhen.",
+    "canonical": "/about/"
+  },
+  "intro": {
+    "headline": "About BeiLuo - Your Trusted Infineon Authorized Distributor",
+    "body": "BeiLuo Electronics was founded in 2010 in Shenzhen, China, with a clear mission: to become the most reliable Infineon authorized distributor for engineers and procurement teams across Asia and beyond. Over the past fourteen years, BeiLuo has grown from a regional electronics supplier into one of the Top 8 Infineon distributors by annual volume, serving customers in automotive, industrial automation, motor drive, renewable energy, and consumer electronics markets.\n\nOur relationship with Infineon Technologies spans the full product portfolio - microcontrollers, power semiconductors, and sensors - ensuring that our customers have access to genuine, fully traceable Infineon stock at every stage of their product lifecycle. BeiLuo maintains a bonded warehouse in Shenzhen with over 10,000 active Infineon part numbers, allowing us to respond to urgent prototype orders and large production schedules with equal confidence and speed.\n\nWhat sets BeiLuo apart from general-purpose distributors is our Field Application Engineering team. Our FAE engineers bring deep expertise in embedded systems, power electronics, and automotive functional safety, enabling hands-on support from initial component selection through production qualification. We do not simply ship components - we help customers choose the right Infineon device, optimize circuit designs, and navigate import logistics with confidence.\n\nBeiLuo's customs clearance expertise is a strategic advantage for international customers. Our dedicated import compliance team manages Infineon component shipments through Chinese customs with complete documentation, minimizing clearance delays and protecting customer production schedules. This logistics competency, combined with our technical service depth, has earned BeiLuo recognition as a trusted long-term supply partner. Today, BeiLuo continues to invest in inventory depth, FAE capability, and customer service infrastructure to meet growing global demand for Infineon components.",
+    "heroSvgSrc": "/assets/svg/illustrations/about-hero.svg",
+    "heroSvgAlt": "BeiLuo team and Infineon authorized distributor warehouse illustration"
+  },
+  "history": [
+    {
+      "year": "2010",
+      "event": "Founded in Shenzhen",
+      "description": "BeiLuo Electronics was established in Shenzhen with an initial focus on distributing Infineon power semiconductors to industrial customers in the Pearl River Delta region."
+    },
+    {
+      "year": "2013",
+      "event": "Infineon Authorized Distributor Status",
+      "description": "BeiLuo achieved formal Infineon authorized distributor recognition, enabling direct sourcing from Infineon's supply chain with full product traceability and factory-grade quality assurance."
+    },
+    {
+      "year": "2016",
+      "event": "FAE Team Expansion",
+      "description": "BeiLuo launched a dedicated Field Application Engineering program, hiring five experienced FAEs specializing in automotive MCU, power IGBT, and sensor applications to support customer design-in activities."
+    },
+    {
+      "year": "2019",
+      "event": "Bonded Warehouse and Logistics Upgrade",
+      "description": "BeiLuo opened a 2,000 square meter bonded warehouse in Shenzhen, enabling same-day fulfillment on over 5,000 Infineon part numbers and establishing dedicated customs clearance procedures for international export."
+    },
+    {
+      "year": "2022",
+      "event": "Top 8 Infineon Distributor Recognition",
+      "description": "BeiLuo was ranked among the Top 8 Infineon distributors in the Asia-Pacific region by annual procurement volume, reflecting sustained growth across automotive, industrial, and renewable energy customer segments."
+    },
+    {
+      "year": "2024",
+      "event": "10,000+ Part Number Inventory Milestone",
+      "description": "BeiLuo's active Infineon stock catalog exceeded 10,000 part numbers, covering MCU, IGBT, MOSFET, and sensor product families with buffer stock programs for key automotive and industrial accounts."
+    }
+  ],
+  "advantages": [
+    {
+      "icon": "/assets/svg/icons/inventory.svg",
+      "title": "10,000+ Infineon Part Numbers in Stock",
+      "description": "BeiLuo's bonded warehouse in Shenzhen holds over 10,000 active Infineon part numbers across MCU, IGBT, MOSFET, and sensor families. Every item ships with certificate of conformance and full date-code lot traceability, eliminating counterfeit risk from secondary market sourcing."
+    },
+    {
+      "icon": "/assets/svg/icons/fae.svg",
+      "title": "Expert FAE Support Within 24 Hours",
+      "description": "Our Field Application Engineering team responds to technical inquiries within one business day. FAEs provide device selection guidance, schematic review, thermal simulation assistance, and reference code for Infineon AURIX, XMC, and power semiconductor products - services normally reserved for high-volume OEM accounts."
+    },
+    {
+      "icon": "/assets/svg/icons/genuine.svg",
+      "title": "Genuine Infineon Authorized Sourcing",
+      "description": "As an Infineon authorized distributor, BeiLuo sources every component directly from Infineon's authorized supply chain. Customers receive factory-original devices with manufacturer warranty coverage, AEC-Q100 or AEC-Q101 qualification documentation where applicable, and anti-counterfeit verification on request."
+    },
+    {
+      "icon": "/assets/svg/icons/customs.svg",
+      "title": "Expert Import and Customs Clearance",
+      "description": "BeiLuo's dedicated customs compliance team manages all Infineon import documentation including HS code classification, customs valuation, and certificate of origin. International customers benefit from streamlined clearance that typically reduces border delays by 2 to 3 days compared to self-managed imports."
+    },
+    {
+      "icon": "/assets/svg/icons/logistics.svg",
+      "title": "Fast Global Delivery to 40+ Countries",
+      "description": "BeiLuo ships via DHL, FedEx, and UPS express to customers in over 40 countries. Standard express orders are picked, packed, and dispatched within 24 hours of payment confirmation, with typical delivery times of 3 to 5 business days for most destinations."
+    },
+    {
+      "icon": "/assets/svg/icons/quote.svg",
+      "title": "24-Hour Competitive Quotation",
+      "description": "BeiLuo guarantees a formal price and availability quotation within 24 business hours for all Infineon stock inquiries. Our pricing is competitive with tier-1 distributors, and we offer blanket order and consignment arrangements for customers with predictable annual volumes."
+    }
+  ],
+  "cases": [
+    {
+      "logoSvg": "/assets/svg/illustrations/client-ev-manufacturer.svg",
+      "logoAlt": "Electric vehicle manufacturer - BeiLuo Infineon distributor partner",
+      "companyName": "EV Manufacturer",
+      "description": "Supplied Infineon AURIX TC3xx MCUs for battery management system controllers, reducing component lead time from 16 weeks to 5 days."
+    },
+    {
+      "logoSvg": "/assets/svg/illustrations/client-industrial-automation.svg",
+      "logoAlt": "Industrial automation OEM - BeiLuo Infineon distributor partner",
+      "companyName": "Industrial Automation OEM",
+      "description": "Provided Infineon XMC4700 MCUs and IKW40N120H3 IGBTs for servo drive platform, with FAE design review that eliminated one board respin."
+    },
+    {
+      "logoSvg": "/assets/svg/illustrations/client-solar-inverter.svg",
+      "logoAlt": "Solar inverter manufacturer - BeiLuo Infineon distributor partner",
+      "companyName": "Solar Inverter Manufacturer",
+      "description": "Stocked H3 IGBT buffer inventory under a blanket order, protecting customer production schedule across two quarters of component market tightness."
+    },
+    {
+      "logoSvg": "/assets/svg/illustrations/client-appliance-maker.svg",
+      "logoAlt": "Home appliance OEM - BeiLuo Infineon distributor partner",
+      "companyName": "Home Appliance OEM",
+      "description": "Delivered Infineon CoolMOS and OptiMOS MOSFETs for inverter compressor motor drive, with BeiLuo customs clearance reducing import cycle time by three days."
+    }
+  ],
+  "customsDeclarations": [
+    {
+      "title": "Infineon IGBT Import Declaration - 2024 Q1",
+      "imageSrc": "/assets/svg/illustrations/customs-igbt-2024q1.svg",
+      "alt": "BeiLuo customs declaration for Infineon IGBT import 2024 Q1",
+      "date": "2024-Q1",
+      "productCategory": "Infineon IGBT"
+    },
+    {
+      "title": "Infineon MCU Import Declaration - 2023 Q4",
+      "imageSrc": "/assets/svg/illustrations/customs-mcu-2023q4.svg",
+      "alt": "BeiLuo customs declaration for Infineon MCU import 2023 Q4",
+      "date": "2023-Q4",
+      "productCategory": "Infineon MCU"
+    },
+    {
+      "title": "Infineon MOSFET Import Declaration - 2024 Q2",
+      "imageSrc": "/assets/svg/illustrations/customs-mosfet-2024q2.svg",
+      "alt": "BeiLuo customs declaration for Infineon MOSFET import 2024 Q2",
+      "date": "2024-Q2",
+      "productCategory": "Infineon MOSFET"
+    }
+  ],
+  "team": [
+    {
+      "slug": "li-wei",
+      "name": "Li Wei",
+      "photo": "/assets/svg/illustrations/author-li-wei.svg",
+      "photoAlt": "Li Wei - BeiLuo FAE Engineer, Infineon MCU specialist",
+      "role": "Field Application Engineer (FAE)",
+      "expertise": "Infineon AURIX and XMC MCU embedded design, automotive functional safety ISO 26262",
+      "profileHref": "/about/authors/li-wei/"
+    },
+    {
+      "slug": "zhang-hao",
+      "name": "Zhang Hao",
+      "photo": "/assets/svg/illustrations/author-zhang-hao.svg",
+      "photoAlt": "Zhang Hao - BeiLuo FAE Engineer, Infineon power semiconductor specialist",
+      "role": "Field Application Engineer (FAE)",
+      "expertise": "Infineon IGBT and MOSFET power electronics, inverter thermal design and gate-drive optimization",
+      "profileHref": "/about/authors/zhang-hao/"
+    }
+  ],
+  "cta": {
+    "headline": "Partner with BeiLuo - Your Trusted Infineon Authorized Distributor",
+    "label": "Get a Quote",
+    "href": "/contact/"
+  }
+}
