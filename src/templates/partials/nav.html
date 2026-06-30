@@ -12,13 +12,38 @@
       <nav class="site-nav__links" aria-label="Main">
         <ul class="site-nav__list" role="list">
           {{#each nav.items}}
-          <li class="site-nav__item{{#if megaMenu}} has-megamenu{{/if}}">
-            {{#if megaMenu}}
+          {{#if megaMenu}}
+          <li class="site-nav__item has-megamenu">
             <a class="site-nav__link" href="{{href}}" data-megamenu-trigger aria-haspopup="true" aria-expanded="false">{{label}}</a>
-            {{else}}
-            <a class="site-nav__link" href="{{href}}">{{label}}</a>
-            {{/if}}
+            <!-- Mega menu panel is a child of .has-megamenu so the <li> is one contiguous
+                 hover zone covering both trigger and panel. CSS sets .has-megamenu to
+                 position:static so the panel's position:absolute is relative to <header>. -->
+            <div class="mega-menu" data-megamenu aria-hidden="true">
+              <div class="container">
+                <ul class="mega-menu__categories" role="list">
+                  {{#each products.categories}}
+                  <li class="mega-menu__category">
+                    <a class="mega-menu__cat-link" href="/products/{{slug}}/">{{name}}</a>
+                    {{#if featuredModels}}
+                    <ul class="mega-menu__models" role="list">
+                      {{#each featuredModels}}
+                      <li class="mega-menu__model">
+                        <a class="mega-menu__model-link" href="{{href}}">{{partNo}}</a>
+                      </li>
+                      {{/each}}
+                    </ul>
+                    {{/if}}
+                  </li>
+                  {{/each}}
+                </ul>
+              </div>
+            </div><!-- /.mega-menu -->
           </li>
+          {{else}}
+          <li class="site-nav__item">
+            <a class="site-nav__link" href="{{href}}">{{label}}</a>
+          </li>
+          {{/if}}
           {{/each}}
         </ul>
       </nav>
@@ -42,28 +67,6 @@
 
     </div><!-- /.site-nav__inner -->
   </div><!-- /.container -->
-
-  <!-- Products Mega Menu (desktop) -->
-  <div class="mega-menu" data-megamenu aria-hidden="true">
-    <div class="container">
-      <ul class="mega-menu__categories" role="list">
-        {{#each products.categories}}
-        <li class="mega-menu__category">
-          <a class="mega-menu__cat-link" href="/products/{{slug}}/">{{name}}</a>
-          {{#if featuredModels}}
-          <ul class="mega-menu__models" role="list">
-            {{#each featuredModels}}
-            <li class="mega-menu__model">
-              <a class="mega-menu__model-link" href="{{href}}">{{partNo}}</a>
-            </li>
-            {{/each}}
-          </ul>
-          {{/if}}
-        </li>
-        {{/each}}
-      </ul>
-    </div>
-  </div><!-- /.mega-menu -->
 
   <!-- Mobile Drawer -->
   <div class="site-nav__drawer" data-drawer id="nav-drawer" aria-hidden="true">

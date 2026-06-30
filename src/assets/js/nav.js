@@ -44,7 +44,9 @@
   }
 
   if (megaTrigger && mega) {
-    /* Hover: operate on the parent list item so leaving the mega area also closes */
+    /* [Fix 1] Hover: [data-megamenu] panel is now a child of .has-megamenu (see nav.html),
+       so the <li> is one contiguous hover zone covering both the trigger and the panel.
+       mouseenter/mouseleave on that single element handles open/close correctly. */
     var megaItem = megaTrigger.closest('.has-megamenu');
 
     if (megaItem) {
@@ -55,10 +57,26 @@
     /* Focus: open when trigger receives focus */
     megaTrigger.addEventListener('focus', openMega);
 
-    /* Focus leaves the mega menu entirely → close */
+    /* focusout on panel: close when focus leaves the panel (safety net for keyboard nav
+       that entered the panel and then tabs out the bottom) */
     mega.addEventListener('focusout', function (e) {
       var newFocus = e.relatedTarget;
       if (!mega.contains(newFocus) && megaTrigger !== newFocus) {
+        closeMega();
+      }
+    });
+
+    /* [Fix 2 & 3] Document-level focusin: close mega whenever focus moves to any element
+       that is neither the trigger nor inside the panel.
+       Covers:
+         - Tab from trigger to another nav item/CTA (focus never enters panel) — Fix 2
+         - Shift+Tab backward past the trigger (focus never entered panel) — Fix 3 */
+    document.addEventListener('focusin', function (e) {
+      if (
+        mega.classList.contains('is-open') &&
+        e.target !== megaTrigger &&
+        !mega.contains(e.target)
+      ) {
         closeMega();
       }
     });
@@ -91,6 +109,8 @@
     drawer.classList.add('is-open');
     drawer.removeAttribute('aria-hidden');
     drawerToggle.setAttribute('aria-expanded', 'true');
+    /* [Fix 4] Keep aria-label in sync with drawer state */
+    drawerToggle.setAttribute('aria-label', 'Close navigation menu');
     document.body.classList.add('nav-drawer-open');
   }
 
@@ -99,6 +119,8 @@
     drawer.classList.remove('is-open');
     drawer.setAttribute('aria-hidden', 'true');
     drawerToggle.setAttribute('aria-expanded', 'false');
+    /* [Fix 4] Keep aria-label in sync with drawer state */
+    drawerToggle.setAttribute('aria-label', 'Open navigation menu');
     document.body.classList.remove('nav-drawer-open');
   }
 

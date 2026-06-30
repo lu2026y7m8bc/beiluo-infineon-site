@@ -497,6 +497,14 @@ select.is-error {
   position: relative;
 }
 
+/* [Fix 1] .has-megamenu overrides position:relative so that [data-megamenu]
+   (a child of this <li>) uses <header class="site-nav"> (sticky) as its
+   containing block. This gives position:absolute; top:100%; left:0; right:0
+   the correct full-width below-header placement. */
+.has-megamenu {
+  position: static;
+}
+
 .site-nav__link {
   display: inline-flex;
   align-items: center;
