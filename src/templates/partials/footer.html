@@ -1,0 +1,84 @@
+<footer class="site-footer">
+  <div class="container">
+    <!-- 4-Column Grid -->
+    <div class="site-footer__grid">
+
+      <!-- Column 1: Brand -->
+      <div class="site-footer__column">
+        <h3 class="site-footer__heading">{{site.brand.name}}</h3>
+        <p class="site-footer__tagline">{{site.brand.slogan}}</p>
+        <p class="site-footer__intro">{{site.brand.oneLiner}}</p>
+      </div>
+
+      <!-- Column 2: Products -->
+      <div class="site-footer__column">
+        <h3 class="site-footer__heading">Products</h3>
+        <ul class="site-footer__list" role="list">
+          <li class="site-footer__item">
+            <a href="/products/" class="site-footer__link">All Products</a>
+          </li>
+          <li class="site-footer__item">
+            <a href="/products/mcu/" class="site-footer__link">MCU</a>
+          </li>
+          <li class="site-footer__item">
+            <a href="/products/igbt/" class="site-footer__link">IGBT</a>
+          </li>
+          <li class="site-footer__item">
+            <a href="/products/mosfet/" class="site-footer__link">MOSFET</a>
+          </li>
+          <li class="site-footer__item">
+            <a href="/products/sensors/" class="site-footer__link">Sensors</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Column 3: Resources -->
+      <div class="site-footer__column">
+        <h3 class="site-footer__heading">Resources</h3>
+        <ul class="site-footer__list" role="list">
+          <li class="site-footer__item">
+            <a href="/solutions/" class="site-footer__link">Solutions</a>
+          </li>
+          <li class="site-footer__item">
+            <a href="/support/" class="site-footer__link">Support</a>
+          </li>
+          <li class="site-footer__item">
+            <a href="/news/" class="site-footer__link">News</a>
+          </li>
+          <li class="site-footer__item">
+            <a href="/about/" class="site-footer__link">About</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Column 4: Contact -->
+      <div class="site-footer__column">
+        <h3 class="site-footer__heading">Contact</h3>
+        <ul class="site-footer__list" role="list">
+          <li class="site-footer__item">
+            <a href="https://wa.me/8615013702378" class="site-footer__link" target="_blank" rel="noopener noreferrer">
+              WhatsApp: {{site.contact.whatsapp}}
+            </a>
+          </li>
+          <li class="site-footer__item">
+            <span class="site-footer__label">WeChat:</span> {{site.contact.wechat}}
+          </li>
+          <li class="site-footer__item">
+            <a href="/contact/" class="site-footer__link">Inquiry Form</a>
+          </li>
+        </ul>
+      </div>
+
+    </div><!-- /.site-footer__grid -->
+
+    <!-- Bottom Bar -->
+    <div class="site-footer__bottom">
+      <p class="site-footer__copyright">© 2024 {{site.brand.name}}. All rights reserved.</p>
+      <div class="site-footer__meta-links">
+        <a href="/sitemap.xml" class="site-footer__meta-link">Sitemap</a>
+        <a href="/robots.txt" class="site-footer__meta-link">robots.txt</a>
+      </div>
+    </div>
+
+  </div><!-- /.container -->
+</footer>
