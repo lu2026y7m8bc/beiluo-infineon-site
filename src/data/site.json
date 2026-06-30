@@ -1,0 +1,161 @@
+{
+  "brand": {
+    "name": "BeiLuo",
+    "slogan": "Top 8 Electronic Component Distributor in China",
+    "oneLiner": "Leading Infineon distributor connecting innovation with reliability across global markets."
+  },
+  "nav": {
+    "items": [
+      {
+        "label": "Home",
+        "href": "/"
+      },
+      {
+        "label": "Products",
+        "href": "/products/",
+        "megaMenu": true,
+        "children": [
+          {
+            "label": "MCU",
+            "href": "/products/mcu/"
+          },
+          {
+            "label": "IGBT",
+            "href": "/products/igbt/"
+          },
+          {
+            "label": "MOSFET",
+            "href": "/products/mosfet/"
+          },
+          {
+            "label": "Sensors",
+            "href": "/products/sensors/"
+          }
+        ]
+      },
+      {
+        "label": "Solutions",
+        "href": "/solutions/"
+      },
+      {
+        "label": "Support",
+        "href": "/support/"
+      },
+      {
+        "label": "News",
+        "href": "/news/"
+      },
+      {
+        "label": "About",
+        "href": "/about/"
+      },
+      {
+        "label": "Contact",
+        "href": "/contact/"
+      }
+    ]
+  },
+  "footer": {
+    "columns": [
+      {
+        "heading": "BeiLuo",
+        "links": [
+          {
+            "label": "Leading Infineon distributor connecting innovation with reliability across global markets.",
+            "href": "/about/"
+          }
+        ]
+      },
+      {
+        "heading": "Products",
+        "links": [
+          {
+            "label": "All Products",
+            "href": "/products/"
+          },
+          {
+            "label": "MCU",
+            "href": "/products/mcu/"
+          },
+          {
+            "label": "IGBT",
+            "href": "/products/igbt/"
+          },
+          {
+            "label": "MOSFET",
+            "href": "/products/mosfet/"
+          },
+          {
+            "label": "Sensors",
+            "href": "/products/sensors/"
+          }
+        ]
+      },
+      {
+        "heading": "Resources",
+        "links": [
+          {
+            "label": "Solutions",
+            "href": "/solutions/"
+          },
+          {
+            "label": "Support",
+            "href": "/support/"
+          },
+          {
+            "label": "News",
+            "href": "/news/"
+          },
+          {
+            "label": "About",
+            "href": "/about/"
+          }
+        ]
+      },
+      {
+        "heading": "Contact",
+        "links": [
+          {
+            "label": "WhatsApp: +86 15013702378",
+            "href": "https://wa.me/8615013702378"
+          },
+          {
+            "label": "WeChat: +86 18612518271",
+            "href": "/contact/"
+          },
+          {
+            "label": "Get a Quote",
+            "href": "/contact/"
+          }
+        ]
+      }
+    ],
+    "copyright": "© 2024 BeiLuo. All rights reserved.",
+    "sitemapHref": "/sitemap.xml",
+    "robotsHref": "/robots.txt"
+  },
+  "contact": {
+    "whatsapp": "+86 15013702378",
+    "wechat": "+86 18612518271",
+    "whatsappHref": "https://wa.me/8615013702378",
+    "wechatQrSrc": "/assets/svg/icons/wechat-qr.svg"
+  },
+  "seo": {
+    "defaultTitle": "Infineon Distributor | BeiLuo",
+    "defaultDescription": "BeiLuo is a leading Infineon distributor offering MCU, IGBT, MOSFET, and sensors with global reliability.",
+    "siteName": "BeiLuo",
+    "baseUrl": "https://www.beiluo.com"
+  },
+  "logo": {
+    "src": "/assets/svg/logo/logo.svg",
+    "alt": "BeiLuo — Top 8 Electronic Component Distributor in China",
+    "width": 160,
+    "height": 40
+  },
+  "jsonLd": {
+    "organizationUrl": "https://www.beiluo.com",
+    "organizationType": "Organization",
+    "foundingYear": "2010",
+    "areaServed": "Worldwide"
+  }
+}
