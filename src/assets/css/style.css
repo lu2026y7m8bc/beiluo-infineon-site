@@ -418,3 +418,312 @@ select.is-error {
     scroll-behavior: auto !important;
   }
 }
+
+/* ==========================================================================
+   9. Site Nav — T2.4 (sticky / mega menu / mobile drawer)
+   DO NOT modify sections 1–8 above. Nav-specific rules only below.
+   ========================================================================== */
+
+/* ── 9.1 Nav shell ─────────────────────────────────────────────────────── */
+
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-sticky);
+  background: var(--c-bg);
+  border-bottom: 1px solid var(--c-border);
+  transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+.site-nav.is-scrolled {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: var(--sh-nav);
+}
+
+/* ── 9.2 Inner flex row ────────────────────────────────────────────────── */
+
+.site-nav__inner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  height: 72px;
+}
+
+/* ── 9.3 Logo + slogan ─────────────────────────────────────────────────── */
+
+.site-nav__logo-link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-shrink: 0;
+  text-decoration: none;
+  color: inherit;
+}
+
+.site-nav__logo-link:hover {
+  text-decoration: none;
+}
+
+.site-nav__logo-img {
+  height: 40px;
+  width: auto;
+  display: block;
+}
+
+.site-nav__slogan {
+  font-size: var(--fs-small);
+  color: var(--c-text-muted);
+  white-space: nowrap;
+  line-height: 1.3;
+}
+
+/* ── 9.4 Desktop nav links ─────────────────────────────────────────────── */
+
+.site-nav__links {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.site-nav__list {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.site-nav__item {
+  position: relative;
+}
+
+.site-nav__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 var(--space-3);
+  font-family: var(--font-heading);
+  font-size: var(--fs-small);
+  font-weight: var(--fw-medium);
+  color: var(--c-text);
+  text-decoration: none;
+  border-radius: var(--r-base);
+  transition: color 0.15s, background-color 0.15s;
+  white-space: nowrap;
+}
+
+.site-nav__link:hover {
+  color: var(--c-primary);
+  background: var(--c-primary-tint);
+  text-decoration: none;
+}
+
+/* ── 9.5 Desktop CTA ───────────────────────────────────────────────────── */
+
+.site-nav__cta {
+  flex-shrink: 0;
+}
+
+/* ── 9.6 Hamburger button (mobile only) ────────────────────────────────── */
+
+.site-nav__hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  flex-shrink: 0;
+  border-radius: var(--r-base);
+}
+
+.site-nav__hamburger:hover {
+  background: var(--c-bg-alt);
+}
+
+.site-nav__bar {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--c-text);
+  border-radius: 2px;
+  transition: opacity 0.2s;
+}
+
+/* ── 9.7 Products Mega Menu ────────────────────────────────────────────── */
+
+.mega-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: var(--z-menu);
+  background: var(--c-bg);
+  border-top: 1px solid var(--c-border);
+  border-bottom: 1px solid var(--c-border);
+  box-shadow: var(--sh-hover);
+  display: none;
+  padding-block: var(--space-6);
+}
+
+.mega-menu.is-open {
+  display: block;
+}
+
+.mega-menu__categories {
+  display: flex;
+  gap: var(--space-8);
+  flex-wrap: wrap;
+}
+
+.mega-menu__category {
+  min-width: 160px;
+}
+
+.mega-menu__cat-link {
+  display: block;
+  font-family: var(--font-heading);
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-body);
+  color: var(--c-primary);
+  text-decoration: none;
+  padding-bottom: var(--space-2);
+  border-bottom: 2px solid var(--c-primary-tint);
+  margin-bottom: var(--space-3);
+}
+
+.mega-menu__cat-link:hover {
+  color: var(--c-primary-dark);
+  text-decoration: none;
+}
+
+.mega-menu__models {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.mega-menu__model-link {
+  font-size: var(--fs-small);
+  color: var(--c-text);
+  text-decoration: none;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  padding-inline: var(--space-2);
+  border-radius: var(--r-base);
+  transition: color 0.15s, background-color 0.15s;
+}
+
+.mega-menu__model-link:hover {
+  color: var(--c-primary);
+  background: var(--c-primary-tint);
+  text-decoration: none;
+}
+
+/* ── 9.8 Mobile Drawer ─────────────────────────────────────────────────── */
+
+.site-nav__drawer {
+  position: fixed;
+  inset: 0 0 0 auto;
+  width: min(320px, 85vw);
+  z-index: var(--z-modal);
+  background: var(--c-bg);
+  box-shadow: var(--sh-hover);
+  padding: var(--space-6);
+  overflow-y: auto;
+  transform: translateX(100%);
+  transition: transform 0.25s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.site-nav__drawer.is-open {
+  transform: translateX(0);
+}
+
+.site-nav__drawer-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  flex: 1;
+}
+
+.site-nav__drawer-item {
+  display: block;
+}
+
+.site-nav__drawer-link {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding-inline: var(--space-3);
+  font-family: var(--font-heading);
+  font-weight: var(--fw-medium);
+  font-size: var(--fs-body);
+  color: var(--c-text);
+  text-decoration: none;
+  border-radius: var(--r-base);
+  transition: color 0.15s, background-color 0.15s;
+}
+
+.site-nav__drawer-link:hover {
+  color: var(--c-primary);
+  background: var(--c-primary-tint);
+  text-decoration: none;
+}
+
+.site-nav__drawer-cta {
+  margin-top: var(--space-6);
+  width: 100%;
+  justify-content: center;
+}
+
+/* Body lock while drawer is open */
+body.nav-drawer-open {
+  overflow: hidden;
+}
+
+/* ── 9.9 Responsive: mobile ≤767px ────────────────────────────────────── */
+
+@media (max-width: 767px) {
+  .site-nav__inner {
+    height: 60px;
+  }
+
+  /* Hide desktop-only elements */
+  .site-nav__links,
+  .site-nav__cta {
+    display: none;
+  }
+
+  /* Show hamburger on mobile */
+  .site-nav__hamburger {
+    display: flex;
+    margin-left: auto;
+  }
+
+  /* Hide tagline on mobile */
+  .site-nav__slogan {
+    display: none;
+  }
+}
+
+/* ── 9.10 Responsive: desktop ≥768px ──────────────────────────────────── */
+
+@media (min-width: 768px) {
+  /* Hamburger hidden on desktop */
+  .site-nav__hamburger {
+    display: none;
+  }
+
+  /* Drawer hidden on desktop (visual) */
+  .site-nav__drawer {
+    display: none;
+  }
+}

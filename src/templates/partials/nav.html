@@ -1,0 +1,82 @@
+<header class="site-nav" data-nav>
+  <div class="container">
+    <div class="site-nav__inner">
+
+      <!-- Logo + Slogan -->
+      <a href="/" class="site-nav__logo-link" aria-label="{{logo.alt}}">
+        <img class="site-nav__logo-img" src="{{logo.src}}" alt="{{logo.alt}}" width="{{logo.width}}" height="{{logo.height}}">
+        <span class="site-nav__slogan">{{brand.slogan}}</span>
+      </a>
+
+      <!-- Desktop Main Navigation -->
+      <nav class="site-nav__links" aria-label="Main">
+        <ul class="site-nav__list" role="list">
+          {{#each nav.items}}
+          <li class="site-nav__item{{#if megaMenu}} has-megamenu{{/if}}">
+            {{#if megaMenu}}
+            <a class="site-nav__link" href="{{href}}" data-megamenu-trigger aria-haspopup="true" aria-expanded="false">{{label}}</a>
+            {{else}}
+            <a class="site-nav__link" href="{{href}}">{{label}}</a>
+            {{/if}}
+          </li>
+          {{/each}}
+        </ul>
+      </nav>
+
+      <!-- Desktop CTA -->
+      <a href="/contact/" class="btn btn--cta site-nav__cta">Get a Quote</a>
+
+      <!-- Mobile Hamburger Toggle (≥44px) -->
+      <button
+        class="site-nav__hamburger"
+        type="button"
+        data-drawer-toggle
+        aria-expanded="false"
+        aria-controls="nav-drawer"
+        aria-label="Open navigation menu"
+      >
+        <span class="site-nav__bar" aria-hidden="true"></span>
+        <span class="site-nav__bar" aria-hidden="true"></span>
+        <span class="site-nav__bar" aria-hidden="true"></span>
+      </button>
+
+    </div><!-- /.site-nav__inner -->
+  </div><!-- /.container -->
+
+  <!-- Products Mega Menu (desktop) -->
+  <div class="mega-menu" data-megamenu aria-hidden="true">
+    <div class="container">
+      <ul class="mega-menu__categories" role="list">
+        {{#each products.categories}}
+        <li class="mega-menu__category">
+          <a class="mega-menu__cat-link" href="/products/{{slug}}/">{{name}}</a>
+          {{#if featuredModels}}
+          <ul class="mega-menu__models" role="list">
+            {{#each featuredModels}}
+            <li class="mega-menu__model">
+              <a class="mega-menu__model-link" href="{{href}}">{{partNo}}</a>
+            </li>
+            {{/each}}
+          </ul>
+          {{/if}}
+        </li>
+        {{/each}}
+      </ul>
+    </div>
+  </div><!-- /.mega-menu -->
+
+  <!-- Mobile Drawer -->
+  <div class="site-nav__drawer" data-drawer id="nav-drawer" aria-hidden="true">
+    <nav aria-label="Mobile navigation">
+      <ul class="site-nav__drawer-list" role="list">
+        {{#each nav.items}}
+        <li class="site-nav__drawer-item">
+          <a class="site-nav__drawer-link" href="{{href}}">{{label}}</a>
+        </li>
+        {{/each}}
+      </ul>
+      <a href="/contact/" class="btn btn--cta site-nav__drawer-cta">Get a Quote</a>
+    </nav>
+  </div><!-- /.site-nav__drawer -->
+
+</header>
