@@ -467,8 +467,12 @@ describe('validateData — error accumulation', () => {
     } catch (err) {
       msg = err.message;
     }
-    // Message should mention more than one issue
+    // Message should mention more than one issue (header + at least 3 error lines)
     const lines = msg.split('\n').filter(Boolean);
-    assert.ok(lines.length >= 2, `Expected multiple error lines, got: ${msg}`);
+    assert.ok(lines.length >= 4, `Expected at least 4 lines (header + 3 errors), got: ${msg}`);
+    // Each introduced failure must appear in the message
+    assert.ok(msg.includes('brand.name'), `Expected error to mention "brand.name" but got:\n${msg}`);
+    assert.ok(msg.includes('nav.items'), `Expected error to mention "nav.items" but got:\n${msg}`);
+    assert.ok(msg.includes('categories'), `Expected error to mention "categories" but got:\n${msg}`);
   });
 });

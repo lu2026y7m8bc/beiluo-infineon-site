@@ -187,8 +187,8 @@ async function readHtmlDir(dirPath) {
  * Full build: reads data + templates from disk, assembles in memory,
  * writes output files to `outDir`.
  *
- * When `dataDir` contains no *.json files (current state before Phase 4/5):
- * logs a notice and returns gracefully — does NOT crash.
+ * Validation runs before any file I/O — throws with all errors listed if data
+ * is missing or invalid (including when dataDir contains no *.json files).
  *
  * @param {{
  *   dataDir?: string,
@@ -209,14 +209,7 @@ export async function buildSite({
   // Read JSON data files
   const data = await readJsonDir(dataDir);
 
-  if (Object.keys(data).length === 0) {
-    console.log(
-      `[build] No data/templates yet — no *.json found in "${dataDir}". Skipping build.`,
-    );
-    return { written: 0, issues: [] };
-  }
-
-  // T4.7 — validate data before assembling (throws on invalid data)
+  // T4.7 — validate data before assembling (throws on invalid/empty data)
   validateData(data);
 
   // Read HTML templates and partials

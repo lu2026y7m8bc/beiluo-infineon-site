@@ -98,15 +98,19 @@ function validateProducts(products, errors) {
     // Still validate what's there
   }
 
-  const requiredCatFields = ['slug', 'name', 'title', 'metaDescription', 'description', 'faeNote', 'icon', 'columns', 'models'];
+  const catStringFields = ['slug', 'name', 'title', 'metaDescription', 'description', 'faeNote', 'icon'];
 
   for (const [ci, cat] of (isArray(cats) ? cats : []).entries()) {
     const catId = cat.slug || `[${ci}]`;
 
-    for (const field of requiredCatFields) {
-      if (cat[field] === undefined || cat[field] === null) {
+    for (const field of catStringFields) {
+      if (!nonEmptyString(cat[field])) {
         errors.push(`products: category "${catId}" missing required field "${field}"`);
       }
+    }
+
+    if (cat.columns === undefined || cat.columns === null) {
+      errors.push(`products: category "${catId}" missing required field "columns"`);
     }
 
     const models = cat.models;
