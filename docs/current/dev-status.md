@@ -1,6 +1,6 @@
 # dev-status.md — BeiLuo Infineon Site
 
-> Last updated: 2026-07-02 (session close after T5.6 complete, T5.7 next)
+> Last updated: 2026-07-02 (session close after T5.7 complete, T5.8 next)
 
 ---
 
@@ -14,10 +14,9 @@
 
 | File | Change |
 |------|--------|
-| `src/lib/pages.js` | T5.6: inject 4 pre-filtered per-category article arrays (`guidesArticles`/`applicationNotesArticles`/`troubleshootingArticles`/`reviewsArticles`) into the `/support/` overview page context |
-| `src/templates/support-list.html` | T5.6: new — overview/category/tag 3-way template |
-| `src/templates/partials/support-card.html` | T5.6: new — article card partial with tag badges |
-| `docs/current/todo_write.md` | T5.6 → completed, T5.7 → in_progress |
+| `src/lib/pages.js` | T5.7: tech-detail context now also resolves `article.author` slug → full `author` object, `article.relatedArticles` slugs → full `relatedArticles` article objects, plus injects `category` — all additive sibling context fields, `article` itself untouched |
+| `src/templates/tech-detail.html` | T5.7: new — immersive reading layout + sticky sidebar (TOC hook/PDF/Ask-an-Engineer CTA) |
+| `docs/current/todo_write.md` | T5.7 → completed, T5.8 → in_progress |
 
 These changes should be committed (pending user confirmation — commit not yet made).
 
@@ -62,18 +61,22 @@ These changes should be committed (pending user confirmation — commit not yet 
 | T5.3 | product-category.html | 2153780 + 0066bae + 7d6a530 |
 | T5.4 | product-detail.html | 7a99552 + 8cb349f |
 | T5.5 | solutions-list.html + solution-detail.html | e469571 |
-| T5.6 | support-list.html + support-card.html partial (overview/category/tag, 19 pages) | not yet committed |
+| T5.6 | support-list.html + support-card.html partial (overview/category/tag, 19 pages) | d9f6bce |
+| T5.7 | tech-detail.html (author bar/sticky sidebar/longform typography/related articles/TechArticle JSON-LD, 4 articles) | not yet committed |
 
-**Total tests passing: 363** (as of T5.6 complete)
+**Total tests passing: 363** (as of T5.7 complete)
 
 ---
 
 ## 3. Current In-Progress
 
-**T5.7 — `templates/tech-detail.html`**
+**T5.8 — `templates/news-list.html` + `templates/news-detail.html`**
 
-Author byline / Sticky TOC hook / typography (left-border H2/H3, code blocks, blockquotes) / tags / internal links / related articles / TechArticle JSON-LD.
-Completion criteria: satisfies design.md §3.5.4, internal links meet threshold, 4 articles generated.
+- `news-list.html`: Company News / Industry News two sections (must not intermix), sidebar for news nav
+- `news-detail.html`: single-column magazine style (full-width banner header, no sidebar per prd.md §3.1), share bar, bottom "Latest News" 3-card block, NewsArticle JSON-LD
+- Data: `src/data/news.json` (4 articles, 2 company + 2 industry — validated by T4.7's `validateData`)
+- `pages.js` already generates both page types (see "── 13. News list" / "── 14. News detail pages" blocks); check whether context needs enrichment similar to T5.7's author/relatedArticles resolution before assuming raw `article` fields suffice
+- Completion criteria: sections don't intermix, single column on detail, 4 articles generated, valid JSON-LD
 
 ---
 
@@ -117,6 +120,8 @@ All are Low severity; triage at T8.1/T8.2 final sweep.
 | Low | links.js | Sitewide false-positive: `footer.html` links to `/sitemap.xml` and `/robots.txt` on every page, but `findLinkIssues`'s valid-path set comes only from `buildPageList()` and never includes the separately-generated `sitemap.xml`/`robots.txt` files, so these 2 links are flagged "dead" site-wide. Pre-dates T5.6, affects all templates. Fix in `links.js` or `build.js` (add sitemap.xml/robots.txt to the valid-URL set). |
 | Low | T5.6 | Category-index/tag-page breadcrumb *display* (nav breadcrumb, via `pages.js`'s `markCurrentLast`) is shallower than the BreadcrumbList JSON-LD authored in `support-list.html` (e.g. category-index nav breadcrumb is `[Home, Support]`, JSON-LD is `[Home, Support, {category}]`) — same pattern already present for `product-category` pages, likely intentional but worth confirming at T8.1 final sweep. |
 | Low | T5.6 | `npm test`'s existing suite doesn't exercise the real `support-list.html`/`support-card.html` render path (`build.test.js` stubs templates) — correctness was verified via a throwaway script during review, not a committed test. Consider adding template-render coverage at T9.1/T9.4 if time allows. |
+| Low | T4.4 | `support.json` data defect: article `infineon-optimos-mosfet-overview`'s `internalLinks` declares a model link to `/products/mosfet/irfs4321pbf/` that never actually appears in `article.body` text — PRD's "≥1 model internal link per article" isn't truly satisfied for this one article. `validate-data.js` doesn't cross-check `internalLinks[].href` against body content, so nothing catches it. Fix by adding the missing in-body link to `support.json`, or extending `validate-data.js`. |
+| Low | T5.6/T5.7 | Tag badges (`support-card.html`, `tech-detail.html`) render the raw tag slug (`igbt`) instead of the human-readable `tag.name` (`IGBT`) — the per-article contexts only carry `article.tags` (slugs), not resolved `Tag` objects. A consolidated fix would inject a `tags`-name lookup map into every support-related context in `pages.js`. Low priority (slugs are still readable and functional). |
 
 **Pending NEW TODO (from T2.4):** `navCategories` injection — pages.js should inject `navCategories` (derived from `products.categories`, featuredModels = first 2 models) into every page context so nav mega-menu renders site-wide. Currently mega renders 0 categories gracefully. Wire during/after Phase 5 template work.
 
@@ -126,6 +131,7 @@ All are Low severity; triage at T8.1/T8.2 final sweep.
 
 | Task | Codex Result |
 |------|-------------|
+| T5.7 | Round 1: 2 **High** found (article body not using existing `.longform` CSS class; "Related Articles" section nested inside `.article-content` polluting Sticky TOC scan scope) → both fixed → Round 2: **Approved** |
 | T5.6 | **Approved** — no new issues (internal reviewer first REJECTed for 2 Major: missing tag rendering on cards, overview-page CSS-hide duplication instead of server-side pre-filter; both fixed and re-verified before Codex ran) |
 | T5.5 | **Approved** — no issues found |
 | T5.4 | 1 High (rfq→InStock mapping) + 2 Med fixed |
@@ -140,19 +146,20 @@ Codex re-check is **MANDATORY** after every task (user rule, established 2026-06
 
 ## 8. Next Recommended Task
 
-**T5.7 — `templates/tech-detail.html`**
+**T5.8 — `templates/news-list.html` + `templates/news-detail.html`**
 
-- Design ref: design.md §5.10 (immersive reading layout, left article column max-width 800px + right sticky sidebar 300px)
-- FAE author byline (avatar/name/date), H1, body with H2/H3 left-border rule, `<pre><code>` gray background, `<blockquote>` left border, line-height 1.8 / paragraph spacing 24px, ≥800 words
-- Sticky sidebar: Table of Contents (sticky, hook for T6.3 toc.js), Related PDF download, "Ask an Engineer" form entry point
-- Tags + internal links + related articles (3-5) — reuse `support.json` article fields already used by T5.6 (`tags[]`, `internalLinks[]`, `relatedArticles[]`, `contextLinks[]`)
-- TechArticle JSON-LD via `src/lib/schema.js`'s `techArticle()` constructor (already implemented, unused so far — first template to consume it)
-- Article URL pattern already generated by pages.js: `/support/{article.category}/{article.slug}/` (see pages.js "── 12. Support article detail pages" block)
-- Author page link: `authorProfileHref` / `/about/authors/{author.slug}/` (pages.js already generates author pages at "── 15. Author profile pages")
-- Completion criteria: satisfies §3.5.4, internal links meet threshold, 4 articles generated
+- Design ref: design.md §5.11 (news-list: Breadcrumb → H1 → two sections **Company News** / **Industry News**, never intermixed, sidebar for news nav) and §5.12 (news-detail: single-column magazine style, full-width header banner with text shadow, H1+date+category tag, ≥800-word single-column body, social share bar, bottom "Latest News" 3-card block excluding current article, NewsArticle JSON-LD, **no sidebar** per prd.md §3.1)
+- Data: `src/data/news.json` — 4 articles (2 `type:"company"` + 2 `type:"industry"`, enforced by T4.7 `validateData`)
+- pages.js already builds both page lists ("── 13. News list" / "── 14. News detail pages" blocks) with `context: { ...site, seo, article, breadcrumb }` for detail and `context: { ...site, seo, articles: news.articles, breadcrumb }` for list — **check whether the list template needs company/industry pre-split similar to T5.6's per-category arrays**, and whether detail's "Latest News 3-card" (excluding current) needs a pages.js-resolved field similar to T5.7's `relatedArticles` resolution, before assuming template-only filtering is possible (render.js still has no equality operator)
+- JSON-LD: use `src/lib/schema.js`'s `newsArticle()` constructor as field reference (same as T5.7 referenced `techArticle()`); hand-author inline with triple-brace per project convention
+- Completion criteria: sections don't intermix, single column on detail, 4 articles generated, valid JSON-LD
 
-**New-todo candidates surfaced during T5.6 (not implemented, recorded in §6 Known Issues above — triage at T8.1/T8.2 or earlier if blocking):**
+**New-todo candidates surfaced during T5.6/T5.7 (not implemented, recorded in §6 Known Issues above — triage at T8.1/T8.2 or earlier if blocking):**
 - Reconcile T5.4 Tab markup with markup-contract.md §2 (or accept 2 shapes and make T6.2 tabs.js handle both)
 - Fix double-brace JSON-LD escaping bug in product-detail.html/solution-detail.html
 - Wire or remove breadcrumb.html's unused `{{breadcrumbJsonLd}}` hook
 - Fix links.js false-positive on `/sitemap.xml`/`/robots.txt` footer links
+- `support.json` `infineon-optimos-mosfet-overview` internalLinks/body mismatch (see §6)
+- Tag badges show raw slug not display name across support-list/tech-detail (see §6)
+
+**Tooling note:** Codex CLI (`codex exec -s read-only ...`) hung indefinitely (confirmed via `codex doctor` that network/auth were healthy) when the prompt was passed as a quoted CLI argument on this Windows/Git-Bash setup — it silently fell back to "Reading additional input from stdin..." and never received EOF. Fix: pipe the prompt via heredoc into `codex exec -s read-only -C "<path>" -` (the trailing `-` forces stdin read). Works reliably; use this form for all future Codex re-checks in this repo.

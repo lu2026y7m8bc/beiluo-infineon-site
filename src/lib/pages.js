@@ -231,10 +231,18 @@ export function buildPageList(data) {
       bc(article.title, articleUrl),
     ]);
     const seo = { ...site.seo, title: `${article.title} | ${site.brand.name}`, description: article.metaDescription || article.title, canonical: articleUrl };
+    // Resolve author slug → full author object (support.schema.md: "{{article.author}} → resolves full author object at build time")
+    const authorInfo = support.authors
+      ? support.authors.find(a => a.slug === article.author) ?? null
+      : null;
+    // Resolve relatedArticles slugs → full article preview objects (support.schema.md: "resolved to card previews at build time")
+    const relatedArticlesResolved = (article.relatedArticles || [])
+      .map(slug => support.articles.find(a => a.slug === slug))
+      .filter(Boolean);
     pages.push({
       url: articleUrl,
       template: 'tech-detail',
-      context: { ...site, seo, article, breadcrumb },
+      context: { ...site, seo, article, author: authorInfo, relatedArticles: relatedArticlesResolved, category: catInfo, breadcrumb },
       breadcrumb,
     });
   }

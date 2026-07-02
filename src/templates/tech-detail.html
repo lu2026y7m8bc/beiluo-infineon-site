@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {{> head-meta}}
+
+  <!-- TechArticle JSON-LD (design.md §5.10, PRD §3.5.4, support.schema.md JSON-LD Mapping).
+       Hand-authored per project convention (see products-list.html) using triple-brace
+       raw interpolation — values are build-time strings from support.json, not user input. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "{{{article.title}}}",
+    "description": "{{{article.metaDescription}}}",
+    "datePublished": "{{{article.date}}}",
+    "dateModified": "{{#if article.dateModified}}{{{article.dateModified}}}{{else}}{{{article.date}}}{{/if}}",
+    "author": {
+      "@type": "Person",
+      "name": "{{{author.name}}}",
+      "url": "{{{jsonLd.organizationUrl}}}{{{author.profileHref}}}"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "{{{brand.name}}}",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "{{{logo.src}}}"
+      }
+    },
+    "url": "{{{jsonLd.organizationUrl}}}{{{seo.canonical}}}"
+  }
+  </script>
+
+  <!-- BreadcrumbList JSON-LD — Home → Support → <category.name> → <article.title>
+       (support.schema.md JSON-LD Mapping, design §10). -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type":"ListItem","position":1,"name":"Home","item":"{{{jsonLd.organizationUrl}}}/"},
+      {"@type":"ListItem","position":2,"name":"Support","item":"{{{jsonLd.organizationUrl}}}/support/"},
+      {"@type":"ListItem","position":3,"name":"{{{category.name}}}","item":"{{{jsonLd.organizationUrl}}}/support/{{{article.category}}}/"},
+      {"@type":"ListItem","position":4,"name":"{{{article.title}}}","item":"{{{jsonLd.organizationUrl}}}{{{seo.canonical}}}"}
+    ]
+  }
+  </script>
+</head>
+<body>
+  {{> nav}}
+  <main id="main">
+    {{> breadcrumb}}
+    <div class="container">
+      <div class="tech-detail-layout">
+
+        <!-- LEFT: article (design §5.10 — max-width 800px, immersive reading) -->
+        <article class="article-content">
+
+          {{#if category}}
+          <a class="badge badge--category" href="/support/{{category.slug}}/">{{category.name}}</a>
+          {{/if}}
+
+          <!-- FAE author bar: avatar / name / date -->
+          <div class="article-author">
+            <img class="article-author__photo" src="{{author.photo}}" alt="{{author.photoAlt}}" width="64" height="64" loading="lazy">
+            <div class="article-author__meta">
+              <a class="article-author__name" href="{{author.profileHref}}">{{author.name}}</a>
+              <time class="article-author__date" datetime="{{article.date}}">{{article.date}}</time>
+            </div>
+          </div>
+
+          <h1 class="article-content__title">{{article.title}}</h1>
+
+          <!-- Body HTML — pre-authored with H2/H3[id] anchors, code blocks, blockquotes,
+               and in-body internal links (model + concept), per support.schema.md.
+               "longform" reuses the T2.2 baseline typography (800px width / H2-H3 left
+               rule / <pre><code> grey background / <blockquote> left border, design §5.10). -->
+          <div class="article-body longform">
+            {{{article.body}}}
+          </div>
+
+          {{#if article.tags}}
+          <div class="article-tags">
+            {{#each article.tags}}<a class="badge badge--tag" href="/support/tags/{{this}}/">{{this}}</a>{{/each}}
+          </div>
+          {{/if}}
+
+        </article>
+
+        <!-- Related Articles — sibling of .article-content (not inside it), so its own
+             heading and the support-card headings are excluded from the Sticky TOC scan,
+             which per markup-contract §3 only reads h2/h3 within .article-content. -->
+        {{#if relatedArticles}}
+        <section class="related-articles">
+          <h2 class="related-articles__title">Related Articles</h2>
+          <div class="support-card-grid">
+            {{#each relatedArticles}}{{> support-card}}{{/each}}
+          </div>
+        </section>
+        {{/if}}
+
+        <!-- RIGHT: Sticky sidebar — TOC (markup-contract §3) + PDF download + Ask an Engineer -->
+        <aside class="sticky-sidebar">
+
+          <nav data-toc aria-label="Table of contents">
+            <!-- Generated at runtime by toc.js (markup-contract §3) -->
+          </nav>
+
+          {{#if article.pdf}}
+          <div class="sidebar-pdf">
+            <h2 class="sidebar-pdf__title">Related PDF Download</h2>
+            <ul class="sidebar-pdf__list">
+              {{#each article.pdf}}
+              <li class="sidebar-pdf__item">
+                <a href="{{href}}" target="_blank" rel="noopener noreferrer">{{title}}</a>
+              </li>
+              {{/each}}
+            </ul>
+          </div>
+          {{/if}}
+
+          <div class="sidebar-ask">
+            <h2 class="sidebar-ask__title">Ask an Engineer</h2>
+            <p class="sidebar-ask__text">Have a question about this article, or need help selecting a part? Our BeiLuo FAE team is ready to help.</p>
+            <a class="btn btn--cta" href="/contact/?ref={{article.slug}}">Ask an Engineer</a>
+          </div>
+
+        </aside>
+
+      </div>
+    </div>
+
+    {{> cta-block}}
+  </main>
+  {{> footer}}
+  {{> contact-float}}
+  <script type="module" src="/assets/js/nav.js"></script>
+</body>
+</html>
