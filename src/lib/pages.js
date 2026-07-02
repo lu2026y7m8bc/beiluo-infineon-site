@@ -313,13 +313,24 @@ export function buildPageList(data) {
     const breadcrumb = markCurrentLast([
       bc('Home', '/'),
       bc('About Us', '/about/'),
-      bc('Authors', '/about/authors/'),
+      bc('Authors', '/about/'),
       bc(author.name, authorUrl),
     ]);
+    // Per-author seo object (author pages had no `seo` before, which meant every
+    // author page fell back to site.seo.defaultTitle — a duplicate-title SEO
+    // problem across all author pages). description prefers author.bio (truncated
+    // to stay under the ~155-char meta description guideline used elsewhere in
+    // pages.js), falling back to an expertise-based sentence since bio is not
+    // guaranteed present on every author record.
+    const seo = { ...site.seo, title: `${author.name} — BeiLuo FAE Profile | ${site.brand.name}`, description: author.bio ? author.bio.slice(0, 155) : `${author.name}, ${author.expertise} at ${site.brand.name}, an Infineon authorized distributor.`, canonical: authorUrl };
+    // Articles authored by this FAE (about.schema.md §Author Profile Page Schema:
+    // "list of articles authored ... filtered by author === slug"), same
+    // filter-at-build-time pattern as guidesArticles/catArticles/tagArticles above.
+    const authoredArticles = support.articles.filter(a => a.author === author.slug);
     pages.push({
       url: authorUrl,
       template: 'about',
-      context: { ...site, author, authorProfile: true, breadcrumb },
+      context: { ...site, seo, author, authorProfile: true, authoredArticles, breadcrumb },
       breadcrumb,
     });
   }

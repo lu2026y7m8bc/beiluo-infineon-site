@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {{> head-meta}}
+
+  <!-- BreadcrumbList JSON-LD — two variants selected by the authorProfile flag
+       (about.schema.md "JSON-LD Mapping": both the about page and the author
+       profile page carry BreadcrumbList only, no dedicated Schema type).
+       Hand-authored inline per project convention (see support-list.html /
+       tech-detail.html) since breadcrumb.html's breadcrumbJsonLd hook is never
+       populated by pages.js. -->
+  {{#if authorProfile}}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type":"ListItem","position":1,"name":"Home","item":"{{{jsonLd.organizationUrl}}}/"},
+      {"@type":"ListItem","position":2,"name":"About Us","item":"{{{jsonLd.organizationUrl}}}/about/"},
+      {"@type":"ListItem","position":3,"name":"Authors","item":"{{{jsonLd.organizationUrl}}}/about/"},
+      {"@type":"ListItem","position":4,"name":"{{{author.name}}}","item":"{{{jsonLd.organizationUrl}}}{{{author.profileHref}}}"}
+    ]
+  }
+  </script>
+  {{else}}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type":"ListItem","position":1,"name":"Home","item":"{{{jsonLd.organizationUrl}}}/"},
+      {"@type":"ListItem","position":2,"name":"About Us","item":"{{{jsonLd.organizationUrl}}}/about/"}
+    ]
+  }
+  </script>
+  {{/if}}
+</head>
+<body>
+  {{> nav}}
+  <main id="main">
+    {{> breadcrumb}}
+
+    {{#if authorProfile}}
+    <!-- ============================================================
+         AUTHOR PROFILE PAGE — /about/authors/<slug>/
+         design.md §5.15: FAE photo/name/expertise/experience + list of
+         articles authored. Reuses the `about` template's author variant
+         (about.schema.md "Author Profile Page Schema").
+         ============================================================ -->
+    <div class="container">
+
+      <header class="author-hero section">
+        <img class="author-hero__photo" src="{{author.photo}}" alt="{{author.photoAlt}}" width="160" height="160" loading="lazy">
+        <div class="author-hero__info">
+          <h1 class="author-hero__name">{{author.name}}</h1>
+          <span class="author-hero__role">Field Application Engineer (FAE), {{brand.name}} — Infineon Authorized Distributor</span>
+          <p class="author-hero__expertise"><strong>Expertise:</strong> {{author.expertise}}</p>
+          <p class="author-hero__experience"><strong>Experience:</strong> {{author.experience}}</p>
+          {{#if author.bio}}<p class="author-hero__bio">{{author.bio}}</p>{{/if}}
+        </div>
+      </header>
+
+      <section class="author-articles section">
+        <h2 class="section__title">Articles by {{author.name}}</h2>
+        {{#if authoredArticles}}
+        <div class="support-card-grid">
+          {{#each authoredArticles}}{{> support-card}}{{/each}}
+        </div>
+        {{else}}
+        <p class="author-articles__empty">{{author.name}} has not published any articles yet. Check back soon for new BeiLuo technical content.</p>
+        {{/if}}
+      </section>
+
+    </div>
+
+    {{else}}
+    <!-- ============================================================
+         ABOUT US PAGE — /about/
+         design.md §5.13: Breadcrumb → Hero → History timeline →
+         Advantages Feature Grid → Client cases logo wall →
+         Customs declarations (trust) → Team/FAE entry → CTA
+         ============================================================ -->
+
+    <!-- 1. Hero -->
+    <header class="about-hero section">
+      <div class="container">
+        {{#if intro.heroSvgSrc}}<img class="about-hero__img" src="{{intro.heroSvgSrc}}" alt="{{#if intro.heroSvgAlt}}{{intro.heroSvgAlt}}{{else}}{{/if}}" loading="lazy">{{/if}}
+        <h1 class="about-hero__title">{{intro.headline}}</h1>
+        <p class="about-hero__body">{{intro.body}}</p>
+      </div>
+    </header>
+
+    <!-- 2. History timeline -->
+    <section class="timeline section">
+      <div class="container">
+        <h2 class="section__title">Our Journey</h2>
+        <div class="timeline__list">
+          {{#each history}}
+          <div class="timeline__item">
+            <span class="timeline__year">{{year}}</span>
+            <h3 class="timeline__event">{{event}}</h3>
+            <p class="timeline__desc">{{description}}</p>
+          </div>
+          {{/each}}
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Advantages Feature Grid (why-choose naming per home.html precedent) -->
+    <section class="why-choose section">
+      <div class="container">
+        <h2 class="section__title">Why Choose BeiLuo as Your Infineon Distributor</h2>
+        <div class="why-choose__grid">
+          {{#each advantages}}
+          <div class="card why-choose__card">
+            <img src="{{icon}}" alt="" aria-hidden="true" class="why-choose__icon">
+            <h3 class="card__title">{{title}}</h3>
+            <p class="card__text">{{description}}</p>
+          </div>
+          {{/each}}
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Client cases logo wall -->
+    <section class="client-cases section">
+      <div class="container">
+        <h2 class="section__title">Trusted by Leading Manufacturers</h2>
+        <div class="client-cases__grid">
+          {{#each cases}}
+          <div class="card client-cases__card">
+            <img class="client-cases__logo" src="{{logoSvg}}" alt="{{logoAlt}}" loading="lazy">
+            {{#if companyName}}<h3 class="card__title">{{companyName}}</h3>{{/if}}
+            {{#if description}}<p class="card__text">{{description}}</p>{{/if}}
+          </div>
+          {{/each}}
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Customs declarations — trust proof (PRD §3.7 hard acceptance criterion) -->
+    <section class="customs section">
+      <div class="container">
+        <h2 class="section__title">Infineon Customs Declarations — Proof of Genuine Sourcing</h2>
+        <p class="customs__intro">As an Infineon authorized distributor, BeiLuo provides complete import documentation for every shipment of Infineon stock, giving customers verifiable proof of genuine, traceable sourcing.</p>
+        <div class="customs__grid">
+          {{#each customsDeclarations}}
+          <figure class="card customs__card">
+            <img class="customs__img" src="{{imageSrc}}" alt="{{alt}}" loading="lazy">
+            <figcaption class="customs__caption">
+              <h3 class="card__title">{{title}}</h3>
+              {{#if date}}<span class="customs__date">{{date}}</span>{{/if}}
+              {{#if productCategory}}<span class="customs__category">{{productCategory}}</span>{{/if}}
+            </figcaption>
+          </figure>
+          {{/each}}
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Team / FAE entry — links into author profile pages (E-E-A-T chain) -->
+    <section class="team section">
+      <div class="container">
+        <h2 class="section__title">Meet Our Field Application Engineers</h2>
+        <div class="team__grid">
+          {{#each team}}
+          <div class="card team__card">
+            <img class="team__photo" src="{{photo}}" alt="{{photoAlt}}" loading="lazy">
+            <h3 class="card__title">{{name}}</h3>
+            <span class="team__role">{{role}}</span>
+            <p class="card__text">{{expertise}}</p>
+            <a class="btn btn--outline team__link" href="{{profileHref}}">View Profile</a>
+          </div>
+          {{/each}}
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. Closing CTA (cta is Optional per about.schema.md; hand-authored since
+         cta.headline/label/href field names don't match cta-block.html's
+         ctaTitle/ctaText, and cta.href must remain configurable, not the
+         cta-block.html hardcoded "/contact/"). Reuses .final-cta from home.html. -->
+    {{#if cta}}
+    <section class="final-cta">
+      <div class="container">
+        {{#if cta.headline}}<h2>{{cta.headline}}</h2>{{/if}}
+        <a class="btn btn--cta" href="{{#if cta.href}}{{cta.href}}{{else}}/contact/{{/if}}">{{#if cta.label}}{{cta.label}}{{else}}Get a Quote{{/if}}</a>
+      </div>
+    </section>
+    {{/if}}
+
+    {{/if}}
+  </main>
+  {{> footer}}
+  {{> contact-float}}
+  <script type="module" src="/assets/js/nav.js"></script>
+</body>
+</html>

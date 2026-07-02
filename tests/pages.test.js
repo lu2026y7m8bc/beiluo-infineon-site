@@ -555,7 +555,10 @@ describe('buildPageList', () => {
     assert.equal(p.breadcrumb.length, 4);
     assert.equal(p.breadcrumb[0].url, '/');
     assert.equal(p.breadcrumb[1].url, '/about/');
-    assert.equal(p.breadcrumb[2].url, '/about/authors/');
+    // "Authors" is a virtual grouping level with no dedicated index page —
+    // its crumb links to /about/ (nearest real ancestor) rather than a 404.
+    assert.equal(p.breadcrumb[2].url, '/about/');
+    assert.equal(p.breadcrumb[2].name, 'Authors');
     assert.equal(p.breadcrumb[3].url, '/about/authors/li-wei/');
     assert.equal(p.breadcrumb[3].name, 'Li Wei');
   });

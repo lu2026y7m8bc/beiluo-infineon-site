@@ -1,6 +1,6 @@
 # dev-status.md — BeiLuo Infineon Site
 
-> Last updated: 2026-07-02 (session close after T5.8 complete, T5.9 next)
+> Last updated: 2026-07-02 (session close after T5.9 complete, T5.10 next)
 
 ---
 
@@ -14,12 +14,11 @@
 
 | File | Change |
 |------|--------|
-| `src/data/news.json` | T5.8: converted all 4 article `body` fields from markdown-style plain text to HTML (`<h2 id>`/`<p>`), matching support.json's convention — content unchanged, word counts identical, one contextLink naturally embedded per article |
-| `src/lib/pages.js` | T5.8: news-list context gains `companyArticles`/`industryArticles` (pre-filtered, date-desc); news-detail context gains `latestNews` (3 most recent excluding current), `authorType` (Organization/Person), `overlayClass`, `shareTitleEncoded`/`shareUrlEncoded` (`encodeURIComponent`'d) |
-| `src/templates/news-list.html` | T5.8: new — Company/Industry two-section list with sidebar |
-| `src/templates/news-detail.html` | T5.8: new — full-width banner, single-column `.longform` body, share bar, Latest News 3-card block, no sidebar |
-| `src/templates/partials/news-card.html` | T5.8: new — reuses `card card--teaser`/`card__image`/`badge badge--tag`/`card__summary`/`card__date` |
-| `docs/current/todo_write.md` | T5.8 → completed, T5.9 → in_progress |
+| `src/data/about.json` | T5.9: `team[]`'s 2 entries corrected — original had a fabricated "zhang-hao" member with no matching `support.json` author and both photo paths pointed to non-existent SVG files; realigned identity fields (slug/name/photo/photoAlt/profileHref) to the real `li-wei`/`chen-jing` authors, kept each entry's expertise prose unchanged (it already matched the right person), photo now points to the existing `about-hero.svg` placeholder |
+| `src/lib/pages.js` | T5.9: author-profile context gains `seo` object + `authoredArticles` (filtered by `author===slug`); author breadcrumb's "Authors" crumb repointed from dead `/about/authors/` to real `/about/` |
+| `src/templates/about.html` | T5.9: new — single template for `/about/` (6 modules) + `/about/authors/{slug}/` (2 pages), branched via `authorProfile` flag |
+| `tests/pages.test.js` | T5.9: updated one assertion to match the corrected `/about/` breadcrumb target |
+| `docs/current/todo_write.md` | T5.9 → completed, T5.10 → in_progress |
 
 These changes should be committed (pending user confirmation — commit not yet made).
 
@@ -66,20 +65,22 @@ These changes should be committed (pending user confirmation — commit not yet 
 | T5.5 | solutions-list.html + solution-detail.html | e469571 |
 | T5.6 | support-list.html + support-card.html partial (overview/category/tag, 19 pages) | d9f6bce |
 | T5.7 | tech-detail.html (author bar/sticky sidebar/longform typography/related articles/TechArticle JSON-LD, 4 articles) | 8d0f5c7 |
-| T5.8 | news-list.html + news-detail.html + news-card.html partial + news.json body HTML fix (5 pages) | not yet committed |
+| T5.8 | news-list.html + news-detail.html + news-card.html partial + news.json body HTML fix (5 pages) | ea5b726 |
+| T5.9 | about.html + author profile pages + about.json team[] data fix (3 pages) | not yet committed |
 
-**Total tests passing: 363** (as of T5.8 complete)
+**Total tests passing: 363** (as of T5.9 complete)
 
 ---
 
 ## 3. Current In-Progress
 
-**T5.9 — `templates/about.html` + author profile pages**
+**T5.10 — `templates/contact.html`**
 
-- Design ref: design.md §5.13 (about: hero intro → history timeline → advantages feature grid → customer-case logo wall → customs-declaration trust section → team/FAE entry → CTA) and §5.15 (author profile page reuses `about` template, data-driven variant, URL `/about/authors/<slug>/`, no 13th template)
-- Data: `src/data/about.json` (intro/history/advantages/customsDeclarations per CLAUDE.md field aliases) + `src/data/support.json`'s `authors[]` (already used by T5.7's author bar `profileHref` links — those links currently point to not-yet-existing pages, this task creates them)
-- pages.js already builds author pages at "── 15. Author profile pages" (template: `'about'`) — check its context shape before assuming it matches the main about-page context; likely needs a discriminator field (e.g. `author` present vs not) similar to T5.6's 3-way branching pattern
-- Completion criteria: customs-declaration block present, author pages generated and correctly linked from tech-detail's author bar (verify T5.7's `author.profileHref` links resolve, not just structurally present)
+- Design ref: design.md §5.14 (independent template: Breadcrumb → H1 → grid layout — left contact card with WhatsApp/WeChat + QR code SVG, right inquiry form — bottom map placeholder/business hours note, right-side floating contact widget site-wide)
+- Data: `site.json`'s `contact` object (whatsapp/wechat numbers, already used by nav/footer/contact-float) — no dedicated `contact.json` (per prd.md §3.8's explicit decision)
+- Form: name/email/part-number/message fields per design.md §4.11 and `markup-contract.md` §4's exact DOM contract (`data-validate`, `data-rule`, `data-error-for`, `data-submit`, `data-success` hooks) — this task only needs the markup hooks; actual validation logic is T6.4 (form.js), not yet built
+- pages.js already builds this page ("── 3. Contact" block, `context: { ...site, breadcrumb }`) — check whether it needs a `seo` object added (currently missing, same gap T5.9 fixed for author pages)
+- Completion criteria: contact info sourced from site.json and displayed correctly; form fields complete with markup hooks; zero empty links
 
 ---
 
@@ -107,10 +108,11 @@ These changes should be committed (pending user confirmation — commit not yet 
 
 ## 6. Known Issues (Not Yet Fixed)
 
-All are Low severity; triage at T8.1/T8.2 final sweep.
+Mostly Low severity (triage at T8.1/T8.2 final sweep); one **High** item below needs attention before final launch checks.
 
 | Severity | Source | Issue |
 |----------|--------|-------|
+| **High** | T4.6/T3.x | `about.json`'s `advantages[]` (6 icons), `cases[]` (4 logos), `customsDeclarations[]` (3 images) reference ~13 SVG files under `src/assets/svg/icons/` and `src/assets/svg/illustrations/` that **do not exist on disk** (confirmed via `fs.existsSync` during T5.9 review — only `about-hero.svg` exists). `about.html` (T5.9) is the first task to actually render these as visible `<img>` tags, so once deployed the About page's advantage icons, client logos, and — critically — the **PRD §3.7-mandated customs-declaration trust section** will show broken images. Needs a dedicated SVG-asset-generation task (extends T3.x scope) before T9/launch. |
 | Low | T0.1 | `README.md` directory tree lists `src/build.js` before it existed — self-resolved now |
 | Low | T4.7 | `milestones-alternative` test couples to real `about.json` layout (`history` key) |
 | Low | T4.7 | `logo.src/alt` allow whitespace-only strings (uses `=== ''` not `nonEmptyString`) |
@@ -138,6 +140,7 @@ All are Low severity; triage at T8.1/T8.2 final sweep.
 
 | Task | Codex Result |
 |------|-------------|
+| T5.9 | **Approved** — no new issues (internal reviewer REJECTed for 1 Major: `/about/authors/` breadcrumb crumb — both nav `<a>` and JSON-LD — pointed to a page `buildPageList()` never generates, a real dead link; fixed by repointing to `/about/`, test assertion updated to match) |
 | T5.8 | **Approved** — no new issues (internal reviewer first REJECTed for 2 Major: `news-card.html` not reusing existing `card--teaser`/`badge` CSS classes, share-bar URLs not percent-encoded; both fixed and re-verified before Codex ran) |
 | T5.7 | Round 1: 2 **High** found (article body not using existing `.longform` CSS class; "Related Articles" section nested inside `.article-content` polluting Sticky TOC scan scope) → both fixed → Round 2: **Approved** |
 | T5.6 | **Approved** — no new issues (internal reviewer first REJECTed for 2 Major: missing tag rendering on cards, overview-page CSS-hide duplication instead of server-side pre-filter; both fixed and re-verified before Codex ran) |
@@ -154,14 +157,15 @@ Codex re-check is **MANDATORY** after every task (user rule, established 2026-06
 
 ## 8. Next Recommended Task
 
-**T5.9 — `templates/about.html` + author profile pages**
+**T5.10 — `templates/contact.html`**
 
-- Design ref: design.md §5.13 (Hero intro → history timeline → advantages feature grid → customer-case logo wall → customs-declaration trust section → team/FAE entry → CTA) and §5.15 (author profile page reuses `about` template as a data-driven variant, URL `/about/authors/<slug>/`, no 13th template — linked from `tech-detail.html`'s author bar for E-E-A-T)
-- Data: `src/data/about.json` (per CLAUDE.md field aliases: `history` array of `{year,event}`, `customsDeclarations`, `advantages`) + `src/data/support.json`'s `authors[]` (already consumed by T5.7's author bar; those `profileHref` links currently point to not-yet-existing pages — this task creates them and closes the loop)
-- pages.js already builds author pages at "── 15. Author profile pages" (template: `'about'`) — read its current context shape first; likely needs a discriminator field (e.g. `author` present vs absent) to branch between the main about-page content and the author-variant content within the same template, similar to T5.6's 3-way branching pattern
-- Completion criteria: customs-declaration block present; author pages generated; verify T5.7's `author.profileHref` links actually resolve now (not just structurally present — this closes a cross-task dependency)
+- Design ref: design.md §5.14 (independent template: Breadcrumb → H1 → grid — left contact card with WhatsApp/WeChat + QR SVG, right inquiry form — bottom map placeholder/business hours, right-side floating contact widget site-wide) and §4.11/markup-contract.md §4 (form field DOM contract: `data-validate`, `data-rule`, `data-error-for`, `data-submit`, `data-success` — markup only, validation logic is T6.4)
+- Data: `site.json`'s `contact` object only (no dedicated `contact.json`, per prd.md §3.8)
+- pages.js's existing "── 3. Contact" block has `context: { ...site, breadcrumb }` — no `seo` object (same gap pattern fixed for T5.9's author pages; check whether it needs one)
+- Completion criteria: contact info from site.json displays correctly; form fields complete with markup hooks; zero empty links
 
-**New-todo candidates surfaced during T5.6/T5.7/T5.8 (not implemented, recorded in §6 Known Issues above — triage at T8.1/T8.2 or earlier if blocking):**
+**New-todo candidates surfaced during T5.6–T5.9 (not implemented, recorded in §6 Known Issues above — triage at T8.1/T8.2 or earlier if blocking):**
+- **[High]** Generate ~13 missing SVG assets referenced by `about.json`'s `advantages`/`cases`/`customsDeclarations` (extends T3.x scope) — About page currently shows broken images including the PRD-mandated customs-declaration trust section
 - Reconcile T5.4 Tab markup with markup-contract.md §2 (or accept 2 shapes and make T6.2 tabs.js handle both)
 - Fix double-brace JSON-LD escaping bug in product-detail.html/solution-detail.html
 - Wire or remove breadcrumb.html's unused `{{breadcrumbJsonLd}}` hook
@@ -169,5 +173,6 @@ Codex re-check is **MANDATORY** after every task (user rule, established 2026-06
 - `support.json` `infineon-optimos-mosfet-overview` internalLinks/body mismatch (see §6)
 - Tag badges show raw slug not display name across support-list/tech-detail (see §6)
 - Wire `sidebarSections` into `pages.js` for all list/category/detail pages that include `{{> sidebar}}` (currently renders empty everywhere, see §6)
+- `about.schema.md` specifies `advantages` should be 3–5 items; `about.json` has 6 (T4.6 data, non-blocking)
 
 **Tooling note:** Codex CLI (`codex exec -s read-only ...`) hung indefinitely (confirmed via `codex doctor` that network/auth were healthy) when the prompt was passed as a quoted CLI argument on this Windows/Git-Bash setup — it silently fell back to "Reading additional input from stdin..." and never received EOF. Fix: pipe the prompt via heredoc into `codex exec -s read-only -C "<path>" -` (the trailing `-` forces stdin read). Works reliably; use this form for all future Codex re-checks in this repo.
