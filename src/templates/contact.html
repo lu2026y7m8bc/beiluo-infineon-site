@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {{> head-meta}}
+
+  <!-- BreadcrumbList JSON-LD — Home → Contact (design.md §5.14: contact is an
+       independent template with no dedicated Schema type, BreadcrumbList only,
+       per §10 "JSON-LD 类型 → 模板归属" — same pattern as about.html /
+       solution-detail.html). Hand-authored inline per project convention since
+       breadcrumb.html's breadcrumbJsonLd hook is never populated by pages.js. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type":"ListItem","position":1,"name":"Home","item":"{{{jsonLd.organizationUrl}}}/"},
+      {"@type":"ListItem","position":2,"name":"Contact","item":"{{{jsonLd.organizationUrl}}}{{{seo.canonical}}}"}
+    ]
+  }
+  </script>
+</head>
+<body>
+  {{> nav}}
+  <main id="main">
+    {{> breadcrumb}}
+
+    <!-- ============================================================
+         CONTACT PAGE — /contact/  (independent template)
+         design.md §5.14: Breadcrumb → H1 → grid (left contact card:
+         WhatsApp/WeChat + QR SVG / right: inquiry form) → map placeholder
+         + business hours → floating contact widget (global, §4.5).
+         ============================================================ -->
+    <div class="container">
+
+      <header class="page-hero">
+        <h1 class="page-hero__title">Contact BeiLuo — Get an Infineon Quote</h1>
+        <p class="page-hero__desc">Reach BeiLuo's sales and FAE team directly via WhatsApp or WeChat for real-time stock and pricing, or submit the inquiry form below with your part number and requirements. As an Infineon authorized distributor, we respond to every quote request within 24 hours.</p>
+      </header>
+
+      <div class="contact-grid">
+
+        <!-- Left: contact card — WhatsApp / WeChat + QR (design §5.14) -->
+        <aside class="contact-card">
+          <h2 class="contact-card__title">Talk to BeiLuo Directly</h2>
+
+          <div class="contact-card__channel">
+            <span class="contact-card__label">WhatsApp</span>
+            <a class="contact-card__value contact-card__link" href="{{contact.whatsappHref}}" target="_blank" rel="noopener noreferrer">{{contact.whatsapp}}</a>
+            <p class="contact-card__note">Fastest response for stock checks, pricing, and technical questions.</p>
+          </div>
+
+          <div class="contact-card__channel">
+            <span class="contact-card__label">WeChat</span>
+            <span class="contact-card__value">{{contact.wechat}}</span>
+            {{#if contact.wechatQrSrc}}
+            <img class="contact-card__qr" src="{{contact.wechatQrSrc}}" alt="Scan to add {{brand.name}} on WeChat" width="160" height="160" loading="lazy">
+            {{/if}}
+            <p class="contact-card__note">Scan the QR code or search the WeChat ID above to connect with our sales team.</p>
+          </div>
+        </aside>
+
+        <!-- Right: inquiry form — markup-contract.md §4 DOM contract.
+             data-validate/data-rule/data-error-for/data-submit/data-success are
+             static markup hooks only; the validation/submit behavior itself is
+             T6.4 (form.js), a later independent task (same "markup now, JS
+             later" split already used for T5.3's filter hooks / T5.4's tab
+             hooks / T5.7's TOC hooks). No `action` attribute — static site,
+             JS-only submission per markup-contract.md §4.2. -->
+        <div class="contact-form">
+          <h2 class="contact-form__title">Request a Quote</h2>
+          <form data-validate novalidate>
+
+            <div class="form-group">
+              <label for="field-name">Name <span aria-hidden="true">*</span></label>
+              <input type="text" id="field-name" name="name" required data-rule="text" autocomplete="name" aria-required="true" aria-describedby="error-name" placeholder="Your full name">
+              <span id="error-name" data-error-for="name" role="alert"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="field-email">Email <span aria-hidden="true">*</span></label>
+              <input type="email" id="field-email" name="email" required data-rule="email" autocomplete="email" aria-required="true" aria-describedby="error-email" placeholder="you@company.com">
+              <span id="error-email" data-error-for="email" role="alert"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="field-partno">Part No. <span aria-hidden="true">*</span></label>
+              <input type="text" id="field-partno" name="partNo" required data-rule="partno" aria-required="true" aria-describedby="error-partno" placeholder="e.g. IKW40N120H3">
+              <span id="error-partno" data-error-for="partNo" role="alert"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="field-message">Message</label>
+              <textarea id="field-message" name="message" data-rule="text" aria-describedby="error-message" rows="4" placeholder="Describe your requirement..."></textarea>
+              <span id="error-message" data-error-for="message" role="alert"></span>
+            </div>
+
+            <button type="submit" data-submit class="btn btn--primary">Get a Quote</button>
+
+            <div data-success hidden role="status" aria-live="polite">
+              <p>Thank you! We will contact you within 24 hours.</p>
+              <p>For a faster response, message us directly on <a href="{{contact.whatsappHref}}" target="_blank" rel="noopener noreferrer">WhatsApp</a> or WeChat ({{contact.wechat}}).</p>
+            </div>
+
+            <noscript>
+              <p>JavaScript is required to submit this form. Please contact us directly:</p>
+              <ul>
+                <li>WhatsApp: <a href="{{contact.whatsappHref}}">{{contact.whatsapp}}</a></li>
+                <li>WeChat: {{contact.wechat}}</li>
+              </ul>
+            </noscript>
+
+          </form>
+        </div>
+
+      </div>
+
+      <!-- Bottom: map placeholder + business hours (design §5.14 "底部地图占位/营业说明").
+           No street address exists in site.json (contact object holds only
+           WhatsApp/WeChat channels — see site.schema.md §contact), so the
+           placeholder describes coverage from confirmed site data
+           (jsonLd.areaServed) rather than inventing an unverified address. -->
+      <section class="contact-location">
+        <div class="contact-map" role="img" aria-label="BeiLuo service coverage map placeholder">
+          <span class="contact-map__label">{{brand.name}} — Serving Customers {{jsonLd.areaServed}}</span>
+        </div>
+        <div class="contact-hours">
+          <h2 class="contact-hours__title">Business Hours &amp; Response Time</h2>
+          <p class="contact-hours__text">Our sales and FAE team is available Monday–Friday, 9:00–18:00 (GMT+8). WhatsApp and WeChat messages are typically answered within a few hours during business hours, and every quote request submitted through this page receives a response within 24 hours.</p>
+        </div>
+      </section>
+
+    </div>
+  </main>
+  {{> footer}}
+  {{> contact-float}}
+  <script type="module" src="/assets/js/nav.js"></script>
+</body>
+</html>

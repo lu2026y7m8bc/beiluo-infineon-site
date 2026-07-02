@@ -52,9 +52,9 @@
   { "content": "T5.7 templates/tech-detail.html(作者栏/Sticky TOC钩子/排版竖线-代码块-引用块/标签/内链/相关文章/TechArticle JSON-LD) — 完成标准：满足§3.5.4,内链达标,4篇生成", "status": "completed" },
   { "content": "T5.8 templates/news-list.html(公司/行业分区)+news-detail.html(单栏Banner/分享/底部3卡/NewsArticle,无侧栏) — 完成标准：分区不混排,单栏,4篇生成,JSON-LD合法", "status": "completed" },
   { "content": "T5.9 templates/about.html(简介/历程/优势/案例/报关单/团队)+作者页(复用about,URL/about/authors/<slug>/) — 完成标准：报关单区块存在,作者页生成且被tech-detail链接", "status": "completed" },
-  { "content": "T5.10 templates/contact.html(独立模板:联系网格+询价表单钩子+浮层) — 完成标准：联系取自site.json,表单字段完整,无空链接", "status": "in_progress" },
+  { "content": "T5.10 templates/contact.html(独立模板:联系网格+询价表单钩子+浮层) — 完成标准：联系取自site.json,表单字段完整,无空链接", "status": "completed" },
 
-  { "content": "T6.1 [核心] /src/assets/js/table-filter.js(动态列读取+每列筛选下拉/范围/多选+移动横向滚动+首列冻结) — 完成标准：浏览器验证筛选正确,移动可滚,型号链接保留", "status": "pending" },
+  { "content": "T6.1 [核心] /src/assets/js/table-filter.js(动态列读取+每列筛选下拉/范围/多选+移动横向滚动+首列冻结) — 完成标准：浏览器验证筛选正确,移动可滚,型号链接保留", "status": "in_progress" },
   { "content": "T6.2 /src/assets/js/tabs.js(产品详情/支持列表Tab切换,role=tablist键盘可达) — 完成标准：切换正常,ARIA正确,移动可滚", "status": "pending" },
   { "content": "T6.3 /src/assets/js/toc.js(技术详情Sticky TOC+当前章节高亮) — 完成标准：滚动高亮,移动端降级到文末", "status": "pending" },
   { "content": "T6.4 /src/assets/js/form.js(询价/提问表单前端校验+提交态+成功提示) — 完成标准：必填/邮箱校验,就近错误提示,提交态禁用", "status": "pending" },

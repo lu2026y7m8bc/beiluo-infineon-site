@@ -1,6 +1,6 @@
 # dev-status.md — BeiLuo Infineon Site
 
-> Last updated: 2026-07-02 (session close after T5.9 complete, T5.10 next)
+> Last updated: 2026-07-02 (session close after T5.10 complete — **PHASE 5 (all 12 templates) COMPLETE** — T6.1 next)
 
 ---
 
@@ -14,11 +14,9 @@
 
 | File | Change |
 |------|--------|
-| `src/data/about.json` | T5.9: `team[]`'s 2 entries corrected — original had a fabricated "zhang-hao" member with no matching `support.json` author and both photo paths pointed to non-existent SVG files; realigned identity fields (slug/name/photo/photoAlt/profileHref) to the real `li-wei`/`chen-jing` authors, kept each entry's expertise prose unchanged (it already matched the right person), photo now points to the existing `about-hero.svg` placeholder |
-| `src/lib/pages.js` | T5.9: author-profile context gains `seo` object + `authoredArticles` (filtered by `author===slug`); author breadcrumb's "Authors" crumb repointed from dead `/about/authors/` to real `/about/` |
-| `src/templates/about.html` | T5.9: new — single template for `/about/` (6 modules) + `/about/authors/{slug}/` (2 pages), branched via `authorProfile` flag |
-| `tests/pages.test.js` | T5.9: updated one assertion to match the corrected `/about/` breadcrumb target |
-| `docs/current/todo_write.md` | T5.9 → completed, T5.10 → in_progress |
+| `src/lib/pages.js` | T5.10: Contact page context gains a page-specific `seo` object (was previously missing, same duplicate-title gap pattern fixed for T5.9's author pages) |
+| `src/templates/contact.html` | T5.10: new — independent template, contact card (WhatsApp/WeChat + QR) + inquiry form (markup-contract.md §4 DOM hooks, validation logic deferred to T6.4) + map placeholder/business hours + `{{> contact-float}}` |
+| `docs/current/todo_write.md` | T5.10 → completed, T6.1 → in_progress |
 
 These changes should be committed (pending user confirmation — commit not yet made).
 
@@ -66,21 +64,23 @@ These changes should be committed (pending user confirmation — commit not yet 
 | T5.6 | support-list.html + support-card.html partial (overview/category/tag, 19 pages) | d9f6bce |
 | T5.7 | tech-detail.html (author bar/sticky sidebar/longform typography/related articles/TechArticle JSON-LD, 4 articles) | 8d0f5c7 |
 | T5.8 | news-list.html + news-detail.html + news-card.html partial + news.json body HTML fix (5 pages) | ea5b726 |
-| T5.9 | about.html + author profile pages + about.json team[] data fix (3 pages) | not yet committed |
+| T5.9 | about.html + author profile pages + about.json team[] data fix (3 pages) | ecefabf |
+| T5.10 | contact.html (contact card + inquiry form markup hooks) | not yet committed |
 
-**Total tests passing: 363** (as of T5.9 complete)
+**PHASE 5 COMPLETE (T5.1–T5.10). All 12 templates built.** Site now has a template for every page type in the plan; only interactive JS (Phase 6) and SEO/CSS/final-sweep work remain before Phase 9 integration.
+
+**Total tests passing: 363** (as of T5.10 complete)
 
 ---
 
 ## 3. Current In-Progress
 
-**T5.10 — `templates/contact.html`**
+**T6.1 — `src/assets/js/table-filter.js`**
 
-- Design ref: design.md §5.14 (independent template: Breadcrumb → H1 → grid layout — left contact card with WhatsApp/WeChat + QR code SVG, right inquiry form — bottom map placeholder/business hours note, right-side floating contact widget site-wide)
-- Data: `site.json`'s `contact` object (whatsapp/wechat numbers, already used by nav/footer/contact-float) — no dedicated `contact.json` (per prd.md §3.8's explicit decision)
-- Form: name/email/part-number/message fields per design.md §4.11 and `markup-contract.md` §4's exact DOM contract (`data-validate`, `data-rule`, `data-error-for`, `data-submit`, `data-success` hooks) — this task only needs the markup hooks; actual validation logic is T6.4 (form.js), not yet built
-- pages.js already builds this page ("── 3. Contact" block, `context: { ...site, breadcrumb }`) — check whether it needs a `seo` object added (currently missing, same gap T5.9 fixed for author pages)
-- Completion criteria: contact info sourced from site.json and displayed correctly; form fields complete with markup hooks; zero empty links
+- Design ref: markup-contract.md §1 (`.spec-table-wrap` > `[data-filter-bar]` + `.spec-table` with `data-col`/`data-type`/`data-filter`/`.col-sticky`) — this is the markup `product-category.html` (T5.3) already emits; T6.1 is the first Phase-6 task and the first time any interactive JS actually gets wired up
+- Behavior: read dynamic columns from `data-col`, render a filter control per column (dropdown/range/multi-select per `data-type`), filter rows via `hidden` attribute (not removal), horizontal scroll + first-column freeze on mobile, preserve model detail links
+- No unit tests expected (browser-only behavior per plan.md's TDD column marking T6.x as "否"/no) — completion criteria is browser verification, not `npm test`
+- Completion criteria: filtering correct in-browser, mobile scrolls, model links preserved
 
 ---
 
@@ -88,7 +88,6 @@ These changes should be committed (pending user confirmation — commit not yet 
 
 | Phase | Tasks | Description |
 |-------|-------|-------------|
-| Phase 5 (Templates) | T5.7–T5.10 | tech-detail, news-list, news-detail, about, contact |
 | Phase 6 (JS) | T6.1–T6.4 | table-filter, tabs, toc, form validation |
 | Phase 7 (SEO/GEO) | T7.1–T7.5 | Meta wiring, JSON-LD audit, sitemap, FAQ, image alt |
 | Phase 8 (Final sweep) | T8.1–T8.2 | check_list1 + check_list2 final scan |
@@ -113,6 +112,7 @@ Mostly Low severity (triage at T8.1/T8.2 final sweep); one **High** item below n
 | Severity | Source | Issue |
 |----------|--------|-------|
 | **High** | T4.6/T3.x | `about.json`'s `advantages[]` (6 icons), `cases[]` (4 logos), `customsDeclarations[]` (3 images) reference ~13 SVG files under `src/assets/svg/icons/` and `src/assets/svg/illustrations/` that **do not exist on disk** (confirmed via `fs.existsSync` during T5.9 review — only `about-hero.svg` exists). `about.html` (T5.9) is the first task to actually render these as visible `<img>` tags, so once deployed the About page's advantage icons, client logos, and — critically — the **PRD §3.7-mandated customs-declaration trust section** will show broken images. Needs a dedicated SVG-asset-generation task (extends T3.x scope) before T9/launch. |
+| **High** | T4.2/T4.6, surfaced T5.10 | `node src/build.js` now runs end-to-end for the first time (Phase 5 complete → every page has a template) and its `links.js` dead-link check reports **~17 distinct real dead links** (not the known sitemap.xml/robots.txt false positive), appearing ~25 times total: (1) `home.html`'s Solutions/Support teaser sections link to `/solutions/motor-drive/`, `/solutions/ev-charging/`, `/solutions/industrial-automation/`, `/support/application-notes/infineon-coolmos-pfc-application/` — none of which exist in `solutions.json`/`support.json` (T4.6 data referencing wrong/stale slugs); (2) `product-detail.html`'s `alternativeParts`/`companionParts` cross-references in `products.json` (T4.2) point to part-number slugs that don't correspond to any real model in the same or another category (e.g. `tc264da` → `tc265da`, `xmc4700-...` → `xmc4800-...`, `ikw40n120h3` → `ikw50n65el5`, several MOSFET/sensor cross-refs). This predates Phase 5 entirely — masked until now because `node src/build.js` always failed early at a missing template before reaching link validation. This is squarely **T9.1**'s job ("全量构建+死链/空链零容忍校验") but is significant enough to flag now rather than let it surprise T9.1. Fix requires either adding the missing product/solution entries or correcting the dangling slug references in `products.json`/`home.json`. |
 | Low | T0.1 | `README.md` directory tree lists `src/build.js` before it existed — self-resolved now |
 | Low | T4.7 | `milestones-alternative` test couples to real `about.json` layout (`history` key) |
 | Low | T4.7 | `logo.src/alt` allow whitespace-only strings (uses `=== ''` not `nonEmptyString`) |
@@ -131,8 +131,9 @@ Mostly Low severity (triage at T8.1/T8.2 final sweep); one **High** item below n
 | Low | T5.8 | `news-list` context still passes the unfiltered `articles: news.articles` field alongside the new `companyArticles`/`industryArticles` — dead/unused field, harmless but could be dropped for cleanliness. |
 | Low | T5.6/T5.7/T5.8 | New `pages.js` context-enrichment fields (`guidesArticles`.../`authorInfo`/`relatedArticlesResolved`/`companyArticles`/`industryArticles`/`latestNews`/`authorType`/`overlayClass`/`shareTitleEncoded`/`shareUrlEncoded`) have no committed unit test coverage — `tests/pages.test.js` uses a minimal stub fixture that doesn't exercise these. Correctness verified via throwaway scripts during each review, not persisted as tests. Consider adding coverage at T9.1/T9.4. |
 | ~~Was High~~ Fixed | T4.5 → T5.8 | `news.json`'s 4 article `body` fields were plain markdown-style text (`## Heading {#id}`), not HTML like every other content file — would have rendered as an unformatted text blob with literal `##` markers via `{{{article.body}}}`. Fixed during T5.8 session: converted to HTML matching support.json's convention, content/word-count unchanged, one `contextLinks` entry naturally embedded per article. |
+| Low | T5.10 | `contact.html`'s business-hours text ("Monday–Friday, 9:00–18:00 (GMT+8)") is a specific, falsifiable claim with no backing field in `site.json`. Not a broken link/dead-end like the (fixed) fabricated email, just unverified descriptive copy — lower risk, doesn't contradict any other stated fact. Consider adding a real `contact.businessHours` field if the actual hours are known, or softening the copy. |
 
-**Pending NEW TODO (from T2.4):** `navCategories` injection — pages.js should inject `navCategories` (derived from `products.categories`, featuredModels = first 2 models) into every page context so nav mega-menu renders site-wide. Currently mega renders 0 categories gracefully. Wire during/after Phase 5 template work.
+**Pending NEW TODO (from T2.4) — READY NOW:** `navCategories` injection — pages.js should inject `navCategories` (derived from `products.categories`, featuredModels = first 2 models) into every page context so nav mega-menu renders site-wide. Currently mega renders 0 categories gracefully. Was deferred to "during/after Phase 5 template work" — **Phase 5 is now complete (T5.10 done)**, so this is unblocked and should be picked up soon (candidate for T7.x or an earlier ad-hoc fix, since it affects every page's nav on every already-shipped template).
 
 ---
 
@@ -140,6 +141,7 @@ Mostly Low severity (triage at T8.1/T8.2 final sweep); one **High** item below n
 
 | Task | Codex Result |
 |------|-------------|
+| T5.10 | **Approved** — no new issues (internal reviewer APPROVE_WITH_MINOR_FINDINGS; controller fixed the one real finding directly — a fabricated `mailto:sales@beiluo.com` copied verbatim from markup-contract.md's illustrative example text, not backed by any site.json field — replaced with the real, data-backed WhatsApp/WeChat channels) |
 | T5.9 | **Approved** — no new issues (internal reviewer REJECTed for 1 Major: `/about/authors/` breadcrumb crumb — both nav `<a>` and JSON-LD — pointed to a page `buildPageList()` never generates, a real dead link; fixed by repointing to `/about/`, test assertion updated to match) |
 | T5.8 | **Approved** — no new issues (internal reviewer first REJECTed for 2 Major: `news-card.html` not reusing existing `card--teaser`/`badge` CSS classes, share-bar URLs not percent-encoded; both fixed and re-verified before Codex ran) |
 | T5.7 | Round 1: 2 **High** found (article body not using existing `.longform` CSS class; "Related Articles" section nested inside `.article-content` polluting Sticky TOC scan scope) → both fixed → Round 2: **Approved** |
@@ -157,14 +159,17 @@ Codex re-check is **MANDATORY** after every task (user rule, established 2026-06
 
 ## 8. Next Recommended Task
 
-**T5.10 — `templates/contact.html`**
+**PHASE 5 COMPLETE.** All 12 templates (home, products-list, product-category, product-detail, solutions-list, solution-detail, support-list, tech-detail, news-list, news-detail, about, contact) are built, reviewed, and Codex-approved. `node src/build.js` now runs end-to-end for the first time (every page `buildPageList()` generates has a template) — ran it as a sanity check at Phase 5 close; see the new High-severity finding in §6 (real, pre-existing dead links across products.json/home.json, only now surfaced because the build finally completes instead of failing early at a missing template).
 
-- Design ref: design.md §5.14 (independent template: Breadcrumb → H1 → grid — left contact card with WhatsApp/WeChat + QR SVG, right inquiry form — bottom map placeholder/business hours, right-side floating contact widget site-wide) and §4.11/markup-contract.md §4 (form field DOM contract: `data-validate`, `data-rule`, `data-error-for`, `data-submit`, `data-success` — markup only, validation logic is T6.4)
-- Data: `site.json`'s `contact` object only (no dedicated `contact.json`, per prd.md §3.8)
-- pages.js's existing "── 3. Contact" block has `context: { ...site, breadcrumb }` — no `seo` object (same gap pattern fixed for T5.9's author pages; check whether it needs one)
-- Completion criteria: contact info from site.json displays correctly; form fields complete with markup hooks; zero empty links
+**T6.1 — `src/assets/js/table-filter.js`**
 
-**New-todo candidates surfaced during T5.6–T5.9 (not implemented, recorded in §6 Known Issues above — triage at T8.1/T8.2 or earlier if blocking):**
+- Markup contract: `src/markup-contract.md` §1 (`.spec-table-wrap` > `[data-filter-bar]` + `.spec-table` with `data-col`/`data-type`/`data-filter`/`.col-sticky`) — `product-category.html` (T5.3) already emits this exact markup; T6.1 wires it up
+- Behavior: read dynamic columns from `data-col` attributes, render a filter control per column matching `data-type` (dropdown/range/multi-select), filter table rows via the `hidden` attribute (not DOM removal, per contract), horizontal scroll + first-column freeze on mobile viewports, preserve model detail-page links
+- Not TDD (plan.md marks T6.x as browser-verified, not unit-tested) — completion is a manual/browser verification step, not `npm test`
+- Completion criteria: filtering behaves correctly in-browser, mobile horizontal scroll works, model links still resolve after filtering
+
+**New-todo candidates surfaced during T5.6–T5.10 (not implemented, recorded in §6 Known Issues above — triage at T8.1/T8.2 or earlier if blocking):**
+- **[Ready now]** Wire `navCategories` into every page context (was blocked on "after Phase 5 template work" — now unblocked, see §6)
 - **[High]** Generate ~13 missing SVG assets referenced by `about.json`'s `advantages`/`cases`/`customsDeclarations` (extends T3.x scope) — About page currently shows broken images including the PRD-mandated customs-declaration trust section
 - Reconcile T5.4 Tab markup with markup-contract.md §2 (or accept 2 shapes and make T6.2 tabs.js handle both)
 - Fix double-brace JSON-LD escaping bug in product-detail.html/solution-detail.html
@@ -174,5 +179,6 @@ Codex re-check is **MANDATORY** after every task (user rule, established 2026-06
 - Tag badges show raw slug not display name across support-list/tech-detail (see §6)
 - Wire `sidebarSections` into `pages.js` for all list/category/detail pages that include `{{> sidebar}}` (currently renders empty everywhere, see §6)
 - `about.schema.md` specifies `advantages` should be 3–5 items; `about.json` has 6 (T4.6 data, non-blocking)
+- `contact.html`'s business-hours claim is unbacked descriptive copy (see §6, Low)
 
 **Tooling note:** Codex CLI (`codex exec -s read-only ...`) hung indefinitely (confirmed via `codex doctor` that network/auth were healthy) when the prompt was passed as a quoted CLI argument on this Windows/Git-Bash setup — it silently fell back to "Reading additional input from stdin..." and never received EOF. Fix: pipe the prompt via heredoc into `codex exec -s read-only -C "<path>" -` (the trailing `-` forces stdin read). Works reliably; use this form for all future Codex re-checks in this repo.

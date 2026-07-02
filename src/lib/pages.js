@@ -74,10 +74,14 @@ export function buildPageList(data) {
   // ── 3. Contact ──────────────────────────────────────────────────────────────
   {
     const breadcrumb = markCurrentLast([bc('Home', '/')]);
+    // Per-page seo object (contact page had no `seo` before, which meant it
+    // fell back to site.seo.defaultTitle — same duplicate-title gap fixed for
+    // author pages in T5.9's pages.js change).
+    const seo = { ...site.seo, title: `Contact ${site.brand.name} — Infineon Authorized Distributor`, description: `Contact ${site.brand.name} for Infineon component quotes, technical support, and stock inquiries. WhatsApp and WeChat available for instant response.`, canonical: '/contact/' };
     pages.push({
       url: '/contact/',
       template: 'contact',
-      context: { ...site, breadcrumb },
+      context: { ...site, seo, breadcrumb },
       breadcrumb,
     });
   }
