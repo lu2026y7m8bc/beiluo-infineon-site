@@ -45,23 +45,23 @@
           <!-- 3. Models Table -->
           <section aria-labelledby="models-heading">
             <h2 id="models-heading" class="section__title">Available {{category.name}} Models</h2>
-          <div class="table-wrapper" role="region" aria-label="{{category.name}} models" tabindex="0">
-            <table class="models-table" data-table="product-filter">
+          <div class="spec-table-wrap" role="region" aria-label="{{category.name}} models" tabindex="0">
+            <div data-filter-bar></div>
+            <table class="spec-table">
               <thead>
                 <tr>
                   {{#each category.columns}}
-                  <th data-col-key="{{key}}" data-col-type="{{type}}" {{#if filter}}data-filter="{{filter}}"{{/if}} {{#if sticky}}data-sticky="true"{{/if}} scope="col">{{label}}</th>
+                  <th class="{{#if sticky}}col-sticky{{/if}}" data-col="{{key}}" data-type="{{type}}" {{#if filter}}data-filter="{{filter}}"{{/if}} scope="col">{{label}}</th>
                   {{/each}}
                   <th scope="col">Action</th>
                 </tr>
               </thead>
               <tbody>
                 {{#each category.models}}
-                <tr class="models-table__row">
-                  <td data-col="partNo"><a href="{{href}}">{{partNo}}</a></td>
-                  <td data-col="series">{{series}}</td>
-                  <td data-col="package">{{package}}</td>
-                  <td data-col="stock"><span class="stock-badge{{#if stock}} stock-badge--{{stock}}{{/if}}">{{stock}}</span></td>
+                <tr class="spec-table__row">
+                  {{#each rowCells}}
+                  <td class="{{#if sticky}}col-sticky{{/if}}" data-col="{{key}}">{{#if isPartNo}}<a href="{{href}}">{{value}}</a>{{else}}{{#if isStock}}<span class="stock-badge{{#if value}} stock-badge--{{value}}{{/if}}">{{value}}</span>{{else}}{{value}}{{/if}}{{/if}}</td>
+                  {{/each}}
                   <td><a class="btn btn--sm btn--outline" href="{{href}}">Details</a></td>
                 </tr>
                 {{/each}}
@@ -88,5 +88,6 @@
   {{> footer}}
   {{> contact-float}}
   <script type="module" src="/assets/js/nav.js"></script>
+  <script type="module" src="/assets/js/table-filter.js"></script>
 </body>
 </html>

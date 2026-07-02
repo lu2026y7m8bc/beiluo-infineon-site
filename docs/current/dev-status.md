@@ -1,6 +1,6 @@
 # dev-status.md — BeiLuo Infineon Site
 
-> Last updated: 2026-07-02 (session close after T5.10 complete — **PHASE 5 (all 12 templates) COMPLETE** — T6.1 next)
+> Last updated: 2026-07-03 (session close after T6.1 complete — T6.2 next)
 
 ---
 
@@ -14,9 +14,10 @@
 
 | File | Change |
 |------|--------|
-| `src/lib/pages.js` | T5.10: Contact page context gains a page-specific `seo` object (was previously missing, same duplicate-title gap pattern fixed for T5.9's author pages) |
-| `src/templates/contact.html` | T5.10: new — independent template, contact card (WhatsApp/WeChat + QR) + inquiry form (markup-contract.md §4 DOM hooks, validation logic deferred to T6.4) + map placeholder/business hours + `{{> contact-float}}` |
-| `docs/current/todo_write.md` | T5.10 → completed, T6.1 → in_progress |
+| `src/lib/pages.js` | T6.1: category-index page context now pre-computes each model's `rowCells` array in `category.columns` order (params-object field resolution + safe `''` coalescing for missing values, preserving legitimate `0`) — only affects the category-index loop, not the adjacent product-detail loop |
+| `src/templates/product-category.html` | T6.1: **fixes a real T5.3 defect** — tbody was hardcoded to 4 fields, ignoring 6-8 dynamic `category.columns` per category (params-object fields like MCU's coreArch/flashKb/ramKb/maxMhz were never rendered); now renders all columns dynamically via `rowCells`. Also realigned all table markup to `markup-contract.md` §1 exactly (`spec-table-wrap`/`spec-table`/`data-col`/`data-type`/`data-filter`/`col-sticky`, added the previously-missing `data-filter-bar` mount element) |
+| `src/assets/js/table-filter.js` | T6.1: new — reads column defs from `thead th[data-col]`, generates per-column filter controls (select/range/multi) in `[data-filter-bar]`, filters rows via `hidden` attribute, AND-combines active filters, empty-state row |
+| `docs/current/todo_write.md` | T6.1 → completed, T6.2 → in_progress |
 
 These changes should be committed (pending user confirmation — commit not yet made).
 
@@ -65,22 +66,24 @@ These changes should be committed (pending user confirmation — commit not yet 
 | T5.7 | tech-detail.html (author bar/sticky sidebar/longform typography/related articles/TechArticle JSON-LD, 4 articles) | 8d0f5c7 |
 | T5.8 | news-list.html + news-detail.html + news-card.html partial + news.json body HTML fix (5 pages) | ea5b726 |
 | T5.9 | about.html + author profile pages + about.json team[] data fix (3 pages) | ecefabf |
-| T5.10 | contact.html (contact card + inquiry form markup hooks) | not yet committed |
+| T5.10 | contact.html (contact card + inquiry form markup hooks) | 4b5f1e0 |
+| T6.1 | table-filter.js **+ fixed a real T5.3 defect** (product-category.html tbody was hardcoded, ignoring 6-8 dynamic columns per category) **+ markup-contract.md §1 alignment** | not yet committed |
 
-**PHASE 5 COMPLETE (T5.1–T5.10). All 12 templates built.** Site now has a template for every page type in the plan; only interactive JS (Phase 6) and SEO/CSS/final-sweep work remain before Phase 9 integration.
+**PHASE 5 COMPLETE (T5.1–T5.10). All 12 templates built.**
 
-**Total tests passing: 363** (as of T5.10 complete)
+**Total tests passing: 363** (as of T6.1 complete)
 
 ---
 
 ## 3. Current In-Progress
 
-**T6.1 — `src/assets/js/table-filter.js`**
+**T6.2 — `src/assets/js/tabs.js`**
 
-- Design ref: markup-contract.md §1 (`.spec-table-wrap` > `[data-filter-bar]` + `.spec-table` with `data-col`/`data-type`/`data-filter`/`.col-sticky`) — this is the markup `product-category.html` (T5.3) already emits; T6.1 is the first Phase-6 task and the first time any interactive JS actually gets wired up
-- Behavior: read dynamic columns from `data-col`, render a filter control per column (dropdown/range/multi-select per `data-type`), filter rows via `hidden` attribute (not removal), horizontal scroll + first-column freeze on mobile, preserve model detail links
-- No unit tests expected (browser-only behavior per plan.md's TDD column marking T6.x as "否"/no) — completion criteria is browser verification, not `npm test`
-- Completion criteria: filtering correct in-browser, mobile scrolls, model links preserved
+- Design ref: markup-contract.md §2 (`.tab-container` > `[role=tablist]` > `[role=tab][data-tab]` + `[role=tabpanel][data-tabpanel]`) — consumed by `product-detail.html` (T5.4) and `support-list.html` (T5.6)
+- **Known blocker to check first**: `product-detail.html`'s Tab markup (`.product-tabs`/`.tab-btn`/`.tab-panel`, no `data-tab`/`data-tabpanel`) deviates from this exact contract (see §6 Known Issues) — `support-list.html` follows the contract exactly. T6.1 just demonstrated that a template↔contract mismatch found at JS-wiring time can require fixing the earlier template's markup as a prerequisite (see the T5.3 dynamic-column fix this session). Read `product-detail.html`'s actual Tab markup before assuming it matches the contract — it likely needs the same kind of reconciliation `product-category.html` just got, or tabs.js needs to be written to handle both shapes (decide and document which, don't silently pick one without checking)
+- Behavior: keyboard-accessible tab switching (arrow keys, role=tablist pattern), ARIA state updates, mobile horizontal scroll
+- No unit tests expected (browser-verified per plan.md, same as T6.1)
+- Completion criteria: switching works, ARIA correct, mobile scrolls
 
 ---
 
@@ -119,7 +122,9 @@ Mostly Low severity (triage at T8.1/T8.2 final sweep); one **High** item below n
 | Low | T4.7 | No edge-case tests for `validateData(null/undefined/{})` |
 | Low | T4.7 | Missing failure-mode tests for `contact.wechat`, `seo.siteName`, `logo.alt/width/height`, `jsonLd.organizationType` |
 | Low | T5.2 | Triple-brace `{{{seo.title/description}}}` in JSON-LD — safe (pages.js builds from validate-data-checked fields only); revisit if CMS feeds data |
-| Low | T5.4 | `product-detail.html` Tab markup (`.product-tabs`/`.tab-btn`/`.tab-panel`, no `data-tab`/`data-tabpanel`) deviates from `markup-contract.md` §2's Tab contract. T5.6's `support-list.html` follows the contract exactly, so this is now the sole outlier. T6.2 (tabs.js) must handle both shapes, or T5.4 should be reconciled to match the contract before T6.2. |
+| **Medium** | T5.4 | `product-detail.html` Tab markup (`.product-tabs`/`.tab-btn`/`.tab-panel`, no `data-tab`/`data-tabpanel`) deviates from `markup-contract.md` §2's Tab contract. `support-list.html` (T5.6) follows the contract exactly, so this is the sole outlier. **Raised from Low to Medium**: T6.1 just demonstrated this exact class of problem (T5.3's markup deviated from `markup-contract.md` §1) turns into a real blocker the moment the corresponding JS task tries to consume it — T6.2 (tabs.js) must resolve this *before* writing JS, either by reconciling `product-detail.html` to the contract (preferred, matches the T6.1 precedent) or deliberately supporting both shapes (more JS complexity, more surface for bugs). Check this first when starting T6.2, don't assume it's still just a style nitpick. |
+| Low | T6.1 | `table-filter.js`'s range filter (`data-filter="range"`) treats non-numeric/blank cell values as always-matching (`rowMatches`'s range branch returns `true` when `parseNumber` fails) — an edge case for future data where a numeric column's value is legitimately missing (now rendered as `''` per the T6.1 robustness fix), such rows stay visible under min/max filtering instead of being excluded. Not a regression, not currently reachable (no shipped model has a missing numeric param), but worth tightening if empty numeric cells become possible. |
+| Low | T6.1 | No committed test coverage for `pages.js`'s new `rowCells` computation or for `product-category.html`'s dynamic-column rendering — verified via disposable scripts during review only, same pattern as prior `pages.js` enrichment fields (T5.6–T5.10). |
 | Low | T5.4/T5.5 | `product-detail.html` and `solution-detail.html` use double-brace (HTML-escaped) interpolation inside `<script type="application/ld+json">` for some fields — since `<script>` content is raw text (not HTML-entity-decoded by JSON-LD consumers), any field containing `&`/`<`/`>`/quotes would corrupt the JSON. `products-list.html` and `support-list.html` already use the correct triple-brace form. Worth a follow-up cleanup pass. |
 | Low | all templates | `breadcrumb.html`'s `{{breadcrumbJsonLd}}` hook is never populated by `pages.js` anywhere — dead code. `solution-detail.html` and `support-list.html` both work around it by hand-authoring `BreadcrumbList` JSON-LD inline in each template instead. Consider either wiring the hook in pages.js or removing it from breadcrumb.html. |
 | Low | links.js | Sitewide false-positive: `footer.html` links to `/sitemap.xml` and `/robots.txt` on every page, but `findLinkIssues`'s valid-path set comes only from `buildPageList()` and never includes the separately-generated `sitemap.xml`/`robots.txt` files, so these 2 links are flagged "dead" site-wide. Pre-dates T5.6, affects all templates. Fix in `links.js` or `build.js` (add sitemap.xml/robots.txt to the valid-URL set). |
@@ -141,6 +146,7 @@ Mostly Low severity (triage at T8.1/T8.2 final sweep); one **High** item below n
 
 | Task | Codex Result |
 |------|-------------|
+| T6.1 | **Approved** — internal reviewer APPROVE_WITH_MINOR_FINDINGS found 1 Major (unguarded `{{value}}` in the plain-value table-cell branch would throw render.js's "Missing field" error and crash the *entire site build* if any future model lacks a declared column's param — not just style); controller fixed at the source in `pages.js` (coalesce missing values to `''`, not left `undefined`) rather than templating around it with `{{#if value}}` (which would have incorrectly hidden legitimate `0` values, since render.js's `isTruthy(0) === false`); verified both properties (no-throw on missing + correct `"0"` display) with a live render reproduction. Codex found 1 new Minor (table-filter.js's range filter treats non-numeric/blank cells as always-matching — edge case, not a regression) |
 | T5.10 | **Approved** — no new issues (internal reviewer APPROVE_WITH_MINOR_FINDINGS; controller fixed the one real finding directly — a fabricated `mailto:sales@beiluo.com` copied verbatim from markup-contract.md's illustrative example text, not backed by any site.json field — replaced with the real, data-backed WhatsApp/WeChat channels) |
 | T5.9 | **Approved** — no new issues (internal reviewer REJECTed for 1 Major: `/about/authors/` breadcrumb crumb — both nav `<a>` and JSON-LD — pointed to a page `buildPageList()` never generates, a real dead link; fixed by repointing to `/about/`, test assertion updated to match) |
 | T5.8 | **Approved** — no new issues (internal reviewer first REJECTed for 2 Major: `news-card.html` not reusing existing `card--teaser`/`badge` CSS classes, share-bar URLs not percent-encoded; both fixed and re-verified before Codex ran) |
@@ -159,19 +165,19 @@ Codex re-check is **MANDATORY** after every task (user rule, established 2026-06
 
 ## 8. Next Recommended Task
 
-**PHASE 5 COMPLETE.** All 12 templates (home, products-list, product-category, product-detail, solutions-list, solution-detail, support-list, tech-detail, news-list, news-detail, about, contact) are built, reviewed, and Codex-approved. `node src/build.js` now runs end-to-end for the first time (every page `buildPageList()` generates has a template) — ran it as a sanity check at Phase 5 close; see the new High-severity finding in §6 (real, pre-existing dead links across products.json/home.json, only now surfaced because the build finally completes instead of failing early at a missing template).
+**T6.2 — `src/assets/js/tabs.js`**
 
-**T6.1 — `src/assets/js/table-filter.js`**
+- Markup contract: `src/markup-contract.md` §2 — consumed by `product-detail.html` (T5.4) and `support-list.html` (T5.6)
+- **Check contract compliance FIRST, before writing any JS** — T6.1 just proved this class of check matters: `product-category.html` (T5.3) looked done and Codex-approved but its markup didn't actually match what T6.1 needed, requiring a same-session detour to fix the template before the JS could be written correctly. `product-detail.html`'s Tab markup is already flagged (§6, now Medium severity) as deviating from `markup-contract.md` §2 (`.product-tabs`/`.tab-btn`/`.tab-panel`, no `data-tab`/`data-tabpanel`) while `support-list.html` follows the contract exactly. Read both templates' actual rendered Tab markup before assuming either matches the contract, and reconcile `product-detail.html` to the contract (preferred — mirrors how T6.1 fixed `product-category.html`) rather than writing tabs.js to handle two shapes.
+- Behavior: keyboard-accessible tab switching per `role=tablist` pattern (arrow keys, `aria-selected`/`tabindex` updates, `hidden` panel toggling), mobile horizontal tab-bar scroll
+- Not TDD (plan.md marks T6.x as browser-verified) — completion is manual/browser verification, not `npm test`
+- Completion criteria: switching works correctly, ARIA state correct, mobile scrolls
 
-- Markup contract: `src/markup-contract.md` §1 (`.spec-table-wrap` > `[data-filter-bar]` + `.spec-table` with `data-col`/`data-type`/`data-filter`/`.col-sticky`) — `product-category.html` (T5.3) already emits this exact markup; T6.1 wires it up
-- Behavior: read dynamic columns from `data-col` attributes, render a filter control per column matching `data-type` (dropdown/range/multi-select), filter table rows via the `hidden` attribute (not DOM removal, per contract), horizontal scroll + first-column freeze on mobile viewports, preserve model detail-page links
-- Not TDD (plan.md marks T6.x as browser-verified, not unit-tested) — completion is a manual/browser verification step, not `npm test`
-- Completion criteria: filtering behaves correctly in-browser, mobile horizontal scroll works, model links still resolve after filtering
-
-**New-todo candidates surfaced during T5.6–T5.10 (not implemented, recorded in §6 Known Issues above — triage at T8.1/T8.2 or earlier if blocking):**
+**New-todo candidates surfaced during T5.6–T6.1 (not implemented, recorded in §6 Known Issues above — triage at T8.1/T8.2 or earlier if blocking):**
 - **[Ready now]** Wire `navCategories` into every page context (was blocked on "after Phase 5 template work" — now unblocked, see §6)
 - **[High]** Generate ~13 missing SVG assets referenced by `about.json`'s `advantages`/`cases`/`customsDeclarations` (extends T3.x scope) — About page currently shows broken images including the PRD-mandated customs-declaration trust section
-- Reconcile T5.4 Tab markup with markup-contract.md §2 (or accept 2 shapes and make T6.2 tabs.js handle both)
+- **[High]** ~17 pre-existing dead links across products.json/home.json, surfaced by the first successful full `node src/build.js` run at Phase 5 close (see §6) — deferred to T9.1 per user decision
+- **[Medium, check before T6.2]** Reconcile `product-detail.html`'s Tab markup with `markup-contract.md` §2 (see §6 — raised from Low after the T6.1 precedent)
 - Fix double-brace JSON-LD escaping bug in product-detail.html/solution-detail.html
 - Wire or remove breadcrumb.html's unused `{{breadcrumbJsonLd}}` hook
 - Fix links.js false-positive on `/sitemap.xml`/`/robots.txt` footer links

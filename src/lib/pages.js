@@ -106,10 +106,35 @@ export function buildPageList(data) {
     {
       const breadcrumb = markCurrentLast([bc('Home', '/'), bc('Products', '/products/')]);
       const seo = { ...site.seo, title: category.title, description: category.metaDescription, canonical: catUrl };
+      // Pre-compute each model's table row cells in category.columns order (markup-contract.md
+      // §1: dynamic spec-table columns). render.js's {{#each}} has no parent-scope access, so
+      // the th↔td key alignment and params-vs-top-level field lookup must happen here rather
+      // than via a nested {{#each category.columns}} inside the row template.
+      const categoryWithRowCells = {
+        ...category,
+        models: category.models.map(model => ({
+          ...model,
+          rowCells: category.columns.map(col => {
+            const raw = model[col.key] !== undefined ? model[col.key] : (model.params ? model.params[col.key] : undefined);
+            return {
+              key: col.key,
+              // Coalesce missing values to '' (not left undefined/null) so the bare
+              // {{value}} template output never throws render.js's "Missing field"
+              // error — and so a legitimate numeric 0 isn't mistaken for "missing"
+              // by an {{#if}} guard (render.js's isTruthy treats 0 as falsy).
+              value: raw !== undefined && raw !== null ? raw : '',
+              sticky: !!col.sticky,
+              isPartNo: col.key === 'partNo',
+              isStock: col.key === 'stock',
+              href: model.href,
+            };
+          }),
+        })),
+      };
       pages.push({
         url: catUrl,
         template: 'product-category',
-        context: { ...site, seo, category, breadcrumb },
+        context: { ...site, seo, category: categoryWithRowCells, breadcrumb },
         breadcrumb,
       });
     }
