@@ -55,8 +55,8 @@
   { "content": "T5.10 templates/contact.html(独立模板:联系网格+询价表单钩子+浮层) — 完成标准：联系取自site.json,表单字段完整,无空链接", "status": "completed" },
 
   { "content": "T6.1 [核心] /src/assets/js/table-filter.js(动态列读取+每列筛选下拉/范围/多选+移动横向滚动+首列冻结) — 完成标准：浏览器验证筛选正确,移动可滚,型号链接保留", "status": "completed" },
-  { "content": "T6.2 /src/assets/js/tabs.js(产品详情/支持列表Tab切换,role=tablist键盘可达) — 完成标准：切换正常,ARIA正确,移动可滚", "status": "in_progress" },
-  { "content": "T6.3 /src/assets/js/toc.js(技术详情Sticky TOC+当前章节高亮) — 完成标准：滚动高亮,移动端降级到文末", "status": "pending" },
+  { "content": "T6.2 /src/assets/js/tabs.js(产品详情/支持列表Tab切换,role=tablist键盘可达) — 完成标准：切换正常,ARIA正确,移动可滚", "status": "completed" },
+  { "content": "T6.3 /src/assets/js/toc.js(技术详情Sticky TOC+当前章节高亮) — 完成标准：滚动高亮,移动端降级到文末", "status": "in_progress" },
   { "content": "T6.4 /src/assets/js/form.js(询价/提问表单前端校验+提交态+成功提示) — 完成标准：必填/邮箱校验,就近错误提示,提交态禁用", "status": "pending" },
 
   { "content": "T7.1 全页Meta/Title/Description接线(唯一、含关键词) — 完成标准：抽检每页Title/Description唯一不重复", "status": "pending" },
