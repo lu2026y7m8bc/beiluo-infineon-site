@@ -1,0 +1,12 @@
+<article class="card card--teaser" data-article-category="{{category}}">
+  {{#if coverSvgSrc}}<img class="card__image" src="{{coverSvgSrc}}" alt="{{#if bannerImageAlt}}{{bannerImageAlt}}{{else}}{{title}}{{/if}}" loading="lazy">{{/if}}
+  {{#if tags}}
+  <div class="card__tags">
+    {{#each tags}}<a class="badge badge--tag" href="/support/tags/{{this}}/">{{this}}</a>{{/each}}
+  </div>
+  {{/if}}
+  <h2 class="card__title"><a href="/support/{{category}}/{{slug}}/">{{title}}</a></h2>
+  {{#if summary}}<p class="card__summary">{{summary}}</p>{{/if}}
+  {{#if date}}<time class="card__date">{{date}}</time>{{/if}}
+  <a class="card__more" href="/support/{{category}}/{{slug}}/">Read more &rarr;</a>
+</article>

@@ -1,6 +1,6 @@
 # dev-status.md — BeiLuo Infineon Site
 
-> Last updated: 2026-07-01 (session close after T5.5 complete, T5.6 prep)
+> Last updated: 2026-07-02 (session close after T5.6 complete, T5.7 next)
 
 ---
 
@@ -14,10 +14,12 @@
 
 | File | Change |
 |------|--------|
-| `src/lib/pages.js` | T5.6 prep: inject `seo` + filtered `articles` for support category & tag pages |
-| `docs/current/todo_write.md` | Minor status label edits (not yet committed) |
+| `src/lib/pages.js` | T5.6: inject 4 pre-filtered per-category article arrays (`guidesArticles`/`applicationNotesArticles`/`troubleshootingArticles`/`reviewsArticles`) into the `/support/` overview page context |
+| `src/templates/support-list.html` | T5.6: new — overview/category/tag 3-way template |
+| `src/templates/partials/support-card.html` | T5.6: new — article card partial with tag badges |
+| `docs/current/todo_write.md` | T5.6 → completed, T5.7 → in_progress |
 
-These changes should be committed before starting T5.6 implementation.
+These changes should be committed (pending user confirmation — commit not yet made).
 
 ---
 
@@ -60,26 +62,18 @@ These changes should be committed before starting T5.6 implementation.
 | T5.3 | product-category.html | 2153780 + 0066bae + 7d6a530 |
 | T5.4 | product-detail.html | 7a99552 + 8cb349f |
 | T5.5 | solutions-list.html + solution-detail.html | e469571 |
+| T5.6 | support-list.html + support-card.html partial (overview/category/tag, 19 pages) | not yet committed |
 
-**Total tests passing: 363** (as of T5.5 complete)
+**Total tests passing: 363** (as of T5.6 complete)
 
 ---
 
 ## 3. Current In-Progress
 
-**T5.6 — `templates/support-list.html`**
+**T5.7 — `templates/tech-detail.html`**
 
-Single shared template for 3 page types:
-- `/support/` — overview (context has `categories[]`, `articles[]`, `tags[]` at root)
-- `/support/{cat}/` — category index (context has `category`, `filterCategory`, `articles[]` filtered)
-- `/support/tags/{slug}/` — tag aggregate (context has `tag`, `filterTag`, `articles[]` filtered)
-
-Completion criteria: 4 category index pages + all tag pages generated, zero empty links.
-
-**pages.js T5.6 prep already applied (unstaged):**
-- Support category pages now inject `seo` + `catArticles` (filtered by `category.slug`)
-- Support tag pages now inject `seo`, `tagName`, `tagArticles` (filtered by tag slug)
-- These changes must be committed before dispatching the T5.6 implementer
+Author byline / Sticky TOC hook / typography (left-border H2/H3, code blocks, blockquotes) / tags / internal links / related articles / TechArticle JSON-LD.
+Completion criteria: satisfies design.md §3.5.4, internal links meet threshold, 4 articles generated.
 
 ---
 
@@ -117,6 +111,12 @@ All are Low severity; triage at T8.1/T8.2 final sweep.
 | Low | T4.7 | No edge-case tests for `validateData(null/undefined/{})` |
 | Low | T4.7 | Missing failure-mode tests for `contact.wechat`, `seo.siteName`, `logo.alt/width/height`, `jsonLd.organizationType` |
 | Low | T5.2 | Triple-brace `{{{seo.title/description}}}` in JSON-LD — safe (pages.js builds from validate-data-checked fields only); revisit if CMS feeds data |
+| Low | T5.4 | `product-detail.html` Tab markup (`.product-tabs`/`.tab-btn`/`.tab-panel`, no `data-tab`/`data-tabpanel`) deviates from `markup-contract.md` §2's Tab contract. T5.6's `support-list.html` follows the contract exactly, so this is now the sole outlier. T6.2 (tabs.js) must handle both shapes, or T5.4 should be reconciled to match the contract before T6.2. |
+| Low | T5.4/T5.5 | `product-detail.html` and `solution-detail.html` use double-brace (HTML-escaped) interpolation inside `<script type="application/ld+json">` for some fields — since `<script>` content is raw text (not HTML-entity-decoded by JSON-LD consumers), any field containing `&`/`<`/`>`/quotes would corrupt the JSON. `products-list.html` and `support-list.html` already use the correct triple-brace form. Worth a follow-up cleanup pass. |
+| Low | all templates | `breadcrumb.html`'s `{{breadcrumbJsonLd}}` hook is never populated by `pages.js` anywhere — dead code. `solution-detail.html` and `support-list.html` both work around it by hand-authoring `BreadcrumbList` JSON-LD inline in each template instead. Consider either wiring the hook in pages.js or removing it from breadcrumb.html. |
+| Low | links.js | Sitewide false-positive: `footer.html` links to `/sitemap.xml` and `/robots.txt` on every page, but `findLinkIssues`'s valid-path set comes only from `buildPageList()` and never includes the separately-generated `sitemap.xml`/`robots.txt` files, so these 2 links are flagged "dead" site-wide. Pre-dates T5.6, affects all templates. Fix in `links.js` or `build.js` (add sitemap.xml/robots.txt to the valid-URL set). |
+| Low | T5.6 | Category-index/tag-page breadcrumb *display* (nav breadcrumb, via `pages.js`'s `markCurrentLast`) is shallower than the BreadcrumbList JSON-LD authored in `support-list.html` (e.g. category-index nav breadcrumb is `[Home, Support]`, JSON-LD is `[Home, Support, {category}]`) — same pattern already present for `product-category` pages, likely intentional but worth confirming at T8.1 final sweep. |
+| Low | T5.6 | `npm test`'s existing suite doesn't exercise the real `support-list.html`/`support-card.html` render path (`build.test.js` stubs templates) — correctness was verified via a throwaway script during review, not a committed test. Consider adding template-render coverage at T9.1/T9.4 if time allows. |
 
 **Pending NEW TODO (from T2.4):** `navCategories` injection — pages.js should inject `navCategories` (derived from `products.categories`, featuredModels = first 2 models) into every page context so nav mega-menu renders site-wide. Currently mega renders 0 categories gracefully. Wire during/after Phase 5 template work.
 
@@ -126,6 +126,7 @@ All are Low severity; triage at T8.1/T8.2 final sweep.
 
 | Task | Codex Result |
 |------|-------------|
+| T5.6 | **Approved** — no new issues (internal reviewer first REJECTed for 2 Major: missing tag rendering on cards, overview-page CSS-hide duplication instead of server-side pre-filter; both fixed and re-verified before Codex ran) |
 | T5.5 | **Approved** — no issues found |
 | T5.4 | 1 High (rfq→InStock mapping) + 2 Med fixed |
 | T5.3 | 2 Med (bare ItemList, triple-brace) + 2 Low fixed |
@@ -139,26 +140,19 @@ Codex re-check is **MANDATORY** after every task (user rule, established 2026-06
 
 ## 8. Next Recommended Task
 
-**Immediately before starting T5.6 implementer:**
+**T5.7 — `templates/tech-detail.html`**
 
-1. Commit the current pages.js changes:
-   ```
-   git add src/lib/pages.js
-   git commit -m "fix(T5.6-prep): inject seo + filtered articles for support category and tag pages"
-   ```
+- Design ref: design.md §5.10 (immersive reading layout, left article column max-width 800px + right sticky sidebar 300px)
+- FAE author byline (avatar/name/date), H1, body with H2/H3 left-border rule, `<pre><code>` gray background, `<blockquote>` left border, line-height 1.8 / paragraph spacing 24px, ≥800 words
+- Sticky sidebar: Table of Contents (sticky, hook for T6.3 toc.js), Related PDF download, "Ask an Engineer" form entry point
+- Tags + internal links + related articles (3-5) — reuse `support.json` article fields already used by T5.6 (`tags[]`, `internalLinks[]`, `relatedArticles[]`, `contextLinks[]`)
+- TechArticle JSON-LD via `src/lib/schema.js`'s `techArticle()` constructor (already implemented, unused so far — first template to consume it)
+- Article URL pattern already generated by pages.js: `/support/{article.category}/{article.slug}/` (see pages.js "── 12. Support article detail pages" block)
+- Author page link: `authorProfileHref` / `/about/authors/{author.slug}/` (pages.js already generates author pages at "── 15. Author profile pages")
+- Completion criteria: satisfies §3.5.4, internal links meet threshold, 4 articles generated
 
-2. Dispatch T5.6 implementer with these context points:
-   - Template file: `src/templates/support-list.html`
-   - 3 rendering contexts (overview / category / tag) — distinguish by presence of `categories`, `filterCategory`, `filterTag`
-   - Overview context: `categories[]`, `articles[]`, `tags[]` all at root (spread from support.json)
-   - Category context: `category.{slug,name,title,description}`, `filterCategory`, `articles[]` (pre-filtered)
-   - Tag context: `tag.{slug,name}`, `filterTag`, `articles[]` (pre-filtered)
-   - Each article has: `slug`, `title`, `category`, `tags[]`, `author`, `date`, `summary`, `coverSvgSrc`
-   - Link pattern: `/support/{category}/{article.slug}/`
-   - Category page link pattern: `/support/{category.slug}/`
-   - Tag page link pattern: `/support/tags/{tagSlug}/`
-   - Must include TechArticle / CollectionPage JSON-LD appropriate to page type
-   - Must use `{{#if categories}}` / `{{#if filterCategory}}` / `{{#if filterTag}}` for conditional rendering
-   - Completion criteria: 4 category index pages + 14 tag pages generated, zero empty links
-
-**After T5.6:** proceed to T5.7 (tech-detail.html).
+**New-todo candidates surfaced during T5.6 (not implemented, recorded in §6 Known Issues above — triage at T8.1/T8.2 or earlier if blocking):**
+- Reconcile T5.4 Tab markup with markup-contract.md §2 (or accept 2 shapes and make T6.2 tabs.js handle both)
+- Fix double-brace JSON-LD escaping bug in product-detail.html/solution-detail.html
+- Wire or remove breadcrumb.html's unused `{{breadcrumbJsonLd}}` hook
+- Fix links.js false-positive on `/sitemap.xml`/`/robots.txt` footer links

@@ -162,10 +162,17 @@ export function buildPageList(data) {
   {
     const breadcrumb = markCurrentLast([bc('Home', '/')]);
     const seo = { ...site.seo, title: `Technical Support & Guides | ${site.brand.name}`, description: `${site.brand.name} technical support: Infineon component selection guides, application notes, and FAE Q&A for MCU, IGBT, MOSFET and Sensors.`, canonical: '/support/' };
+    // Pre-filtered per-category article arrays for the overview page's 4 tab
+    // panels (support.json's categories are locked to these 4 slugs — see
+    // support-list.html's hand-authored tabs for the same assumption).
+    const guidesArticles = support.articles.filter(a => a.category === 'guides');
+    const applicationNotesArticles = support.articles.filter(a => a.category === 'application-notes');
+    const troubleshootingArticles = support.articles.filter(a => a.category === 'troubleshooting');
+    const reviewsArticles = support.articles.filter(a => a.category === 'reviews');
     pages.push({
       url: '/support/',
       template: 'support-list',
-      context: { ...site, seo, ...support, breadcrumb },
+      context: { ...site, seo, ...support, guidesArticles, applicationNotesArticles, troubleshootingArticles, reviewsArticles, breadcrumb },
       breadcrumb,
     });
   }

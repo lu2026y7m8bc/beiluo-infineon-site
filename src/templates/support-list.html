@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {{> head-meta}}
+
+  <!-- CollectionPage JSON-LD (same shape for all 3 URL variants — seo.title/description already vary per page in pages.js).
+       Uses raw triple-brace interpolation per CLAUDE.md ("raw, JSON-LD only, validated safe") —
+       seo.title/description are build-time strings from site.json/pages.js, not user input. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "{{{seo.title}}}",
+    "description": "{{{seo.description}}}"
+  }
+  </script>
+
+  <!-- BreadcrumbList JSON-LD — depth differs per URL variant (support.schema.md §JSON-LD Mapping).
+       breadcrumb.html's breadcrumbJsonLd hook is never populated by pages.js (same gap as
+       solution-detail.html), so this is authored inline here, following that same precedent. -->
+  {{#if categories}}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type":"ListItem","position":1,"name":"Home","item":"{{{jsonLd.organizationUrl}}}/"},
+      {"@type":"ListItem","position":2,"name":"Support","item":"{{{seo.canonical}}}"}
+    ]
+  }
+  </script>
+  {{else}}
+  {{#if filterCategory}}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type":"ListItem","position":1,"name":"Home","item":"{{{jsonLd.organizationUrl}}}/"},
+      {"@type":"ListItem","position":2,"name":"Support","item":"{{{jsonLd.organizationUrl}}}/support/"},
+      {"@type":"ListItem","position":3,"name":"{{{category.name}}}","item":"{{{seo.canonical}}}"}
+    ]
+  }
+  </script>
+  {{else}}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type":"ListItem","position":1,"name":"Home","item":"{{{jsonLd.organizationUrl}}}/"},
+      {"@type":"ListItem","position":2,"name":"Support","item":"{{{jsonLd.organizationUrl}}}/support/"},
+      {"@type":"ListItem","position":3,"name":"{{{tag.name}}}","item":"{{{seo.canonical}}}"}
+    ]
+  }
+  </script>
+  {{/if}}
+  {{/if}}
+</head>
+<body>
+  {{> nav}}
+  <main id="main">
+    {{> breadcrumb}}
+    <div class="container">
+      <div class="layout-with-sidebar">
+        <div class="layout-with-sidebar__main">
+
+          {{#if categories}}
+          <!-- ============================================================
+               SUPPORT OVERVIEW — /support/
+               design.md §5.7: Breadcrumb → H1 → .tab-container(4 categories)
+               ============================================================ -->
+          <header class="page-hero">
+            <h1 class="page-hero__title">Infineon Technical Support &amp; Selection Guides</h1>
+            <p class="page-hero__desc">BeiLuo technical support pairs Infineon datasheets with real BeiLuo FAE field experience: selection guides for choosing the right IGBT, MCU, MOSFET, or sensor; application notes for gate-drive, thermal, and sensor-interface design; troubleshooting guides for common failure modes; and first-look reviews of newly released Infineon devices. Browse by category below.</p>
+          </header>
+
+          <div class="tab-container">
+            <div role="tablist" aria-label="Support content categories">
+              <button role="tab" data-tab="guides" aria-selected="true" aria-controls="tabpanel-guides" id="tab-guides">Selection Guides</button>
+              <button role="tab" data-tab="application-notes" aria-selected="false" aria-controls="tabpanel-application-notes" id="tab-application-notes" tabindex="-1">Application Notes</button>
+              <button role="tab" data-tab="troubleshooting" aria-selected="false" aria-controls="tabpanel-troubleshooting" id="tab-troubleshooting" tabindex="-1">Troubleshooting</button>
+              <button role="tab" data-tab="reviews" aria-selected="false" aria-controls="tabpanel-reviews" id="tab-reviews" tabindex="-1">New Product Reviews</button>
+            </div>
+
+            <div role="tabpanel" data-tabpanel="guides" id="tabpanel-guides" aria-labelledby="tab-guides">
+              <div class="support-card-grid">
+                {{#each guidesArticles}}{{> support-card}}{{/each}}
+              </div>
+              <a class="tabpanel__view-all" href="/support/guides/">View all in Selection Guides &rarr;</a>
+            </div>
+
+            <div role="tabpanel" data-tabpanel="application-notes" id="tabpanel-application-notes" aria-labelledby="tab-application-notes" hidden>
+              <div class="support-card-grid">
+                {{#each applicationNotesArticles}}{{> support-card}}{{/each}}
+              </div>
+              <a class="tabpanel__view-all" href="/support/application-notes/">View all in Application Notes &rarr;</a>
+            </div>
+
+            <div role="tabpanel" data-tabpanel="troubleshooting" id="tabpanel-troubleshooting" aria-labelledby="tab-troubleshooting" hidden>
+              <div class="support-card-grid">
+                {{#each troubleshootingArticles}}{{> support-card}}{{/each}}
+              </div>
+              <a class="tabpanel__view-all" href="/support/troubleshooting/">View all in Troubleshooting &rarr;</a>
+            </div>
+
+            <div role="tabpanel" data-tabpanel="reviews" id="tabpanel-reviews" aria-labelledby="tab-reviews" hidden>
+              <div class="support-card-grid">
+                {{#each reviewsArticles}}{{> support-card}}{{/each}}
+              </div>
+              <a class="tabpanel__view-all" href="/support/reviews/">View all in New Product Reviews &rarr;</a>
+            </div>
+          </div>
+
+          {{else}}
+          {{#if filterCategory}}
+          <!-- ============================================================
+               SUPPORT CATEGORY INDEX — /support/<category>/
+               design.md §5.8: H1 = category name + keywords, filtered cards
+               ============================================================ -->
+          <header class="page-hero">
+            <h1 class="page-hero__title">{{category.title}}</h1>
+            {{#if category.description}}<p class="page-hero__desc">{{category.description}}</p>{{/if}}
+          </header>
+
+          <div class="support-card-grid">
+            {{#each articles}}{{> support-card}}{{/each}}
+          </div>
+
+          {{else}}
+          <!-- ============================================================
+               SUPPORT TAG AGGREGATION — /support/tags/<tag>/
+               design.md §5.9: H1 = Articles tagged "<tag.name>"
+               ============================================================ -->
+          <header class="page-hero">
+            <h1 class="page-hero__title">Articles tagged &quot;{{tag.name}}&quot;</h1>
+            <p class="page-hero__desc">Browse BeiLuo technical resources tagged with {{tag.name}}: selection guides, application notes, troubleshooting steps, and FAE reviews covering {{tag.name}} on Infineon components.</p>
+          </header>
+
+          <div class="support-card-grid">
+            {{#each articles}}{{> support-card}}{{/each}}
+          </div>
+
+          {{/if}}
+          {{/if}}
+
+        </div>
+        <aside class="layout-with-sidebar__sidebar">
+          {{> sidebar}}
+        </aside>
+      </div>
+    </div>
+  </main>
+  {{> footer}}
+  {{> contact-float}}
+  <script type="module" src="/assets/js/nav.js"></script>
+</body>
+</html>
