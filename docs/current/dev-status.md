@@ -1,6 +1,6 @@
 # dev-status.md — BeiLuo Infineon Site
 
-> Last updated: 2026-07-03 (session close after T6.2 complete — T6.3 next)
+> Last updated: 2026-07-03 (session close after T6.3 complete — T6.4 next)
 
 ---
 
@@ -14,10 +14,9 @@
 
 | File | Change |
 |------|--------|
-| `src/templates/product-detail.html` | T6.2: **fixes a real T5.4 markup-contract deviation** — 5-tab markup (overview/specs/applications/documents/faq) previously had no `data-tab`/`data-tabpanel` at all and used a `btn-<key>`/`tab-<key>` id scheme instead of the contract's `tab-<key>`/`tabpanel-<key>`; now realigned to `markup-contract.md` §2 exactly. Only attributes changed — panel content byte-identical |
-| `src/templates/support-list.html` | T6.2: added `<script type="module" src="/assets/js/tabs.js">` only — its T5.6 Tab markup was already contract-compliant, untouched |
-| `src/assets/js/tabs.js` | T6.2: new — click + full keyboard nav (arrow-key wrap-around, Home/End, native Enter/Space via button) tab switching per `markup-contract.md` §2.3/§2.4, generic across any number of `.tab-container` instances |
-| `docs/current/todo_write.md` | T6.2 → completed, T6.3 → in_progress |
+| `src/templates/tech-detail.html` | T6.3: added `<script type="module" src="/assets/js/toc.js">` only — markup was already `markup-contract.md` §3-compliant from T5.7, untouched otherwise |
+| `src/assets/js/toc.js` | T6.3: new — builds nested `<ol>/<li>/<a>` TOC tree (H2 top-level, H3 nests under nearest preceding H2) in `[data-toc]`, `IntersectionObserver`-based scroll-spy highlighting. **Fixed a real Major bug found by reviewer during this session**: original scroll-highlight toggled `toc-active` on/off per individual `isIntersecting` change, which — because heading elements are much shorter than their section content — meant the highlight only flashed briefly while crossing a narrow top-of-viewport band, then vanished for most of actual reading time. Fixed to track a single `activeId` that only *advances* when a new heading enters the trigger band, correctly keeping the previous heading highlighted throughout the section's reading time |
+| `docs/current/todo_write.md` | T6.3 → completed, T6.4 → in_progress |
 
 These changes should be committed (pending user confirmation — commit not yet made).
 
@@ -68,23 +67,23 @@ These changes should be committed (pending user confirmation — commit not yet 
 | T5.9 | about.html + author profile pages + about.json team[] data fix (3 pages) | ecefabf |
 | T5.10 | contact.html (contact card + inquiry form markup hooks) | 4b5f1e0 |
 | T6.1 | table-filter.js **+ fixed a real T5.3 defect** (product-category.html tbody was hardcoded, ignoring 6-8 dynamic columns per category) **+ markup-contract.md §1 alignment** | eafdec4 |
-| T6.2 | tabs.js **+ fixed a real T5.4 markup-contract deviation** (product-detail.html's 5 tabs had no `data-tab`/`data-tabpanel`, wrong id scheme) | not yet committed |
+| T6.2 | tabs.js **+ fixed a real T5.4 markup-contract deviation** (product-detail.html's 5 tabs had no `data-tab`/`data-tabpanel`, wrong id scheme) | e551dfc |
+| T6.3 | toc.js (T5.7's `tech-detail.html` markup was already contract-compliant, no template fix needed this time) **+ fixed a Major scroll-highlight semantic bug** found in review | not yet committed |
 
 **PHASE 5 COMPLETE (T5.1–T5.10). All 12 templates built.**
 
-**Total tests passing: 363** (as of T6.2 complete)
+**Total tests passing: 363** (as of T6.3 complete)
 
 ---
 
 ## 3. Current In-Progress
 
-**T6.3 — `src/assets/js/toc.js`**
+**T6.4 — `src/assets/js/form.js`**
 
-- Design ref: `markup-contract.md` §3 (`.article-content` with `h2[id]`/`h3[id]` → `.sticky-sidebar` `[data-toc]` generates `<ol>/<li>/<a>` TOC tree at runtime, `IntersectionObserver`-based scroll highlighting with `.toc-active` class) — consumed by `tech-detail.html` (T5.7)
-- **Check contract compliance first** (now an established T6.x pattern from T6.1/T6.2): read `tech-detail.html`'s actual `.article-content`/`.sticky-sidebar`/`[data-toc]` markup before assuming it matches §3 exactly — T5.7's own Codex re-check already specifically verified the Sticky TOC contract elements (`.article-content`, `data-toc`, `aria-label="Table of contents"`) were correct at the time, so this one has a better starting chance than T5.3/T5.4 did, but verify directly rather than assuming based on that memory
-- Behavior: on load, scan `.article-content h2, h3` (each already has a unique `id` per support.json's data contract), build TOC tree in `[data-toc]`; on scroll, highlight the current section's TOC entry via `IntersectionObserver`; mobile degrades TOC to the end of the article (per plan.md's T6.3 completion criteria)
-- No unit tests expected (browser-verified per plan.md, same as T6.1/T6.2)
-- Completion criteria: scroll highlighting works, mobile degrades TOC placement to article end
+- Design ref: `design.md` §4.11 / `markup-contract.md` §4 (`<form data-validate novalidate>` with `data-rule`/`data-error-for`/`data-submit`/`data-success` hooks) — consumed by `contact.html` (T5.10, which already produced fully contract-compliant markup — verify directly rather than assuming, per the now-established T6.x pattern, but T5.10's own review specifically checked this DOM byte-for-byte against the contract)
+- Behavior: client-side-only validation (required fields, email format, part-number field), inline error messages near each field (`[data-error-for]`), disable submit + show spinner during "submission" (static site — no real backend, so "submission" just simulates a delay then shows the success state), reveal `[data-success]` on completion
+- No unit tests expected (browser-verified per plan.md, same as T6.1–T6.3)
+- Completion criteria: required/email validation works, inline errors appear near fields, submit button disables during submission
 
 ---
 
@@ -148,6 +147,7 @@ Mostly Low severity (triage at T8.1/T8.2 final sweep); one **High** item below n
 
 | Task | Codex Result |
 |------|-------------|
+| T6.3 | **Approved** — internal reviewer REJECTed for 1 Major: scroll-highlight (`toc-active`) implementation observed heading elements themselves (single-line, much shorter than their section content) with a narrow top-30%-viewport `rootMargin`, and removed the highlight the instant any heading exited that band — meaning the TOC showed no highlight for most of actual reading time, only flashing briefly while scrolling past a heading. Controller fixed directly: track a single `activeId` that only *advances* when a new heading enters the band, correctly keeping the previous section highlighted until the next one is reached. Codex traced the exact highlight transition sequence through the contract's own H2/H3 example and confirmed it now matches "most recently passed heading stays active" semantics |
 | T6.2 | **Approved** — no issues found. Internal reviewer also APPROVE (no findings); reviewer additionally executed the real `tabs.js` against a constructed fake-DOM harness (18 assertions: click/keyboard switching, boundary wrap-around, mismatch handling, single-tab degradation) rather than just reading the code |
 | T6.1 | **Approved** — internal reviewer APPROVE_WITH_MINOR_FINDINGS found 1 Major (unguarded `{{value}}` in the plain-value table-cell branch would throw render.js's "Missing field" error and crash the *entire site build* if any future model lacks a declared column's param — not just style); controller fixed at the source in `pages.js` (coalesce missing values to `''`, not left `undefined`) rather than templating around it with `{{#if value}}` (which would have incorrectly hidden legitimate `0` values, since render.js's `isTruthy(0) === false`); verified both properties (no-throw on missing + correct `"0"` display) with a live render reproduction. Codex found 1 new Minor (table-filter.js's range filter treats non-numeric/blank cells as always-matching — edge case, not a regression) |
 | T5.10 | **Approved** — no new issues (internal reviewer APPROVE_WITH_MINOR_FINDINGS; controller fixed the one real finding directly — a fabricated `mailto:sales@beiluo.com` copied verbatim from markup-contract.md's illustrative example text, not backed by any site.json field — replaced with the real, data-backed WhatsApp/WeChat channels) |
@@ -168,15 +168,17 @@ Codex re-check is **MANDATORY** after every task (user rule, established 2026-06
 
 ## 8. Next Recommended Task
 
-**T6.3 — `src/assets/js/toc.js`**
+**T6.4 — `src/assets/js/form.js`**
 
-- Markup contract: `src/markup-contract.md` §3 — consumed by `tech-detail.html` (T5.7)
-- **Check contract compliance first** (T6.1 and T6.2 both required fixing an earlier template's markup before the JS could be written correctly — check this one too rather than assuming it's fine): T5.7's own Codex re-check specifically verified `.article-content`/`data-toc`/`aria-label="Table of contents"` were present and correct, which is a better starting signal than T5.3/T5.4 had, but confirm directly against the current file rather than relying on that memory.
-- Behavior: scan `.article-content h2, h3` (unique `id` per element, already guaranteed by support.json's data contract) to build a TOC tree inside `[data-toc]`; `IntersectionObserver`-based scroll highlighting with `.toc-active`; mobile degrades TOC to the end of the article
+- Markup contract: `src/markup-contract.md` §4 — consumed by `contact.html` (T5.10)
+- Contract compliance: T5.10's own review already checked `contact.html`'s form DOM byte-for-byte against §4 (`data-validate`/`data-rule`/`data-error-for`/`data-submit`/`data-success`, no `action` attribute) and found it exactly compliant — unlike T5.3/T5.4/(T5.7 turned out fine too), there's no known deviation to fix first here, but confirm directly rather than skipping the check entirely (T6.1–T6.3 all found this check worth doing)
+- Behavior: client-side-only validation per field `data-rule` (text/email/partno), inline errors near each field via `[data-error-for]`, disable + spinner on `[data-submit]` during "submission" (static site, no backend — simulate a brief delay), reveal `[data-success]` and hide the form (or leave it, decide based on UX judgment) on completion
 - Not TDD (plan.md marks T6.x as browser-verified) — completion is manual/browser verification, not `npm test`
-- Completion criteria: scroll highlighting works, mobile TOC placement degrades to article end
+- Completion criteria: required/email validation works, inline error messages appear near fields, submit button disables during submission
 
-**New-todo candidates surfaced during T5.6–T6.2 (not implemented, recorded in §6 Known Issues above — triage at T8.1/T8.2 or earlier if blocking):**
+**This is the last Phase 6 task (T6.1–T6.4) — Phase 7 (SEO/GEO wiring) follows.**
+
+**New-todo candidates surfaced during T5.6–T6.3 (not implemented, recorded in §6 Known Issues above — triage at T8.1/T8.2 or earlier if blocking):**
 - **[Ready now]** Wire `navCategories` into every page context (was blocked on "after Phase 5 template work" — now unblocked, see §6)
 - **[High]** Generate ~13 missing SVG assets referenced by `about.json`'s `advantages`/`cases`/`customsDeclarations` (extends T3.x scope) — About page currently shows broken images including the PRD-mandated customs-declaration trust section
 - **[High]** ~17 pre-existing dead links across products.json/home.json, surfaced by the first successful full `node src/build.js` run at Phase 5 close (see §6) — deferred to T9.1 per user decision
