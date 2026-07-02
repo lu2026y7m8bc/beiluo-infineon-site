@@ -50,8 +50,8 @@
   { "content": "T5.5 templates/solutions-list.html + solution-detail.html(框图/BOM型号内链/≥800字/侧边栏/CTA/BreadcrumbList) — 完成标准：5详情生成,BOM内链有效,≥800字", "status": "completed" },
   { "content": "T5.6 templates/support-list.html(Tab4分类+链接分类页)+分类索引页+标签聚合页(复用本模板) — 完成标准：4分类索引页+各标签页生成,零空链接", "status": "completed" },
   { "content": "T5.7 templates/tech-detail.html(作者栏/Sticky TOC钩子/排版竖线-代码块-引用块/标签/内链/相关文章/TechArticle JSON-LD) — 完成标准：满足§3.5.4,内链达标,4篇生成", "status": "completed" },
-  { "content": "T5.8 templates/news-list.html(公司/行业分区)+news-detail.html(单栏Banner/分享/底部3卡/NewsArticle,无侧栏) — 完成标准：分区不混排,单栏,4篇生成,JSON-LD合法", "status": "in_progress" },
-  { "content": "T5.9 templates/about.html(简介/历程/优势/案例/报关单/团队)+作者页(复用about,URL/about/authors/<slug>/) — 完成标准：报关单区块存在,作者页生成且被tech-detail链接", "status": "pending" },
+  { "content": "T5.8 templates/news-list.html(公司/行业分区)+news-detail.html(单栏Banner/分享/底部3卡/NewsArticle,无侧栏) — 完成标准：分区不混排,单栏,4篇生成,JSON-LD合法", "status": "completed" },
+  { "content": "T5.9 templates/about.html(简介/历程/优势/案例/报关单/团队)+作者页(复用about,URL/about/authors/<slug>/) — 完成标准：报关单区块存在,作者页生成且被tech-detail链接", "status": "in_progress" },
   { "content": "T5.10 templates/contact.html(独立模板:联系网格+询价表单钩子+浮层) — 完成标准：联系取自site.json,表单字段完整,无空链接", "status": "pending" },
 
   { "content": "T6.1 [核心] /src/assets/js/table-filter.js(动态列读取+每列筛选下拉/范围/多选+移动横向滚动+首列冻结) — 完成标准：浏览器验证筛选正确,移动可滚,型号链接保留", "status": "pending" },

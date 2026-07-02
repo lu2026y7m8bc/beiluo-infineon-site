@@ -251,10 +251,18 @@ export function buildPageList(data) {
   {
     const breadcrumb = markCurrentLast([bc('Home', '/')]);
     const seo = { ...site.seo, title: `News | ${site.brand.name} Infineon Distributor`, description: `Latest news from ${site.brand.name}: Infineon distributor updates, stock announcements, industry insights, and wide-bandgap semiconductor market coverage.`, canonical: '/news/' };
+    // Pre-filtered per-section article arrays for the news-list page's two panels
+    // (news.schema.md "news-list Template Rendering Logic": Company News / Industry
+    // News, each sorted by date descending, never mixed). Sorted explicitly rather
+    // than relying on news.json's existing order — same defensive pattern used for
+    // T5.6's guidesArticles/applicationNotesArticles/etc.
+    const sortedByDateDesc = [...news.articles].sort((a, b) => new Date(b.date) - new Date(a.date));
+    const companyArticles = sortedByDateDesc.filter(a => a.type === 'company');
+    const industryArticles = sortedByDateDesc.filter(a => a.type === 'industry');
     pages.push({
       url: '/news/',
       template: 'news-list',
-      context: { ...site, seo, articles: news.articles, breadcrumb },
+      context: { ...site, seo, articles: news.articles, companyArticles, industryArticles, breadcrumb },
       breadcrumb,
     });
   }
@@ -264,10 +272,37 @@ export function buildPageList(data) {
     const articleUrl = `/news/${article.slug}/`;
     const breadcrumb = markCurrentLast([bc('Home', '/'), bc('News', '/news/')]);
     const seo = { ...site.seo, title: `${article.title} | ${site.brand.name}`, description: article.summary || article.title, canonical: articleUrl };
+    // "Latest News" 3-card block: 3 most recent articles of any type, excluding the
+    // current article, sorted by date descending (news.schema.md "news-detail Template
+    // Rendering Logic" item 4 / design §5.12). render.js has no sort/compare
+    // capability, so this must be computed here rather than in the template.
+    const latestNews = [...news.articles]
+      .sort((a, b) => new Date(b.date) - new Date(a.date))
+      .filter(a => a.slug !== article.slug)
+      .slice(0, 3);
+    // Author JSON-LD @type: Organization when the byline is an editorial team, else
+    // Person — mirrors schema.js's newsArticle() logic. render.js has no string
+    // .includes()/equality operator, so this must be pre-computed here.
+    const authorType = article.author.toLowerCase().includes('team') ? 'Organization' : 'Person';
+    // Banner overlay CSS class: light variant only when explicitly requested via
+    // bannerImage.overlayStyle === "light", dark by default (news.schema.md lines
+    // 55/57). render.js has no string-equality operator, so this must be
+    // pre-computed here rather than branched on in the template.
+    const overlayClass = article.bannerImage && article.bannerImage.overlayStyle === 'light'
+      ? 'banner-overlay-light'
+      : 'banner-overlay-dark';
+    // Percent-encoded share.title/share.url for the share-bar's LinkedIn/WhatsApp
+    // query-string links. render.js only HTML-escapes — it has no encodeURIComponent —
+    // so a bare title/url would break query strings for any future article title
+    // containing "&"/"#"/"%". Encoded here, output via triple-brace in the template
+    // since encodeURIComponent's output is already URL-safe ASCII (no HTML-escaping
+    // needed, and double-escaping would corrupt the encoding).
+    const shareTitleEncoded = encodeURIComponent(article.share.title);
+    const shareUrlEncoded = encodeURIComponent(article.share.url);
     pages.push({
       url: articleUrl,
       template: 'news-detail',
-      context: { ...site, seo, article, breadcrumb },
+      context: { ...site, seo, article, latestNews, authorType, overlayClass, shareTitleEncoded, shareUrlEncoded, breadcrumb },
       breadcrumb,
     });
   }

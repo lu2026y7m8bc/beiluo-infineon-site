@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {{> head-meta}}
+
+  <!-- NewsArticle JSON-LD (news.schema.md JSON-LD Mapping, design §10, PRD §3.6.2).
+       Hand-authored per project convention (see tech-detail.html) using triple-brace
+       raw interpolation — values are build-time strings from news.json/pages.js, not
+       user input. authorType/overlayClass are pre-computed in pages.js since render.js
+       has no string .includes()/equality operator (mirrors schema.js's newsArticle()
+       author-type logic). -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    "headline": "{{{article.title}}}",
+    "description": "{{{article.metaDescription}}}",
+    "datePublished": "{{{article.date}}}",
+    "dateModified": "{{#if article.dateModified}}{{{article.dateModified}}}{{else}}{{{article.date}}}{{/if}}",
+    "author": {
+      "@type": "{{{authorType}}}",
+      "name": "{{{article.author}}}"
+    },
+    "image": "{{{jsonLd.organizationUrl}}}{{{article.bannerImage.src}}}",
+    "publisher": {
+      "@type": "Organization",
+      "name": "{{{brand.name}}}",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "{{{jsonLd.organizationUrl}}}{{{logo.src}}}"
+      }
+    },
+    "mainEntityOfPage": "{{{jsonLd.organizationUrl}}}{{{seo.canonical}}}"
+  }
+  </script>
+
+  <!-- BreadcrumbList JSON-LD — Home → News → <article.title> (news.schema.md JSON-LD
+       Mapping, design §10). -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type":"ListItem","position":1,"name":"Home","item":"{{{jsonLd.organizationUrl}}}/"},
+      {"@type":"ListItem","position":2,"name":"News","item":"{{{jsonLd.organizationUrl}}}/news/"},
+      {"@type":"ListItem","position":3,"name":"{{{article.title}}}","item":"{{{jsonLd.organizationUrl}}}{{{seo.canonical}}}"}
+    ]
+  }
+  </script>
+</head>
+<body>
+  {{> nav}}
+  <main id="main">
+    {{> breadcrumb}}
+
+    <!-- ============================================================
+         NEWS DETAIL — /news/<slug>/  (single-column, no sidebar, PRD C7)
+         design.md §5.12: full-width header banner (H1 + date + category
+         badge over bannerImage.src with dark overlay) → single-column
+         body → share bar → "Latest News" 3-card block → final CTA.
+         ============================================================ -->
+    <header class="news-banner {{overlayClass}}">
+      <img class="news-banner__bg" src="{{article.bannerImage.src}}" alt="{{article.bannerImage.alt}}" loading="eager">
+      <div class="news-banner__overlay" aria-hidden="true"></div>
+      <div class="container news-banner__inner">
+        {{#if article.categoryTag}}<span class="badge badge--tag news-banner__tag">{{article.categoryTag}}</span>{{/if}}
+        <h1 class="news-banner__title">{{article.title}}</h1>
+        <div class="news-banner__meta">
+          <time class="news-banner__date" datetime="{{article.date}}">{{article.date}}</time>
+          {{#if article.author}}<span class="news-banner__author">By {{article.author}}</span>{{/if}}
+        </div>
+      </div>
+    </header>
+
+    <div class="container">
+      <!-- Single-column centered body (design §5.12, PRD C7 — no sidebar). "longform"
+           reuses the T2.2/T5.7 baseline typography (max-width 800px, line-height 1.8,
+           H2/H3 left rule, <pre><code> grey background, <blockquote> left border). -->
+      <article class="news-article">
+        <div class="news-article__body longform">
+          {{{article.body}}}
+        </div>
+
+        <!-- Social share bar — uses share.url / share.title (news.schema.md
+             "news-detail Template Rendering Logic" item 3). shareTitleEncoded /
+             shareUrlEncoded are pre-encoded via encodeURIComponent() in pages.js
+             (render.js has no URL-encoding capability) and output raw via
+             triple-brace so the already URL-safe percent-encoding isn't re-escaped. -->
+        <div class="share-bar">
+          <span class="share-bar__label">Share this article:</span>
+          <a class="share-bar__link share-bar__link--linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url={{{shareUrlEncoded}}}" target="_blank" rel="noopener noreferrer">Share on LinkedIn</a>
+          <a class="share-bar__link share-bar__link--whatsapp" href="https://api.whatsapp.com/send?text={{{shareTitleEncoded}}}%20{{{shareUrlEncoded}}}" target="_blank" rel="noopener noreferrer">Share on WhatsApp</a>
+          <a class="share-bar__link share-bar__link--copy" href="{{article.share.url}}">{{article.share.url}}</a>
+        </div>
+      </article>
+
+      <!-- "Latest News" 3-card block — 3 most recent articles of any type, excluding
+           the current article, computed in pages.js (render.js has no sort/compare
+           capability). Replaces sidebar navigation per PRD C7 / news.schema.md line 8. -->
+      {{#if latestNews}}
+      <section class="news-latest section">
+        <h2 class="section__title">Latest News</h2>
+        <div class="news-latest__grid">
+          {{#each latestNews}}{{> news-card}}{{/each}}
+        </div>
+      </section>
+      {{/if}}
+    </div>
+
+    {{> cta-block}}
+  </main>
+  {{> footer}}
+  {{> contact-float}}
+  <script type="module" src="/assets/js/nav.js"></script>
+</body>
+</html>

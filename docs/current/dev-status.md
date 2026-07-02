@@ -1,6 +1,6 @@
 # dev-status.md — BeiLuo Infineon Site
 
-> Last updated: 2026-07-02 (session close after T5.7 complete, T5.8 next)
+> Last updated: 2026-07-02 (session close after T5.8 complete, T5.9 next)
 
 ---
 
@@ -14,9 +14,12 @@
 
 | File | Change |
 |------|--------|
-| `src/lib/pages.js` | T5.7: tech-detail context now also resolves `article.author` slug → full `author` object, `article.relatedArticles` slugs → full `relatedArticles` article objects, plus injects `category` — all additive sibling context fields, `article` itself untouched |
-| `src/templates/tech-detail.html` | T5.7: new — immersive reading layout + sticky sidebar (TOC hook/PDF/Ask-an-Engineer CTA) |
-| `docs/current/todo_write.md` | T5.7 → completed, T5.8 → in_progress |
+| `src/data/news.json` | T5.8: converted all 4 article `body` fields from markdown-style plain text to HTML (`<h2 id>`/`<p>`), matching support.json's convention — content unchanged, word counts identical, one contextLink naturally embedded per article |
+| `src/lib/pages.js` | T5.8: news-list context gains `companyArticles`/`industryArticles` (pre-filtered, date-desc); news-detail context gains `latestNews` (3 most recent excluding current), `authorType` (Organization/Person), `overlayClass`, `shareTitleEncoded`/`shareUrlEncoded` (`encodeURIComponent`'d) |
+| `src/templates/news-list.html` | T5.8: new — Company/Industry two-section list with sidebar |
+| `src/templates/news-detail.html` | T5.8: new — full-width banner, single-column `.longform` body, share bar, Latest News 3-card block, no sidebar |
+| `src/templates/partials/news-card.html` | T5.8: new — reuses `card card--teaser`/`card__image`/`badge badge--tag`/`card__summary`/`card__date` |
+| `docs/current/todo_write.md` | T5.8 → completed, T5.9 → in_progress |
 
 These changes should be committed (pending user confirmation — commit not yet made).
 
@@ -62,21 +65,21 @@ These changes should be committed (pending user confirmation — commit not yet 
 | T5.4 | product-detail.html | 7a99552 + 8cb349f |
 | T5.5 | solutions-list.html + solution-detail.html | e469571 |
 | T5.6 | support-list.html + support-card.html partial (overview/category/tag, 19 pages) | d9f6bce |
-| T5.7 | tech-detail.html (author bar/sticky sidebar/longform typography/related articles/TechArticle JSON-LD, 4 articles) | not yet committed |
+| T5.7 | tech-detail.html (author bar/sticky sidebar/longform typography/related articles/TechArticle JSON-LD, 4 articles) | 8d0f5c7 |
+| T5.8 | news-list.html + news-detail.html + news-card.html partial + news.json body HTML fix (5 pages) | not yet committed |
 
-**Total tests passing: 363** (as of T5.7 complete)
+**Total tests passing: 363** (as of T5.8 complete)
 
 ---
 
 ## 3. Current In-Progress
 
-**T5.8 — `templates/news-list.html` + `templates/news-detail.html`**
+**T5.9 — `templates/about.html` + author profile pages**
 
-- `news-list.html`: Company News / Industry News two sections (must not intermix), sidebar for news nav
-- `news-detail.html`: single-column magazine style (full-width banner header, no sidebar per prd.md §3.1), share bar, bottom "Latest News" 3-card block, NewsArticle JSON-LD
-- Data: `src/data/news.json` (4 articles, 2 company + 2 industry — validated by T4.7's `validateData`)
-- `pages.js` already generates both page types (see "── 13. News list" / "── 14. News detail pages" blocks); check whether context needs enrichment similar to T5.7's author/relatedArticles resolution before assuming raw `article` fields suffice
-- Completion criteria: sections don't intermix, single column on detail, 4 articles generated, valid JSON-LD
+- Design ref: design.md §5.13 (about: hero intro → history timeline → advantages feature grid → customer-case logo wall → customs-declaration trust section → team/FAE entry → CTA) and §5.15 (author profile page reuses `about` template, data-driven variant, URL `/about/authors/<slug>/`, no 13th template)
+- Data: `src/data/about.json` (intro/history/advantages/customsDeclarations per CLAUDE.md field aliases) + `src/data/support.json`'s `authors[]` (already used by T5.7's author bar `profileHref` links — those links currently point to not-yet-existing pages, this task creates them)
+- pages.js already builds author pages at "── 15. Author profile pages" (template: `'about'`) — check its context shape before assuming it matches the main about-page context; likely needs a discriminator field (e.g. `author` present vs not) similar to T5.6's 3-way branching pattern
+- Completion criteria: customs-declaration block present, author pages generated and correctly linked from tech-detail's author bar (verify T5.7's `author.profileHref` links resolve, not just structurally present)
 
 ---
 
@@ -122,6 +125,10 @@ All are Low severity; triage at T8.1/T8.2 final sweep.
 | Low | T5.6 | `npm test`'s existing suite doesn't exercise the real `support-list.html`/`support-card.html` render path (`build.test.js` stubs templates) — correctness was verified via a throwaway script during review, not a committed test. Consider adding template-render coverage at T9.1/T9.4 if time allows. |
 | Low | T4.4 | `support.json` data defect: article `infineon-optimos-mosfet-overview`'s `internalLinks` declares a model link to `/products/mosfet/irfs4321pbf/` that never actually appears in `article.body` text — PRD's "≥1 model internal link per article" isn't truly satisfied for this one article. `validate-data.js` doesn't cross-check `internalLinks[].href` against body content, so nothing catches it. Fix by adding the missing in-body link to `support.json`, or extending `validate-data.js`. |
 | Low | T5.6/T5.7 | Tag badges (`support-card.html`, `tech-detail.html`) render the raw tag slug (`igbt`) instead of the human-readable `tag.name` (`IGBT`) — the per-article contexts only carry `article.tags` (slugs), not resolved `Tag` objects. A consolidated fix would inject a `tags`-name lookup map into every support-related context in `pages.js`. Low priority (slugs are still readable and functional). |
+| Low | all list pages | `{{> sidebar}}` (`partials/sidebar.html`) renders empty on every page that includes it (products-list/solutions-list/support-list/news-list/product-category/solution-detail) because `pages.js` never injects `sidebarSections` anywhere site-wide. Confirmed during T5.8 review — not new, but not previously logged as a standalone item. Fix: decide sidebar content per page type (category nav tree / related links) and wire in `pages.js`. |
+| Low | T5.8 | `news-list` context still passes the unfiltered `articles: news.articles` field alongside the new `companyArticles`/`industryArticles` — dead/unused field, harmless but could be dropped for cleanliness. |
+| Low | T5.6/T5.7/T5.8 | New `pages.js` context-enrichment fields (`guidesArticles`.../`authorInfo`/`relatedArticlesResolved`/`companyArticles`/`industryArticles`/`latestNews`/`authorType`/`overlayClass`/`shareTitleEncoded`/`shareUrlEncoded`) have no committed unit test coverage — `tests/pages.test.js` uses a minimal stub fixture that doesn't exercise these. Correctness verified via throwaway scripts during each review, not persisted as tests. Consider adding coverage at T9.1/T9.4. |
+| ~~Was High~~ Fixed | T4.5 → T5.8 | `news.json`'s 4 article `body` fields were plain markdown-style text (`## Heading {#id}`), not HTML like every other content file — would have rendered as an unformatted text blob with literal `##` markers via `{{{article.body}}}`. Fixed during T5.8 session: converted to HTML matching support.json's convention, content/word-count unchanged, one `contextLinks` entry naturally embedded per article. |
 
 **Pending NEW TODO (from T2.4):** `navCategories` injection — pages.js should inject `navCategories` (derived from `products.categories`, featuredModels = first 2 models) into every page context so nav mega-menu renders site-wide. Currently mega renders 0 categories gracefully. Wire during/after Phase 5 template work.
 
@@ -131,6 +138,7 @@ All are Low severity; triage at T8.1/T8.2 final sweep.
 
 | Task | Codex Result |
 |------|-------------|
+| T5.8 | **Approved** — no new issues (internal reviewer first REJECTed for 2 Major: `news-card.html` not reusing existing `card--teaser`/`badge` CSS classes, share-bar URLs not percent-encoded; both fixed and re-verified before Codex ran) |
 | T5.7 | Round 1: 2 **High** found (article body not using existing `.longform` CSS class; "Related Articles" section nested inside `.article-content` polluting Sticky TOC scan scope) → both fixed → Round 2: **Approved** |
 | T5.6 | **Approved** — no new issues (internal reviewer first REJECTed for 2 Major: missing tag rendering on cards, overview-page CSS-hide duplication instead of server-side pre-filter; both fixed and re-verified before Codex ran) |
 | T5.5 | **Approved** — no issues found |
@@ -146,20 +154,20 @@ Codex re-check is **MANDATORY** after every task (user rule, established 2026-06
 
 ## 8. Next Recommended Task
 
-**T5.8 — `templates/news-list.html` + `templates/news-detail.html`**
+**T5.9 — `templates/about.html` + author profile pages**
 
-- Design ref: design.md §5.11 (news-list: Breadcrumb → H1 → two sections **Company News** / **Industry News**, never intermixed, sidebar for news nav) and §5.12 (news-detail: single-column magazine style, full-width header banner with text shadow, H1+date+category tag, ≥800-word single-column body, social share bar, bottom "Latest News" 3-card block excluding current article, NewsArticle JSON-LD, **no sidebar** per prd.md §3.1)
-- Data: `src/data/news.json` — 4 articles (2 `type:"company"` + 2 `type:"industry"`, enforced by T4.7 `validateData`)
-- pages.js already builds both page lists ("── 13. News list" / "── 14. News detail pages" blocks) with `context: { ...site, seo, article, breadcrumb }` for detail and `context: { ...site, seo, articles: news.articles, breadcrumb }` for list — **check whether the list template needs company/industry pre-split similar to T5.6's per-category arrays**, and whether detail's "Latest News 3-card" (excluding current) needs a pages.js-resolved field similar to T5.7's `relatedArticles` resolution, before assuming template-only filtering is possible (render.js still has no equality operator)
-- JSON-LD: use `src/lib/schema.js`'s `newsArticle()` constructor as field reference (same as T5.7 referenced `techArticle()`); hand-author inline with triple-brace per project convention
-- Completion criteria: sections don't intermix, single column on detail, 4 articles generated, valid JSON-LD
+- Design ref: design.md §5.13 (Hero intro → history timeline → advantages feature grid → customer-case logo wall → customs-declaration trust section → team/FAE entry → CTA) and §5.15 (author profile page reuses `about` template as a data-driven variant, URL `/about/authors/<slug>/`, no 13th template — linked from `tech-detail.html`'s author bar for E-E-A-T)
+- Data: `src/data/about.json` (per CLAUDE.md field aliases: `history` array of `{year,event}`, `customsDeclarations`, `advantages`) + `src/data/support.json`'s `authors[]` (already consumed by T5.7's author bar; those `profileHref` links currently point to not-yet-existing pages — this task creates them and closes the loop)
+- pages.js already builds author pages at "── 15. Author profile pages" (template: `'about'`) — read its current context shape first; likely needs a discriminator field (e.g. `author` present vs absent) to branch between the main about-page content and the author-variant content within the same template, similar to T5.6's 3-way branching pattern
+- Completion criteria: customs-declaration block present; author pages generated; verify T5.7's `author.profileHref` links actually resolve now (not just structurally present — this closes a cross-task dependency)
 
-**New-todo candidates surfaced during T5.6/T5.7 (not implemented, recorded in §6 Known Issues above — triage at T8.1/T8.2 or earlier if blocking):**
+**New-todo candidates surfaced during T5.6/T5.7/T5.8 (not implemented, recorded in §6 Known Issues above — triage at T8.1/T8.2 or earlier if blocking):**
 - Reconcile T5.4 Tab markup with markup-contract.md §2 (or accept 2 shapes and make T6.2 tabs.js handle both)
 - Fix double-brace JSON-LD escaping bug in product-detail.html/solution-detail.html
 - Wire or remove breadcrumb.html's unused `{{breadcrumbJsonLd}}` hook
 - Fix links.js false-positive on `/sitemap.xml`/`/robots.txt` footer links
 - `support.json` `infineon-optimos-mosfet-overview` internalLinks/body mismatch (see §6)
 - Tag badges show raw slug not display name across support-list/tech-detail (see §6)
+- Wire `sidebarSections` into `pages.js` for all list/category/detail pages that include `{{> sidebar}}` (currently renders empty everywhere, see §6)
 
 **Tooling note:** Codex CLI (`codex exec -s read-only ...`) hung indefinitely (confirmed via `codex doctor` that network/auth were healthy) when the prompt was passed as a quoted CLI argument on this Windows/Git-Bash setup — it silently fell back to "Reading additional input from stdin..." and never received EOF. Fix: pipe the prompt via heredoc into `codex exec -s read-only -C "<path>" -` (the trailing `-` forces stdin read). Works reliably; use this form for all future Codex re-checks in this repo.

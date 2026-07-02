@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {{> head-meta}}
+
+  <!-- CollectionPage JSON-LD — matches sibling list-page convention (products-list.html /
+       support-list.html). Triple-brace raw per CLAUDE.md (JSON-LD only, validated safe —
+       seo.title/description are build-time strings from site.json/pages.js, not user input). -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "{{{seo.title}}}",
+    "description": "{{{seo.description}}}"
+  }
+  </script>
+
+  <!-- BreadcrumbList JSON-LD — Home → News (news.schema.md JSON-LD Mapping, design §10). -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type":"ListItem","position":1,"name":"Home","item":"{{{jsonLd.organizationUrl}}}/"},
+      {"@type":"ListItem","position":2,"name":"News","item":"{{{seo.canonical}}}"}
+    ]
+  }
+  </script>
+</head>
+<body>
+  {{> nav}}
+  <main id="main">
+    {{> breadcrumb}}
+    <div class="container">
+      <div class="layout-with-sidebar">
+        <div class="layout-with-sidebar__main">
+
+          <!-- ============================================================
+               NEWS LIST — /news/
+               design.md §5.11: Breadcrumb → H1 → two sections (Company News /
+               Industry News), each its own card grid, never mixed. Sidebar
+               news navigation via {{> sidebar}} below.
+               ============================================================ -->
+          <header class="page-hero">
+            <h1 class="page-hero__title">BeiLuo Infineon Distributor News</h1>
+            <p class="page-hero__desc">Stay up to date with BeiLuo company announcements and Infineon industry insights — stock expansions, FAE support programs, exhibitions, and semiconductor market trends, from an authorized Infineon distributor.</p>
+          </header>
+
+          <section class="news-list__section">
+            <h2 class="news-list__section-title">Company News</h2>
+            <div class="news-list__grid">
+              {{#each companyArticles}}{{> news-card}}{{/each}}
+            </div>
+          </section>
+
+          <section class="news-list__section">
+            <h2 class="news-list__section-title">Industry News</h2>
+            <div class="news-list__grid">
+              {{#each industryArticles}}{{> news-card}}{{/each}}
+            </div>
+          </section>
+
+        </div>
+        <aside class="layout-with-sidebar__sidebar">
+          {{> sidebar}}
+        </aside>
+      </div>
+    </div>
+  </main>
+  {{> footer}}
+  {{> contact-float}}
+  <script type="module" src="/assets/js/nav.js"></script>
+</body>
+</html>
