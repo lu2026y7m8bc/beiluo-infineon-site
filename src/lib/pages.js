@@ -15,6 +15,7 @@
  */
 
 import { slugify, uniqueSlug } from './slugify.js';
+import { breadcrumbList, itemList, jsonLdScript } from './schema.js';
 
 /**
  * Helper — create a single breadcrumb item.
@@ -37,6 +38,22 @@ function markCurrentLast(arr) {
     arr[arr.length - 1].current = true;
   }
   return arr;
+}
+
+/**
+ * Build a ready-to-embed BreadcrumbList <script> tag from a breadcrumb array,
+ * absolutizing each crumb's site-relative url against site.jsonLd.organizationUrl
+ * — matches the convention already used by every hand-authored BreadcrumbList
+ * block in the other templates (e.g. contact.html, solution-detail.html).
+ * @param {Array<{name:string,url:string}>} breadcrumb
+ * @param {object} site
+ * @returns {string}
+ */
+function breadcrumbJsonLdFor(breadcrumb, site) {
+  return jsonLdScript(breadcrumbList(breadcrumb.map(c => ({
+    name: c.name,
+    url: site.jsonLd.organizationUrl + c.url,
+  }))));
 }
 
 /**
@@ -90,10 +107,11 @@ export function buildPageList(data) {
   {
     const breadcrumb = markCurrentLast([bc('Home', '/')]);
     const seo = { ...site.seo, title: `Infineon Products | ${site.brand.name}`, description: `Browse ${site.brand.name} authorized Infineon products: MCU, IGBT, MOSFET and Sensors. Deep stock, FAE support, global delivery.`, canonical: '/products/' };
+    const breadcrumbJsonLd = breadcrumbJsonLdFor(breadcrumb, site);
     pages.push({
       url: '/products/',
       template: 'products-list',
-      context: { ...site, seo, categories: products.categories, breadcrumb },
+      context: { ...site, seo, categories: products.categories, breadcrumb, breadcrumbJsonLd },
       breadcrumb,
     });
   }
@@ -106,6 +124,8 @@ export function buildPageList(data) {
     {
       const breadcrumb = markCurrentLast([bc('Home', '/'), bc('Products', '/products/')]);
       const seo = { ...site.seo, title: category.title, description: category.metaDescription, canonical: catUrl };
+      const breadcrumbJsonLd = breadcrumbJsonLdFor(breadcrumb, site);
+      const itemListJsonLd = jsonLdScript(itemList(category.models.map(m => ({ name: m.partNo, url: m.href }))));
       // Pre-compute each model's table row cells in category.columns order (markup-contract.md
       // §1: dynamic spec-table columns). render.js's {{#each}} has no parent-scope access, so
       // the th↔td key alignment and params-vs-top-level field lookup must happen here rather
@@ -134,7 +154,7 @@ export function buildPageList(data) {
       pages.push({
         url: catUrl,
         template: 'product-category',
-        context: { ...site, seo, category: categoryWithRowCells, breadcrumb },
+        context: { ...site, seo, category: categoryWithRowCells, breadcrumb, breadcrumbJsonLd, itemListJsonLd },
         breadcrumb,
       });
     }
@@ -153,10 +173,11 @@ export function buildPageList(data) {
       const seo = { ...site.seo, title: `${model.partNo} ${category.name} | ${site.brand.name}`, description: model.shortDescription, canonical: modelUrl };
       const availabilityUrl = model.stock === 'inStock' ? 'https://schema.org/InStock' : 'https://schema.org/BackOrder';
       const modelWithAvailability = { ...model, availabilityUrl };
+      const breadcrumbJsonLd = breadcrumbJsonLdFor(breadcrumb, site);
       pages.push({
         url: modelUrl,
         template: 'product-detail',
-        context: { ...site, seo, category, model: modelWithAvailability, breadcrumb },
+        context: { ...site, seo, category, model: modelWithAvailability, breadcrumb, breadcrumbJsonLd },
         breadcrumb,
       });
     }
@@ -166,10 +187,11 @@ export function buildPageList(data) {
   {
     const breadcrumb = markCurrentLast([bc('Home', '/')]);
     const seo = { ...site.seo, title: `Infineon Application Solutions | ${site.brand.name}`, description: `Explore ${site.brand.name} Infineon-based application solutions: motor drive, EV charger, industrial IoT, MCU embedded control, and solar inverter.`, canonical: '/solutions/' };
+    const breadcrumbJsonLd = breadcrumbJsonLdFor(breadcrumb, site);
     pages.push({
       url: '/solutions/',
       template: 'solutions-list',
-      context: { ...site, seo, solutions: solutions.solutions, breadcrumb },
+      context: { ...site, seo, solutions: solutions.solutions, breadcrumb, breadcrumbJsonLd },
       breadcrumb,
     });
   }

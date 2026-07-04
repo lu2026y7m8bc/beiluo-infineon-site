@@ -13,6 +13,10 @@ const minSite = {
     defaultTitle: 'BeiLuo Test',
     defaultDescription: 'Test site',
   },
+  jsonLd: {
+    organizationUrl: 'https://example.com',
+    organizationType: 'Organization',
+  },
   nav: { items: [] },
   footer: { columns: [], copyright: '© Test' },
 };

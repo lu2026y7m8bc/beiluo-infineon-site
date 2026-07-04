@@ -3,18 +3,20 @@
 <head>
   {{> head-meta}}
 
+  {{{itemListJsonLd}}}
+
   <!-- JSON-LD: Product per model -->
   {{#each category.models}}
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Product",
-  "name": "{{partNo}}",
-  "brand": {"@type": "Brand", "name": "{{brand}}"},
+  "name": "{{{partNo}}}",
+  "brand": {"@type": "Brand", "name": "{{{brand}}}"},
   "offers": {
     "@type": "Offer",
     "availability": "{{#if stock}}https://schema.org/InStock{{else}}https://schema.org/PreOrder{{/if}}",
-    "url": "{{href}}"
+    "url": "{{{href}}}"
   }
 }
   </script>

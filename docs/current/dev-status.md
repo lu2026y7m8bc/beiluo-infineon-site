@@ -1,6 +1,6 @@
 # dev-status.md — BeiLuo Infineon Site
 
-> Last updated: 2026-07-05 (T6.4 committed; T7.1 audited and closed with no code changes needed)
+> Last updated: 2026-07-05 (T7.2 implemented, reviewed, Codex-approved; awaiting user confirmation to commit)
 
 ---
 
@@ -9,7 +9,7 @@
 - Branch: `feat/beiluo-infineon-site`
 - Base: `main`
 - Worktree: single (no linked worktrees active)
-- Working tree: **clean** — all work through T7.1 is committed (T7.1 required a doc-only update; see §2). No uncommitted changes.
+- Working tree: **dirty** — T7.2 work (`src/lib/pages.js`, 4 templates, 2 test fixtures) is complete and Codex-approved but **not yet committed**, pending user confirmation.
 
 ---
 
@@ -61,7 +61,8 @@
 | T6.2 | tabs.js **+ fixed a real T5.4 markup-contract deviation** (product-detail.html's 5 tabs had no `data-tab`/`data-tabpanel`, wrong id scheme) | e551dfc |
 | T6.3 | toc.js **+ fixed a Major scroll-highlight semantic bug** found in review (see §6) | 53c6c8f |
 | T6.4 | form.js **+ fixed a real T2.2 CSS contract deviation** (`style.css` styled `.is-error`, but `markup-contract.md` §4 mandates JS write `.is-invalid` — unused selector renamed to match contract) **+ added missing `.spinner`/`.is-submitted` CSS** (contract assigns these to "CSS 负责" but T2.2 never added them) | 5b66e86 |
-| T7.1 | **Audit-only, no code changes.** Confirmed via full-site build + programmatic scan of all 52 `dist/**/index.html` that every page already has a unique, keyword-bearing `<title>`/`<meta description>`/`<link canonical>` and exactly one `<h1>` — satisfied incrementally by `pages.js`'s per-page-type `seo` object construction across T1.6/T5.9/T5.10 (see those tasks' history). Zero duplicate titles, zero duplicate descriptions, zero pages falling back to `site.json`'s `defaultTitle`/`defaultDescription`. | (docs only, this commit) |
+| T7.1 | **Audit-only, no code changes.** Confirmed via full-site build + programmatic scan of all 52 `dist/**/index.html` that every page already has a unique, keyword-bearing `<title>`/`<meta description>`/`<link canonical>` and exactly one `<h1>` — satisfied incrementally by `pages.js`'s per-page-type `seo` object construction across T1.6/T5.9/T5.10 (see those tasks' history). Zero duplicate titles, zero duplicate descriptions, zero pages falling back to `site.json`'s `defaultTitle`/`defaultDescription`. | d9e9ba8 |
+| T7.2 | **Found and fixed 3 real defects while auditing G8 (7-type JSON-LD).** (1) `products-list.html`/`product-category.html`/`product-detail.html`/`solutions-list.html` had **zero** BreadcrumbList JSON-LD despite design.md §10 requiring it on every non-home template — fixed by wiring `context.breadcrumbJsonLd` in `pages.js` (via `schema.js`'s `breadcrumbList()`+`jsonLdScript()`, finally used for the first time since T1.3), which activates an existing-but-previously-dead `{{#if breadcrumbJsonLd}}` hook already sitting in `breadcrumb.html`. (2) `product-category.html` was missing the `ItemList` design.md §10 explicitly assigns it — added via `context.itemListJsonLd` (same `schema.js` functions). (3) 14 JSON-LD field interpolations across 4 templates used HTML-escaping double-brace `{{x}}` instead of raw triple-brace `{{{x}}}` — a latent data-corruption risk (script-tag content isn't HTML-entity-decoded by JSON-LD consumers) that hadn't yet triggered with the current dataset. Full post-fix scan: 103 JSON-LD blocks across 52 pages, 0 parse failures, BreadcrumbList=51 (every non-home page, exactly once), ItemList=4 (one per category, previously 0), no duplicates. | pending commit |
 
 **Milestone: PHASE 5 COMPLETE (T5.1–T5.10).** All 12 templates (home, products-list, product-category, product-detail, solutions-list, solution-detail, support-list, tech-detail, news-list, news-detail, about, contact) are built, reviewed, and Codex-approved. `node src/build.js` now runs end-to-end for the first time — see §6 for what that surfaced.
 
@@ -82,7 +83,7 @@
 | Phase | Tasks | Status | Description |
 |-------|-------|--------|-------------|
 | Phase 6 (JS) | T6.1–T6.4 | **complete** | table-filter/tabs/toc/form — all Codex-approved |
-| Phase 7 (SEO/GEO) | T7.1 done, T7.2–T7.5 pending | in progress | Meta wiring (done, audit-only) → JSON-LD audit, sitemap, FAQ, image alt |
+| Phase 7 (SEO/GEO) | T7.1–T7.2 done, T7.3–T7.5 pending | in progress | Meta wiring + JSON-LD (done) → sitemap, FAQ, image alt |
 | Phase 8 (Final sweep) | T8.1–T8.2 | pending | check_list1 + check_list2 final scan |
 | Phase 9 (Integration) | T9.1–T9.5 | pending | Full build + zero-dead-link verification, browser tests, code review, PRD milestone verification, Codex full-product re-check |
 | Phase 10 (Deploy) | T10.1–T10.3 | **BLOCKED** | Awaiting GitHub + Cloudflare credentials from user |
@@ -152,6 +153,7 @@ Codex re-check is **MANDATORY** after every task (user rule, established 2026-06
 
 | Task | Codex Result |
 |------|-------------|
+| T7.2 | **Approved.** First 2 attempts were false-REJECTs caused by the Codex tool call itself: constructing an inline `node -e "..."` verification one-liner through bash-heredoc→codex→PowerShell triple quoting corrupted the regex, producing `TOTAL_BLOCKS=0` (0 JSON-LD blocks found on a 52-page site — an implausible result that should have been treated as a tooling failure, not evidence). Fixed by writing the verification script to a file and having Codex execute it by path instead of authoring inline shell. Real result: 103 JSON-LD blocks, 0 parse failures, BreadcrumbList=51/52 (every non-home page), ItemList=4 (new), 0 duplicates. Internal reviewer separately APPROVEd with the same independently-run numbers, plus flagged 2 Low items (no direct unit-test assertions for the new context fields; task-description miscounted "5" vs actual "14" brace-fix sites — cosmetic, not a code defect). |
 | T7.1 | **Approved.** Audit-only task — Codex independently ran a full-site scan (52 pages) confirming zero duplicate titles/descriptions, zero missing title/description/canonical, all pages exactly 1 `<h1>`, and zero pages falling back to `site.json`'s default SEO strings. Internal reviewer had separately reached the same conclusion first. No code changes made or needed. |
 | T6.4 | Round 1: **REJECT** — a real degradation-path bug: `showSuccess()`'s fallback `<p>` (inserted when `[data-success]` is missing from the DOM, per contract §4.5) had no `data-success` attribute, so the `.is-submitted > *:not([data-success])` CSS rule (added this task) would hide it the instant it was appended — the fallback text would never actually be visible. Fixed by giving the fallback `<p>` a `data-success` attribute so it's excluded from the hide rule. Round 2: **Approved**, confirmed the fix resolves the exact failure mode and searched all `[data-success]` usages for new conflicts (none found). Internal reviewer (before Codex) had separately APPROVEd with no findings — this bug was Codex-only, underscoring why the recheck is mandatory even after an internal APPROVE. |
 | T6.3 | **Approved.** Internal reviewer first REJECTed for 1 Major: scroll-highlight observed heading elements themselves with a narrow top-30%-viewport `rootMargin` and removed the highlight the instant a heading exited that band, so the TOC showed no highlight for most of actual reading time. Fixed by tracking a single `activeId` that only advances when a new heading enters the band. Codex traced the exact transition sequence through the contract's own example and confirmed correctness. |
@@ -169,15 +171,17 @@ Codex re-check is **MANDATORY** after every task (user rule, established 2026-06
 
 **Second tooling note (T7.1):** when a recheck prompt asks Codex to *construct its own* multi-line inline `node -e "..."`/`rg`/`grep -P` command from an open-ended instruction, it drives that command through Windows PowerShell and its own quote-escaping frequently mismatches PowerShell's parser (single/double-quote nesting inside `-Command`), burning 1-2 minutes of retries or timing out entirely (hit once this task). **Fix:** hand Codex a complete, already-correct one-liner command to run verbatim (as done for T7.1's second attempt) rather than describing what to check and letting it author the command itself — it still authors its own verification for anything not explicitly scripted, just skips the fragile self-authored-shell-escaping step for the core data pull.
 
+**Third tooling note (T7.2):** even a pre-written one-liner isn't safe if it contains regex/quotes — Codex still relays it through bash-heredoc→codex-exec→PowerShell, and one of those layers can silently mangle escape sequences, producing a **plausible-looking but wrong result** (T7.2's first attempt returned `TOTAL_BLOCKS=0`, which Codex initially reported as a genuine REJECT rather than recognizing "zero JSON-LD blocks on a 52-page site" as an implausible number worth double-checking before concluding). **Fix:** for anything beyond a trivial command, write the verification script to a file first (`Write`) and have Codex's prompt just say "run `node <path-to-script>`" with no inline quoting at all — this fully sidesteps the multi-layer-escaping problem. Also: when a recheck result looks like "no data found" rather than "data found and it's wrong," treat that as a signal to re-verify the check itself before trusting a REJECT.
+
 ---
 
 ## 8. Next Recommended Task
 
-**T7.1 is done (audit-only, no code changes).** Phase 6 is complete; Phase 7 is now in progress (1 of 5 tasks done).
+**T7.2 is done, pending commit.** Phase 7 is now 2 of 5 tasks done (T7.1–T7.2).
 
-**Next up: T7.2 — 7 类 JSON-LD 全站接线 + 结构校验.** Dependency (阶段5, T1.3) already satisfied.
+**Next up: T7.3 — sitemap.xml / robots.txt 接入构建产物.** Dependency (T1.5, 阶段5) already satisfied. Note: T1.5 already built `sitemap.js`/`robots.js` and T1.7's `build.js` already calls them (confirmed generating `dist/sitemap.xml`/`dist/robots.txt` in every build run this session) — check contract compliance first (per the recurring pattern in this file) before assuming T7.3 needs new code; it may turn out to be another audit-only closure like T7.1, or it may need to address the already-known sitemap.xml/robots.txt dead-link false-positive in `links.js` (§6, Low).
 
 Recommended order after that:
-1. Wire `navCategories` into `pages.js` (§6, High, ready now, small fix, widely impactful — still not done, deliberately not bundled into T7.1 since it's out of that task's scope).
-2. T7.3–T7.5 (sitemap/robots wiring, FAQ/GEO, image alt audit).
+1. Wire `navCategories` into `pages.js` (§6, High, ready now, small fix, widely impactful — still not done, deliberately not bundled into T7.1/T7.2 since it's out of their scope).
+2. T7.4–T7.5 (FAQ/GEO, image alt audit).
 3. Before or during T9.1: resolve the ~17 dead links and ~13 missing SVG assets (§6, both High) — T9.1's own acceptance criterion is zero dead links, so these need to be resolved by then regardless.

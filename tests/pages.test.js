@@ -11,6 +11,10 @@ const site = {
     defaultTitle: 'Infineon Distributor | BeiLuo',
     defaultDescription: 'Infineon distributor BeiLuo',
   },
+  jsonLd: {
+    organizationUrl: 'https://www.beiluo.com',
+    organizationType: 'Organization',
+  },
   nav: { items: [] },
   footer: { columns: [], copyright: '© 2024 BeiLuo.' },
 };
