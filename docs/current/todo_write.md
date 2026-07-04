@@ -57,7 +57,7 @@
   { "content": "T6.1 [核心] /src/assets/js/table-filter.js(动态列读取+每列筛选下拉/范围/多选+移动横向滚动+首列冻结) — 完成标准：浏览器验证筛选正确,移动可滚,型号链接保留", "status": "completed" },
   { "content": "T6.2 /src/assets/js/tabs.js(产品详情/支持列表Tab切换,role=tablist键盘可达) — 完成标准：切换正常,ARIA正确,移动可滚", "status": "completed" },
   { "content": "T6.3 /src/assets/js/toc.js(技术详情Sticky TOC+当前章节高亮) — 完成标准：滚动高亮,移动端降级到文末", "status": "completed" },
-  { "content": "T6.4 /src/assets/js/form.js(询价/提问表单前端校验+提交态+成功提示) — 完成标准：必填/邮箱校验,就近错误提示,提交态禁用", "status": "in_progress" },
+  { "content": "T6.4 /src/assets/js/form.js(询价/提问表单前端校验+提交态+成功提示) — 完成标准：必填/邮箱校验,就近错误提示,提交态禁用", "status": "completed" },
 
   { "content": "T7.1 全页Meta/Title/Description接线(唯一、含关键词) — 完成标准：抽检每页Title/Description唯一不重复", "status": "pending" },
   { "content": "T7.2 7类JSON-LD全站接线+结构校验 — 完成标准：各页含正确JSON-LD且通过结构校验(G8)", "status": "pending" },

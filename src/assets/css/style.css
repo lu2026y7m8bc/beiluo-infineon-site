@@ -392,9 +392,9 @@ select:focus-visible {
 }
 
 /* Error state */
-input.is-error,
-textarea.is-error,
-select.is-error {
+input.is-invalid,
+textarea.is-invalid,
+select.is-invalid {
   border-color: #C0392B;
 }
 
@@ -403,6 +403,26 @@ select.is-error {
   font-size: var(--fs-small);
   margin-top: var(--space-1);
   display: block;
+}
+
+.is-submitted > *:not([data-success]) {
+  display: none;
+}
+
+.spinner {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  margin-left: .5em;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spin .6s linear infinite;
+  vertical-align: -0.125em;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 
 /* ==========================================================================
