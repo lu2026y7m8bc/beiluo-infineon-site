@@ -1,6 +1,6 @@
 # dev-status.md — BeiLuo Infineon Site
 
-> Last updated: 2026-07-05 (T6.4 implemented, reviewed, Codex-approved after 1 fix round; awaiting user confirmation to commit)
+> Last updated: 2026-07-05 (T6.4 committed; T7.1 audited and closed with no code changes needed)
 
 ---
 
@@ -9,7 +9,7 @@
 - Branch: `feat/beiluo-infineon-site`
 - Base: `main`
 - Worktree: single (no linked worktrees active)
-- Working tree: **dirty** — T6.4 work (`src/assets/js/form.js` new, `src/templates/contact.html` + `src/assets/css/style.css` modified, plus this doc/`todo_write.md`) is complete and Codex-approved but **not yet committed**, pending user confirmation.
+- Working tree: **clean** — all work through T7.1 is committed (T7.1 required a doc-only update; see §2). No uncommitted changes.
 
 ---
 
@@ -60,7 +60,8 @@
 | T6.1 | table-filter.js **+ fixed a real T5.3 defect** (product-category.html tbody was hardcoded, ignoring 6–8 dynamic columns per category) **+ markup-contract.md §1 alignment** | eafdec4 |
 | T6.2 | tabs.js **+ fixed a real T5.4 markup-contract deviation** (product-detail.html's 5 tabs had no `data-tab`/`data-tabpanel`, wrong id scheme) | e551dfc |
 | T6.3 | toc.js **+ fixed a Major scroll-highlight semantic bug** found in review (see §6) | 53c6c8f |
-| T6.4 | form.js **+ fixed a real T2.2 CSS contract deviation** (`style.css` styled `.is-error`, but `markup-contract.md` §4 mandates JS write `.is-invalid` — unused selector renamed to match contract) **+ added missing `.spinner`/`.is-submitted` CSS** (contract assigns these to "CSS 负责" but T2.2 never added them) | pending commit |
+| T6.4 | form.js **+ fixed a real T2.2 CSS contract deviation** (`style.css` styled `.is-error`, but `markup-contract.md` §4 mandates JS write `.is-invalid` — unused selector renamed to match contract) **+ added missing `.spinner`/`.is-submitted` CSS** (contract assigns these to "CSS 负责" but T2.2 never added them) | 5b66e86 |
+| T7.1 | **Audit-only, no code changes.** Confirmed via full-site build + programmatic scan of all 52 `dist/**/index.html` that every page already has a unique, keyword-bearing `<title>`/`<meta description>`/`<link canonical>` and exactly one `<h1>` — satisfied incrementally by `pages.js`'s per-page-type `seo` object construction across T1.6/T5.9/T5.10 (see those tasks' history). Zero duplicate titles, zero duplicate descriptions, zero pages falling back to `site.json`'s `defaultTitle`/`defaultDescription`. | (docs only, this commit) |
 
 **Milestone: PHASE 5 COMPLETE (T5.1–T5.10).** All 12 templates (home, products-list, product-category, product-detail, solutions-list, solution-detail, support-list, tech-detail, news-list, news-detail, about, contact) are built, reviewed, and Codex-approved. `node src/build.js` now runs end-to-end for the first time — see §6 for what that surfaced.
 
@@ -81,7 +82,7 @@
 | Phase | Tasks | Status | Description |
 |-------|-------|--------|-------------|
 | Phase 6 (JS) | T6.1–T6.4 | **complete** | table-filter/tabs/toc/form — all Codex-approved |
-| Phase 7 (SEO/GEO) | T7.1–T7.5 | pending | Meta wiring, JSON-LD audit, sitemap, FAQ, image alt |
+| Phase 7 (SEO/GEO) | T7.1 done, T7.2–T7.5 pending | in progress | Meta wiring (done, audit-only) → JSON-LD audit, sitemap, FAQ, image alt |
 | Phase 8 (Final sweep) | T8.1–T8.2 | pending | check_list1 + check_list2 final scan |
 | Phase 9 (Integration) | T9.1–T9.5 | pending | Full build + zero-dead-link verification, browser tests, code review, PRD milestone verification, Codex full-product re-check |
 | Phase 10 (Deploy) | T10.1–T10.3 | **BLOCKED** | Awaiting GitHub + Cloudflare credentials from user |
@@ -151,6 +152,7 @@ Codex re-check is **MANDATORY** after every task (user rule, established 2026-06
 
 | Task | Codex Result |
 |------|-------------|
+| T7.1 | **Approved.** Audit-only task — Codex independently ran a full-site scan (52 pages) confirming zero duplicate titles/descriptions, zero missing title/description/canonical, all pages exactly 1 `<h1>`, and zero pages falling back to `site.json`'s default SEO strings. Internal reviewer had separately reached the same conclusion first. No code changes made or needed. |
 | T6.4 | Round 1: **REJECT** — a real degradation-path bug: `showSuccess()`'s fallback `<p>` (inserted when `[data-success]` is missing from the DOM, per contract §4.5) had no `data-success` attribute, so the `.is-submitted > *:not([data-success])` CSS rule (added this task) would hide it the instant it was appended — the fallback text would never actually be visible. Fixed by giving the fallback `<p>` a `data-success` attribute so it's excluded from the hide rule. Round 2: **Approved**, confirmed the fix resolves the exact failure mode and searched all `[data-success]` usages for new conflicts (none found). Internal reviewer (before Codex) had separately APPROVEd with no findings — this bug was Codex-only, underscoring why the recheck is mandatory even after an internal APPROVE. |
 | T6.3 | **Approved.** Internal reviewer first REJECTed for 1 Major: scroll-highlight observed heading elements themselves with a narrow top-30%-viewport `rootMargin` and removed the highlight the instant a heading exited that band, so the TOC showed no highlight for most of actual reading time. Fixed by tracking a single `activeId` that only advances when a new heading enters the band. Codex traced the exact transition sequence through the contract's own example and confirmed correctness. |
 | T6.2 | **Approved**, no issues. Internal reviewer also APPROVE; additionally executed the real `tabs.js` against a constructed fake-DOM harness (18 assertions) rather than just reading the code. |
@@ -165,13 +167,17 @@ Codex re-check is **MANDATORY** after every task (user rule, established 2026-06
 
 **Tooling note for future Codex invocations in this repo:** `codex exec -s read-only ...` hangs indefinitely if the prompt is passed as a quoted CLI argument on this Windows/Git-Bash setup (silently waits on stdin, never receives EOF — confirmed via `codex doctor` that network/auth were healthy, so this is an argv-parsing quirk, not an outage). **Fix:** pipe the prompt via heredoc instead: `cat <<'EOF' | codex exec -s read-only -C "<path>" - ... EOF` (the trailing `-` forces stdin read). This works reliably and should be used for all future Codex re-checks in this repo.
 
+**Second tooling note (T7.1):** when a recheck prompt asks Codex to *construct its own* multi-line inline `node -e "..."`/`rg`/`grep -P` command from an open-ended instruction, it drives that command through Windows PowerShell and its own quote-escaping frequently mismatches PowerShell's parser (single/double-quote nesting inside `-Command`), burning 1-2 minutes of retries or timing out entirely (hit once this task). **Fix:** hand Codex a complete, already-correct one-liner command to run verbatim (as done for T7.1's second attempt) rather than describing what to check and letting it author the command itself — it still authors its own verification for anything not explicitly scripted, just skips the fragile self-authored-shell-escaping step for the core data pull.
+
 ---
 
 ## 8. Next Recommended Task
 
-**T6.4 is done, pending commit.** Phase 6 (interactive JS) is now complete.
+**T7.1 is done (audit-only, no code changes).** Phase 6 is complete; Phase 7 is now in progress (1 of 5 tasks done).
 
-Recommended next steps in rough priority order:
-1. Wire `navCategories` into `pages.js` (§6, High, ready now, small fix, widely impactful).
-2. Phase 7 (T7.1–T7.5): Meta/JSON-LD/sitemap/FAQ/alt-text wiring.
+**Next up: T7.2 — 7 类 JSON-LD 全站接线 + 结构校验.** Dependency (阶段5, T1.3) already satisfied.
+
+Recommended order after that:
+1. Wire `navCategories` into `pages.js` (§6, High, ready now, small fix, widely impactful — still not done, deliberately not bundled into T7.1 since it's out of that task's scope).
+2. T7.3–T7.5 (sitemap/robots wiring, FAQ/GEO, image alt audit).
 3. Before or during T9.1: resolve the ~17 dead links and ~13 missing SVG assets (§6, both High) — T9.1's own acceptance criterion is zero dead links, so these need to be resolved by then regardless.
