@@ -72,7 +72,7 @@
                   {{#each rowCells}}
                   <td class="{{#if sticky}}col-sticky{{/if}}" data-col="{{key}}">{{#if isPartNo}}<a href="{{href}}">{{value}}</a>{{else}}{{#if isStock}}<span class="stock-badge{{#if value}} stock-badge--{{value}}{{/if}}">{{value}}</span>{{else}}{{value}}{{/if}}{{/if}}</td>
                   {{/each}}
-                  <td><a class="btn btn--sm btn--outline" href="{{href}}">Details</a></td>
+                  <td><a class="btn btn--sm btn--secondary" href="{{href}}">Details</a></td>
                 </tr>
                 {{/each}}
               </tbody>
@@ -85,7 +85,7 @@
           <div class="cat-cta">
             <p>Need more {{category.name}} options or bulk pricing? Contact our FAE team.</p>
             <a class="btn btn--cta" href="/contact/">Request a Quote</a>
-            <a class="btn btn--outline" href="/products/">Browse All Products</a>
+            <a class="btn btn--secondary" href="/products/">Browse All Products</a>
           </div>
 
         </div>

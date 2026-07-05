@@ -1050,6 +1050,12 @@ body.nav-drawer-open {
   flex-shrink: 0;
 }
 
+.card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
 .card__image {
   width: 100%;
   height: auto;
@@ -1075,7 +1081,8 @@ body.nav-drawer-open {
   text-decoration: none;
 }
 
-.card__summary {
+.card__summary,
+.card__text {
   color: var(--c-text-muted);
   font-size: var(--fs-small);
   line-height: var(--lh-body);
@@ -1160,4 +1167,1527 @@ body.nav-drawer-open {
   font-weight: var(--fw-semibold);
   border-left: 3px solid var(--c-primary);
   padding-left: calc(var(--space-3) - 3px);
+}
+
+/* ==========================================================================
+   15. Section Title utility (shared across many templates)
+   ========================================================================== */
+
+.section__title {
+  margin-bottom: var(--space-8);
+}
+
+/* ==========================================================================
+   16. Layout With Sidebar (§3, §7) — shared by products-list, product-category,
+   solutions-list, solution-detail, support-list, news-list
+   ========================================================================== */
+
+.layout-with-sidebar {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+  padding-block: var(--space-8);
+}
+
+.layout-with-sidebar__sidebar {
+  order: 2;
+}
+
+@media (min-width: 1200px) {
+  .layout-with-sidebar {
+    grid-template-columns: 1fr 300px;
+    align-items: start;
+  }
+
+  .layout-with-sidebar__sidebar {
+    order: 0;
+    position: sticky;
+    top: calc(72px + var(--space-6));
+  }
+}
+
+/* ==========================================================================
+   17. Page Hero — shared list-page header (products-list, solutions-list,
+   support-list ×3 variants, news-list, contact)
+   ========================================================================== */
+
+.page-hero {
+  padding-block-start: var(--space-8);
+  margin-bottom: var(--space-8);
+}
+
+.page-hero__desc {
+  color: var(--c-text-muted);
+  max-width: 760px;
+  margin-top: var(--space-4);
+}
+
+/* ==========================================================================
+   18. Tab Container (§4.10) — shared by product-detail, support-list
+   ========================================================================== */
+
+.tab-container {
+  margin-block: var(--space-8);
+}
+
+.tab-list,
+[role="tablist"] {
+  display: flex;
+  gap: var(--space-2);
+  border-bottom: 2px solid var(--c-border);
+  overflow-x: auto;
+  margin-bottom: var(--space-6);
+}
+
+.tab-btn,
+[role="tab"] {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding-inline: var(--space-4);
+  font-family: var(--font-heading);
+  font-weight: var(--fw-medium);
+  font-size: var(--fs-body);
+  color: var(--c-text-muted);
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.tab-btn:hover,
+[role="tab"]:hover {
+  color: var(--c-primary);
+}
+
+.tab-btn--active,
+.tab-btn[aria-selected="true"],
+[role="tab"][aria-selected="true"] {
+  color: var(--c-primary);
+  border-bottom-color: var(--c-primary);
+  font-weight: var(--fw-semibold);
+}
+
+.tab-panel {
+  animation: tab-fade-in 0.2s ease;
+}
+
+.tab-panel[hidden] {
+  display: none;
+}
+
+@keyframes tab-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.tabpanel__view-all {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin-top: var(--space-4);
+  color: var(--c-primary);
+  font-weight: var(--fw-medium);
+}
+
+.tabpanel__view-all:hover {
+  color: var(--c-primary-dark);
+}
+
+/* ==========================================================================
+   19. Button size modifier
+   ========================================================================== */
+
+.btn--sm {
+  min-height: 36px;
+  padding: 0.4em 0.9em;
+  font-size: var(--fs-small);
+}
+
+/* ==========================================================================
+   20. Badge — category modifier (tech-detail's category link badge)
+   ========================================================================== */
+
+.badge--category {
+  color: var(--c-primary);
+  background: var(--c-primary-tint);
+  display: inline-flex;
+  margin-bottom: var(--space-4);
+}
+
+/* ==========================================================================
+   21. Stock Badge — product-category / product-detail stock indicator
+   (template-emitted class names; same visual design as the unused
+   .badge--instock/.badge--rfq rules in section 6, kept separate because the
+   template emits the raw products.json "inStock"/"rfq" casing as a modifier)
+   ========================================================================== */
+
+.stock-badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: var(--r-pill);
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-medium);
+  padding: 0.2em 0.6em;
+  line-height: var(--lh-caption);
+}
+
+.stock-badge--inStock {
+  color: var(--c-success);
+  background: var(--c-success-tint);
+}
+
+.stock-badge--rfq {
+  color: var(--c-warn);
+  background: var(--c-warn-tint);
+}
+
+.stock-qty {
+  font-size: var(--fs-small);
+  color: var(--c-text-muted);
+  margin-left: var(--space-2);
+}
+
+/* ==========================================================================
+   22. Home — Hero (§5.1)
+   ========================================================================== */
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding-block: var(--space-16);
+}
+
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  opacity: 0.5;
+}
+
+.hero__content {
+  position: relative;
+  z-index: 1;
+  max-width: 760px;
+}
+
+.hero__subtext {
+  color: var(--c-text-muted);
+  margin-top: var(--space-4);
+  font-size: var(--fs-h4);
+}
+
+.hero__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  margin-top: var(--space-8);
+}
+
+.hero__trust-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-6);
+  margin-top: var(--space-12);
+}
+
+.hero__badge {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.hero__badge-icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.hero__badge-label {
+  font-size: var(--fs-small);
+  color: var(--c-text-muted);
+  font-weight: var(--fw-medium);
+}
+
+/* ==========================================================================
+   23. Home — Trust Bar (§5.1 "信任条")
+   ========================================================================== */
+
+.trust-bar {
+  background: var(--c-bg-alt);
+}
+
+.trust-bar__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .trust-bar__grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.trust-bar__item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.trust-bar__value {
+  font-family: var(--font-heading);
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-bold);
+  color: var(--c-primary);
+}
+
+.trust-bar__label {
+  color: var(--c-text-muted);
+  font-size: var(--fs-small);
+}
+
+/* ==========================================================================
+   24. Why Choose Us — Feature Grid (shared: home.html + about.html)
+   ========================================================================== */
+
+.why-choose__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+}
+
+@media (min-width: 768px) {
+  .why-choose__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  .why-choose__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.why-choose__card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.why-choose__icon {
+  width: 40px;
+  height: 40px;
+  color: var(--c-primary);
+}
+
+/* ==========================================================================
+   25. Home — Products / Solutions / Support / News Teasers
+   ========================================================================== */
+
+.products-teaser__sub {
+  color: var(--c-text-muted);
+  margin-top: var(--space-2);
+  margin-bottom: var(--space-8);
+}
+
+.products-teaser__grid,
+.solutions-teaser__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+}
+
+@media (min-width: 768px) {
+  .products-teaser__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .solutions-teaser__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  .products-teaser__grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .solutions-teaser__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.products-teaser__card,
+.solutions-teaser__card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  text-align: center;
+  align-items: center;
+}
+
+.products-teaser__icon {
+  width: 40px;
+  height: 40px;
+  color: var(--c-primary);
+}
+
+.products-teaser__cta,
+.solutions-teaser__cta,
+.support-teaser__cta,
+.news-teaser__cta {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-8);
+}
+
+.support-teaser__list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+}
+
+@media (min-width: 768px) {
+  .support-teaser__list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.news-teaser__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+}
+
+@media (min-width: 768px) {
+  .news-teaser__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Home's inline news card (distinct markup from the news-card.html partial) */
+.news-card__tag {
+  display: inline-flex;
+  color: var(--c-primary);
+  background: var(--c-primary-tint);
+  border-radius: var(--r-pill);
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-medium);
+  padding: 0.2em 0.6em;
+  margin-bottom: var(--space-2);
+  align-self: flex-start;
+}
+
+.news-card__date {
+  display: block;
+  color: var(--c-text-muted);
+  font-size: var(--fs-caption);
+  margin-top: var(--space-2);
+}
+
+/* Final CTA (shared: home.html + about.html) */
+.final-cta {
+  background: var(--c-ink-banner);
+  color: var(--c-footer-heading);
+  padding-block: var(--space-16);
+  text-align: center;
+}
+
+.final-cta h2 {
+  color: var(--c-footer-heading);
+}
+
+.final-cta p {
+  color: var(--c-footer-text);
+  max-width: 640px;
+  margin-inline: auto;
+  margin-top: var(--space-4);
+}
+
+.final-cta .btn {
+  margin-top: var(--space-8);
+}
+
+/* ==========================================================================
+   26. Products List — category cards + intro (§5.2)
+   ========================================================================== */
+
+.category-card__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+  margin-bottom: var(--space-12);
+}
+
+@media (min-width: 768px) {
+  .category-card__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  .category-card__grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.category-card {
+  background: var(--c-bg);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-card);
+  box-shadow: var(--sh-card);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.category-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--sh-hover);
+}
+
+.category-card__icon {
+  width: 40px;
+  height: 40px;
+  color: var(--c-primary);
+}
+
+.category-card__fae-note {
+  color: var(--c-text-muted);
+  font-size: var(--fs-small);
+  font-style: italic;
+}
+
+.category-card .btn {
+  margin-top: auto;
+  align-self: flex-start;
+}
+
+.products-intro {
+  max-width: 800px;
+  margin-bottom: var(--space-8);
+}
+
+.products-intro p {
+  color: var(--c-text-muted);
+  margin-top: var(--space-4);
+}
+
+/* ==========================================================================
+   27. Product Category (§5.3, core) — hero / FAE note / spec table / CTA
+   ========================================================================== */
+
+.cat-hero {
+  margin-bottom: var(--space-8);
+}
+
+.cat-hero__icon {
+  width: 48px;
+  height: 48px;
+  color: var(--c-primary);
+  margin-bottom: var(--space-4);
+}
+
+.cat-hero__desc {
+  color: var(--c-text-muted);
+  max-width: 760px;
+  margin-top: var(--space-4);
+}
+
+.cat-hero__guide-ctas {
+  display: flex;
+  gap: var(--space-6);
+  margin-top: var(--space-4);
+}
+
+.fae-note {
+  background: var(--c-primary-tint);
+  border-radius: var(--r-card);
+  padding: var(--space-6);
+  margin-bottom: var(--space-8);
+}
+
+.fae-note__title {
+  margin-bottom: var(--space-3);
+}
+
+.fae-note p {
+  color: var(--c-text);
+  margin-bottom: var(--space-4);
+}
+
+.spec-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-card);
+  margin-bottom: var(--space-8);
+}
+
+.spec-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-small);
+}
+
+.spec-table th,
+.spec-table td {
+  padding: var(--space-3) var(--space-4);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.spec-table thead th {
+  background: var(--c-bg-alt);
+  font-weight: var(--fw-semibold);
+  position: sticky;
+  top: 0;
+}
+
+.spec-table__row {
+  border-top: 1px solid var(--c-border);
+}
+
+.spec-table__row:nth-child(even) {
+  background: var(--c-bg-alt);
+}
+
+.spec-table__row:hover {
+  background: var(--c-primary-tint);
+}
+
+.spec-table__row td a {
+  font-weight: var(--fw-medium);
+}
+
+.col-sticky {
+  position: sticky;
+  left: 0;
+  background: inherit;
+  z-index: 1;
+}
+
+.cat-cta {
+  background: var(--c-bg-alt);
+  border-radius: var(--r-card);
+  padding: var(--space-8);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-4);
+  justify-content: space-between;
+}
+
+.cat-cta p {
+  margin: 0;
+  font-weight: var(--fw-medium);
+}
+
+/* ==========================================================================
+   28. Product Detail (§5.4) — hero / thumbs / lists / parts / CTA
+   ========================================================================== */
+
+.product-hero {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+  padding-block: var(--space-8);
+}
+
+@media (min-width: 1200px) {
+  .product-hero {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.product-img {
+  margin: 0;
+}
+
+.product-img__main {
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-card);
+  background: var(--c-bg-alt);
+}
+
+.product-img__thumbs {
+  display: flex;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+
+.product-hero__brand {
+  color: var(--c-text-muted);
+  font-size: var(--fs-small);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.product-hero__series,
+.product-hero__package {
+  color: var(--c-text-muted);
+  margin-top: var(--space-1);
+}
+
+.product-hero__short-desc {
+  margin-top: var(--space-4);
+}
+
+.product-hero__stock {
+  display: flex;
+  align-items: center;
+  margin-top: var(--space-4);
+}
+
+.product-hero__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  margin-top: var(--space-8);
+}
+
+.applications-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.applications-list li {
+  padding: var(--space-2) var(--space-4);
+  background: var(--c-bg-alt);
+  border-radius: var(--r-base);
+}
+
+.documents-list__item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--c-border);
+}
+
+.documents-list__size {
+  color: var(--c-text-muted);
+  font-size: var(--fs-small);
+}
+
+.faq-item {
+  border-bottom: 1px solid var(--c-border);
+  padding-block: var(--space-4);
+}
+
+.faq-item__question {
+  cursor: pointer;
+  font-weight: var(--fw-semibold);
+  list-style: none;
+}
+
+.faq-item__question::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item__question::before {
+  content: '+';
+  display: inline-block;
+  width: 1.2em;
+  color: var(--c-primary);
+  font-weight: var(--fw-bold);
+}
+
+.faq-item[open] .faq-item__question::before {
+  content: '−';
+}
+
+.faq-item__answer {
+  color: var(--c-text-muted);
+  margin-top: var(--space-3);
+  padding-left: 1.2em;
+}
+
+.alt-parts,
+.companion-parts {
+  padding-block: var(--space-8);
+  border-top: 1px solid var(--c-border);
+}
+
+.alt-parts__grid,
+.companion-parts__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+  margin-top: var(--space-6);
+}
+
+@media (min-width: 768px) {
+  .alt-parts__grid,
+  .companion-parts__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.alt-parts__card,
+.companion-parts__card {
+  background: var(--c-bg);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-card);
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.alt-parts__summary,
+.companion-parts__summary {
+  color: var(--c-text-muted);
+  font-size: var(--fs-small);
+  flex: 1;
+}
+
+.product-cta {
+  background: var(--c-primary-tint);
+  border-radius: var(--r-card);
+  padding: var(--space-8);
+  text-align: center;
+  margin-block: var(--space-8);
+}
+
+.product-cta p {
+  color: var(--c-text-muted);
+  margin-block: var(--space-4);
+}
+
+.product-cta .btn {
+  margin-inline: var(--space-2);
+}
+
+/* ==========================================================================
+   29. Solutions List (§5.5)
+   ========================================================================== */
+
+.solutions-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+}
+
+@media (min-width: 768px) {
+  .solutions-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.solution-card {
+  background: var(--c-bg);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-card);
+  box-shadow: var(--sh-card);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.solution-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--sh-hover);
+}
+
+.solution-card__title a {
+  color: var(--c-text);
+}
+
+.solution-card__title a:hover {
+  color: var(--c-primary);
+}
+
+.solution-card__industry {
+  display: inline-flex;
+  align-self: flex-start;
+  color: var(--c-primary);
+  background: var(--c-primary-tint);
+  border-radius: var(--r-pill);
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-medium);
+  padding: 0.2em 0.6em;
+}
+
+.solution-card__summary {
+  color: var(--c-text-muted);
+  flex: 1;
+}
+
+/* ==========================================================================
+   30. Solution Detail (§5.6)
+   ========================================================================== */
+
+.solution-hero {
+  margin-bottom: var(--space-8);
+}
+
+.solution-hero__industry {
+  display: inline-flex;
+  color: var(--c-primary);
+  background: var(--c-primary-tint);
+  border-radius: var(--r-pill);
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-medium);
+  padding: 0.2em 0.6em;
+  margin-top: var(--space-3);
+}
+
+.solution-hero__summary {
+  color: var(--c-text-muted);
+  margin-top: var(--space-4);
+  max-width: 800px;
+}
+
+.solution-diagram {
+  margin: var(--space-8) 0;
+  padding: var(--space-6);
+  background: var(--c-bg-alt);
+  border-radius: var(--r-card);
+  text-align: center;
+}
+
+.solution-diagram__img {
+  margin-inline: auto;
+  max-width: 100%;
+}
+
+.solution-advantages {
+  margin-bottom: var(--space-8);
+}
+
+.solution-advantages ul {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+.solution-advantages li {
+  padding-left: var(--space-6);
+  position: relative;
+}
+
+.solution-advantages li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--c-cta);
+}
+
+.solution-bom {
+  margin-block: var(--space-8);
+}
+
+.bom-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: var(--space-4);
+  font-size: var(--fs-small);
+}
+
+.bom-table th,
+.bom-table td {
+  padding: var(--space-3) var(--space-4);
+  text-align: left;
+  border-bottom: 1px solid var(--c-border);
+}
+
+.bom-table thead th {
+  background: var(--c-bg-alt);
+  font-weight: var(--fw-semibold);
+}
+
+.solution-cta {
+  background: var(--c-primary-tint);
+  border-radius: var(--r-card);
+  padding: var(--space-8);
+  text-align: center;
+  margin-top: var(--space-8);
+}
+
+.solution-cta p {
+  color: var(--c-text-muted);
+  margin-block: var(--space-4);
+}
+
+/* ==========================================================================
+   31. Support List / Category / Tag pages (§5.7–5.9)
+   ========================================================================== */
+
+.support-card-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+}
+
+@media (min-width: 768px) {
+  .support-card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  .support-card-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ==========================================================================
+   32. Tech Detail (§5.10) — immersive article + sticky sidebar
+   ========================================================================== */
+
+.tech-detail-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+  padding-block: var(--space-8);
+}
+
+@media (min-width: 1200px) {
+  .tech-detail-layout {
+    grid-template-columns: 1fr 300px;
+    align-items: start;
+  }
+}
+
+.article-content__title {
+  margin-bottom: var(--space-6);
+}
+
+.article-author {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+}
+
+.article-author__photo {
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.article-author__meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.article-author__name {
+  font-weight: var(--fw-semibold);
+  color: var(--c-text);
+}
+
+.article-author__name:hover {
+  color: var(--c-primary);
+}
+
+.article-author__date {
+  color: var(--c-text-muted);
+  font-size: var(--fs-small);
+}
+
+.article-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-8);
+}
+
+.related-articles {
+  margin-top: var(--space-12);
+  padding-top: var(--space-8);
+  border-top: 1px solid var(--c-border);
+}
+
+.related-articles__title {
+  margin-bottom: var(--space-6);
+}
+
+.sticky-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+@media (min-width: 1200px) {
+  .sticky-sidebar {
+    position: sticky;
+    top: calc(72px + var(--space-6));
+  }
+}
+
+.sidebar-pdf__title,
+.sidebar-ask__title {
+  font-size: var(--fs-h4);
+  margin-bottom: var(--space-3);
+}
+
+.sidebar-pdf__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.sidebar-pdf__item a {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+.sidebar-ask__text {
+  color: var(--c-text-muted);
+  font-size: var(--fs-small);
+  margin-bottom: var(--space-4);
+}
+
+/* ==========================================================================
+   33. News List (§5.11)
+   ========================================================================== */
+
+.news-list__section {
+  margin-bottom: var(--space-12);
+}
+
+.news-list__section-title {
+  margin-bottom: var(--space-6);
+}
+
+.news-list__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+}
+
+@media (min-width: 768px) {
+  .news-list__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  .news-list__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ==========================================================================
+   34. News Detail (§5.12) — banner / article / share bar / latest news
+   ========================================================================== */
+
+.news-banner {
+  position: relative;
+  min-height: 320px;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+}
+
+.news-banner__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.news-banner__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, var(--c-ink-banner), rgba(11, 27, 43, 0.3));
+}
+
+/* banner-overlay-light: for banner images that are already dark (pages.js
+   sets this modifier when bannerImage.overlayStyle === "light") */
+.banner-overlay-light .news-banner__overlay {
+  background: linear-gradient(to top, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.15));
+}
+
+.banner-overlay-light .news-banner__title,
+.banner-overlay-light .news-banner__meta {
+  color: var(--c-text);
+  text-shadow: none;
+}
+
+.news-banner__inner {
+  position: relative;
+  z-index: 1;
+  padding-block: var(--space-12);
+  color: var(--c-footer-heading);
+}
+
+.news-banner__tag {
+  margin-bottom: var(--space-4);
+}
+
+.news-banner__title {
+  color: var(--c-footer-heading);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.news-banner__meta {
+  display: flex;
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+  color: var(--c-footer-text);
+  font-size: var(--fs-small);
+}
+
+.news-article {
+  max-width: 800px;
+  margin-inline: auto;
+  padding-block: var(--space-8);
+}
+
+.share-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-4);
+  margin-top: var(--space-8);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--c-border);
+}
+
+.share-bar__label {
+  color: var(--c-text-muted);
+  font-weight: var(--fw-medium);
+}
+
+.share-bar__link {
+  color: var(--c-primary);
+  font-size: var(--fs-small);
+  font-weight: var(--fw-medium);
+}
+
+.news-latest {
+  border-top: 1px solid var(--c-border);
+  padding-top: var(--space-12);
+}
+
+.news-latest__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+}
+
+@media (min-width: 768px) {
+  .news-latest__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ==========================================================================
+   35. About (§5.13) — hero / timeline / client cases / customs / team
+   ========================================================================== */
+
+.about-hero__img {
+  max-width: 320px;
+  margin-bottom: var(--space-6);
+}
+
+.about-hero__body {
+  color: var(--c-text-muted);
+  max-width: 800px;
+  margin-top: var(--space-4);
+}
+
+.timeline__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.timeline__item {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: var(--space-6);
+  padding-bottom: var(--space-6);
+  border-bottom: 1px solid var(--c-border);
+}
+
+.timeline__year {
+  font-family: var(--font-heading);
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-bold);
+  color: var(--c-primary);
+}
+
+.timeline__desc {
+  color: var(--c-text-muted);
+  margin-top: var(--space-2);
+}
+
+.client-cases__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-6);
+}
+
+@media (min-width: 768px) {
+  .client-cases__grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.client-cases__card {
+  text-align: center;
+}
+
+.client-cases__logo {
+  height: 48px;
+  width: auto;
+  margin-inline: auto;
+  margin-bottom: var(--space-3);
+}
+
+.customs__intro {
+  color: var(--c-text-muted);
+  max-width: 800px;
+  margin-bottom: var(--space-8);
+}
+
+.customs__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+}
+
+@media (min-width: 768px) {
+  .customs__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.customs__img {
+  width: 100%;
+  border-radius: var(--r-base);
+  border: 1px solid var(--c-border);
+  margin-bottom: var(--space-3);
+}
+
+.customs__date,
+.customs__category {
+  display: inline-block;
+  color: var(--c-text-muted);
+  font-size: var(--fs-small);
+  margin-right: var(--space-3);
+}
+
+.team__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+}
+
+@media (min-width: 768px) {
+  .team__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  .team__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.team__card {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.team__photo {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.team__role {
+  color: var(--c-primary);
+  font-size: var(--fs-small);
+  font-weight: var(--fw-medium);
+}
+
+.team .btn {
+  margin-top: var(--space-3);
+}
+
+/* ==========================================================================
+   36. Author Profile Page (§5.15, reuses `about` template)
+   ========================================================================== */
+
+.author-hero {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+  padding-block: var(--space-8);
+}
+
+@media (min-width: 768px) {
+  .author-hero {
+    grid-template-columns: 160px 1fr;
+  }
+}
+
+.author-hero__photo {
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.author-hero__role {
+  display: block;
+  color: var(--c-primary);
+  font-weight: var(--fw-medium);
+  margin-top: var(--space-2);
+}
+
+.author-hero__expertise,
+.author-hero__experience {
+  margin-top: var(--space-3);
+}
+
+.author-hero__bio {
+  color: var(--c-text-muted);
+  margin-top: var(--space-3);
+}
+
+.author-articles__empty {
+  color: var(--c-text-muted);
+}
+
+/* ==========================================================================
+   37. Contact (§5.14) — independent template
+   ========================================================================== */
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+  margin-bottom: var(--space-12);
+}
+
+@media (min-width: 1200px) {
+  .contact-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.contact-card {
+  background: var(--c-bg-alt);
+  border-radius: var(--r-card);
+  padding: var(--space-8);
+}
+
+.contact-card__title {
+  margin-bottom: var(--space-6);
+}
+
+.contact-card__channel {
+  padding-block: var(--space-4);
+  border-bottom: 1px solid var(--c-border);
+}
+
+.contact-card__channel:last-child {
+  border-bottom: none;
+}
+
+.contact-card__label {
+  display: block;
+  font-weight: var(--fw-semibold);
+  color: var(--c-text-muted);
+  font-size: var(--fs-small);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.contact-card__value {
+  display: block;
+  font-size: var(--fs-h4);
+  margin-top: var(--space-1);
+}
+
+.contact-card__note {
+  color: var(--c-text-muted);
+  font-size: var(--fs-small);
+  margin-top: var(--space-2);
+}
+
+.contact-card__qr {
+  margin-top: var(--space-3);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-base);
+}
+
+.contact-form {
+  background: var(--c-bg);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-card);
+  padding: var(--space-8);
+}
+
+.contact-form__title {
+  margin-bottom: var(--space-6);
+}
+
+.form-group {
+  margin-bottom: var(--space-4);
+}
+
+.contact-location {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+  margin-bottom: var(--space-12);
+}
+
+@media (min-width: 768px) {
+  .contact-location {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.contact-map {
+  background: var(--c-bg-alt);
+  border-radius: var(--r-card);
+  min-height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6);
+  text-align: center;
+}
+
+.contact-map__label {
+  color: var(--c-text-muted);
+  font-weight: var(--fw-medium);
+}
+
+.contact-hours__title {
+  margin-bottom: var(--space-3);
+}
+
+.contact-hours__text {
+  color: var(--c-text-muted);
 }

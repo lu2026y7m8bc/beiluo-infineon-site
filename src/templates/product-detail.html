@@ -54,7 +54,7 @@
           </div>
           <div class="product-hero__ctas">
             <a class="btn btn--cta" href="/contact/?ref={{model.partNo}}">Request a Quote</a>
-            {{#if model.datasheetHref}}<a class="btn btn--outline" href="{{model.datasheetHref}}" target="_blank" rel="noopener noreferrer">Download Datasheet</a>{{/if}}
+            {{#if model.datasheetHref}}<a class="btn btn--secondary" href="{{model.datasheetHref}}" target="_blank" rel="noopener noreferrer">Download Datasheet</a>{{/if}}
           </div>
         </div>
       </section>
@@ -78,11 +78,11 @@
         <!-- Panel: Specifications (zebra table) -->
         <div class="tab-panel" role="tabpanel" data-tabpanel="specs" id="tabpanel-specs" aria-labelledby="tab-specs" hidden>
           <h2>Specifications</h2>
-          <table class="specs-table">
+          <table class="spec-table">
             <thead><tr><th scope="col">Parameter</th><th scope="col">Value</th><th scope="col">Unit</th></tr></thead>
             <tbody>
               {{#each model.specs}}
-              <tr class="specs-table__row">
+              <tr class="spec-table__row">
                 <th scope="row">{{param}}</th>
                 <td>{{value}}</td>
                 <td>{{#if unit}}{{unit}}{{/if}}</td>
@@ -135,7 +135,7 @@
           <div class="alt-parts__card">
             <h3 class="alt-parts__partno"><a href="/products/{{categorySlug}}/{{slug}}/">{{partNo}}</a></h3>
             <p class="alt-parts__summary">{{summary}}</p>
-            <a class="btn btn--sm btn--outline" href="/products/{{categorySlug}}/{{slug}}/">View Details</a>
+            <a class="btn btn--sm btn--secondary" href="/products/{{categorySlug}}/{{slug}}/">View Details</a>
           </div>
           {{/each}}
         </div>
@@ -159,7 +159,7 @@
         <h2>Ready to Order {{model.partNo}}?</h2>
         <p>Contact BeiLuo for competitive pricing, FAE support, and fast global delivery.</p>
         <a class="btn btn--cta" href="/contact/">Get a Quote</a>
-        <a class="btn btn--outline" href="/products/{{category.slug}}/">Back to {{category.name}}</a>
+        <a class="btn btn--secondary" href="/products/{{category.slug}}/">Back to {{category.name}}</a>
       </div>
 
     </div>

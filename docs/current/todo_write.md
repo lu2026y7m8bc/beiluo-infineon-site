@@ -65,8 +65,8 @@
   { "content": "T7.4 GEO:FAQ结构化+权威事实表述自查 — 完成标准：关键页含FAQ问答结构,表述事实可引用", "status": "completed" },
   { "content": "T7.5 全图alt审计(含关键词) — 完成标准：脚本+人工核查无缺alt图片(G11)", "status": "completed" },
 
-  { "content": "T8.1 按check_list1.md(T0.5)对全部模板逐项最终扫查并修复 — 完成标准：check_list1全部勾选 — 用户决定：已完成3处系统性根因修复(见dev-status.md §3/§6)，剩余大范围CSS补写等工作暂缓，待后续任务处理，本条暂停(状态改回pending，非新增todo跳过)", "status": "pending" },
-  { "content": "T8.2 按check_list2.md(T0.6)对全部JSON逐项最终扫查并修复 — 完成标准：check_list2全部勾选 — 进度：已完成3处最严重问题修复(已提交e95bc7f) + §6.A孤儿字段接线批次(已提交ea42b34) + §6.B/C内容质量与数量配额批次(已提交9162d67) + products.json孤儿字段批次(已提交e4a3afb) + Product JSON-LD绝对URL修复(已提交590dcf0) + 绝对URL回归测试(已提交732165d) + ItemList绝对URL修复+配套测试(待提交，见dev-status.md §3/§6)，其余约13处较小发现记为候选(微信二维码JS/Home Appliance新方案/共享SVG插画)，本条继续保持in_progress(非完成，check_list2远未全部勾选)", "status": "in_progress" },
+  { "content": "T8.1 按check_list1.md(T0.5)对全部模板逐项最终扫查并修复 — 完成标准：check_list1全部勾选 — 进度：已完成3处系统性根因修复(4e10068) + 页面级CSS覆盖缺口批次(新增22个CSS板块~1530行+4处类名统一，待提交，仅结构性核实，本环境无浏览器工具未做视觉验证，见dev-status.md §3/§6/§8)，其余约7处较小发现记为候选(sidebarSections/solution.related数据接线/缺失SVG+PDF资产/标题关键词缺口)", "status": "in_progress" },
+  { "content": "T8.2 按check_list2.md(T0.6)对全部JSON逐项最终扫查并修复 — 完成标准：check_list2全部勾选 — 进度：已完成3处最严重问题修复(e95bc7f) + §6.A孤儿字段接线批次(ea42b34) + §6.B/C内容质量与数量配额批次(9162d67) + products.json孤儿字段批次(e4a3afb) + Product/ItemList JSON-LD绝对URL修复及回归测试(590dcf0/732165d/8c89186)，其余约13处较小发现记为候选(微信二维码JS/Home Appliance新方案/共享SVG插画)，用户决定切回T8.1，本条暂停(状态改回pending，非完成)", "status": "pending" },
 
   { "content": "T9.1 全量构建node src/build.js+死链/空链零容忍校验 — 完成标准：构建零错误,links校验零死链(G2)", "status": "pending" },
   { "content": "T9.2 浏览器/ui-test验证(响应式三档、Tab/筛选/TOC/表单、AA对比、≥44px、prefers-reduced-motion) — 完成标准：关键页通过ui-test无阻塞缺陷,reduced-motion下动画关闭", "status": "pending" },
