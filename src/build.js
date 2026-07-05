@@ -124,6 +124,13 @@ export function assembleSite({
   // Append robots.txt
   files.push({ path: 'robots.txt', content: buildRobots(baseUrl) });
 
+  // sitemap.xml/robots.txt are real build outputs (see above) but they're not
+  // HTML pages from buildPageList(), so findLinkIssues's valid-path set
+  // wouldn't otherwise know about them — footer.html links to both on every
+  // page, and without this they'd be false-flagged as dead links site-wide.
+  htmlPagesForLinkCheck.push({ path: '/sitemap.xml', html: '' });
+  htmlPagesForLinkCheck.push({ path: '/robots.txt', html: '' });
+
   // Dead / empty link validation — use original page URLs, not dist file paths
   const issues = findLinkIssues(htmlPagesForLinkCheck);
 

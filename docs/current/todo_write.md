@@ -61,7 +61,7 @@
 
   { "content": "T7.1 全页Meta/Title/Description接线(唯一、含关键词) — 完成标准：抽检每页Title/Description唯一不重复", "status": "completed" },
   { "content": "T7.2 7类JSON-LD全站接线+结构校验 — 完成标准：各页含正确JSON-LD且通过结构校验(G8)", "status": "completed" },
-  { "content": "T7.3 sitemap.xml/robots.txt接入构建产物 — 完成标准：sitemap含全部页面且可访问,robots存在", "status": "pending" },
+  { "content": "T7.3 sitemap.xml/robots.txt接入构建产物 — 完成标准：sitemap含全部页面且可访问,robots存在", "status": "completed" },
   { "content": "T7.4 GEO:FAQ结构化+权威事实表述自查 — 完成标准：关键页含FAQ问答结构,表述事实可引用", "status": "pending" },
   { "content": "T7.5 全图alt审计(含关键词) — 完成标准：脚本+人工核查无缺alt图片(G11)", "status": "pending" },
 
