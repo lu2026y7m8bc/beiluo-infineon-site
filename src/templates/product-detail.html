@@ -14,11 +14,11 @@
   "description": "{{{model.shortDescription}}}",
   "image": "{{{model.image}}}",
   "category": "{{{model.applications.0}}}",
-  "url": "{{{seo.canonical}}}",
+  "url": "{{{jsonLd.organizationUrl}}}{{{seo.canonical}}}",
   "offers": {
     "@type": "Offer",
     "availability": "{{{model.availabilityUrl}}}",
-    "url": "{{{seo.canonical}}}"
+    "url": "{{{jsonLd.organizationUrl}}}{{{seo.canonical}}}"
   }
 }
   </script>

@@ -161,6 +161,10 @@ export function buildPageList(data) {
         ...category,
         models: category.models.map(model => ({
           ...model,
+          // Absolute product URL for Product JSON-LD (schema requires an absolute
+          // url) — computed here since {{#each category.models}} has no
+          // parent-scope access to the top-level jsonLd.organizationUrl.
+          absoluteHref: `${site.jsonLd.organizationUrl}${model.href}`,
           rowCells: category.columns.map(col => {
             const raw = model[col.key] !== undefined ? model[col.key] : (model.params ? model.params[col.key] : undefined);
             return {
