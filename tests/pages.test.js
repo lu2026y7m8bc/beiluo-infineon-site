@@ -310,6 +310,15 @@ describe('buildPageList', () => {
     assert.deepEqual(urls, ['/products/igbt/', '/products/mcu/']);
   });
 
+  it('each model in a category page context has an absolute absoluteHref (Product JSON-LD requires an absolute url)', () => {
+    const p = findPage(pages, '/products/igbt/');
+    assert.ok(p, '/products/igbt/ page not found');
+    for (const model of p.context.category.models) {
+      assert.equal(model.absoluteHref, `${site.jsonLd.organizationUrl}${model.href}`);
+      assert.ok(model.absoluteHref.startsWith('https://'), `absoluteHref for ${model.partNo} is not absolute: ${model.absoluteHref}`);
+    }
+  });
+
   // ── Product detail pages ────────────────────────────────────────────────────
   it('product detail pages count equals total models across all categories (4)', () => {
     const detailPages = pagesByTemplate(pages, 'product-detail');
