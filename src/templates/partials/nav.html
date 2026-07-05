@@ -8,14 +8,13 @@
         <span class="site-nav__slogan">{{brand.slogan}}</span>
       </a>
 
-      <!-- Desktop Main Navigation (fixed site-structure links — not data-driven) -->
+      <!-- Desktop Main Navigation (data-driven from site.json's nav.items) -->
       <nav class="site-nav__links" aria-label="Main">
         <ul class="site-nav__list" role="list">
-          <li class="site-nav__item">
-            <a class="site-nav__link" href="/">Home</a>
-          </li>
-          <li class="site-nav__item has-megamenu">
-            <a class="site-nav__link" href="/products/" data-megamenu-trigger aria-haspopup="true" aria-expanded="false">Products</a>
+          {{#each nav.items}}
+          <li class="site-nav__item{{#if megaMenu}} has-megamenu{{/if}}">
+            <a class="site-nav__link" href="{{href}}"{{#if megaMenu}} data-megamenu-trigger aria-haspopup="true" aria-expanded="false"{{/if}}>{{label}}</a>
+            {{#if megaMenu}}
             <!-- Mega menu panel is a child of .has-megamenu so the <li> is one contiguous
                  hover zone covering both trigger and panel. CSS sets .has-megamenu to
                  position:static so the panel's position:absolute is relative to <header>. -->
@@ -39,22 +38,9 @@
                 </ul>
               </div>
             </div><!-- /.mega-menu -->
+            {{/if}}
           </li>
-          <li class="site-nav__item">
-            <a class="site-nav__link" href="/solutions/">Solutions</a>
-          </li>
-          <li class="site-nav__item">
-            <a class="site-nav__link" href="/support/">Support</a>
-          </li>
-          <li class="site-nav__item">
-            <a class="site-nav__link" href="/news/">News</a>
-          </li>
-          <li class="site-nav__item">
-            <a class="site-nav__link" href="/about/">About</a>
-          </li>
-          <li class="site-nav__item">
-            <a class="site-nav__link" href="/contact/">Contact</a>
-          </li>
+          {{/each}}
         </ul>
       </nav>
 
@@ -82,27 +68,11 @@
   <div class="site-nav__drawer" data-drawer id="nav-drawer" aria-hidden="true">
     <nav aria-label="Mobile navigation">
       <ul class="site-nav__drawer-list" role="list">
+        {{#each nav.items}}
         <li class="site-nav__drawer-item">
-          <a class="site-nav__drawer-link" href="/">Home</a>
+          <a class="site-nav__drawer-link" href="{{href}}">{{label}}</a>
         </li>
-        <li class="site-nav__drawer-item">
-          <a class="site-nav__drawer-link" href="/products/">Products</a>
-        </li>
-        <li class="site-nav__drawer-item">
-          <a class="site-nav__drawer-link" href="/solutions/">Solutions</a>
-        </li>
-        <li class="site-nav__drawer-item">
-          <a class="site-nav__drawer-link" href="/support/">Support</a>
-        </li>
-        <li class="site-nav__drawer-item">
-          <a class="site-nav__drawer-link" href="/news/">News</a>
-        </li>
-        <li class="site-nav__drawer-item">
-          <a class="site-nav__drawer-link" href="/about/">About</a>
-        </li>
-        <li class="site-nav__drawer-item">
-          <a class="site-nav__drawer-link" href="/contact/">Contact</a>
-        </li>
+        {{/each}}
       </ul>
       <a href="/contact/" class="btn btn--cta site-nav__drawer-cta">Get a Quote</a>
     </nav>

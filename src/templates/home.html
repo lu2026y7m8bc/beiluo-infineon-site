@@ -10,7 +10,19 @@
   "@type": "{{{jsonLd.organizationType}}}",
   "name": "{{{brand.name}}}",
   "url": "{{{jsonLd.organizationUrl}}}",
-  "description": "{{{brand.oneLiner}}}"
+  "description": "{{{brand.slogan}}}",
+  "logo": {
+    "@type": "ImageObject",
+    "url": "{{{jsonLd.organizationUrl}}}{{{logo.src}}}"
+  },
+  "foundingDate": "{{{jsonLd.foundingYear}}}",
+  "areaServed": "{{{jsonLd.areaServed}}}",
+  "contactPoint": [
+    {
+      "@type": "ContactPoint",
+      "contactType": "sales"
+    }
+  ]
 }
   </script>
 

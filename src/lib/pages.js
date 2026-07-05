@@ -63,16 +63,39 @@ function breadcrumbJsonLdFor(breadcrumb, site) {
  * @returns {Array<{ url: string, template: string, context: object, breadcrumb: Array }>}
  */
 export function buildPageList(data) {
-  const { site, home, products, solutions, support, news, about } = data;
+  const { home, products, solutions, support, news, about } = data;
+
+  // Mega Menu data: 2 featured models per product category, attached to the
+  // "Products" nav item so nav.html can render it via {{#each navCategories}}
+  // from within {{#each nav.items}} — render.js's {{#each}} has no
+  // parent-scope access, so navCategories must live on that item itself,
+  // not as a sibling top-level field.
+  const navCategories = products.categories.map(category => ({
+    slug: category.slug,
+    name: category.name,
+    featuredModels: category.models.slice(0, 2).map(m => ({ partNo: m.partNo, href: m.href })),
+  }));
+  const site = {
+    ...data.site,
+    nav: {
+      ...data.site.nav,
+      items: data.site.nav.items.map(item => (item.megaMenu ? { ...item, navCategories } : item)),
+    },
+  };
+
   const pages = [];
 
   // ── 1. Home ─────────────────────────────────────────────────────────────────
   {
     const breadcrumb = [];
+    // seo must be merged explicitly (site.seo, then home.seo) — {...site, ...home}
+    // alone lets home.json's flat seo:{title,description,canonical} completely
+    // replace site.seo, silently dropping siteName/defaultTitle/defaultDescription.
+    const seo = { ...site.seo, ...home.seo };
     pages.push({
       url: '/',
       template: 'home',
-      context: { ...site, ...home, breadcrumb },
+      context: { ...site, ...home, seo, breadcrumb },
       breadcrumb,
     });
   }
@@ -80,10 +103,14 @@ export function buildPageList(data) {
   // ── 2. About ────────────────────────────────────────────────────────────────
   {
     const breadcrumb = markCurrentLast([bc('Home', '/'), bc('About Us', '/about/')]);
+    // seo must be merged explicitly — see the identical fix/comment on the Home
+    // page above (about.json's flat seo:{title,description,canonical} would
+    // otherwise silently replace site.seo, dropping siteName/defaultTitle/etc).
+    const seo = { ...site.seo, ...about.seo };
     pages.push({
       url: '/about/',
       template: 'about',
-      context: { ...site, ...about, breadcrumb },
+      context: { ...site, ...about, seo, breadcrumb },
       breadcrumb,
     });
   }
@@ -223,7 +250,7 @@ export function buildPageList(data) {
     pages.push({
       url: '/support/',
       template: 'support-list',
-      context: { ...site, seo, ...support, guidesArticles, applicationNotesArticles, troubleshootingArticles, reviewsArticles, breadcrumb },
+      context: { ...site, ...support, seo, guidesArticles, applicationNotesArticles, troubleshootingArticles, reviewsArticles, breadcrumb },
       breadcrumb,
     });
   }

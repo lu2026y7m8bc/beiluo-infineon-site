@@ -117,7 +117,8 @@
         "links": [
           {
             "label": "WhatsApp: +86 15013702378",
-            "href": "https://wa.me/8615013702378"
+            "href": "https://wa.me/8615013702378",
+            "external": true
           },
           {
             "label": "WeChat: +86 18612518271",
