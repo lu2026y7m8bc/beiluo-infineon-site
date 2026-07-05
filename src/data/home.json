@@ -104,27 +104,27 @@
   ],
   "solutionsTeaser": [
     {
-      "slug": "motor-drive",
-      "title": "Motor Drive Solutions",
+      "slug": "bldc-motor-drive",
+      "title": "BLDC Motor Drive Solution",
       "industry": "Motor Drive",
-      "summary": "Combine Infineon XMC4000 MCUs with H3 IGBT devices and gate driver ICs for high-efficiency three-phase inverter and servo drive designs supported by BeiLuo FAE review.",
-      "href": "/solutions/motor-drive/",
+      "summary": "Infineon IGBT-based three-phase BLDC motor drive solution covering power stage design, gate drive isolation, and field-oriented control for industrial servo and HVAC compressor applications, sourced from BeiLuo.",
+      "href": "/solutions/bldc-motor-drive/",
       "icon": "/assets/svg/icons/motor-drive.svg"
     },
     {
-      "slug": "ev-charging",
-      "title": "EV Charging Infrastructure",
-      "industry": "Electric Vehicle",
-      "summary": "BeiLuo supplies Infineon CoolMOS and IGBT components for AC and DC EV chargers, backed by FAE thermal design assistance and gate-drive circuit layout review.",
-      "href": "/solutions/ev-charging/",
+      "slug": "ev-charger-power",
+      "title": "EV On-Board Charger Solution",
+      "industry": "EV Charging",
+      "summary": "High-efficiency EV on-board charger solution using Infineon OptiMOS MOSFETs for totem-pole PFC and phase-shifted full-bridge DC-DC conversion, sourced from BeiLuo.",
+      "href": "/solutions/ev-charger-power/",
       "icon": "/assets/svg/icons/ev-charging.svg"
     },
     {
-      "slug": "industrial-automation",
-      "title": "Industrial Automation",
+      "slug": "industrial-iot-sensor",
+      "title": "Industrial IoT Sensor Node",
       "industry": "Industrial Automation",
-      "summary": "AURIX TC3xx safety MCUs and TLE Hall sensors from Infineon enable functional-safety-rated PLCs, conveyor monitoring, and robotic motion control platforms, backed by BeiLuo FAE support for safety certification and sensor integration.",
-      "href": "/solutions/industrial-automation/",
+      "summary": "Infineon DPS310 and TLI4966G sensor node solution for real-time environmental monitoring and rotating machine health tracking in Industry 4.0 factory automation, sourced from BeiLuo.",
+      "href": "/solutions/industrial-iot-sensor/",
       "icon": "/assets/svg/icons/automation.svg"
     }
   ],
@@ -146,12 +146,12 @@
       "href": "/support/reviews/how-to-select-infineon-mcu/"
     },
     {
-      "slug": "infineon-coolmos-pfc-application",
+      "slug": "infineon-sensor-iot-applications",
       "category": "application-notes",
-      "title": "Infineon CoolMOS CFD2 in Totem-Pole Bridgeless PFC: Application Guide",
-      "summary": "Application note on gate-drive timing, dead-time selection, and PCB layout for CoolMOS CFD2 in high-efficiency PFC boost stages above 90 percent efficiency.",
-      "date": "2024-04-15",
-      "href": "/support/application-notes/infineon-coolmos-pfc-application/"
+      "title": "Infineon Sensors in Industrial IoT Applications: A Practical Application Note",
+      "summary": "Infineon XENSIV sensors enable precision measurement of current, position, pressure, and magnetic field in industrial IoT and automotive designs. Covers sensor selection, interface design, and calibration strategies.",
+      "date": "2024-06-05",
+      "href": "/support/application-notes/infineon-sensor-iot-applications/"
     }
   ],
   "newsTeaser": [
