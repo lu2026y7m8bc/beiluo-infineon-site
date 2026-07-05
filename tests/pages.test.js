@@ -319,6 +319,17 @@ describe('buildPageList', () => {
     }
   });
 
+  it('category page itemListJsonLd uses absolute urls (ItemList.itemListElement[].url)', () => {
+    const p = findPage(pages, '/products/igbt/');
+    assert.ok(p, '/products/igbt/ page not found');
+    const json = p.context.itemListJsonLd.replace(/^<script[^>]*>/, '').replace(/<\/script>$/, '');
+    const obj = JSON.parse(json);
+    assert.equal(obj['@type'], 'ItemList');
+    for (const el of obj.itemListElement) {
+      assert.ok(el.url.startsWith('https://'), `ItemList entry "${el.name}" url is not absolute: ${el.url}`);
+    }
+  });
+
   // ── Product detail pages ────────────────────────────────────────────────────
   it('product detail pages count equals total models across all categories (4)', () => {
     const detailPages = pagesByTemplate(pages, 'product-detail');

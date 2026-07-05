@@ -152,7 +152,7 @@ export function buildPageList(data) {
       const breadcrumb = markCurrentLast([bc('Home', '/'), bc('Products', '/products/'), bc(category.name, catUrl)]);
       const seo = { ...site.seo, title: category.title, description: category.metaDescription, canonical: catUrl };
       const breadcrumbJsonLd = breadcrumbJsonLdFor(breadcrumb, site);
-      const itemListJsonLd = jsonLdScript(itemList(category.models.map(m => ({ name: m.partNo, url: m.href }))));
+      const itemListJsonLd = jsonLdScript(itemList(category.models.map(m => ({ name: m.partNo, url: site.jsonLd.organizationUrl + m.href }))));
       // Pre-compute each model's table row cells in category.columns order (markup-contract.md
       // §1: dynamic spec-table columns). render.js's {{#each}} has no parent-scope access, so
       // the th↔td key alignment and params-vs-top-level field lookup must happen here rather
