@@ -45,7 +45,7 @@
          1. Hero Section
     ════════════════════════════════════════════════════════════════ -->
     <section class="hero">
-      <img src="{{hero.bgSvgSrc}}" alt="" aria-hidden="true" class="hero__bg">
+      <img src="{{hero.bgSvgSrc}}" alt="{{hero.bgSvgAlt}}" aria-hidden="true" class="hero__bg">
       <div class="container">
         <div class="hero__content">
           <h1 class="hero__headline">{{hero.headline}}</h1>
@@ -131,6 +131,7 @@
         <div class="solutions-teaser__grid">
           {{#each solutionsTeaser}}
           <div class="card solutions-teaser__card">
+            <span class="solution-card__industry">{{industry}}</span>
             <h3 class="card__title"><a href="{{href}}">{{title}}</a></h3>
             <p class="card__text">{{summary}}</p>
           </div>
@@ -151,8 +152,10 @@
         <div class="support-teaser__list">
           {{#each supportTeaser}}
           <article class="support-teaser__item card">
+            <a class="badge badge--category" href="/support/{{category}}/">{{categoryLabel}}</a>
             <h3 class="card__title"><a href="{{href}}">{{title}}</a></h3>
             <p class="card__text">{{summary}}</p>
+            <time class="card__date" datetime="{{date}}">{{date}}</time>
           </article>
           {{/each}}
         </div>

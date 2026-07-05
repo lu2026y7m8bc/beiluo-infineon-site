@@ -150,7 +150,7 @@ export function buildPageList(data) {
     // Category index page
     {
       const breadcrumb = markCurrentLast([bc('Home', '/'), bc('Products', '/products/'), bc(category.name, catUrl)]);
-      const seo = { ...site.seo, title: category.title, description: category.metaDescription, canonical: catUrl };
+      const seo = { ...site.seo, title: `${category.title} | ${site.brand.name}`, description: category.metaDescription, canonical: catUrl };
       const breadcrumbJsonLd = breadcrumbJsonLdFor(breadcrumb, site);
       const itemListJsonLd = jsonLdScript(itemList(category.models.map(m => ({ name: m.partNo, url: site.jsonLd.organizationUrl + m.href }))));
       // Pre-compute each model's table row cells in category.columns order (markup-contract.md
@@ -243,7 +243,7 @@ export function buildPageList(data) {
   // ── 9. Support overview ──────────────────────────────────────────────────────
   {
     const breadcrumb = markCurrentLast([bc('Home', '/'), bc('Support', '/support/')]);
-    const seo = { ...site.seo, title: `Technical Support & Guides | ${site.brand.name}`, description: `${site.brand.name} technical support: Infineon component selection guides, application notes, and FAE Q&A for MCU, IGBT, MOSFET and Sensors.`, canonical: '/support/' };
+    const seo = { ...site.seo, title: `Infineon Technical Support & Guides | ${site.brand.name}`, description: `${site.brand.name} technical support: Infineon component selection guides, application notes, and FAE Q&A for MCU, IGBT, MOSFET and Sensors.`, canonical: '/support/' };
     // Pre-filtered per-category article arrays for the overview page's 4 tab
     // panels (support.json's categories are locked to these 4 slugs — see
     // support-list.html's hand-authored tabs for the same assumption).
@@ -404,7 +404,7 @@ export function buildPageList(data) {
     // to stay under the ~155-char meta description guideline used elsewhere in
     // pages.js), falling back to an expertise-based sentence since bio is not
     // guaranteed present on every author record.
-    const seo = { ...site.seo, title: `${author.name} — BeiLuo FAE Profile | ${site.brand.name}`, description: author.bio ? author.bio.slice(0, 155) : `${author.name}, ${author.expertise} at ${site.brand.name}, an Infineon authorized distributor.`, canonical: authorUrl };
+    const seo = { ...site.seo, title: `${author.name} — Infineon FAE Profile | ${site.brand.name}`, description: author.bio ? author.bio.slice(0, 155) : `${author.name}, ${author.expertise} at ${site.brand.name}, an Infineon authorized distributor.`, canonical: authorUrl };
     // Articles authored by this FAE (about.schema.md §Author Profile Page Schema:
     // "list of articles authored ... filtered by author === slug"), same
     // filter-at-build-time pattern as guidesArticles/catArticles/tagArticles above.

@@ -39,9 +39,8 @@ solutions.json
 | `metaDescription` | String | Required | Meta description ≤155 chars, contains industry keyword + `"Infineon"` + BeiLuo context | `{{solution.metaDescription}}` in `<meta name="description">` |
 | `summary` | String | Required | ≤60-word card summary shown on list page and home teaser (contains core keyword for GEO) | `{{solution.summary}}` in solution card on `solutions-list` and `solutionsTeaser` on home |
 | `industry` | String | Required | Industry tag label: e.g., `"Motor Drive"`, `"EV Charging"`, `"Solar PV"`, `"Industrial Automation"`, `"Home Appliance"` | `{{solution.industry}}` as badge on list card and detail header |
-| `blockDiagram` | Object | Required | System block diagram (SVG) with detailed alt text | `{{solution.blockDiagram.*}}` in first H2 section (design §5.6) |
-| `blockDiagram.src` | String | Required | SVG path: `"/assets/svg/illustrations/bd-<slug>.svg"` | `{{solution.blockDiagram.src}}` as `<img src>` |
-| `blockDiagram.alt` | String | Required | Detailed alt text describing all blocks and connections (for accessibility + SEO + GEO) — ≥40 words | `{{solution.blockDiagram.alt}}` |
+| `diagramSrc` | String | Required | System block diagram SVG path (ideally per-slug, e.g. `"/assets/svg/illustrations/bd-<slug>.svg"` — all 5 solutions currently share the same generic `solution-diagram.svg` pending distinct diagram assets, tracked in dev-status.md §6.E) | `{{solution.diagramSrc}}` as `<img src>` in first H2 section (design §5.6) |
+| `diagramAlt` | String | Required | Detailed alt text describing all blocks and connections (for accessibility + SEO + GEO) — ≥40 words | `{{solution.diagramAlt}}` |
 | `advantages` | Array\<String\> | Required | 3–5 bullet-point advantage statements (H2 "Core Advantages" section, design §5.6) | `{{solution.advantages}}` loop as `<li>` items |
 | `bomList` | Array\<BomEntry\> | Required | Recommended Bill of Materials — ≥3 Infineon parts with internal links (PRD §3.4.2) | `{{solution.bomList}}` loop in BOM table (design §5.6) |
 | `scenarios` | String | Required | "Application Scenarios" section prose (≥150 words, H2 section) describing real-world use cases | `{{solution.scenarios}}` as rich text block |

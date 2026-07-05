@@ -132,6 +132,7 @@
     {
       "slug": "how-to-select-infineon-igbt",
       "category": "guides",
+      "categoryLabel": "Selection Guides",
       "title": "How to Select the Right Infineon IGBT for Your Inverter Design",
       "summary": "Step-by-step guide covering voltage class, switching frequency range, package selection, and thermal design for Infineon H3 and H4 IGBT families.",
       "date": "2024-06-10",
@@ -140,6 +141,7 @@
     {
       "slug": "how-to-select-infineon-mcu",
       "category": "reviews",
+      "categoryLabel": "New Product Reviews",
       "title": "Infineon AURIX vs XMC MCU Review: A Comparison for Industrial Applications",
       "summary": "FAE review comparing AURIX TC3xx and XMC4000 series across safety certification, peripheral set, and development toolchain for industrial embedded designs.",
       "date": "2024-05-22",
@@ -148,6 +150,7 @@
     {
       "slug": "infineon-sensor-iot-applications",
       "category": "application-notes",
+      "categoryLabel": "Application Notes",
       "title": "Infineon Sensors in Industrial IoT Applications: A Practical Application Note",
       "summary": "Infineon XENSIV sensors enable precision measurement of current, position, pressure, and magnetic field in industrial IoT and automotive designs. Covers sensor selection, interface design, and calibration strategies.",
       "date": "2024-06-05",

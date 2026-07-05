@@ -120,7 +120,8 @@ Exactly 4 cards, one per product category (MCU / IGBT / MOSFET / Sensors). Data 
 | Field | Type | Required | Meaning | Placeholder |
 |-------|------|----------|---------|-------------|
 | `slug` | String | Required | Article slug | Used to build `href` |
-| `category` | String | Required | Category slug (guides / application-notes / troubleshooting / reviews) | `{{card.category}}` as badge |
+| `category` | String | Required | Category slug (guides / application-notes / troubleshooting / reviews) | not rendered directly (see `categoryLabel`) |
+| `categoryLabel` | String | Required | Human-readable category name matching `support.json`'s `categories[].name` (e.g. "Selection Guides") — added so the badge doesn't show the raw slug | `{{card.categoryLabel}}` as badge |
 | `title` | String | Required | Article title | `{{card.title}}` as H3 |
 | `summary` | String | Required | ≤40-word excerpt | `{{card.summary}}` |
 | `date` | String | Required | ISO 8601 date: `"2024-03-15"` | `{{card.date}}` |
