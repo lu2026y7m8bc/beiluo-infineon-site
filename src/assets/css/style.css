@@ -295,7 +295,7 @@ h4 {
 
 .btn--secondary:hover {
   background: var(--c-primary-tint);
-  color: var(--c-primary);
+  color: var(--c-primary-dark);
   text-decoration: none;
 }
 
@@ -361,7 +361,7 @@ h4 {
 }
 
 .badge--tag {
-  color: var(--c-primary);
+  color: var(--c-primary-dark);
   background: var(--c-primary-tint);
 }
 
@@ -554,7 +554,7 @@ select.is-invalid {
 }
 
 .site-nav__link:hover {
-  color: var(--c-primary);
+  color: var(--c-primary-dark);
   background: var(--c-primary-tint);
   text-decoration: none;
 }
@@ -662,7 +662,7 @@ select.is-invalid {
 }
 
 .mega-menu__model-link:hover {
-  color: var(--c-primary);
+  color: var(--c-primary-dark);
   background: var(--c-primary-tint);
   text-decoration: none;
 }
@@ -714,7 +714,7 @@ select.is-invalid {
 }
 
 .site-nav__drawer-link:hover {
-  color: var(--c-primary);
+  color: var(--c-primary-dark);
   background: var(--c-primary-tint);
   text-decoration: none;
 }
@@ -1062,7 +1062,13 @@ body.nav-drawer-open {
 }
 
 .cta-block__text {
-  color: var(--c-footer-text);
+  /* var(--c-footer-text) only reaches 3.29:1 against this block's solid
+     --c-primary background (fails WCAG AA's 4.5:1) -- that muted gray-blue
+     is calibrated for the much darker --c-ink-banner footer background, not
+     this brighter blue. --c-footer-heading (white, already used by the
+     sibling .cta-block__title above) clears 4.89:1 here (found via
+     real-browser contrast testing, not visually obvious from the CSS alone). */
+  color: var(--c-footer-heading);
   max-width: 640px;
   font-size: var(--fs-body);
   line-height: var(--lh-body);
@@ -1196,13 +1202,13 @@ body.nav-drawer-open {
 }
 
 .sidebar__link:hover {
-  color: var(--c-primary);
+  color: var(--c-primary-dark);
   background: var(--c-primary-tint);
   text-decoration: none;
 }
 
 .sidebar__link.is-active {
-  color: var(--c-primary);
+  color: var(--c-primary-dark);
   background: var(--c-primary-tint);
   font-weight: var(--fw-semibold);
   border-left: 3px solid var(--c-primary);
@@ -1358,7 +1364,7 @@ body.nav-drawer-open {
    ========================================================================== */
 
 .badge--category {
-  color: var(--c-primary);
+  color: var(--c-primary-dark);
   background: var(--c-primary-tint);
   display: inline-flex;
   margin-bottom: var(--space-4);
@@ -2077,7 +2083,7 @@ body.nav-drawer-open {
 .solution-card__industry {
   display: inline-flex;
   align-self: flex-start;
-  color: var(--c-primary);
+  color: var(--c-primary-dark);
   background: var(--c-primary-tint);
   border-radius: var(--r-pill);
   font-size: var(--fs-caption);
@@ -2100,7 +2106,7 @@ body.nav-drawer-open {
 
 .solution-hero__industry {
   display: inline-flex;
-  color: var(--c-primary);
+  color: var(--c-primary-dark);
   background: var(--c-primary-tint);
   border-radius: var(--r-pill);
   font-size: var(--fs-caption);
