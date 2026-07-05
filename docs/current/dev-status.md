@@ -1,6 +1,6 @@
 # dev-status.md — BeiLuo Infineon Site
 
-> Last updated: 2026-07-05 (T7.4 committed; T7.5 audited and closed with no code changes needed — Phase 7 COMPLETE)
+> Last updated: 2026-07-05 (T7.5 committed, Phase 7 COMPLETE; T8.1 check_list1.md audit run — 3 systemic root-cause fixes implemented/reviewed/Codex-approved, pending commit; T8.1 itself remains **in_progress**, NOT complete — see §6 for the large remaining gap)
 
 ---
 
@@ -9,7 +9,7 @@
 - Branch: `feat/beiluo-infineon-site`
 - Base: `main`
 - Worktree: single (no linked worktrees active)
-- Working tree: **clean** — all work through T7.5 is committed except this doc-only T7.5 closure, pending user confirmation.
+- Working tree: **dirty** — T8.1's 3 systemic fixes (`src/build.js`, `src/lib/pages.js`, `src/data/solutions.json`, `src/templates/solution-detail.html`, `tests/pages.test.js`) are complete and Codex-approved but **not yet committed**, pending user confirmation.
 
 ---
 
@@ -77,7 +77,18 @@
 
 ## 3. Current In-Progress
 
-**None — Phase 6 (interactive JS) is complete.** See §8 for the recommended next task.
+**T8.1 — check_list1.md full-template scan.** This task is far from done; do not mark it complete based on this session's work alone.
+
+What happened this session: dispatched 4 parallel audit agents to independently verify every `- [ ]` item in `check_list1.md` (13 template/variant sections × D1–D9 dimensions, ~365 individual checkable items) against the actual rendered `dist/` output and template source — not just re-reading the templates, but running `node src/build.js` and grepping/parsing the real HTML. Result: **~150 items failed**, revealing 3 systemic root-cause defects plus a much larger, separate scope of missing page-specific CSS and assorted smaller gaps (full breakdown in §6 "T8.1 Audit Findings").
+
+**Fixed this session** (user-approved tiered decision: fix the 3 systemic root causes now, record everything else as candidates, do not attempt the large CSS-writing effort in this pass):
+1. `src/build.js` never copied `src/assets/**` (CSS/JS/SVG) to `dist/assets/` — the entire deployed site would have loaded with zero stylesheet, zero JS, zero images. Fixed with a new `copyAssets()` step using `fs.cp(..., {recursive:true})`.
+2. `src/templates/solution-detail.html` rendered `solution.body` as raw unconverted Markdown (`##` headers visible as literal text, no `<p>`/`<h2>` tags) on all 5 solution pages — same class of defect T5.8 already fixed for `news.json`, but `solutions.json` was never converted. Fixed by hand-converting all 5 bodies to HTML (surgical string replacement, not a full JSON re-serialize, to avoid reformatting unrelated fields) and adding the `.longform` utility class (already existed in `style.css` since T2.2, just never applied) to `.solution-body`.
+3. `src/lib/pages.js`: **10 separate page-construction blocks** built a `breadcrumb` array missing that page's own crumb level (e.g. `/contact/`'s visible breadcrumb showed only "Home", `/products/igbt/`'s showed only "Home / Products" with no category level) — causing the visible nav breadcrumb to have fewer levels than the same page's `BreadcrumbList` JSON-LD everywhere this was checked. Fixed all 10 (about, contact, products-list, product-category, solutions-list, solution-detail, support overview, support category index, support tag pages, news-list, news-detail); crumb names verified to exactly match each page's existing hand-authored JSON-LD (e.g. "About Us" not "About"). One test (`tests/pages.test.js`, previously asserting the buggy 1-level `/about/` breadcrumb as correct) updated to assert the fixed 2-level behavior.
+
+Verification: `npm test` 363/363 pass; independent reviewer + Codex both ran full-site scans confirming 0 breadcrumb/JSON-LD depth mismatches across all 52 pages, 0 raw Markdown remaining, `dist/assets/` byte-identical to `src/assets/` (SHA-256 compared).
+
+**NOT done — do not assume complete:** the large page-specific CSS gap (see §6) means most of `check_list1.md`'s D2/D3/D4 boxes are still legitimately unchecked. T8.1 should stay `in_progress` in `todo_write.md` until a decision is made on the CSS work's scope and it's actually done.
 
 ---
 
@@ -87,7 +98,7 @@
 |-------|-------|--------|-------------|
 | Phase 6 (JS) | T6.1–T6.4 | **complete** | table-filter/tabs/toc/form — all Codex-approved |
 | Phase 7 (SEO/GEO) | T7.1–T7.5 | **complete** | Meta wiring + JSON-LD + sitemap/robots + FAQ/GEO + image alt — all done |
-| Phase 8 (Final sweep) | T8.1–T8.2 | pending | check_list1 + check_list2 final scan |
+| Phase 8 (Final sweep) | T8.1 partial, T8.2 pending | **in progress** | check_list1 audit run (3 systemic fixes done, large CSS gap remains — see §3/§6) + check_list2 final scan |
 | Phase 9 (Integration) | T9.1–T9.5 | pending | Full build + zero-dead-link verification, browser tests, code review, PRD milestone verification, Codex full-product re-check |
 | Phase 10 (Deploy) | T10.1–T10.3 | **BLOCKED** | Awaiting GitHub + Cloudflare credentials from user |
 | Phase 11 (Wrap-up) | T11.1–T11.4 | pending | CLAUDE.md/dev-status final sync, branch finish, memory update |
@@ -98,13 +109,63 @@ Full task list with per-task completion criteria: `docs/current/todo_write.md`.
 
 ## 5. Last Test / Lint / Build Results
 
-- **`npm test`**: **363/363 passing, 0 failures** (last run: end of T6.4, 2026-07-05)
-- **`node src/build.js`**: now completes structurally (every page has a template — Phase 5 is complete) but **exits non-zero** due to `links.js`'s zero-dead-link gate catching real issues — see §6 High-severity items. This is expected/known, not a regression to fix blindly; resolving it is T9.1's explicit job.
+- **`npm test`**: **363/363 passing, 0 failures** (last run: T8.1 systemic-fix session, 2026-07-05)
+- **`node src/build.js`**: now completes structurally AND copies `dist/assets/**` for the first time (T8.1 fix) but **exits non-zero** due to `links.js`'s zero-dead-link gate catching real issues — see §6 High-severity items. This is expected/known, not a regression to fix blindly; resolving it is T9.1's explicit job.
 - **Lint**: no lint config in this project; ESM + Node.js built-ins only, no linter configured.
 
 ---
 
 ## 6. Known Issues (Not Yet Fixed)
+
+### T8.1 Audit Findings (2026-07-05) — NEW TODO CANDIDATES, not yet implemented
+
+4 parallel agents independently checked every `check_list1.md` item against real `dist/` output. The 3 systemic root causes (asset copying, solution-detail Markdown, breadcrumb depth) are fixed — see §3. Everything below is **recorded as a candidate for future work, per user decision, not yet implemented.** Scope/priority of the CSS work in particular needs a explicit decision before starting (it's large — see the estimate at the end).
+
+**A. Page-specific CSS coverage gap (the largest item).** `src/assets/css/style.css` (1163 lines) only styles shared global components (nav/footer/card/badge/form-base/sidebar/contact-float/breadcrumb/longform). Confirmed via direct `grep` (not just agent claims) that **zero CSS rules exist** for the majority of each template's own layout/component classes:
+- home: `.hero*`, `.why-choose*`, `.products-teaser*`, `.solutions-teaser*`, `.support-teaser*`, `.news-teaser*`, `.final-cta`, `.trust-bar*`
+- products-list: `.category-card*`, `.products-intro`, `.layout-with-sidebar*`
+- product-category: `.cat-hero*`, `.fae-note*`, `.cat-cta`, `.spec-table*`, `.spec-table-wrap`, `.col-sticky` (markup outputs these classes as designed, but none are styled — no zebra stripe, no sticky-column freeze, no horizontal-scroll wrapper behavior)
+- product-detail: `.product-hero*`, `.tab-container`/`[role=tab]` state styling, `.btn--outline` (template uses this name; CSS only defines `.btn--secondary` — mismatch, not just missing), stock badge (template emits `stock-badge stock-badge--inStock/rfq`; CSS only defines differently-named `.badge--instock`/`.badge--rfq` — same class-name-mismatch pattern)
+- solutions-list: `.solution-card*`, `.solutions-grid`
+- solution-detail: `.layout-with-sidebar*` (shared with 6 other templates — see below)
+- support-list (all 3 URL variants): `.support-card-grid`, tab active-state styling (shared `.tab-container` gap with product-detail)
+- tech-detail: `.tech-detail-layout`, `.sticky-sidebar` (class is emitted per markup-contract §3.2 but `position:sticky` never actually applied — no CSS rule at all)
+- news-list: `.news-list__grid`
+- news-detail: `.news-banner*` (the dark-overlay/white-text banner design is entirely unstyled — banner image renders as a plain visible `<img>`)
+- about: `.timeline*`, `.why-choose__grid`, `.client-cases*`
+- contact: `.contact-card`, `.contact-grid`, and critically **`.btn--primary` itself has zero CSS** — the form's own submit button (`markup-contract.md` §4.1's own reference example) has no orange fill at all
+- author-page: `.author-hero*`, `.support-card-grid` (shared with support-list)
+
+`.layout-with-sidebar`/`.layout-with-sidebar__main`/`.layout-with-sidebar__sidebar` alone is shared by 7 templates (products-list, product-category, solutions-list, solution-detail, support-list, news-list — plus its sibling `sidebarSections` data gap below), so fixing that one class handles a lot of the 3-tier-responsive (D3) failures at once — worth doing first if/when this work is picked up.
+
+Rough scope estimate if this is tackled as its own task: CSS for ~13 page-specific layout blocks + fixing 3 confirmed class-name mismatches (`.btn--outline`→align with `.btn--secondary` or add the class, `stock-badge`→align with `.badge--instock/rfq` naming, `specs-table`→rename to `.spec-table` per markup-contract). Recommend a dedicated task (not silently folded into T8.1) — candidate name: **T8.1b** or an addendum to Phase 2/5.
+
+**B. Data fields that exist but are never rendered:**
+- `sidebarSections` is never assigned anywhere in `pages.js` — every page including `{{> sidebar}}` (products-list, solutions-list, solution-detail, support-list, news-list, product-category) renders a permanently-empty `<aside class="sidebar">`. This was already a known Low item (T5.x-era) but the T8.1 audit shows its blast radius is bigger than previously scoped — it affects the "sidebar navigation" checklist requirement on 6 different templates, not just a cosmetic gap.
+- `solution.related` (4 cross-refs per solution in `solutions.json`, meant for the sidebar's "related solutions/products" per design §5.6) is completely unused by both `pages.js` and `solution-detail.html` — dead data field.
+- `category.selectionGuideDownloadHref`/`category.selectionGuideHref` exist in `products.json` for all 4 categories but `product-category.html` never renders the "Download Category Selection Guide" button or "Selection Guide →" link the design calls for.
+- `support.json` articles' banner/cover image fields are never rendered inside `tech-detail.html`'s article body — the only image on a tech-detail page is the author avatar.
+
+**C. Structured-data (JSON-LD) field gaps:**
+- home.html's `Organization` JSON-LD is missing `logo` and `contactPoint` — both values already exist in `site.json` (`logo.src`, `contact.whatsapp`/`contact.wechat`), just never wired into the JSON-LD object in `home.html`.
+- product-detail.html's `Product` JSON-LD is missing the `sku` field entirely (name/brand/description/offers are present).
+- product-category.html's per-model `Product` JSON-LD blocks (added T5.3) also lack `sku`.
+
+**D. Real dead links found (beyond the already-tracked ~17):**
+- product-detail's alternate/companion-parts carousel references at least 3 more non-existent product slugs beyond the ones already tracked: `IKW50N65EL5` (`/products/igbt/ikw50n65el5/`), `1ED020I12-F2` (`/products/igbt/1ed020i12-f2/`), `BSC0901NS` (`/products/mosfet/bsc0901ns/`) — these may already be counted in the "~17 distinct dead links" figure from Phase 5; needs de-duplication against that list at T9.1, not double-counted.
+- `src/assets/docs/` **does not exist at all** — tech-detail's "Related PDF Download" sidebar links (4 articles × 1 PDF each) point to files that were never created anywhere in the repo. This is a new, previously-unrecorded instance of the same "missing asset" pattern as the ~13 missing SVGs below, not a link-checker-catchable dead link (it's a `/assets/...` path, which `links.js` explicitly skips per its own design).
+
+**E. Missing SVG asset files — same pattern as the already-tracked ~13, found via this audit's own file-existence checks (may overlap with the existing tracked count, needs reconciliation, not simple addition):** home.json's Why-Choose-Us icons (`inventory.svg`, `fae.svg`, `genuine.svg`, `logistics.svg`) and Hero trust badges (`badges/parts.svg`, `badges/quote.svg`, `badges/distributor.svg`) don't exist on disk — same root defect as the already-tracked about.json SVG gap, just a different template surfacing it (home.html renders these `<img>` tags too). Also: both FAE author-page avatars (Li Wei, Chen Jing) currently point to the same generic `about-hero.svg` rather than distinct named avatars — not a missing file, but a content/asset-authenticity gap (E-E-A-T requirement per PRD §3.9).
+
+**F. Smaller content/wording gaps (Low, batch-fixable when picked up):**
+- 4 product-category page titles + support overview page title omit "BeiLuo" or "Infineon" respectively (title-keyword completeness, checked in T7.1 for uniqueness but not cross-checked for keyword completeness against every checklist example at the time).
+- author-page titles ("Li Wei — BeiLuo FAE Profile | BeiLuo") omit "Infineon" — a real keyword gap, not just phrasing, given the project's Infineon-keyword-first SEO strategy.
+- CTA button text/component mismatches vs. design wireframe examples: product-detail's primary CTA says "Request a Quote" (not "Get a Quote"); products-list/solutions-list "View Models"/"Read" links render as solid CTA buttons instead of the ghost/text links the design calls for. These are real component-type deviations, not just word-choice — flagged distinctly from pure phrasing variance (e.g. "View Solution" vs "Read →", which is phrasing-only and not worth fixing).
+- product-detail's bottom multi-CTA section has only 2 actions (Get a Quote / Back to Category) vs. the ≥4 the design calls for (Download Datasheet / Apply for Sample / Get a Quote / Ask FAE).
+- 1 tech-detail article's meta description is 172 chars (over the 160 soft cap); `pages.js` doesn't truncate `article.metaDescription`.
+- `about.schema.md` says `advantages` should be 3–5 items; `about.json` has 6 (pre-existing, non-blocking, already tracked below).
+
+**Not a defect (confirmed during audit, no action needed):** category/product-teaser icon `alt=""` + `aria-hidden="true"` pairing is intentional/correct per WCAG (decorative icon beside visible text label) — T7.5 already audited and confirmed this site-wide; the check_list1.md wording asking for "alt contains category keyword" on these specific icons is the one place check_list1.md's own aspirational wording conflicts with the (correct) accessibility-driven implementation choice — worth a doc note in check_list1.md itself if this is revisited, not a code fix.
 
 ### High severity — should be triaged before T9/launch
 
@@ -146,7 +207,10 @@ Full task list with per-task completion criteria: `docs/current/todo_write.md`.
 - ~~`product-detail.html`/`solution-detail.html` used double-brace escaped interpolation inside JSON-LD `<script>` blocks~~ — fixed T7.2 (f32001c), plus 2 more templates (`product-category.html`/`solutions-list.html`) with the same defect discovered during the same audit.
 - ~~`breadcrumb.html`'s `{{breadcrumbJsonLd}}` hook was never populated by `pages.js` — dead code~~ — fixed T7.2 (f32001c): now populated for the 4 templates that previously had zero BreadcrumbList JSON-LD.
 - ~~`links.js`/`build.js` sitewide false positive: `footer.html`'s links to `/sitemap.xml`/`/robots.txt` flagged dead on every page~~ — fixed T7.3 (c373abd).
-- ~~`contact.html`'s business-hours/response-time text was a specific, unbacked claim with no corresponding `site.json` field~~ — fixed T7.4 (pending commit): added `contact.businessHours`/`contact.responseTime` fields.
+- ~~`contact.html`'s business-hours/response-time text was a specific, unbacked claim with no corresponding `site.json` field~~ — fixed T7.4 (f21a8be): added `contact.businessHours`/`contact.responseTime` fields.
+- ~~`build.js` never copied `src/assets/**` to `dist/assets/` — deployed site would have zero CSS/JS/images~~ — fixed T8.1 (pending commit).
+- ~~`solution-detail.html` rendered `solution.body` as raw unconverted Markdown (`##` headers visible as literal text)~~ — fixed T8.1 (pending commit): converted all 5 solutions to HTML, added `.longform` class.
+- ~~`pages.js`: 10 page types built a `breadcrumb` array missing that page's own crumb level, so visible nav breadcrumb had fewer levels than the same page's JSON-LD~~ — fixed T8.1 (pending commit).
 
 ---
 
@@ -156,6 +220,7 @@ Codex re-check is **MANDATORY** after every task (user rule, established 2026-06
 
 | Task | Codex Result |
 |------|-------------|
+| T8.1 (3 systemic fixes) | **Approved**, first attempt with the file-based script (no tooling issues). Verified: `dist/assets/` has 32 files including `style.css`/`tokens.css`/`form.js`; 0 raw Markdown remaining in any of the 5 solution-detail pages, 0 missing `.longform` class; all 52 pages checked, 0 breadcrumb-depth-vs-JSON-LD mismatches. Internal reviewer independently ran an even more rigorous pass first: SHA-256 hash comparison of every copied asset file (byte-identical), character-level diff of Markdown-stripped-vs-HTML-stripped body text (0 content loss from the conversion), and crumb-name cross-check against every template's pre-existing hand-authored JSON-LD (confirmed "About Us" and other exact wordings match). Both independently reached APPROVE with zero Critical/Major findings. |
 | T7.5 | **Approved**, after 3 attempts failed on Codex-side websocket connectivity errors unrelated to the task (`codex doctor` confirmed `websocket`/`reachability` failures at the time — a transient network condition, not a quoting or sandbox issue). 4th attempt succeeded cleanly with the file-based script: 172 imgs, 0 missing alt, 0 empty-alt-without-aria-hidden (the key pass/fail signal), 26 correctly-decorative empty alts, 146 descriptive alts, 0 generic placeholders, 0 inline SVGs lacking accessibility treatment. Internal reviewer independently re-ran the entire audit from scratch (not trusting the numbers) and got identical results. |
 | T7.4 | Round 1: **REJECT**, but on false grounds — Codex's own `-s read-only` sandbox couldn't spawn Node's per-test-file child processes (`spawn EPERM`), reported as "npm test unconfirmed" and also flagged `CLAUDE.md`/`todo_write.md` appearing in `git diff --name-only` as scope creep. Both objections were addressed with evidence in a same-task clarification follow-up: 3 independent real-environment `npm test` runs (2 by the controller, 1 by the internal reviewer) all showed 363/363 pass; `CLAUDE.md`'s diff was a pre-existing unrelated change and `todo_write.md`'s diff was the single expected `pending`→`in_progress` status line. Round 2: **Approved** after reviewing this evidence — the core audit (FAQ structure, contact-text byte-for-byte integrity via `git stash` diff, no `Missing field` errors, diff scoped to 3 files) had already passed in round 1 and remained the basis for the reversed verdict. |
 | T7.3 | **Approved**, first attempt with the file-based verification script (no findings from the T7.2 tooling issue this time). Confirmed: `dist/sitemap.xml` well-formed with 52 absolute-URL `<loc>` entries, `dist/robots.txt` has all 3 required lines, `[dead] /sitemap.xml`/`/robots.txt` false positives dropped from 104 to 0, remaining 25 dead-link lines unchanged (pre-existing, T9.1-scope). Internal reviewer separately verified the same numbers plus reproduced the before/after delta via `git stash` (129 total dead lines before the fix, 25 after — exact match). |
@@ -187,11 +252,11 @@ Codex re-check is **MANDATORY** after every task (user rule, established 2026-06
 
 ## 8. Next Recommended Task
 
-**T7.5 is done (audit-only, no code changes), pending commit of the doc update.** Phase 7 (SEO/GEO) is now **fully complete** (T7.1–T7.5).
+**T8.1's 3 systemic fixes are done, pending commit.** T8.1 itself is **not complete** — a large page-specific CSS gap and several smaller gaps remain (§6 "T8.1 Audit Findings"). This needs an explicit decision, not silent continuation:
 
-**Next up: Phase 8 — T8.1 (check_list1.md 全模板终扫) then T8.2 (check_list2.md 全JSON终扫).**
+1. **Decide scope of the CSS work** (§6.A) — recommend a dedicated task (e.g. T8.1b) rather than folding it into T8.1, given its size (~13 page-specific layout blocks across the whole site plus 3 class-name mismatches to reconcile).
+2. Once CSS scope is decided and done (or explicitly deferred), close out the smaller T8.1 findings (§6.B–F: `sidebarSections`/`solution.related` data wiring, missing JSON-LD fields, missing PDF/SVG assets, title-keyword/CTA-text gaps) — these are individually small and could be knocked out in a batch pass.
+3. Then re-run the check_list1.md audit for real completion, and only then mark T8.1 `completed` in `todo_write.md`.
+4. T8.2 (check_list2.md JSON content sweep) hasn't been touched yet — do after T8.1 actually closes.
 
-Recommended order:
-1. Wire `navCategories` into `pages.js` (§6, High, ready now, small fix, widely impactful — still not done, deliberately not bundled into any Phase 7 task since it was out of scope for each).
-2. T8.1 then T8.2.
-3. Before or during T9.1: resolve the ~17 dead links and ~13 missing SVG assets (§6, both High) — T9.1's own acceptance criterion is zero dead links, so these need to be resolved by then regardless.
+Also still pending, unrelated to T8.1: wire `navCategories` into `pages.js` (§6, High, ready now, small fix, widely impactful — still not done). And before/during T9.1: resolve the ~17 (now possibly overlapping with 3 more found this session — needs de-dup) dead links and ~13 (now possibly more, see §6.E) missing SVG assets — T9.1's own acceptance criterion is zero dead links, so these need resolving by then regardless.

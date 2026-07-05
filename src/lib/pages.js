@@ -79,7 +79,7 @@ export function buildPageList(data) {
 
   // ── 2. About ────────────────────────────────────────────────────────────────
   {
-    const breadcrumb = markCurrentLast([bc('Home', '/')]);
+    const breadcrumb = markCurrentLast([bc('Home', '/'), bc('About Us', '/about/')]);
     pages.push({
       url: '/about/',
       template: 'about',
@@ -90,7 +90,7 @@ export function buildPageList(data) {
 
   // ── 3. Contact ──────────────────────────────────────────────────────────────
   {
-    const breadcrumb = markCurrentLast([bc('Home', '/')]);
+    const breadcrumb = markCurrentLast([bc('Home', '/'), bc('Contact', '/contact/')]);
     // Per-page seo object (contact page had no `seo` before, which meant it
     // fell back to site.seo.defaultTitle — same duplicate-title gap fixed for
     // author pages in T5.9's pages.js change).
@@ -105,7 +105,7 @@ export function buildPageList(data) {
 
   // ── 4. Products list ─────────────────────────────────────────────────────────
   {
-    const breadcrumb = markCurrentLast([bc('Home', '/')]);
+    const breadcrumb = markCurrentLast([bc('Home', '/'), bc('Products', '/products/')]);
     const seo = { ...site.seo, title: `Infineon Products | ${site.brand.name}`, description: `Browse ${site.brand.name} authorized Infineon products: MCU, IGBT, MOSFET and Sensors. Deep stock, FAE support, global delivery.`, canonical: '/products/' };
     const breadcrumbJsonLd = breadcrumbJsonLdFor(breadcrumb, site);
     pages.push({
@@ -122,7 +122,7 @@ export function buildPageList(data) {
 
     // Category index page
     {
-      const breadcrumb = markCurrentLast([bc('Home', '/'), bc('Products', '/products/')]);
+      const breadcrumb = markCurrentLast([bc('Home', '/'), bc('Products', '/products/'), bc(category.name, catUrl)]);
       const seo = { ...site.seo, title: category.title, description: category.metaDescription, canonical: catUrl };
       const breadcrumbJsonLd = breadcrumbJsonLdFor(breadcrumb, site);
       const itemListJsonLd = jsonLdScript(itemList(category.models.map(m => ({ name: m.partNo, url: m.href }))));
@@ -185,7 +185,7 @@ export function buildPageList(data) {
 
   // ── 7. Solutions list ────────────────────────────────────────────────────────
   {
-    const breadcrumb = markCurrentLast([bc('Home', '/')]);
+    const breadcrumb = markCurrentLast([bc('Home', '/'), bc('Solutions', '/solutions/')]);
     const seo = { ...site.seo, title: `Infineon Application Solutions | ${site.brand.name}`, description: `Explore ${site.brand.name} Infineon-based application solutions: motor drive, EV charger, industrial IoT, MCU embedded control, and solar inverter.`, canonical: '/solutions/' };
     const breadcrumbJsonLd = breadcrumbJsonLdFor(breadcrumb, site);
     pages.push({
@@ -199,7 +199,7 @@ export function buildPageList(data) {
   // ── 8. Solution detail pages ─────────────────────────────────────────────────
   for (const solution of solutions.solutions) {
     const solutionUrl = `/solutions/${solution.slug}/`;
-    const breadcrumb = markCurrentLast([bc('Home', '/'), bc('Solutions', '/solutions/')]);
+    const breadcrumb = markCurrentLast([bc('Home', '/'), bc('Solutions', '/solutions/'), bc(solution.title, solutionUrl)]);
     const seo = { ...site.seo, title: `${solution.title} | ${site.brand.name}`, description: solution.metaDescription, canonical: solutionUrl };
     pages.push({
       url: solutionUrl,
@@ -211,7 +211,7 @@ export function buildPageList(data) {
 
   // ── 9. Support overview ──────────────────────────────────────────────────────
   {
-    const breadcrumb = markCurrentLast([bc('Home', '/')]);
+    const breadcrumb = markCurrentLast([bc('Home', '/'), bc('Support', '/support/')]);
     const seo = { ...site.seo, title: `Technical Support & Guides | ${site.brand.name}`, description: `${site.brand.name} technical support: Infineon component selection guides, application notes, and FAE Q&A for MCU, IGBT, MOSFET and Sensors.`, canonical: '/support/' };
     // Pre-filtered per-category article arrays for the overview page's 4 tab
     // panels (support.json's categories are locked to these 4 slugs — see
@@ -231,7 +231,7 @@ export function buildPageList(data) {
   // ── 10. Support category index pages ─────────────────────────────────────────
   for (const category of support.categories) {
     const catUrl = `/support/${category.slug}/`;
-    const breadcrumb = markCurrentLast([bc('Home', '/'), bc('Support', '/support/')]);
+    const breadcrumb = markCurrentLast([bc('Home', '/'), bc('Support', '/support/'), bc(category.name, catUrl)]);
     const seo = { ...site.seo, title: `${category.title} | ${site.brand.name}`, description: category.metaDescription, canonical: catUrl };
     const catArticles = support.articles.filter(a => a.category === category.slug);
     pages.push({
@@ -257,7 +257,7 @@ export function buildPageList(data) {
       : null;
     const tagName = tagInfo ? tagInfo.name : tagSlug;
     const tagUrl = `/support/tags/${tagSlug}/`;
-    const breadcrumb = markCurrentLast([bc('Home', '/'), bc('Support', '/support/')]);
+    const breadcrumb = markCurrentLast([bc('Home', '/'), bc('Support', '/support/'), bc(tagName, tagUrl)]);
     const seo = { ...site.seo, title: `${tagName} | Technical Support | ${site.brand.name}`, description: `${site.brand.name} technical resources tagged with ${tagName}: guides, application notes, and FAE support.`, canonical: tagUrl };
     const tagArticles = support.articles.filter(a => Array.isArray(a.tags) && a.tags.some(t => slugify(t) === tagSlug));
     pages.push({
@@ -300,7 +300,7 @@ export function buildPageList(data) {
 
   // ── 13. News list ────────────────────────────────────────────────────────────
   {
-    const breadcrumb = markCurrentLast([bc('Home', '/')]);
+    const breadcrumb = markCurrentLast([bc('Home', '/'), bc('News', '/news/')]);
     const seo = { ...site.seo, title: `News | ${site.brand.name} Infineon Distributor`, description: `Latest news from ${site.brand.name}: Infineon distributor updates, stock announcements, industry insights, and wide-bandgap semiconductor market coverage.`, canonical: '/news/' };
     // Pre-filtered per-section article arrays for the news-list page's two panels
     // (news.schema.md "news-list Template Rendering Logic": Company News / Industry
@@ -321,7 +321,7 @@ export function buildPageList(data) {
   // ── 14. News detail pages ────────────────────────────────────────────────────
   for (const article of news.articles) {
     const articleUrl = `/news/${article.slug}/`;
-    const breadcrumb = markCurrentLast([bc('Home', '/'), bc('News', '/news/')]);
+    const breadcrumb = markCurrentLast([bc('Home', '/'), bc('News', '/news/'), bc(article.title, articleUrl)]);
     const seo = { ...site.seo, title: `${article.title} | ${site.brand.name}`, description: article.summary || article.title, canonical: articleUrl };
     // "Latest News" 3-card block: 3 most recent articles of any type, excluding the
     // current article, sorted by date descending (news.schema.md "news-detail Template

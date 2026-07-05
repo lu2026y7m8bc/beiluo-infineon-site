@@ -42,8 +42,11 @@
             <ul>{{#each solution.advantages}}<li>{{this}}</li>{{/each}}</ul>
           </section>
 
-          <!-- 4. Body (pre-rendered HTML) -->
-          <div class="solution-body">{{{solution.body}}}</div>
+          <!-- 4. Body (pre-rendered HTML). "longform" reuses the T2.2 baseline
+               typography (800px width / line-height 1.8 / h2-h3 left border /
+               pre-code / blockquote) — same utility class news-detail.html uses
+               on its body div, no dedicated .solution-body rules exist. -->
+          <div class="solution-body longform">{{{solution.body}}}</div>
 
           <!-- 5. Bill of Materials -->
           <section class="solution-bom">

@@ -657,10 +657,11 @@ describe('buildPageList', () => {
     }
   });
 
-  it('single-item breadcrumb (/about/) marks that item as current', () => {
+  it('two-item breadcrumb (/about/) marks the last item as current', () => {
     const p = findPage(pages, '/about/');
-    assert.equal(p.breadcrumb.length, 1);
-    assert.equal(p.breadcrumb[0].current, true);
+    assert.equal(p.breadcrumb.length, 2);
+    assert.equal(p.breadcrumb[0].current, undefined);
+    assert.equal(p.breadcrumb[1].current, true);
   });
 
   it('tech-detail breadcrumb last item has current===true', () => {

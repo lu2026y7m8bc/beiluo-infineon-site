@@ -65,7 +65,7 @@
   { "content": "T7.4 GEO:FAQ结构化+权威事实表述自查 — 完成标准：关键页含FAQ问答结构,表述事实可引用", "status": "completed" },
   { "content": "T7.5 全图alt审计(含关键词) — 完成标准：脚本+人工核查无缺alt图片(G11)", "status": "completed" },
 
-  { "content": "T8.1 按check_list1.md(T0.5)对全部模板逐项最终扫查并修复 — 完成标准：check_list1全部勾选", "status": "pending" },
+  { "content": "T8.1 按check_list1.md(T0.5)对全部模板逐项最终扫查并修复 — 完成标准：check_list1全部勾选", "status": "in_progress" },
   { "content": "T8.2 按check_list2.md(T0.6)对全部JSON逐项最终扫查并修复 — 完成标准：check_list2全部勾选", "status": "pending" },
 
   { "content": "T9.1 全量构建node src/build.js+死链/空链零容忍校验 — 完成标准：构建零错误,links校验零死链(G2)", "status": "pending" },

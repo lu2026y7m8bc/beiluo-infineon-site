@@ -12,7 +12,7 @@
  * CLI entry point guarded by import.meta — exits 1 on issues or errors.
  */
 
-import { readdir, readFile, mkdir, writeFile } from 'node:fs/promises';
+import { readdir, readFile, mkdir, writeFile, cp } from 'node:fs/promises';
 import { join, extname, basename, dirname, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -165,6 +165,22 @@ async function readJsonDir(dirPath) {
 }
 
 /**
+ * Copy the static assets directory (CSS/JS/SVG/docs) into `outDir/assets`
+ * verbatim. No-op (not an error) if assetsDir does not exist, matching the
+ * defensive pattern of readJsonDir/readHtmlDir above.
+ * @param {string} assetsDir
+ * @param {string} outDir
+ * @returns {Promise<void>}
+ */
+async function copyAssets(assetsDir, outDir) {
+  try {
+    await cp(assetsDir, join(outDir, 'assets'), { recursive: true });
+  } catch (err) {
+    if (err.code !== 'ENOENT') throw err;
+  }
+}
+
+/**
  * Read every *.html file in `dirPath`.
  * Returns an object keyed by filename (without extension).
  * Returns {} when the directory does not exist.
@@ -210,6 +226,7 @@ export async function buildSite({
   dataDir = 'src/data',
   templateDir = 'src/templates',
   partialDir = 'src/templates/partials',
+  assetsDir = 'src/assets',
   outDir = 'dist',
   baseUrl = 'https://www.beiluo.com',
 } = {}) {
@@ -236,6 +253,12 @@ export async function buildSite({
     await writeFile(outPath, content, 'utf8');
     written++;
   }
+
+  // Copy static assets (CSS/JS/SVG/docs) verbatim. Previously build.js only
+  // handled JSON→HTML rendering and never copied src/assets/** to the output,
+  // so every deployed page loaded with zero CSS, zero JS, and zero images
+  // (T8.1 audit finding).
+  await copyAssets(assetsDir, outDir);
 
   return { written, issues };
 }
