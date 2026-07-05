@@ -48,7 +48,7 @@
       "author": "Li Wei",
       "categoryTag": "Industry News",
       "summary": "An in-depth analysis of how Infineon AURIX TC2xx and TC3xx microcontrollers are enabling ISO 26262 functional safety compliance in automotive brake, steering, and EV powertrain applications.",
-      "metaDescription": "Industry analysis: Infineon AURIX MCU for automotive safety systems. ASIL-D TC264DA design, ISO 26262 compliance, and sourcing from BeiLuo Infineon distributor.",
+      "metaDescription": "Industry analysis: Infineon AURIX MCU for automotive safety systems. ASIL-D TC264DA design and ISO 26262 compliance, sourced from BeiLuo distributor.",
       "tags": ["AURIX", "MCU", "automotive", "ISO 26262", "ASIL-D", "Infineon", "TC264DA"],
       "bannerImage": {
         "src": "/assets/svg/illustrations/news-hero.svg",
@@ -87,7 +87,7 @@
       "author": "BeiLuo Editorial Team",
       "categoryTag": "Company News",
       "summary": "BeiLuo formally launches a structured Field Application Engineer (FAE) Support Program offering three service tiers, from online resources to dedicated on-site engineering assistance for Infineon distributor customers.",
-      "metaDescription": "BeiLuo launches a dedicated FAE Support Program with three service tiers for Infineon customers. Design reviews, thermal analysis, and AURIX software support included.",
+      "metaDescription": "BeiLuo launches a dedicated FAE Support Program with three service tiers for Infineon customers: design reviews, thermal analysis, and software support.",
       "tags": ["FAE", "support", "Infineon", "BeiLuo", "engineering", "distributor"],
       "bannerImage": {
         "src": "/assets/svg/illustrations/news-hero.svg",
@@ -126,7 +126,7 @@
       "author": "Chen Jing",
       "categoryTag": "Industry News",
       "summary": "An analysis of silicon carbide and gallium nitride market trends in 2024, examining EV traction inverter adoption, Infineon's CoolSiC and CoolGaN product strategies, and implications for OEMs and distributors.",
-      "metaDescription": "SiC and GaN market outlook 2024: EV inverter growth, Infineon CoolSiC and CoolGaN strategy, and what wide bandgap adoption means for OEMs and Infineon distributors.",
+      "metaDescription": "SiC and GaN market outlook 2024: EV inverter growth, Infineon CoolSiC and CoolGaN strategy, and what wide bandgap adoption means for Infineon distributors.",
       "tags": ["SiC", "GaN", "wide bandgap", "Infineon", "CoolSiC", "CoolGaN", "MOSFET", "EV"],
       "bannerImage": {
         "src": "/assets/svg/illustrations/news-hero.svg",

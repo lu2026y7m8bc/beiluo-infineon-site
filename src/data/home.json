@@ -139,11 +139,11 @@
     },
     {
       "slug": "how-to-select-infineon-mcu",
-      "category": "guides",
-      "title": "Choosing Between Infineon AURIX and XMC MCUs for Industrial Applications",
-      "summary": "Comparison of AURIX TC3xx and XMC4000 series across safety certification, peripheral set, and development toolchain for industrial embedded designs.",
+      "category": "reviews",
+      "title": "Infineon AURIX vs XMC MCU Review: A Comparison for Industrial Applications",
+      "summary": "FAE review comparing AURIX TC3xx and XMC4000 series across safety certification, peripheral set, and development toolchain for industrial embedded designs.",
       "date": "2024-05-22",
-      "href": "/support/guides/how-to-select-infineon-mcu/"
+      "href": "/support/reviews/how-to-select-infineon-mcu/"
     },
     {
       "slug": "infineon-coolmos-pfc-application",

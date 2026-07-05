@@ -8,7 +8,7 @@
       "description": "Infineon microcontrollers span a comprehensive portfolio designed for the most demanding embedded applications in automotive, industrial, and IoT markets. The AURIX(TM) TC3xx family leads the way in automotive-grade safety computing, integrating up to six TriCore(TM) cores with lockstep redundancy and hardware security modules certified to ISO 26262 ASIL-D. These devices power advanced driver-assistance systems, domain controllers, and electrification platforms where determinism and functional safety are non-negotiable.\n\nFor industrial automation and motor drives, the XMC(TM) 4000 series combines an ARM(R) Cortex-M4F core with a rich set of peripherals including the Capture Compare Unit 4 (CCU4/CCU8) and the Position Interface (POSIF), enabling precision motor control without external signal processing hardware. The XMC1000 and XMC4000 lines are popular among engineers designing servo drives, PLC controllers, and energy-metering modules.\n\nIoT and edge applications benefit from the PSoC(TM) 6 dual-core architecture, pairing a Cortex-M4 application core with a Cortex-M0+ for ultra-low-power peripheral management. With BLE 5.0 connectivity and a programmable analog front-end, PSoC 6 enables sophisticated wearable devices, industrial sensors, and smart-building nodes.\n\nAs an authorized BeiLuo Infineon MCU distributor, we maintain substantial inventory across all major series and package variants. Our FAE team provides hands-on evaluation board support, migration guidance between MCU families, and application-specific code review. Whether you are scaling production or prototyping a new platform, BeiLuo delivers verified Infineon MCUs with full traceability and competitive lead times.",
       "faeNote": "As a BeiLuo FAE with fifteen years in embedded design, I consistently recommend the AURIX TC3xx line when customers face ISO 26262 constraints - the on-chip lockstep and HSM save significant board-level BOM cost compared to discrete safety supervisors. For cost-sensitive industrial drives, the XMC4700 hits a sweet spot: 144 MHz Cortex-M4F, 2 MB flash, and hardware floating-point all on a 100-pin package. We stock both devices in volume and can typically ship within three business days. Our pre-sales review helps customers nail the right flash and RAM headroom on the first spin, avoiding costly re-spins.",
       "icon": "/assets/svg/icons/mcu.svg",
-      "selectionGuideHref": "/support/guides/how-to-select-infineon-mcu/",
+      "selectionGuideHref": "/support/reviews/how-to-select-infineon-mcu/",
       "selectionGuideDownloadHref": "/assets/docs/beiluo-mcu-selection-guide.pdf",
       "columns": [
         { "key": "partNo", "label": "Part No.", "type": "text", "filter": "select", "sticky": true },
@@ -97,12 +97,6 @@
           ],
           "alternativeParts": [
             {
-              "partNo": "TC265DA",
-              "slug": "tc265da",
-              "categorySlug": "mcu",
-              "summary": "Dual-core AURIX TC2xx with 8 MB flash, same pinout as TC264DA"
-            },
-            {
               "partNo": "XMC4700-F100K2048",
               "slug": "xmc4700-f100k2048",
               "categorySlug": "mcu",
@@ -111,16 +105,16 @@
           ],
           "companionParts": [
             {
-              "partNo": "TLF35584QVVS2",
-              "slug": "tlf35584qvvs2",
+              "partNo": "TLI4966G",
+              "slug": "tli4966g",
               "categorySlug": "sensors",
-              "summary": "Automotive safety power supply IC for AURIX TC2xx/TC3xx supply rails"
+              "summary": "Dual-channel Hall speed sensor for automotive-grade signal processing alongside TC264DA"
             },
             {
-              "partNo": "TLE9251VSJ",
-              "slug": "tle9251vsj",
+              "partNo": "DPS310",
+              "slug": "dps310",
               "categorySlug": "sensors",
-              "summary": "CAN-FD transceiver companion for TC264DA CAN nodes"
+              "summary": "Barometric pressure sensor for automotive-grade environmental monitoring with TC264DA"
             }
           ]
         },
@@ -200,12 +194,6 @@
           ],
           "alternativeParts": [
             {
-              "partNo": "XMC4800-F144K2048",
-              "slug": "xmc4800-f144k2048",
-              "categorySlug": "mcu",
-              "summary": "Same core as XMC4700 with added hardware MATH coprocessor for FOC"
-            },
-            {
               "partNo": "TC264DA",
               "slug": "tc264da",
               "categorySlug": "mcu",
@@ -214,10 +202,10 @@
           ],
           "companionParts": [
             {
-              "partNo": "1ED020I12-F2",
-              "slug": "1ed020i12-f2",
-              "categorySlug": "igbt",
-              "summary": "Single-channel EiceDRIVER gate driver companion for XMC4700 PWM outputs"
+              "partNo": "TLI4966G",
+              "slug": "tli4966g",
+              "categorySlug": "sensors",
+              "summary": "Dual-channel Hall speed sensor for POSIF hardware quadrature decoding on XMC4700"
             },
             {
               "partNo": "IKW40N120H3",
@@ -326,20 +314,14 @@
               "slug": "ikd06n60rf",
               "categorySlug": "igbt",
               "summary": "600 V 6 A RapidSwitch IGBT for high-frequency LLC converters"
-            },
-            {
-              "partNo": "IKW50N65EL5",
-              "slug": "ikw50n65el5",
-              "categorySlug": "igbt",
-              "summary": "650 V 50 A IGBT in TO-247 for lower-voltage inverter applications"
             }
           ],
           "companionParts": [
             {
-              "partNo": "1ED020I12-F2",
-              "slug": "1ed020i12-f2",
-              "categorySlug": "igbt",
-              "summary": "Single-channel EiceDRIVER 2 A gate driver optimized for IKW H3 series"
+              "partNo": "TLI4966G",
+              "slug": "tli4966g",
+              "categorySlug": "sensors",
+              "summary": "Dual-channel Hall speed sensor for closed-loop FOC current/speed feedback with IKW40N120H3"
             },
             {
               "partNo": "XMC4700-F100K2048",
@@ -436,10 +418,10 @@
           ],
           "companionParts": [
             {
-              "partNo": "1ED020I12-F2",
-              "slug": "1ed020i12-f2",
-              "categorySlug": "igbt",
-              "summary": "EiceDRIVER single-channel gate driver for RapidSwitch IGBT"
+              "partNo": "XMC4700-F100K2048",
+              "slug": "xmc4700-f100k2048",
+              "categorySlug": "mcu",
+              "summary": "144 MHz Cortex-M4F MCU with CCU8 PWM for LLC converter control loops"
             },
             {
               "partNo": "DPS310",
@@ -550,12 +532,6 @@
               "slug": "bsc011n04ls",
               "categorySlug": "mosfet",
               "summary": "40 V 1.1 mOhm OptiMOS 5 MOSFET in TDSON-8 for low-voltage synchronous buck"
-            },
-            {
-              "partNo": "IRFP4568PBF",
-              "slug": "irfp4568pbf",
-              "categorySlug": "mosfet",
-              "summary": "150 V 171 A TO-247 through-hole variant for chassis-mount designs"
             }
           ],
           "companionParts": [
@@ -652,12 +628,6 @@
               "slug": "irfs4321pbf",
               "categorySlug": "mosfet",
               "summary": "150 V 170 A StrongIRFET D2PAK for higher-voltage switching stages"
-            },
-            {
-              "partNo": "BSC0901NS",
-              "slug": "bsc0901ns",
-              "categorySlug": "mosfet",
-              "summary": "OptiMOS 3 30 V single N-channel in TDSON-6 for direct pin-compatible designs"
             }
           ],
           "companionParts": [
@@ -772,16 +742,10 @@
           ],
           "alternativeParts": [
             {
-              "partNo": "TLE5012B",
-              "slug": "tle5012b",
+              "partNo": "DPS310",
+              "slug": "dps310",
               "categorySlug": "sensors",
-              "summary": "Giant magneto-resistance absolute angle sensor for 0-360 degrees position"
-            },
-            {
-              "partNo": "TLE4905L",
-              "slug": "tle4905l",
-              "categorySlug": "sensors",
-              "summary": "Unipolar Hall switch for simple magnet-proximity detection"
+              "summary": "Barometric pressure and temperature sensor for environmental IoT monitoring"
             }
           ],
           "companionParts": [
@@ -878,12 +842,6 @@
               "slug": "tli4966g",
               "categorySlug": "sensors",
               "summary": "Hall speed sensor for rotational measurement in BLDC motor applications"
-            },
-            {
-              "partNo": "DPS368",
-              "slug": "dps368",
-              "categorySlug": "sensors",
-              "summary": "Higher-accuracy successor to DPS310 with +/-0.5 Pa relative precision"
             }
           ],
           "companionParts": [
