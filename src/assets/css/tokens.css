@@ -18,8 +18,10 @@
 
   /* Colors - Semantic */
   --c-success: #1F9D55;
+  --c-success-dark: #166B3A;
   --c-success-tint: #E6F6EE;
   --c-warn: #E8820C;
+  --c-warn-dark: #8F4D00;
   --c-warn-tint: #FBEFD9;
 
   /* Colors - Special */

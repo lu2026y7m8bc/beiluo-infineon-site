@@ -10,6 +10,13 @@
   box-sizing: border-box;
 }
 
+html {
+  /* The root scrolling element controls horizontal scroll (not body) — the
+     off-canvas nav drawer's translateX(100%) was making the page actually
+     horizontally scrollable in real-browser testing without this. */
+  overflow-x: hidden;
+}
+
 body,
 h1,
 h2,
@@ -35,6 +42,10 @@ body {
   font-size: var(--fs-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Defends against the off-canvas nav drawer's translateX(100%) contributing to
+     the page's scrollable width (observed in real-browser testing, not just a
+     precaution) — nothing on this site intentionally needs horizontal scroll. */
+  overflow-x: hidden;
 }
 
 img,
@@ -317,6 +328,7 @@ h4 {
   box-shadow: var(--sh-card);
   padding: var(--space-6);
   transition: transform .2s, box-shadow .2s;
+  min-width: 0;
 }
 
 .card:hover {
@@ -339,12 +351,12 @@ h4 {
 }
 
 .badge--instock {
-  color: var(--c-success);
+  color: var(--c-success-dark);
   background: var(--c-success-tint);
 }
 
 .badge--rfq {
-  color: var(--c-warn);
+  color: var(--c-warn-dark);
   background: var(--c-warn-tint);
 }
 
@@ -503,6 +515,7 @@ select.is-invalid {
 
 .site-nav__links {
   flex: 1;
+  min-width: 0;
   display: flex;
   justify-content: center;
 }
@@ -510,7 +523,7 @@ select.is-invalid {
 .site-nav__list {
   display: flex;
   align-items: center;
-  gap: var(--space-2);
+  gap: var(--space-1);
 }
 
 .site-nav__item {
@@ -529,7 +542,7 @@ select.is-invalid {
   display: inline-flex;
   align-items: center;
   min-height: 44px;
-  padding: 0 var(--space-3);
+  padding: 0 var(--space-2);
   font-family: var(--font-heading);
   font-size: var(--fs-small);
   font-weight: var(--fw-medium);
@@ -753,6 +766,32 @@ body.nav-drawer-open {
   /* Drawer hidden on desktop (visual) */
   .site-nav__drawer {
     display: none;
+  }
+}
+
+/* ── 9.11 Responsive: tablet 768–1199px (design.md §7 "横向（精简）") ────
+   All 7 nav.items + logo + CTA don't fit at full desktop sizing below
+   1200px — condense to avoid horizontal overflow (design.md §7's explicit
+   "无横向溢出" requirement). Verified empirically at 768px/900px via a
+   headless-browser scrollWidth check, not just estimated from token math. */
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .site-nav__slogan {
+    display: none;
+  }
+
+  .site-nav__list {
+    gap: 0;
+  }
+
+  .site-nav__link {
+    padding: 0 var(--space-1);
+    font-size: var(--fs-caption);
+  }
+
+  .site-nav__cta {
+    padding: 0.5em 0.8em;
+    font-size: var(--fs-caption);
   }
 }
 
@@ -1041,6 +1080,7 @@ body.nav-drawer-open {
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
+  min-width: 0;
 }
 
 .card__icon {
@@ -1189,6 +1229,11 @@ body.nav-drawer-open {
   padding-block: var(--space-8);
 }
 
+.layout-with-sidebar__main,
+.layout-with-sidebar__sidebar {
+  min-width: 0;
+}
+
 .layout-with-sidebar__sidebar {
   order: 2;
 }
@@ -1236,6 +1281,7 @@ body.nav-drawer-open {
   gap: var(--space-2);
   border-bottom: 2px solid var(--c-border);
   overflow-x: auto;
+  max-width: 100%;
   margin-bottom: var(--space-6);
 }
 
@@ -1302,7 +1348,7 @@ body.nav-drawer-open {
    ========================================================================== */
 
 .btn--sm {
-  min-height: 36px;
+  min-height: 44px;
   padding: 0.4em 0.9em;
   font-size: var(--fs-small);
 }
@@ -1336,12 +1382,12 @@ body.nav-drawer-open {
 }
 
 .stock-badge--inStock {
-  color: var(--c-success);
+  color: var(--c-success-dark);
   background: var(--c-success-tint);
 }
 
 .stock-badge--rfq {
-  color: var(--c-warn);
+  color: var(--c-warn-dark);
   background: var(--c-warn-tint);
 }
 
@@ -1440,6 +1486,7 @@ body.nav-drawer-open {
   display: flex;
   flex-direction: column;
   gap: var(--space-1);
+  min-width: 0;
 }
 
 .trust-bar__value {
@@ -1480,6 +1527,7 @@ body.nav-drawer-open {
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
+  min-width: 0;
 }
 
 .why-choose__icon {
@@ -1532,6 +1580,7 @@ body.nav-drawer-open {
   gap: var(--space-3);
   text-align: center;
   align-items: center;
+  min-width: 0;
 }
 
 .products-teaser__icon {
@@ -1576,7 +1625,7 @@ body.nav-drawer-open {
 /* Home's inline news card (distinct markup from the news-card.html partial) */
 .news-card__tag {
   display: inline-flex;
-  color: var(--c-primary);
+  color: var(--c-primary-dark);
   background: var(--c-primary-tint);
   border-radius: var(--r-pill);
   font-size: var(--fs-caption);
@@ -1649,6 +1698,7 @@ body.nav-drawer-open {
   flex-direction: column;
   gap: var(--space-3);
   transition: transform 0.2s, box-shadow 0.2s;
+  min-width: 0;
 }
 
 .category-card:hover {
@@ -1728,6 +1778,7 @@ body.nav-drawer-open {
 
 .spec-table-wrap {
   overflow-x: auto;
+  max-width: 100%;
   border: 1px solid var(--c-border);
   border-radius: var(--r-card);
   margin-bottom: var(--space-8);
@@ -1945,6 +1996,7 @@ body.nav-drawer-open {
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
+  min-width: 0;
 }
 
 .alt-parts__summary,
@@ -1960,6 +2012,15 @@ body.nav-drawer-open {
   padding: var(--space-8);
   text-align: center;
   margin-block: var(--space-8);
+}
+
+/* .btn--secondary's default --c-primary text only reaches 4.27:1 against this
+   tinted background (fails WCAG AA's 4.5:1 for normal text) — darken just
+   here rather than globally, since .btn--secondary is AA-safe everywhere
+   else it's used against a plain white background. */
+.product-cta .btn--secondary {
+  color: var(--c-primary-dark);
+  border-color: var(--c-primary-dark);
 }
 
 .product-cta p {
@@ -1997,6 +2058,7 @@ body.nav-drawer-open {
   flex-direction: column;
   gap: var(--space-3);
   transition: transform 0.2s, box-shadow 0.2s;
+  min-width: 0;
 }
 
 .solution-card:hover {
@@ -2098,6 +2160,9 @@ body.nav-drawer-open {
 }
 
 .bom-table {
+  display: block;
+  overflow-x: auto;
+  max-width: 100%;
   width: 100%;
   border-collapse: collapse;
   margin-top: var(--space-4);
@@ -2162,6 +2227,10 @@ body.nav-drawer-open {
   padding-block: var(--space-8);
 }
 
+.tech-detail-layout > * {
+  min-width: 0;
+}
+
 @media (min-width: 1200px) {
   .tech-detail-layout {
     grid-template-columns: 1fr 300px;
@@ -2215,6 +2284,12 @@ body.nav-drawer-open {
   margin-top: var(--space-12);
   padding-top: var(--space-8);
   border-top: 1px solid var(--c-border);
+  /* .related-articles is a 3rd sibling in .tech-detail-layout's 2-column grid
+     (article-content / related-articles / sticky-sidebar) — without this it
+     falls into the 300px sidebar column instead of spanning full width,
+     crushing the support-card-grid inside it and overflowing (found via
+     real-browser testing, not visible from the CSS alone). */
+  grid-column: 1 / -1;
 }
 
 .related-articles__title {
@@ -2449,6 +2524,7 @@ body.nav-drawer-open {
 
 .client-cases__card {
   text-align: center;
+  min-width: 0;
 }
 
 .client-cases__logo {
@@ -2515,6 +2591,7 @@ body.nav-drawer-open {
   flex-direction: column;
   align-items: center;
   gap: var(--space-2);
+  min-width: 0;
 }
 
 .team__photo {
