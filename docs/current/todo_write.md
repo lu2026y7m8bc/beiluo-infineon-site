@@ -63,7 +63,7 @@
   { "content": "T7.2 7类JSON-LD全站接线+结构校验 — 完成标准：各页含正确JSON-LD且通过结构校验(G8)", "status": "completed" },
   { "content": "T7.3 sitemap.xml/robots.txt接入构建产物 — 完成标准：sitemap含全部页面且可访问,robots存在", "status": "completed" },
   { "content": "T7.4 GEO:FAQ结构化+权威事实表述自查 — 完成标准：关键页含FAQ问答结构,表述事实可引用", "status": "completed" },
-  { "content": "T7.5 全图alt审计(含关键词) — 完成标准：脚本+人工核查无缺alt图片(G11)", "status": "pending" },
+  { "content": "T7.5 全图alt审计(含关键词) — 完成标准：脚本+人工核查无缺alt图片(G11)", "status": "completed" },
 
   { "content": "T8.1 按check_list1.md(T0.5)对全部模板逐项最终扫查并修复 — 完成标准：check_list1全部勾选", "status": "pending" },
   { "content": "T8.2 按check_list2.md(T0.6)对全部JSON逐项最终扫查并修复 — 完成标准：check_list2全部勾选", "status": "pending" },
