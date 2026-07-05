@@ -9,8 +9,12 @@
   "@context": "https://schema.org",
   "@type": "Product",
   "name": "{{{model.partNo}}}",
+  "sku": "{{{model.partNo}}}",
   "brand": {"@type": "Brand", "name": "{{{model.brand}}}"},
   "description": "{{{model.shortDescription}}}",
+  "image": "{{{model.image}}}",
+  "category": "{{{model.applications.0}}}",
+  "url": "{{{seo.canonical}}}",
   "offers": {
     "@type": "Offer",
     "availability": "{{{model.availabilityUrl}}}",
@@ -41,6 +45,7 @@
           <h1 class="product-hero__partno">{{model.partNo}}</h1>
           <p class="product-hero__series">{{model.series}}</p>
           <p class="product-hero__package">Package: {{model.package}}</p>
+          <p class="product-hero__short-desc">{{model.shortDescription}}</p>
           <div class="product-hero__stock">
             <span class="stock-badge{{#if model.stock}} stock-badge--{{model.stock}}{{/if}}">
               {{#if model.stock}}{{model.stock}}{{/if}}

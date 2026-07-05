@@ -12,7 +12,12 @@
   "@context": "https://schema.org",
   "@type": "Product",
   "name": "{{{partNo}}}",
+  "sku": "{{{partNo}}}",
   "brand": {"@type": "Brand", "name": "{{{brand}}}"},
+  "description": "{{{shortDescription}}}",
+  "image": "{{{image}}}",
+  "category": "{{{applications.0}}}",
+  "url": "{{{href}}}",
   "offers": {
     "@type": "Offer",
     "availability": "{{#if stock}}https://schema.org/InStock{{else}}https://schema.org/PreOrder{{/if}}",
@@ -35,6 +40,9 @@
             <img src="{{category.icon}}" alt="" aria-hidden="true" class="cat-hero__icon">
             <h1 class="cat-hero__title">{{category.name}} from {{brand.name}} — Authorized Infineon Distributor</h1>
             <div class="cat-hero__desc">{{category.description}}</div>
+            <div class="cat-hero__guide-ctas">
+              {{#if category.selectionGuideHref}}<a class="btn btn--ghost" href="{{category.selectionGuideHref}}">Selection Guide →</a>{{/if}}
+            </div>
           </header>
 
           <!-- 2. FAE Note Box -->
