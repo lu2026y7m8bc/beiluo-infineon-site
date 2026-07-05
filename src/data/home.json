@@ -5,7 +5,7 @@
     "canonical": "/"
   },
   "hero": {
-    "headline": "Your Trusted Infineon Distributor",
+    "headline": "BeiLuo — Your Trusted Infineon Authorized Distributor",
     "subText": "BeiLuo provides authorized Infineon components including MCU, IGBT, MOSFET, and sensors with deep Infineon stock, same-day quotation, and dedicated FAE technical support for industrial and automotive engineers worldwide.",
     "ctaPrimary": {
       "label": "Get a Quote",
@@ -98,7 +98,7 @@
       "slug": "sensors",
       "name": "Sensors",
       "icon": "/assets/svg/icons/sensors.svg",
-      "summary": "Infineon Hall-effect, pressure, and current sensor families including TLE speed sensors, DPS310 barometric sensors, and XENSIV radar for automotive and industrial IoT.",
+      "summary": "Infineon Sensors spanning Hall-effect, pressure, and current-sensing families including TLE speed sensors, DPS310 barometric sensors, and XENSIV radar for automotive and industrial IoT.",
       "href": "/products/sensors/"
     }
   ],
@@ -123,7 +123,7 @@
       "slug": "industrial-automation",
       "title": "Industrial Automation",
       "industry": "Industrial Automation",
-      "summary": "AURIX TC3xx safety MCUs and TLE Hall sensors from Infineon enable functional-safety-rated PLCs, conveyor monitoring, and robotic motion control platforms.",
+      "summary": "AURIX TC3xx safety MCUs and TLE Hall sensors from Infineon enable functional-safety-rated PLCs, conveyor monitoring, and robotic motion control platforms, backed by BeiLuo FAE support for safety certification and sensor integration.",
       "href": "/solutions/industrial-automation/",
       "icon": "/assets/svg/icons/automation.svg"
     }

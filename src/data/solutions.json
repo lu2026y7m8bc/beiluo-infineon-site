@@ -8,10 +8,10 @@
       "industry": "Motor Drive",
       "heroImage": "/assets/svg/illustrations/solution-diagram.svg",
       "diagramSrc": "/assets/svg/illustrations/solution-diagram.svg",
-      "diagramAlt": "Three-phase full-bridge BLDC motor drive block diagram showing DC bus capacitor, six IKW40N120H3 IGBTs in three half-bridge legs, IKD06N60RF gate optocouplers, current sense shunts, and motor control MCU with FOC firmware generating six PWM signals.",
+      "diagramAlt": "Three-phase full-bridge BLDC motor drive block diagram showing DC bus capacitor, six IKW40N120H3 IGBTs in three half-bridge legs, IKD06N60RF gate optocouplers, current sense shunts, TLI4966G dual Hall-effect speed sensor for rotor feedback, and motor control MCU with FOC firmware generating six PWM signals from sensor and current feedback.",
       "blockDiagram": {
         "src": "/assets/svg/illustrations/solution-diagram.svg",
-        "alt": "Three-phase full-bridge BLDC motor drive block diagram showing DC bus capacitor, six IKW40N120H3 IGBTs in three half-bridge legs, IKD06N60RF gate optocouplers, current sense shunts, and motor control MCU with FOC firmware generating six PWM signals."
+        "alt": "Three-phase full-bridge BLDC motor drive block diagram showing DC bus capacitor, six IKW40N120H3 IGBTs in three half-bridge legs, IKD06N60RF gate optocouplers, current sense shunts, TLI4966G dual Hall-effect speed sensor for rotor feedback, and motor control MCU with FOC firmware generating six PWM signals from sensor and current feedback."
       },
       "advantages": [
         "1200 V, 40 A Infineon IKW40N120H3 IGBT with integrated soft-recovery diode eliminates external freewheeling diodes and reduces BOM cost",
@@ -35,6 +35,14 @@
           "categorySlug": "igbt",
           "description": "6 kV isolated gate drive optocoupler with 2.5 A peak output -- one per IGBT gate in the inverter bridge",
           "qty": "6"
+        },
+        {
+          "partNo": "TLI4966G",
+          "href": "/products/sensors/tli4966g/",
+          "link": "/products/sensors/tli4966g/",
+          "categorySlug": "sensors",
+          "description": "Dual-channel differential Hall-effect speed sensor -- rotor position and speed feedback for the FOC control loop",
+          "qty": "1"
         }
       ],
       "scenarios": "BLDC motor drives powered by Infineon IKW40N120H3 IGBTs serve a wide range of industrial and commercial applications. In industrial servo systems from 0.5 kW to 5 kW, the combination of low saturation voltage and precise gate control enables sub-millisecond torque response and positioning accuracy within one encoder count. HVAC variable-speed compressor drives benefit from the H3 IGBT efficiency at low switching frequencies (5--8 kHz), reducing audible noise from the compressor housing while cutting energy consumption by 30 to 40 percent compared to fixed-speed alternatives. CNC machine tool spindle drives require sustained power at high speeds where thermal management is critical -- the IKW40N120H3 TO-247 package couples efficiently to extruded aluminum heat sinks or liquid cooling plates. Conveyor and material-handling systems need drives that tolerate frequent start-stop cycles with regenerative braking; the IKW40N120H3 handles peak currents up to 80 A during acceleration transients without derating. Electric forklift traction inverters and AGV (automated guided vehicle) drives also benefit from the 1200 V blocking voltage, which accommodates the elevated DC bus voltage from lithium battery packs at end-of-charge. BeiLuo maintains stock of both IKW40N120H3 and IKD06N60RF and can ship engineering samples within three business days to support development timelines.",
@@ -60,10 +68,10 @@
       "industry": "EV Charging",
       "heroImage": "/assets/svg/illustrations/solution-diagram.svg",
       "diagramSrc": "/assets/svg/illustrations/solution-diagram.svg",
-      "diagramAlt": "EV on-board charger block diagram showing AC input EMI filter, totem-pole PFC stage with IRFS4321PBF MOSFETs, isolated phase-shifted full-bridge DC-DC converter, BSC011N04LS synchronous rectifiers on secondary side, output filter, and battery pack connection with BMS interface.",
+      "diagramAlt": "EV on-board charger block diagram showing AC input EMI filter, totem-pole PFC stage with IRFS4321PBF MOSFETs, isolated phase-shifted full-bridge DC-DC converter, BSC011N04LS synchronous rectifiers on secondary side, output filter, battery pack connection with BMS interface, and XMC4700 MCU running the PFC and full-bridge control loops.",
       "blockDiagram": {
         "src": "/assets/svg/illustrations/solution-diagram.svg",
-        "alt": "EV on-board charger block diagram showing AC input EMI filter, totem-pole PFC stage with IRFS4321PBF MOSFETs, isolated phase-shifted full-bridge DC-DC converter, BSC011N04LS synchronous rectifiers on secondary side, output filter, and battery pack connection with BMS interface."
+        "alt": "EV on-board charger block diagram showing AC input EMI filter, totem-pole PFC stage with IRFS4321PBF MOSFETs, isolated phase-shifted full-bridge DC-DC converter, BSC011N04LS synchronous rectifiers on secondary side, output filter, battery pack connection with BMS interface, and XMC4700 MCU running the PFC and full-bridge control loops."
       },
       "advantages": [
         "Infineon IRFS4321PBF OptiMOS MOSFET achieves 3.5 milliohm RDS(on) max in a D2PAK package, minimizing PFC conduction losses at 30 A continuous input current",
@@ -87,6 +95,14 @@
           "categorySlug": "mosfet",
           "description": "40 V N-channel OptiMOS MOSFET in SuperSO8 -- synchronous rectifier on battery-side secondary winding",
           "qty": "4"
+        },
+        {
+          "partNo": "XMC4700-F100K2048",
+          "href": "/products/mcu/xmc4700-f100k2048/",
+          "link": "/products/mcu/xmc4700-f100k2048/",
+          "categorySlug": "mcu",
+          "description": "144 MHz ARM Cortex-M4F MCU with CCU8 PWM unit -- PFC and phase-shifted full-bridge control loop",
+          "qty": "1"
         }
       ],
       "scenarios": "EV on-board chargers built with Infineon OptiMOS MOSFETs from BeiLuo are suited to a broad range of electric vehicle charging applications. In battery electric vehicles (BEV) with 400 V battery packs, a 7.2 kW OBC using IRFS4321PBF in a totem-pole PFC front end and IRFS4321PBF in a phase-shifted full-bridge primary stage can fully charge a 60 kWh battery pack overnight from a 32 A, 230 VAC Level 2 wall box, eliminating range anxiety for daily commuters. Plug-in hybrid vehicles (PHEV) with smaller 15--20 kWh battery packs use a 3.3 kW OBC to charge in three to four hours from a standard 16 A outlet. Commercial fleet vehicles -- delivery vans and electric buses -- use 11 kW three-phase OBCs where BSC011N04LS synchronous rectifiers on the secondary side provide the low forward-voltage drop essential for achieving greater than 93 percent full-load efficiency and meeting fleet total cost of ownership targets. Two-wheel and three-wheel electric vehicles in emerging markets use compact 1.5 kW OBC designs where the small SuperSO8 footprint of the BSC011N04LS enables PCB integration without separate heat sinks. BeiLuo FAE engineers can review OBC schematics and recommend optimal gate drive timing, dead-time settings, and thermal pad sizing for each application.",
@@ -139,6 +155,14 @@
           "categorySlug": "sensors",
           "description": "Dual differential Hall-effect speed sensor for non-contact rotational speed and direction detection in harsh industrial environments",
           "qty": "1"
+        },
+        {
+          "partNo": "XMC4700-F100K2048",
+          "href": "/products/mcu/xmc4700-f100k2048/",
+          "link": "/products/mcu/xmc4700-f100k2048/",
+          "categorySlug": "mcu",
+          "description": "144 MHz ARM Cortex-M4F MCU with I2C/SPI and Ethernet MAC -- sensor data aggregation and gateway edge processing",
+          "qty": "1"
         }
       ],
       "scenarios": "Industrial IoT sensor nodes based on Infineon DPS310 and TLI4966G serve multiple factory automation use cases. In compressed air systems, a DPS310 mounted near each pneumatic valve monitors line pressure variation in real time, enabling the control system to detect gradual seal leaks before they cause production stoppages -- a predictive maintenance use case that typically reduces compressed air waste by 15 to 25 percent. In conveyor belt drives, the TLI4966G measures belt roller speed without requiring encoder coupling, detecting slippage and bearing wear through statistical analysis of speed variation data logged over weeks. In HVAC air-handling units, a DPS310 measures duct static pressure to control variable-air-volume dampers for energy-efficient airflow balancing across zones. Pump stations benefit from combined pressure and flow data to detect impeller wear and cavitation signatures before catastrophic pump failure. In multi-axis robot arms, TLI4966G sensors on each joint gearbox provide low-cost speed feedback redundancy alongside the primary encoder, satisfying PLe safety integrity levels. Data from all nodes aggregates over BLE or LoRa wireless links to an edge gateway running anomaly detection algorithms. BeiLuo ships DPS310 and TLI4966G in standard tape-and-reel packaging compatible with automated SMT assembly, simplifying high-volume sensor node PCB production.",
@@ -161,7 +185,7 @@
       "title": "Embedded Control Solution with Infineon AURIX TC264DA and XMC4700 MCU",
       "metaDescription": "BeiLuo supplies Infineon AURIX TC264DA and XMC4700 MCU for safety-critical automotive and industrial embedded control with FAE design support.",
       "summary": "A scalable embedded control solution featuring the Infineon AURIX TC264DA dual-core TriCore MCU for automotive safety applications and the XMC4700 ARM Cortex-M4F MCU for precision industrial motor control, both stocked at BeiLuo. This solution covers functional safety, real-time control firmware, communication interfaces, and development toolchain integration.",
-      "industry": "Industrial Automation",
+      "industry": "Embedded Control",
       "heroImage": "/assets/svg/illustrations/solution-diagram.svg",
       "diagramSrc": "/assets/svg/illustrations/solution-diagram.svg",
       "diagramAlt": "Embedded control system block diagram with Infineon TC264DA AURIX MCU at center connected to six CAN-FD nodes, two Ethernet MACs, 12-bit ADC, LBIST safety monitor, and hardware security module; alongside XMC4700 MCU with CCU8 PWM unit, POSIF position interface, SPI encoder input, and EtherCAT communication.",
@@ -190,6 +214,14 @@
           "link": "/products/mcu/xmc4700-f100k2048/",
           "categorySlug": "mcu",
           "description": "XMC4000 series ARM Cortex-M4F at 144 MHz, 2 MB flash, 352 KB SRAM, CCU8, POSIF, EtherCAT -- industrial motor drive and servo axis controller",
+          "qty": "1"
+        },
+        {
+          "partNo": "IKW40N120H3",
+          "href": "/products/igbt/ikw40n120h3/",
+          "link": "/products/igbt/ikw40n120h3/",
+          "categorySlug": "igbt",
+          "description": "1200 V, 40 A H3 IGBT in TO-247 -- power stage driven by the XMC4700's CCU8 PWM outputs",
           "qty": "1"
         }
       ],
@@ -243,6 +275,14 @@
           "categorySlug": "mosfet",
           "description": "150 V N-channel OptiMOS MOSFET in D2PAK -- MPPT boost converter switch handling 100 to 550 V PV string input",
           "qty": "2"
+        },
+        {
+          "partNo": "XMC4700-F100K2048",
+          "href": "/products/mcu/xmc4700-f100k2048/",
+          "link": "/products/mcu/xmc4700-f100k2048/",
+          "categorySlug": "mcu",
+          "description": "144 MHz ARM Cortex-M4F MCU with CCU8 PWM unit -- MPPT algorithm and grid-synchronization control loop",
+          "qty": "1"
         }
       ],
       "scenarios": "Solar string inverters using Infineon IGBT and MOSFET power stages from BeiLuo serve the full spectrum of grid-tied PV applications. Residential rooftop systems of 3 to 10 kW use a single-phase H-bridge inverter with two IKW40N120H3 IGBTs in the inverter bridge and one IRFS4321PBF in the boost stage. The compact TO-247 package of IKW40N120H3 mounts to a finned aluminum inverter housing without heatsink flanges, simplifying mechanical design. Commercial rooftop and carport PV systems of 10 to 30 kW use three-phase inverters with a three-phase IGBT bridge (six IKW40N120H3 devices), feeding 400 VAC three-phase grid connections. Ground-mount utility-scale PV plants use string inverters rated at 50 to 100 kW where multiple IKW40N120H3 devices are paralleled in each phase leg with current balancing resistors in the emitter paths. In regions with wide grid frequency tolerance such as Southeast Asia and Africa, the 1200 V VCES rating of IKW40N120H3 provides additional margin against grid-side overvoltage transients. Battery storage integrated solar inverters (AC-coupled or DC-coupled) use IRFS4321PBF in the bidirectional boost-buck stage interfacing the battery at 48 to 96 V nominal with the 800 V DC bus. BeiLuo provides IKW40N120H3 and IRFS4321PBF with IEC 62109 compliance documentation on request, supporting inverter manufacturers seeking grid-tie certification.",
