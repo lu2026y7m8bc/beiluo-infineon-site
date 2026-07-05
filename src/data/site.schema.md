@@ -89,6 +89,8 @@
 | `contact.whatsappHref` | String | Required | `"https://wa.me/8615013702378"` — clickable link | `{{contact.whatsappHref}}` |
 | `contact.wechatQrSrc` | String | Required | Path to WeChat QR code SVG: `"/assets/svg/icons/wechat-qr.svg"` | `{{contact.wechatQrSrc}}` in floating widget popup |
 | `contact.email` | String | Optional | Inquiry email address if applicable | `{{contact.email}}` in contact page / footer |
+| `contact.businessHours` | String | Optional | Sales/FAE team availability window: `"Monday–Friday, 9:00–18:00 (GMT+8)"` | `{{contact.businessHours}}` in contact page hours section |
+| `contact.responseTime` | String | Optional | Quote-request response-time commitment: `"within 24 hours"` | `{{contact.responseTime}}` in contact page hero/hours/form-success text — single source of truth so the claim can't drift out of sync across its 3 occurrences |
 
 ---
 

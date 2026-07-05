@@ -34,7 +34,7 @@
 
       <header class="page-hero">
         <h1 class="page-hero__title">Contact BeiLuo — Get an Infineon Quote</h1>
-        <p class="page-hero__desc">Reach BeiLuo's sales and FAE team directly via WhatsApp or WeChat for real-time stock and pricing, or submit the inquiry form below with your part number and requirements. As an Infineon authorized distributor, we respond to every quote request within 24 hours.</p>
+        <p class="page-hero__desc">Reach BeiLuo's sales and FAE team directly via WhatsApp or WeChat for real-time stock and pricing, or submit the inquiry form below with your part number and requirements. As an Infineon authorized distributor, we respond to every quote request {{contact.responseTime}}.</p>
       </header>
 
       <div class="contact-grid">
@@ -97,7 +97,7 @@
             <button type="submit" data-submit class="btn btn--primary">Get a Quote</button>
 
             <div data-success hidden role="status" aria-live="polite">
-              <p>Thank you! We will contact you within 24 hours.</p>
+              <p>Thank you! We will contact you {{contact.responseTime}}.</p>
               <p>For a faster response, message us directly on <a href="{{contact.whatsappHref}}" target="_blank" rel="noopener noreferrer">WhatsApp</a> or WeChat ({{contact.wechat}}).</p>
             </div>
 
@@ -125,7 +125,7 @@
         </div>
         <div class="contact-hours">
           <h2 class="contact-hours__title">Business Hours &amp; Response Time</h2>
-          <p class="contact-hours__text">Our sales and FAE team is available Monday–Friday, 9:00–18:00 (GMT+8). WhatsApp and WeChat messages are typically answered within a few hours during business hours, and every quote request submitted through this page receives a response within 24 hours.</p>
+          <p class="contact-hours__text">Our sales and FAE team is available {{contact.businessHours}}. WhatsApp and WeChat messages are typically answered within a few hours during business hours, and every quote request submitted through this page receives a response {{contact.responseTime}}.</p>
         </div>
       </section>
 

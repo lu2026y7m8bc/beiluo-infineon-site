@@ -1,6 +1,6 @@
 # dev-status.md — BeiLuo Infineon Site
 
-> Last updated: 2026-07-05 (T7.2 committed; T7.3 implemented, reviewed, Codex-approved; awaiting user confirmation to commit)
+> Last updated: 2026-07-05 (T7.3 committed; T7.4 implemented, reviewed, Codex-approved; awaiting user confirmation to commit)
 
 ---
 
@@ -9,7 +9,7 @@
 - Branch: `feat/beiluo-infineon-site`
 - Base: `main`
 - Worktree: single (no linked worktrees active)
-- Working tree: **dirty** — T7.3 work (`src/build.js`, 7-line fix) is complete and Codex-approved but **not yet committed**, pending user confirmation.
+- Working tree: **dirty** — T7.4 work (`site.json`/`site.schema.md`/`contact.html`) is complete and Codex-approved but **not yet committed**, pending user confirmation.
 
 ---
 
@@ -63,7 +63,8 @@
 | T6.4 | form.js **+ fixed a real T2.2 CSS contract deviation** (`style.css` styled `.is-error`, but `markup-contract.md` §4 mandates JS write `.is-invalid` — unused selector renamed to match contract) **+ added missing `.spinner`/`.is-submitted` CSS** (contract assigns these to "CSS 负责" but T2.2 never added them) | 5b66e86 |
 | T7.1 | **Audit-only, no code changes.** Confirmed via full-site build + programmatic scan of all 52 `dist/**/index.html` that every page already has a unique, keyword-bearing `<title>`/`<meta description>`/`<link canonical>` and exactly one `<h1>` — satisfied incrementally by `pages.js`'s per-page-type `seo` object construction across T1.6/T5.9/T5.10 (see those tasks' history). Zero duplicate titles, zero duplicate descriptions, zero pages falling back to `site.json`'s `defaultTitle`/`defaultDescription`. | d9e9ba8 |
 | T7.2 | **Found and fixed 3 real defects while auditing G8 (7-type JSON-LD).** (1) `products-list.html`/`product-category.html`/`product-detail.html`/`solutions-list.html` had **zero** BreadcrumbList JSON-LD despite design.md §10 requiring it on every non-home template — fixed by wiring `context.breadcrumbJsonLd` in `pages.js` (via `schema.js`'s `breadcrumbList()`+`jsonLdScript()`, finally used for the first time since T1.3), which activates an existing-but-previously-dead `{{#if breadcrumbJsonLd}}` hook already sitting in `breadcrumb.html`. (2) `product-category.html` was missing the `ItemList` design.md §10 explicitly assigns it — added via `context.itemListJsonLd` (same `schema.js` functions). (3) 14 JSON-LD field interpolations across 4 templates used HTML-escaping double-brace `{{x}}` instead of raw triple-brace `{{{x}}}` — a latent data-corruption risk (script-tag content isn't HTML-entity-decoded by JSON-LD consumers) that hadn't yet triggered with the current dataset. Full post-fix scan: 103 JSON-LD blocks across 52 pages, 0 parse failures, BreadcrumbList=51 (every non-home page, exactly once), ItemList=4 (one per category, previously 0), no duplicates. | f32001c |
-| T7.3 | **Audit confirmed sitemap.xml/robots.txt generation itself was already correctly wired** (T1.5/T1.7 — `build.js` already calls `buildSitemap()`/`buildRobots()`; `dist/sitemap.xml` had all 52 pages, absolute URLs, well-formed XML; `dist/robots.txt` had the correct 3 lines). **Found and fixed 1 real defect**: `build.js`'s dead-link validation (`findLinkIssues`) never included `sitemap.xml`/`robots.txt` themselves in its valid-path set, so `footer.html`'s links to both (present on every page) were false-flagged as dead site-wide — 104 false positives (52 pages × 2 links), reproduced exactly via `git stash` before/after comparison. Fixed with a 2-line addition in `assembleSite()` pushing placeholder entries for both paths into the link-check input before validation runs. Remaining dead-link count after fix: 25 (all pre-existing, real, T9.1-scope model-slug cross-reference mismatches — unrelated to this fix). | pending commit |
+| T7.3 | **Audit confirmed sitemap.xml/robots.txt generation itself was already correctly wired** (T1.5/T1.7 — `build.js` already calls `buildSitemap()`/`buildRobots()`; `dist/sitemap.xml` had all 52 pages, absolute URLs, well-formed XML; `dist/robots.txt` had the correct 3 lines). **Found and fixed 1 real defect**: `build.js`'s dead-link validation (`findLinkIssues`) never included `sitemap.xml`/`robots.txt` themselves in its valid-path set, so `footer.html`'s links to both (present on every page) were false-flagged as dead site-wide — 104 false positives (52 pages × 2 links), reproduced exactly via `git stash` before/after comparison. Fixed with a 2-line addition in `assembleSite()` pushing placeholder entries for both paths into the link-check input before validation runs. Remaining dead-link count after fix: 25 (all pre-existing, real, T9.1-scope model-slug cross-reference mismatches — unrelated to this fix). | c373abd |
+| T7.4 | **FAQ structure confirmed already satisfied, no code needed** — `product-detail.html`'s `<details>`/`<summary>` accordion reads `products.json`'s `model.faq` (8 models × 5 questions each, within the 3–5 PRD threshold); FAQPage JSON-LD deliberately not added since G8's 7-type list doesn't include it. **Found and fixed 1 real "authoritative statement" defect**: `contact.html` had 3 hardcoded occurrences of specific numeric commitments ("Monday–Friday, 9:00–18:00 (GMT+8)" business hours, "within 24 hours" response time) with no backing `site.json` field — unlike every other contact fact on the site, these had been sitting as free-floating hardcoded text since T5.10 (already flagged as a Low finding, left unresolved until this task). Fixed by adding `contact.businessHours`/`contact.responseTime` to `site.json` (+ `site.schema.md` docs) and switching all 3 template occurrences to reference them — output text is byte-for-byte identical (verified via `git stash` before/after diff on rendered `dist/contact/index.html`), only the source of truth changed from 3 independent hardcoded strings to 1 shared field. | pending commit |
 
 **Milestone: PHASE 5 COMPLETE (T5.1–T5.10).** All 12 templates (home, products-list, product-category, product-detail, solutions-list, solution-detail, support-list, tech-detail, news-list, news-detail, about, contact) are built, reviewed, and Codex-approved. `node src/build.js` now runs end-to-end for the first time — see §6 for what that surfaced.
 
@@ -84,7 +85,7 @@
 | Phase | Tasks | Status | Description |
 |-------|-------|--------|-------------|
 | Phase 6 (JS) | T6.1–T6.4 | **complete** | table-filter/tabs/toc/form — all Codex-approved |
-| Phase 7 (SEO/GEO) | T7.1–T7.3 done, T7.4–T7.5 pending | in progress | Meta wiring + JSON-LD + sitemap/robots (done) → FAQ, image alt |
+| Phase 7 (SEO/GEO) | T7.1–T7.4 done, T7.5 pending | in progress | Meta wiring + JSON-LD + sitemap/robots + FAQ/GEO (done) → image alt |
 | Phase 8 (Final sweep) | T8.1–T8.2 | pending | check_list1 + check_list2 final scan |
 | Phase 9 (Integration) | T9.1–T9.5 | pending | Full build + zero-dead-link verification, browser tests, code review, PRD milestone verification, Codex full-product re-check |
 | Phase 10 (Deploy) | T10.1–T10.3 | **BLOCKED** | Awaiting GitHub + Cloudflare credentials from user |
@@ -129,7 +130,6 @@ Full task list with per-task completion criteria: `docs/current/todo_write.md`.
 | Low | T5.6/T5.7/T5.8/T6.1 | New `pages.js` context-enrichment fields added across T5.6–T6.1 (`guidesArticles`.../`authorInfo`/`relatedArticlesResolved`/`companyArticles`/`industryArticles`/`latestNews`/`authorType`/`overlayClass`/`shareTitleEncoded`/`shareUrlEncoded`/`rowCells`) have no committed unit test coverage — `tests/pages.test.js` uses a minimal stub fixture that doesn't exercise these; correctness was verified via disposable scripts during each review only. Candidate for T9.1/T9.4 coverage pass. |
 | Low | T6.1 | `table-filter.js`'s range filter treats non-numeric/blank cell values as always-matching — an edge case, not currently reachable (no shipped model has a missing numeric param), worth tightening if empty numeric cells become possible later. |
 | Low | T6.2 | `product-detail.html`'s `.tab-container` retains a leftover `data-tabs="product-detail"` attribute and the tablist div carries an extra `class="tab-list"` not mentioned in `markup-contract.md` §2 — both inert (unused by `tabs.js`, which selects by ARIA role), purely cosmetic. |
-| Low | T5.10 | `contact.html`'s business-hours text ("Monday–Friday, 9:00–18:00 (GMT+8)") is a specific, unbacked claim with no corresponding `site.json` field. Not a broken link, just unverified descriptive copy. |
 | Low | T4.6 | `about.schema.md` specifies `advantages` should be 3–5 items; `about.json` has 6 — non-blocking. |
 | Low | T2.2/T6.4 | `markup-contract.md` §4 附录速查表 assigns `.form-group` layout to "CSS 负责", but `style.css`'s Form Base section (T2.2) never added a `.form-group` rule — the class is present in `contact.html` markup but unstyled (relies on default block spacing). Purely cosmetic, not fixed in T6.4 scope (out of that task's boundary). |
 
@@ -144,7 +144,8 @@ Full task list with per-task completion criteria: `docs/current/todo_write.md`.
 - ~~`style.css` styled `.is-error` but `markup-contract.md` §4 mandates JS write `.is-invalid` (unused selector, never referenced anywhere)~~ — fixed T6.4 (5b66e86).
 - ~~`product-detail.html`/`solution-detail.html` used double-brace escaped interpolation inside JSON-LD `<script>` blocks~~ — fixed T7.2 (f32001c), plus 2 more templates (`product-category.html`/`solutions-list.html`) with the same defect discovered during the same audit.
 - ~~`breadcrumb.html`'s `{{breadcrumbJsonLd}}` hook was never populated by `pages.js` — dead code~~ — fixed T7.2 (f32001c): now populated for the 4 templates that previously had zero BreadcrumbList JSON-LD.
-- ~~`links.js`/`build.js` sitewide false positive: `footer.html`'s links to `/sitemap.xml`/`/robots.txt` flagged dead on every page~~ — fixed T7.3 (pending commit).
+- ~~`links.js`/`build.js` sitewide false positive: `footer.html`'s links to `/sitemap.xml`/`/robots.txt` flagged dead on every page~~ — fixed T7.3 (c373abd).
+- ~~`contact.html`'s business-hours/response-time text was a specific, unbacked claim with no corresponding `site.json` field~~ — fixed T7.4 (pending commit): added `contact.businessHours`/`contact.responseTime` fields.
 
 ---
 
@@ -154,6 +155,7 @@ Codex re-check is **MANDATORY** after every task (user rule, established 2026-06
 
 | Task | Codex Result |
 |------|-------------|
+| T7.4 | Round 1: **REJECT**, but on false grounds — Codex's own `-s read-only` sandbox couldn't spawn Node's per-test-file child processes (`spawn EPERM`), reported as "npm test unconfirmed" and also flagged `CLAUDE.md`/`todo_write.md` appearing in `git diff --name-only` as scope creep. Both objections were addressed with evidence in a same-task clarification follow-up: 3 independent real-environment `npm test` runs (2 by the controller, 1 by the internal reviewer) all showed 363/363 pass; `CLAUDE.md`'s diff was a pre-existing unrelated change and `todo_write.md`'s diff was the single expected `pending`→`in_progress` status line. Round 2: **Approved** after reviewing this evidence — the core audit (FAQ structure, contact-text byte-for-byte integrity via `git stash` diff, no `Missing field` errors, diff scoped to 3 files) had already passed in round 1 and remained the basis for the reversed verdict. |
 | T7.3 | **Approved**, first attempt with the file-based verification script (no findings from the T7.2 tooling issue this time). Confirmed: `dist/sitemap.xml` well-formed with 52 absolute-URL `<loc>` entries, `dist/robots.txt` has all 3 required lines, `[dead] /sitemap.xml`/`/robots.txt` false positives dropped from 104 to 0, remaining 25 dead-link lines unchanged (pre-existing, T9.1-scope). Internal reviewer separately verified the same numbers plus reproduced the before/after delta via `git stash` (129 total dead lines before the fix, 25 after — exact match). |
 | T7.2 | **Approved.** First 2 attempts were false-REJECTs caused by the Codex tool call itself: constructing an inline `node -e "..."` verification one-liner through bash-heredoc→codex→PowerShell triple quoting corrupted the regex, producing `TOTAL_BLOCKS=0` (0 JSON-LD blocks found on a 52-page site — an implausible result that should have been treated as a tooling failure, not evidence). Fixed by writing the verification script to a file and having Codex execute it by path instead of authoring inline shell. Real result: 103 JSON-LD blocks, 0 parse failures, BreadcrumbList=51/52 (every non-home page), ItemList=4 (new), 0 duplicates. Internal reviewer separately APPROVEd with the same independently-run numbers, plus flagged 2 Low items (no direct unit-test assertions for the new context fields; task-description miscounted "5" vs actual "14" brace-fix sites — cosmetic, not a code defect). |
 | T7.1 | **Approved.** Audit-only task — Codex independently ran a full-site scan (52 pages) confirming zero duplicate titles/descriptions, zero missing title/description/canonical, all pages exactly 1 `<h1>`, and zero pages falling back to `site.json`'s default SEO strings. Internal reviewer had separately reached the same conclusion first. No code changes made or needed. |
@@ -175,15 +177,17 @@ Codex re-check is **MANDATORY** after every task (user rule, established 2026-06
 
 **Third tooling note (T7.2):** even a pre-written one-liner isn't safe if it contains regex/quotes — Codex still relays it through bash-heredoc→codex-exec→PowerShell, and one of those layers can silently mangle escape sequences, producing a **plausible-looking but wrong result** (T7.2's first attempt returned `TOTAL_BLOCKS=0`, which Codex initially reported as a genuine REJECT rather than recognizing "zero JSON-LD blocks on a 52-page site" as an implausible number worth double-checking before concluding). **Fix:** for anything beyond a trivial command, write the verification script to a file first (`Write`) and have Codex's prompt just say "run `node <path-to-script>`" with no inline quoting at all — this fully sidesteps the multi-layer-escaping problem. Also: when a recheck result looks like "no data found" rather than "data found and it's wrong," treat that as a signal to re-verify the check itself before trusting a REJECT. **Confirmed working in T7.3**: the file-based script approach got a clean first-attempt APPROVE with zero retries — adopt this as the default method going forward, not just a fallback after a failed inline attempt. One more wrinkle to watch for: if the script itself reads another generated file (e.g. a saved build-log), save that file to a plain Windows path too (not bash's `/tmp`, which doesn't reliably resolve from the PowerShell process Codex shells out to).
 
+**Fourth tooling note (T7.4):** `codex exec -s read-only` cannot run `npm test` (or anything spawning child processes) — every test file fails at spawn time with `spawn EPERM`, unrelated to the actual test suite's health. Codex's first instinct was to report this as "npm test unconfirmed" and lean toward REJECT; it only reversed to APPROVE after being shown 3 independent real-environment `npm test` results (363/363 pass each) as evidence that this was a sandbox limitation, not a regression. **Takeaway:** don't ask Codex to run `npm test` (or any command that spawns processes) directly — either skip that check in the recheck prompt and supply your own fresh-run evidence up front, or expect a spurious REJECT and be ready to follow up with a clarification round citing independent real-environment results rather than re-arguing in the abstract.
+
 ---
 
 ## 8. Next Recommended Task
 
-**T7.3 is done, pending commit.** Phase 7 is now 3 of 5 tasks done (T7.1–T7.3).
+**T7.4 is done, pending commit.** Phase 7 is now 4 of 5 tasks done (T7.1–T7.4).
 
-**Next up: T7.4 — GEO：FAQ 结构化 + 权威事实表述自查.** Dependency (阶段5) already satisfied.
+**Next up: T7.5 — 全图 alt 审计（含关键词，G11）.** Dependency (阶段3, 阶段5) already satisfied. This is the last Phase 7 task.
 
 Recommended order after that:
-1. Wire `navCategories` into `pages.js` (§6, High, ready now, small fix, widely impactful — still not done, deliberately not bundled into T7.1–T7.3 since it's out of their scope).
-2. T7.5 (image alt audit).
+1. Wire `navCategories` into `pages.js` (§6, High, ready now, small fix, widely impactful — still not done, deliberately not bundled into T7.1–T7.4 since it's out of their scope).
+2. Phase 8 (check_list1/check_list2 final sweep).
 3. Before or during T9.1: resolve the ~17 dead links and ~13 missing SVG assets (§6, both High) — T9.1's own acceptance criterion is zero dead links, so these need to be resolved by then regardless.

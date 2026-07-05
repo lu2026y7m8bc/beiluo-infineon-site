@@ -138,7 +138,9 @@
     "whatsapp": "+86 15013702378",
     "wechat": "+86 18612518271",
     "whatsappHref": "https://wa.me/8615013702378",
-    "wechatQrSrc": "/assets/svg/icons/wechat-qr.svg"
+    "wechatQrSrc": "/assets/svg/icons/wechat-qr.svg",
+    "businessHours": "Monday–Friday, 9:00–18:00 (GMT+8)",
+    "responseTime": "within 24 hours"
   },
   "seo": {
     "defaultTitle": "Infineon Distributor | BeiLuo",
