@@ -57,6 +57,20 @@ function breadcrumbJsonLdFor(breadcrumb, site) {
 }
 
 /**
+ * Build a single-group `sidebarSections` array for the shared sidebar.html
+ * partial (design.md §4.4's "category navigation tree", highlighting the
+ * current page). One group only — none of this site's sidebars need more
+ * than one heading.
+ * @param {string} title
+ * @param {Array<{name:string, url:string}>} items
+ * @param {string} [currentUrl] - marks the matching item active:true
+ * @returns {Array<{title:string, items:Array}>}
+ */
+function sidebarNav(title, items, currentUrl) {
+  return [{ title, items: items.map(i => ({ ...i, active: i.url === currentUrl })) }];
+}
+
+/**
  * Build the full page list from all JSON data objects.
  *
  * @param {{ site, home, products, solutions, support, news, about }} data
@@ -135,10 +149,11 @@ export function buildPageList(data) {
     const breadcrumb = markCurrentLast([bc('Home', '/'), bc('Products', '/products/')]);
     const seo = { ...site.seo, title: `Infineon Products | ${site.brand.name}`, description: `Browse ${site.brand.name} authorized Infineon products: MCU, IGBT, MOSFET and Sensors. Deep stock, FAE support, global delivery.`, canonical: '/products/' };
     const breadcrumbJsonLd = breadcrumbJsonLdFor(breadcrumb, site);
+    const sidebarSections = sidebarNav('Product Categories', products.categories.map(c => ({ name: c.name, url: `/products/${c.slug}/` })));
     pages.push({
       url: '/products/',
       template: 'products-list',
-      context: { ...site, seo, categories: products.categories, breadcrumb, breadcrumbJsonLd },
+      context: { ...site, seo, categories: products.categories, breadcrumb, breadcrumbJsonLd, sidebarSections },
       breadcrumb,
     });
   }
@@ -182,10 +197,11 @@ export function buildPageList(data) {
           }),
         })),
       };
+      const sidebarSections = sidebarNav('Product Categories', products.categories.map(c => ({ name: c.name, url: `/products/${c.slug}/` })), catUrl);
       pages.push({
         url: catUrl,
         template: 'product-category',
-        context: { ...site, seo, category: categoryWithRowCells, breadcrumb, breadcrumbJsonLd, itemListJsonLd },
+        context: { ...site, seo, category: categoryWithRowCells, breadcrumb, breadcrumbJsonLd, itemListJsonLd, sidebarSections },
         breadcrumb,
       });
     }
@@ -219,10 +235,11 @@ export function buildPageList(data) {
     const breadcrumb = markCurrentLast([bc('Home', '/'), bc('Solutions', '/solutions/')]);
     const seo = { ...site.seo, title: `Infineon Application Solutions | ${site.brand.name}`, description: `Explore ${site.brand.name} Infineon-based application solutions: motor drive, EV charger, industrial IoT, MCU embedded control, and solar inverter.`, canonical: '/solutions/' };
     const breadcrumbJsonLd = breadcrumbJsonLdFor(breadcrumb, site);
+    const sidebarSections = sidebarNav('Solutions by Industry', solutions.solutions.map(s => ({ name: s.industry, url: `/solutions/${s.slug}/` })));
     pages.push({
       url: '/solutions/',
       template: 'solutions-list',
-      context: { ...site, seo, solutions: solutions.solutions, breadcrumb, breadcrumbJsonLd },
+      context: { ...site, seo, solutions: solutions.solutions, breadcrumb, breadcrumbJsonLd, sidebarSections },
       breadcrumb,
     });
   }
@@ -232,10 +249,11 @@ export function buildPageList(data) {
     const solutionUrl = `/solutions/${solution.slug}/`;
     const breadcrumb = markCurrentLast([bc('Home', '/'), bc('Solutions', '/solutions/'), bc(solution.title, solutionUrl)]);
     const seo = { ...site.seo, title: `${solution.title} | ${site.brand.name}`, description: solution.metaDescription, canonical: solutionUrl };
+    const sidebarSections = sidebarNav('Related', (solution.related || []).map(r => ({ name: r.title, url: r.href })));
     pages.push({
       url: solutionUrl,
       template: 'solution-detail',
-      context: { ...site, seo, solution, breadcrumb },
+      context: { ...site, seo, solution, breadcrumb, sidebarSections },
       breadcrumb,
     });
   }
@@ -251,10 +269,11 @@ export function buildPageList(data) {
     const applicationNotesArticles = support.articles.filter(a => a.category === 'application-notes');
     const troubleshootingArticles = support.articles.filter(a => a.category === 'troubleshooting');
     const reviewsArticles = support.articles.filter(a => a.category === 'reviews');
+    const sidebarSections = sidebarNav('Support Categories', support.categories.map(c => ({ name: c.name, url: `/support/${c.slug}/` })));
     pages.push({
       url: '/support/',
       template: 'support-list',
-      context: { ...site, ...support, seo, guidesArticles, applicationNotesArticles, troubleshootingArticles, reviewsArticles, breadcrumb },
+      context: { ...site, ...support, seo, guidesArticles, applicationNotesArticles, troubleshootingArticles, reviewsArticles, breadcrumb, sidebarSections },
       breadcrumb,
     });
   }
@@ -265,10 +284,11 @@ export function buildPageList(data) {
     const breadcrumb = markCurrentLast([bc('Home', '/'), bc('Support', '/support/'), bc(category.name, catUrl)]);
     const seo = { ...site.seo, title: `${category.title} | ${site.brand.name}`, description: category.metaDescription, canonical: catUrl };
     const catArticles = support.articles.filter(a => a.category === category.slug);
+    const sidebarSections = sidebarNav('Support Categories', support.categories.map(c => ({ name: c.name, url: `/support/${c.slug}/` })), catUrl);
     pages.push({
       url: catUrl,
       template: 'support-list',
-      context: { ...site, seo, category, filterCategory: category.slug, articles: catArticles, breadcrumb },
+      context: { ...site, seo, category, filterCategory: category.slug, articles: catArticles, breadcrumb, sidebarSections },
       breadcrumb,
     });
   }
@@ -291,10 +311,11 @@ export function buildPageList(data) {
     const breadcrumb = markCurrentLast([bc('Home', '/'), bc('Support', '/support/'), bc(tagName, tagUrl)]);
     const seo = { ...site.seo, title: `${tagName} | Technical Support | ${site.brand.name}`, description: `${site.brand.name} technical resources tagged with ${tagName}: guides, application notes, and FAE support.`, canonical: tagUrl };
     const tagArticles = support.articles.filter(a => Array.isArray(a.tags) && a.tags.some(t => slugify(t) === tagSlug));
+    const sidebarSections = sidebarNav('Support Categories', support.categories.map(c => ({ name: c.name, url: `/support/${c.slug}/` })));
     pages.push({
       url: tagUrl,
       template: 'support-list',
-      context: { ...site, seo, filterTag: tagSlug, tag: tagInfo, articles: tagArticles, breadcrumb },
+      context: { ...site, seo, filterTag: tagSlug, tag: tagInfo, articles: tagArticles, breadcrumb, sidebarSections },
       breadcrumb,
     });
   }
@@ -341,10 +362,18 @@ export function buildPageList(data) {
     const sortedByDateDesc = [...news.articles].sort((a, b) => new Date(b.date) - new Date(a.date));
     const companyArticles = sortedByDateDesc.filter(a => a.type === 'company');
     const industryArticles = sortedByDateDesc.filter(a => a.type === 'industry');
+    // News has no natural category taxonomy of its own (Company/Industry are
+    // already split into their own in-page sections above, not sidebar
+    // material) — the sidebar cross-links to the other 3 content areas instead.
+    const sidebarSections = sidebarNav('Explore More', [
+      { name: 'Products', url: '/products/' },
+      { name: 'Solutions', url: '/solutions/' },
+      { name: 'Support', url: '/support/' },
+    ]);
     pages.push({
       url: '/news/',
       template: 'news-list',
-      context: { ...site, seo, articles: news.articles, companyArticles, industryArticles, breadcrumb },
+      context: { ...site, seo, articles: news.articles, companyArticles, industryArticles, breadcrumb, sidebarSections },
       breadcrumb,
     });
   }
