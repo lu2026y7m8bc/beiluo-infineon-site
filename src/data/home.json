@@ -124,8 +124,7 @@
       "title": "Industrial IoT Sensor Node",
       "industry": "Industrial Automation",
       "summary": "Infineon DPS310 and TLI4966G sensor node solution for real-time environmental monitoring and rotating machine health tracking in Industry 4.0 factory automation, sourced from BeiLuo.",
-      "href": "/solutions/industrial-iot-sensor/",
-      "icon": "/assets/svg/icons/automation.svg"
+      "href": "/solutions/industrial-iot-sensor/"
     }
   ],
   "supportTeaser": [
@@ -164,8 +163,7 @@
       "title": "BeiLuo Expands Infineon IGBT Stock Capacity for 2024 Production Season",
       "date": "2024-09-18",
       "categoryTag": "Company News",
-      "href": "/news/beiluo-expands-infineon-igbt-stock-2024/",
-      "coverSvgSrc": "/assets/svg/illustrations/news-igbt-stock.svg"
+      "href": "/news/beiluo-expands-infineon-igbt-stock-2024/"
     },
     {
       "slug": "infineon-aurix-mcu-automotive-applications",
@@ -173,8 +171,7 @@
       "title": "Infineon AURIX TC3xx MCU Adoption Grows in Automotive Domain Controllers",
       "date": "2024-08-05",
       "categoryTag": "Industry News",
-      "href": "/news/infineon-aurix-mcu-automotive-applications/",
-      "coverSvgSrc": "/assets/svg/illustrations/news-aurix.svg"
+      "href": "/news/infineon-aurix-mcu-automotive-applications/"
     },
     {
       "slug": "beiluo-fae-support-program-launch",
@@ -182,8 +179,7 @@
       "title": "BeiLuo Launches Enhanced FAE Support Program for Infineon Design Partners",
       "date": "2024-07-12",
       "categoryTag": "Company News",
-      "href": "/news/beiluo-fae-support-program-launch/",
-      "coverSvgSrc": "/assets/svg/illustrations/news-fae-launch.svg"
+      "href": "/news/beiluo-fae-support-program-launch/"
     }
   ],
   "finalCta": {

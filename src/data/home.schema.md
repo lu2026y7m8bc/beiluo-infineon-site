@@ -136,7 +136,7 @@ Exactly 4 cards, one per product category (MCU / IGBT / MOSFET / Sensors). Data 
 | Field | Type | Required | Meaning | Placeholder |
 |-------|------|----------|---------|-------------|
 | `slug` | String | Required | News article slug | Used to build `href` |
-| `type` | String | Required | `"company"` or `"industry"` | `{{card.type}}` as badge |
+| `type` | String | Required | `"company"` or `"industry"` — data-only classification, retained for potential future filtering/routing logic; not rendered directly (see `categoryTag` for the display badge) | not rendered directly (see `categoryTag`) |
 | `title` | String | Required | News headline | `{{card.title}}` as H3 |
 | `date` | String | Required | ISO 8601 date | `{{card.date}}` |
 | `categoryTag` | String | Required | Display tag: e.g., `"Industry News"` | `{{card.categoryTag}}` |
