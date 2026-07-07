@@ -349,7 +349,7 @@ not unresolved defects. Read the note on each before re-opening it as a new task
 
 ---
 
-## T06 · solution-detail (`/solutions/<slug>/index.html`) — 5 instances
+## T06 · solution-detail (`/solutions/<slug>/index.html`) — 6 instances (5 original + Home Appliance added T8.2 Tier 3)
 
 > design §5.6; prd §3.4.2
 
