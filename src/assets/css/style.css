@@ -1285,6 +1285,11 @@ body.nav-drawer-open {
   text-decoration: none;
 }
 
+.sidebar-nav__icon {
+  flex-shrink: 0;
+  margin-right: var(--space-2);
+}
+
 .sidebar__link.is-active {
   color: var(--c-primary-dark);
   background: var(--c-primary-tint);
@@ -1850,6 +1855,7 @@ body.nav-drawer-open {
   color: var(--c-text-muted);
   max-width: 760px;
   margin-top: var(--space-4);
+  white-space: pre-line;
 }
 
 .cat-hero__guide-ctas {

@@ -197,7 +197,7 @@ export function buildPageList(data) {
           }),
         })),
       };
-      const sidebarSections = sidebarNav('Product Categories', products.categories.map(c => ({ name: c.name, url: `/products/${c.slug}/` })), catUrl);
+      const sidebarSections = sidebarNav('Product Categories', products.categories.map(c => ({ name: c.name, url: `/products/${c.slug}/`, icon: c.icon })), catUrl);
       // design §5.3 feature-card row (Key Parameters | Typical Models | Applications |
       // Advantages) needs a deduplicated, capped applications list — computed here
       // since {{#each}} has no parent-scope access to dedupe across category.models.

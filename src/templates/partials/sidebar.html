@@ -4,7 +4,7 @@
     <h2 class="sidebar__heading">{{title}}</h2>
     <ul class="sidebar__list">
       {{#each items}}
-      <li class="sidebar__item"><a class="sidebar__link{{#if active}} is-active{{/if}}" href="{{url}}">{{name}}</a></li>
+      <li class="sidebar__item"><a class="sidebar__link{{#if active}} is-active{{/if}}" href="{{url}}">{{#if icon}}<img src="{{icon}}" alt="" class="sidebar-nav__icon" width="20" height="20">{{/if}}{{name}}</a></li>
       {{/each}}
     </ul>
   </nav>
