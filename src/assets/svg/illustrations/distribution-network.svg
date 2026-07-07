@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="distribution-network-title">
+  <defs>
+    <style>
+      .primary { fill: #0072CE; }
+      .accent { fill: #F5821F; }
+      .neutral { fill: #E8F1FA; }
+      .line { stroke: #0072CE; stroke-width: 2; fill: none; }
+    </style>
+  </defs>
+  <title id="distribution-network-title">BeiLuo Infineon component distribution network from warehouse to global customer</title>
+
+  <!-- Background -->
+  <rect width="400" height="200" fill="transparent"/>
+
+  <!-- Warehouse (left) -->
+  <g transform="translate(20, 60)">
+    <rect x="0" y="20" width="70" height="50" class="neutral" rx="3"/>
+    <path d="M-5 20 L35 -5 L75 20 Z" class="primary"/>
+    <rect x="30" y="45" width="16" height="25" class="primary" rx="1"/>
+  </g>
+
+  <!-- Distribution path -->
+  <path d="M100 90 L180 90" class="line" stroke-dasharray="4 4"/>
+
+  <!-- Truck (middle) -->
+  <g transform="translate(185, 65)">
+    <rect x="0" y="10" width="45" height="26" class="primary" rx="2"/>
+    <path d="M45 18h16l9 10v8h-25z" class="neutral" stroke="#0072CE" stroke-width="1.5"/>
+    <circle cx="12" cy="40" r="6" class="accent"/>
+    <circle cx="55" cy="40" r="6" class="accent"/>
+  </g>
+
+  <!-- Distribution path -->
+  <path d="M260 90 L330 90" class="line" stroke-dasharray="4 4"/>
+
+  <!-- Global destination (right) -->
+  <g transform="translate(330, 55)">
+    <circle cx="30" cy="35" r="32" class="neutral" stroke="#0072CE" stroke-width="2"/>
+    <path d="M2 35h56M30 3v64M10 18q20 12 40 0M10 52q20 -12 40 0" class="line" stroke-width="1.5"/>
+    <circle cx="30" cy="35" r="4" class="accent"/>
+  </g>
+</svg>

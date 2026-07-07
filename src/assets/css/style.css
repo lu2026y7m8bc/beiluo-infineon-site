@@ -153,6 +153,17 @@ h4 {
   margin-bottom: var(--space-4);
 }
 
+.longform .article-inline-figure {
+  margin: var(--space-8) 0;
+  max-width: 480px;
+}
+
+.longform .article-inline-figure figcaption {
+  color: var(--c-text-muted);
+  font-size: var(--fs-small);
+  margin-top: var(--space-2);
+}
+
 .longform pre,
 .longform code {
   background: var(--c-bg-alt);
@@ -2546,6 +2557,11 @@ body.nav-drawer-open {
   margin-top: var(--space-4);
 }
 
+.timeline__figure {
+  max-width: 500px;
+  margin: 0 0 var(--space-8);
+}
+
 .timeline__list {
   display: flex;
   flex-direction: column;
@@ -2561,13 +2577,20 @@ body.nav-drawer-open {
 }
 
 .timeline__year {
+  grid-column: 1;
+  grid-row: 1 / 3;
   font-family: var(--font-heading);
   font-size: var(--fs-h3);
   font-weight: var(--fw-bold);
   color: var(--c-primary);
 }
 
+.timeline__event {
+  grid-column: 2;
+}
+
 .timeline__desc {
+  grid-column: 2;
   color: var(--c-text-muted);
   margin-top: var(--space-2);
 }
