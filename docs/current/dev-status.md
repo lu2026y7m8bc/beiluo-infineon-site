@@ -1,6 +1,6 @@
 # dev-status.md — BeiLuo Infineon Site
 
-> Current-state snapshot. For full historical narrative (batch-by-batch implementation detail, Codex tooling quirks, reviewer findings) see `.superpowers/sdd/progress.md` and `git log`. This file reflects state as of 2026-07-07.
+> Current-state snapshot. For full historical narrative (batch-by-batch implementation detail, Codex tooling quirks, reviewer findings) see `.superpowers/sdd/progress.md` and `git log`. This file reflects state as of 2026-07-08 (session close-out).
 
 ---
 
@@ -125,7 +125,9 @@ Every code/data-affecting batch this session went through the mandatory implemen
 
 ## 8. Next Recommended Todo
 
-1. **T8.2 remainder** — confirm with the user whether to do a full check_list2.md close-out sweep (mirroring T8.1's approach) and/or tackle the 13-file illustration-differentiation work now or defer both.
+1. **T8.2 remainder** — a scope question was raised at session close but not yet answered by the user: whether to do a full check_list2.md close-out sweep (mirroring T8.1's approach) and/or tackle the 13-file illustration-differentiation work next, or defer both. **Ask this again at the start of the next session** rather than assuming an answer.
 2. Once T8.2 is fully closed out, proceed to **T9.3 → T9.4 → T9.5**.
 3. **T10.x remains BLOCKED** pending user-provided GitHub/Cloudflare credentials — do not attempt without them.
 4. **T11.3/T11.4** (branch-finish cleanup, memory update) come last, once all of the above is genuinely done — not yet due.
+
+**Session boundary note**: this session ended immediately after T8.2 Tier 3 completion, at the point of asking the above scope question. No further code changes were made after `aaefaf9`/`5b78b74` — this file and `CLAUDE.md` are the only changes in this close-out pass.

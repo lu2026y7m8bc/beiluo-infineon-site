@@ -20,6 +20,10 @@ Stack: HTML + native CSS + Node.js (ESM). Zero runtime dependencies.
 
 `feat/beiluo-infineon-site` — do NOT commit to `main`.
 
+## Current Files in `docs/current/`
+
+`prd.md`, `design.md`, `plan.md`, `todo_write.md`, `dev-status.md` (see table above). Audit checklists `check_list1.md`/`check_list2.md` live at repo root, not under `docs/current/`.
+
 ## Template Engine Rules (src/lib/render.js)
 
 - `{{x}}` = HTML-escaped, `{{{x}}}` = raw (JSON-LD only, validated safe)
@@ -56,7 +60,7 @@ Stack: HTML + native CSS + Node.js (ESM). Zero runtime dependencies.
 ## Test Command
 
 ```
-npm test   # 363 tests pass as of T5.5
+npm test   # node --test; see docs/current/dev-status.md for current pass count
 ```
 
 ## Build Command
