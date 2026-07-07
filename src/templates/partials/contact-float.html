@@ -7,7 +7,7 @@
     </svg>
     <span class="contact-float__label">WhatsApp</span>
   </a>
-  <button class="contact-float__btn contact-float__btn--wc" type="button" aria-label="Show WeChat QR" data-wechat-toggle data-wechat="{{#if contact.wechat}}{{contact.wechat}}{{/if}}">
+  <button class="contact-float__btn contact-float__btn--wc" type="button" aria-label="Show WeChat QR" aria-haspopup="true" aria-expanded="false" aria-controls="wechat-qr-popover" data-wechat-toggle data-wechat="{{#if contact.wechat}}{{contact.wechat}}{{/if}}">
     <!-- placeholder WeChat icon (Phase 3: real SVG) -->
     <svg class="contact-float__icon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
       <rect width="24" height="24" rx="12" fill="#07C160"/>
@@ -16,4 +16,12 @@
     </svg>
     <span class="contact-float__label">WeChat</span>
   </button>
+
+  <div class="contact-float__popover" id="wechat-qr-popover" role="dialog" aria-label="WeChat QR code" data-wechat-popover hidden>
+    <button class="contact-float__popover-close" type="button" aria-label="Close" data-wechat-popover-close>&times;</button>
+    {{#if contact.wechatQrSrc}}
+    <img class="contact-float__popover-qr" src="{{contact.wechatQrSrc}}" alt="Scan to add {{brand.name}} on WeChat" width="140" height="140" loading="lazy">
+    {{/if}}
+    {{#if contact.wechat}}<p class="contact-float__popover-id">WeChat ID: {{contact.wechat}}</p>{{/if}}
+  </div>
 </aside>

@@ -1037,7 +1037,65 @@ body.nav-drawer-open {
   white-space: nowrap;
 }
 
+.contact-float__popover {
+  position: absolute;
+  top: 50%;
+  right: calc(100% + var(--space-3));
+  transform: translateY(-50%);
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  background: var(--c-bg);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-card);
+  box-shadow: var(--sh-hover);
+  width: max-content;
+  max-width: 200px;
+}
+
+.contact-float__popover:not([hidden]) {
+  display: flex;
+}
+
+.contact-float__popover-close {
+  position: absolute;
+  top: var(--space-1);
+  right: var(--space-1);
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
+  min-height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: var(--c-text-muted);
+  font-size: var(--fs-h4);
+  line-height: 1;
+  cursor: pointer;
+}
+
+.contact-float__popover-qr {
+  border-radius: var(--r-base);
+}
+
+.contact-float__popover-id {
+  font-size: var(--fs-small);
+  color: var(--c-text-muted);
+  text-align: center;
+  margin: 0;
+}
+
 @media (max-width: 767px) {
+  .contact-float__popover {
+    top: auto;
+    bottom: calc(100% + var(--space-3));
+    right: 0;
+    transform: none;
+  }
+
   .contact-float {
     top: auto;
     bottom: var(--space-4);
