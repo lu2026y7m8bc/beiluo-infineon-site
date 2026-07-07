@@ -65,7 +65,7 @@
   { "content": "T7.4 GEO:FAQ结构化+权威事实表述自查 — 完成标准：关键页含FAQ问答结构,表述事实可引用", "status": "completed" },
   { "content": "T7.5 全图alt审计(含关键词) — 完成标准：脚本+人工核查无缺alt图片(G11)", "status": "completed" },
 
-  { "content": "T8.1 按check_list1.md(T0.5)对全部模板逐项最终扫查并修复 — 完成标准：check_list1全部勾选 — 进度：3处系统性根因修复(4e10068) + 页面级CSS覆盖缺口批次(3b9abd3，T9.2已用真实浏览器验证过) + Tier1小修复(标题关键词/CTA文案组件类型，c6cbcae) + Tier4 sidebarSections/solution.related数据接线(6模板，e3d037e)已完成。剩余：Tier2缺失SVG/PDF资产创建", "status": "in_progress" },
+  { "content": "T8.1 按check_list1.md(T0.5)对全部模板逐项最终扫查并修复 — 完成标准：check_list1全部勾选 — 进度：3处系统性根因修复(4e10068) + 页面级CSS覆盖缺口批次(3b9abd3，T9.2已用真实浏览器验证过) + Tier1小修复(标题关键词/CTA文案组件类型，c6cbcae) + Tier4 sidebarSections/solution.related数据接线(6模板，e3d037e) + Tier2 PDF死链修复批次(新建src/assets/docs/6个占位PDF+product-category.html接线selectionGuideDownloadHref下载按钮，独立审查APPROVE，Codex核心项APPROVE/范围类意见已裁定为误判，未提交)已完成。剩余：Tier2缺失SVG图标/徽章/头像资产创建", "status": "in_progress" },
   { "content": "T8.2 按check_list2.md(T0.6)对全部JSON逐项最终扫查并修复 — 完成标准：check_list2全部勾选 — 进度：3处最严重问题修复(e95bc7f) + §6.A孤儿字段接线批次(ea42b34) + §6.B/C内容质量与数量配额批次(9162d67) + products.json孤儿字段批次(e4a3afb) + Product/ItemList JSON-LD绝对URL修复及回归测试(590dcf0/732165d/8c89186) + Tier1批次(home.json新字段接线+solutions.json blockDiagram死字段清理，c6cbcae)已完成。剩余：Tier3微信二维码弹窗JS/CSS+设计决策、Home Appliance新方案(~800字)、Tier2共享SVG插画资产创建", "status": "in_progress" },
 
   { "content": "T9.1 全量构建node src/build.js+死链/空链零容忍校验 — 完成标准：构建零错误,links校验零死链(G2) — 完成：修复home.json最后4处死链(solutionsTeaser 3条+supportTeaser 1条，均为从未匹配真实数据的编造slug，已改指向真实solutions.json/support.json内容并重写文案)，构建exit 0，零死链零空链，独立审查+Codex均已通过", "status": "completed" },

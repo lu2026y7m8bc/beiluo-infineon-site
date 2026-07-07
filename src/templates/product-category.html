@@ -41,6 +41,7 @@
             <h1 class="cat-hero__title">{{category.name}} from {{brand.name}} — Authorized Infineon Distributor</h1>
             <div class="cat-hero__desc">{{category.description}}</div>
             <div class="cat-hero__guide-ctas">
+              {{#if category.selectionGuideDownloadHref}}<a class="btn btn--secondary" href="{{category.selectionGuideDownloadHref}}" download>Download Category Selection Guide</a>{{/if}}
               {{#if category.selectionGuideHref}}<a class="btn btn--ghost" href="{{category.selectionGuideHref}}">Selection Guide →</a>{{/if}}
             </div>
           </header>
