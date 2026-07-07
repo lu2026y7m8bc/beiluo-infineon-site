@@ -198,10 +198,23 @@ export function buildPageList(data) {
         })),
       };
       const sidebarSections = sidebarNav('Product Categories', products.categories.map(c => ({ name: c.name, url: `/products/${c.slug}/` })), catUrl);
+      // design §5.3 feature-card row (Key Parameters | Typical Models | Applications |
+      // Advantages) needs a deduplicated, capped applications list — computed here
+      // since {{#each}} has no parent-scope access to dedupe across category.models.
+      const seenApplications = new Set();
+      const topApplications = [];
+      for (const model of category.models) {
+        for (const app of model.applications || []) {
+          if (!seenApplications.has(app)) {
+            seenApplications.add(app);
+            topApplications.push(app);
+          }
+        }
+      }
       pages.push({
         url: catUrl,
         template: 'product-category',
-        context: { ...site, seo, category: categoryWithRowCells, breadcrumb, breadcrumbJsonLd, itemListJsonLd, sidebarSections },
+        context: { ...site, seo, category: categoryWithRowCells, topApplications: topApplications.slice(0, 6), breadcrumb, breadcrumbJsonLd, itemListJsonLd, sidebarSections },
         breadcrumb,
       });
     }

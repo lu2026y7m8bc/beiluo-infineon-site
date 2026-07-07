@@ -53,7 +53,42 @@
             <a class="btn btn--cta" href="/contact/">Get FAE Consultation</a>
           </section>
 
-          <!-- 3. Models Table -->
+          <!-- 3. Feature cards: Key Parameters | Typical Models | Applications | Advantages
+               (design §5.3 wireframe "图文卡片: 关键参数 | 典型型号 | 应用领域 | 优势对比") -->
+          <section class="cat-features" aria-labelledby="cat-features-heading">
+            <h2 id="cat-features-heading" class="section__title">{{category.name}} at a Glance</h2>
+            <div class="cat-features__grid">
+
+              <div class="card cat-features__card">
+                <h3 class="card__title">Key Parameters</h3>
+                <ul class="cat-features__list">
+                  {{#each category.columns}}<li>{{label}}</li>{{/each}}
+                </ul>
+              </div>
+
+              <div class="card cat-features__card">
+                <h3 class="card__title">Typical Models</h3>
+                <ul class="cat-features__list">
+                  {{#each category.models}}<li><a href="{{href}}">{{partNo}}</a> — {{shortDescription}}</li>{{/each}}
+                </ul>
+              </div>
+
+              <div class="card cat-features__card">
+                <h3 class="card__title">Applications</h3>
+                <ul class="cat-features__list">
+                  {{#each topApplications}}<li>{{this}}</li>{{/each}}
+                </ul>
+              </div>
+
+              <div class="card cat-features__card">
+                <h3 class="card__title">Why BeiLuo</h3>
+                <p class="cat-features__advantage">{{category.advantageNote}}</p>
+              </div>
+
+            </div>
+          </section>
+
+          <!-- 4. Models Table -->
           <section aria-labelledby="models-heading">
             <h2 id="models-heading" class="section__title">Available {{category.name}} Models</h2>
           <div class="spec-table-wrap" role="region" aria-label="{{category.name}} models" tabindex="0">
@@ -82,7 +117,7 @@
 
           </section>
 
-          <!-- 4. Category CTA -->
+          <!-- 5. Category CTA -->
           <div class="cat-cta">
             <p>Need more {{category.name}} options or bulk pricing? Contact our FAE team.</p>
             <a class="btn btn--cta" href="/contact/">Request a Quote</a>
