@@ -249,7 +249,16 @@ export function buildPageList(data) {
     const solutionUrl = `/solutions/${solution.slug}/`;
     const breadcrumb = markCurrentLast([bc('Home', '/'), bc('Solutions', '/solutions/'), bc(solution.title, solutionUrl)]);
     const seo = { ...site.seo, title: `${solution.title} | ${site.brand.name}`, description: solution.metaDescription, canonical: solutionUrl };
-    const sidebarSections = sidebarNav('Related', (solution.related || []).map(r => ({ name: r.title, url: r.href })));
+    // design §5.6 requires separate "related solutions" and "related products"
+    // sidebar sections (not one merged list) — solution.related[].type
+    // distinguishes them.
+    const related = solution.related || [];
+    const relatedSolutions = related.filter(r => r.type === 'solution').map(r => ({ name: r.title, url: r.href }));
+    const relatedProducts = related.filter(r => r.type === 'product').map(r => ({ name: r.title, url: r.href }));
+    const sidebarSections = [
+      ...sidebarNav('Related Solutions', relatedSolutions),
+      ...sidebarNav('Related Products', relatedProducts),
+    ];
     pages.push({
       url: solutionUrl,
       template: 'solution-detail',

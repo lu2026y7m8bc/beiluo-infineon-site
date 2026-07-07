@@ -1164,6 +1164,15 @@ body.nav-drawer-open {
   gap: var(--space-6);
 }
 
+.sidebar-bom-cta {
+  margin-bottom: var(--space-6);
+}
+
+.sidebar-bom-cta .btn {
+  width: 100%;
+  text-align: center;
+}
+
 .sidebar__group {
   display: flex;
   flex-direction: column;
