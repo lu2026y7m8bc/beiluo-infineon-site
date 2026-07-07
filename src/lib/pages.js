@@ -270,7 +270,7 @@ export function buildPageList(data) {
   // ── 9. Support overview ──────────────────────────────────────────────────────
   {
     const breadcrumb = markCurrentLast([bc('Home', '/'), bc('Support', '/support/')]);
-    const seo = { ...site.seo, title: `Infineon Technical Support & Guides | ${site.brand.name}`, description: `${site.brand.name} technical support: Infineon component selection guides, application notes, and FAE Q&A for MCU, IGBT, MOSFET and Sensors.`, canonical: '/support/' };
+    const seo = { ...site.seo, title: `Infineon Support & Technical Guides | ${site.brand.name}`, description: `${site.brand.name} technical support: Infineon component selection guides, application notes, and FAE Q&A for MCU, IGBT, MOSFET and Sensors.`, canonical: '/support/' };
     // Pre-filtered per-category article arrays for the overview page's 4 tab
     // panels (support.json's categories are locked to these 4 slugs — see
     // support-list.html's hand-authored tabs for the same assumption).
@@ -362,7 +362,7 @@ export function buildPageList(data) {
   // ── 13. News list ────────────────────────────────────────────────────────────
   {
     const breadcrumb = markCurrentLast([bc('Home', '/'), bc('News', '/news/')]);
-    const seo = { ...site.seo, title: `News | ${site.brand.name} Infineon Distributor`, description: `Latest news from ${site.brand.name}: Infineon distributor updates, stock announcements, industry insights, and wide-bandgap semiconductor market coverage.`, canonical: '/news/' };
+    const seo = { ...site.seo, title: `Infineon News | ${site.brand.name} Infineon Distributor`, description: `Latest news from ${site.brand.name}: Infineon distributor updates, stock announcements, industry insights, and wide-bandgap semiconductor market coverage.`, canonical: '/news/' };
     // Pre-filtered per-section article arrays for the news-list page's two panels
     // (news.schema.md "news-list Template Rendering Logic": Company News / Industry
     // News, each sorted by date descending, never mixed). Sorted explicitly rather
