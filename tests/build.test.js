@@ -1,6 +1,10 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
-import { assembleSite, checkPathSafe } from '../src/build.js';
+import { mkdtempSync, readdirSync, readFileSync, writeFileSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { assembleSite, checkPathSafe, buildSite } from '../src/build.js';
 
 // ── Minimal in-memory fixtures ────────────────────────────────────────────────
 // Produces exactly 7 pages: home / about / contact /
@@ -244,5 +248,122 @@ describe('checkPathSafe', () => {
       () => checkPathSafe('dist', 'about/index.html'),
       'about/index.html should be safe',
     );
+  });
+});
+
+// ── buildSite (disk I/O) — baseUrl resolution priority ────────────────────────
+//
+// assembleSite() above is pure and always takes baseUrl as an explicit
+// argument, so it can never exercise buildSite()'s own resolution chain:
+//   explicit `baseUrl` param → data.site.seo.baseUrl → hardcoded fallback
+// This previously regressed silently (site.json's seo.baseUrl was read but
+// never actually plumbed through), so these tests drive the real
+// buildSite() disk-I/O path — writing a temp dataDir + reading real
+// templates — and assert on the written sitemap.xml/robots.txt content.
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const projectRoot = join(__dirname, '..');
+const realDataDir = join(projectRoot, 'src/data');
+const realTemplateDir = join(projectRoot, 'src/templates');
+const realPartialDir = join(projectRoot, 'src/templates/partials');
+
+const JSON_BASE_URL = 'https://json-base-url.test';
+const EXPLICIT_BASE_URL = 'https://explicit-param.test';
+
+/**
+ * Temp copy of the real src/data/*.json files (readJsonDir() only reads
+ * *.json, so the .schema.md docs aren't needed) — guaranteed to pass
+ * validateData (see tests/validate-data.test.js) — with site.json's
+ * seo.baseUrl overridden to a distinguishable test value, so assertions can
+ * tell "value came from site.json" apart from the project's real
+ * production baseUrl (https://www.beiluo.com) or the hardcoded fallback.
+ *
+ * Copies files individually (not fs.cpSync(..., {recursive:true})) because
+ * recursive cpSync of this directory reliably crashes the Node process on
+ * this Windows/Node build with STATUS_STACK_BUFFER_OVERRUN (0xC0000409) —
+ * reproduced independently of this test file, so worked around rather than
+ * relied upon.
+ */
+function makeTempDataDir() {
+  const dataDir = mkdtempSync(join(tmpdir(), 'beiluo-build-data-'));
+  for (const f of readdirSync(realDataDir)) {
+    if (!f.endsWith('.json')) continue;
+    writeFileSync(join(dataDir, f), readFileSync(join(realDataDir, f)));
+  }
+  const siteJsonPath = join(dataDir, 'site.json');
+  const site = JSON.parse(readFileSync(siteJsonPath, 'utf8'));
+  site.seo.baseUrl = JSON_BASE_URL;
+  writeFileSync(siteJsonPath, JSON.stringify(site), 'utf8');
+  return dataDir;
+}
+
+describe('buildSite — baseUrl resolution priority (disk I/O)', () => {
+  it('falls back to data.site.seo.baseUrl when no explicit baseUrl param is passed', async () => {
+    const dataDir = makeTempDataDir();
+    const outDir = mkdtempSync(join(tmpdir(), 'beiluo-build-out-'));
+    // Nonexistent path — copyAssets() no-ops on ENOENT (matches readJsonDir's
+    // defensive pattern), so this keeps the test from copying the real
+    // (large) src/assets/ tree on every run.
+    const assetsDir = join(tmpdir(), 'beiluo-build-assets-missing');
+    try {
+      await buildSite({
+        dataDir,
+        templateDir: realTemplateDir,
+        partialDir: realPartialDir,
+        assetsDir,
+        outDir,
+        // baseUrl intentionally omitted
+      });
+      const robots = readFileSync(join(outDir, 'robots.txt'), 'utf8');
+      const sitemap = readFileSync(join(outDir, 'sitemap.xml'), 'utf8');
+      assert.ok(
+        robots.includes(JSON_BASE_URL),
+        `robots.txt should use data.site.seo.baseUrl when no param is passed, got:\n${robots}`,
+      );
+      assert.ok(
+        sitemap.includes(JSON_BASE_URL),
+        'sitemap.xml should use data.site.seo.baseUrl when no param is passed',
+      );
+      assert.ok(
+        !robots.includes('https://www.beiluo.com'),
+        'robots.txt must not silently fall back to the hardcoded default when site.json provides seo.baseUrl (the regression this test guards against)',
+      );
+    } finally {
+      rmSync(dataDir, { recursive: true, force: true });
+      rmSync(outDir, { recursive: true, force: true });
+    }
+  });
+
+  it('explicit baseUrl param overrides data.site.seo.baseUrl', async () => {
+    const dataDir = makeTempDataDir();
+    const outDir = mkdtempSync(join(tmpdir(), 'beiluo-build-out-'));
+    const assetsDir = join(tmpdir(), 'beiluo-build-assets-missing');
+    try {
+      await buildSite({
+        dataDir,
+        templateDir: realTemplateDir,
+        partialDir: realPartialDir,
+        assetsDir,
+        outDir,
+        baseUrl: EXPLICIT_BASE_URL,
+      });
+      const robots = readFileSync(join(outDir, 'robots.txt'), 'utf8');
+      const sitemap = readFileSync(join(outDir, 'sitemap.xml'), 'utf8');
+      assert.ok(
+        robots.includes(EXPLICIT_BASE_URL),
+        'robots.txt should use the explicit baseUrl param',
+      );
+      assert.ok(
+        sitemap.includes(EXPLICIT_BASE_URL),
+        'sitemap.xml should use the explicit baseUrl param',
+      );
+      assert.ok(
+        !robots.includes(JSON_BASE_URL),
+        'explicit baseUrl param must win over data.site.seo.baseUrl, not merely supplement it',
+      );
+    } finally {
+      rmSync(dataDir, { recursive: true, force: true });
+      rmSync(outDir, { recursive: true, force: true });
+    }
   });
 });

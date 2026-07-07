@@ -13,25 +13,7 @@
       {
         "label": "Products",
         "href": "/products/",
-        "megaMenu": true,
-        "children": [
-          {
-            "label": "MCU",
-            "href": "/products/mcu/"
-          },
-          {
-            "label": "IGBT",
-            "href": "/products/igbt/"
-          },
-          {
-            "label": "MOSFET",
-            "href": "/products/mosfet/"
-          },
-          {
-            "label": "Sensors",
-            "href": "/products/sensors/"
-          }
-        ]
+        "megaMenu": true
       },
       {
         "label": "Solutions",

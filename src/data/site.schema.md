@@ -54,9 +54,10 @@
 | `label` | String | Required | Visible link text (e.g., `"Products"`) | Pure English |
 | `href` | String | Required | Absolute path (e.g., `"/products/"`) | No empty `#` links (iron rule §9 #2) |
 | `megaMenu` | Boolean | Optional | `true` → renders Mega Menu dropdown (Products only) | design §4.1 |
-| `children` | Array\<NavItem\> | Optional | Sub-links rendered in Mega Menu or mobile drawer | Used for Products → 4 category entries |
 
-> Mega Menu note (design §4.1): Products mega menu lists 4 categories + "Featured models" (first 2 models from `products.json` per category). The data is derived at build time — **no separate field needed in site.json**.
+> **`children` field is not used — do not add it.** An earlier draft of this schema had a `children: Array<NavItem>` field on `NavItem` for Mega Menu sub-links, but it was never consumed: `nav.html`'s desktop Mega Menu renders `navCategories` (a field computed at build time in `pages.js` from `products.json`, independent of `nav`), and the mobile drawer renders only the flat top-level `nav.items` with no nesting. If `nav.json`/`site.json` ever contains a `children` array, it is dead data.
+>
+> Mega Menu note (design §4.1): Products mega menu lists 4 categories + "Featured models" (first 2 models from `products.json` per category). The data is derived at build time as `navCategories` — **no separate field needed in site.json**.
 
 ---
 
@@ -77,6 +78,8 @@
 | `links` | Array\<{label, href}\> | Required | List of footer links |
 
 > Column layout (design §4.2): ① Brand + tagline + oneLiner ② Products category links ③ Support / Solutions / News links ④ Contact (WhatsApp / WeChat + "Get a Quote").
+
+> **`footer.columns[0]` is a reserved placeholder — intentionally not rendered via the loop.** `footer.html` renders column ① directly from `brand.name` / `brand.slogan` / `brand.oneLiner` (a richer 3-line layout than the generic `heading`+`links` shape supports), then loops `footer.columns` skipping index 0 (`{{#if @index}}`) to render columns ②–④. Index 0's object must still exist and stay well-formed because `validate-data.js` enforces `footer.columns.length === 4`, but its `heading`/`links` content is never displayed. This is deliberate, not a bug — do not delete the array entry.
 
 ---
 

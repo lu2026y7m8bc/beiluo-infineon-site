@@ -228,7 +228,7 @@ export async function buildSite({
   partialDir = 'src/templates/partials',
   assetsDir = 'src/assets',
   outDir = 'dist',
-  baseUrl = 'https://www.beiluo.com',
+  baseUrl,
 } = {}) {
   // Read JSON data files
   const data = await readJsonDir(dataDir);
@@ -236,12 +236,17 @@ export async function buildSite({
   // T4.7 — validate data before assembling (throws on invalid/empty data)
   validateData(data);
 
+  // Resolve baseUrl: explicit param wins (e.g. tests overriding), otherwise
+  // read from site.json's seo.baseUrl (the real production origin), with a
+  // hardcoded fallback only so a missing site.json field doesn't crash the build.
+  const resolvedBaseUrl = baseUrl ?? data.site?.seo?.baseUrl ?? 'https://www.beiluo.com';
+
   // Read HTML templates and partials
   const templates = await readHtmlDir(templateDir);
   const partials = await readHtmlDir(partialDir);
 
   // Assemble in memory (pure)
-  const { files, issues } = assembleSite({ data, templates, partials, baseUrl });
+  const { files, issues } = assembleSite({ data, templates, partials, baseUrl: resolvedBaseUrl });
 
   // Write output files
   let written = 0;
