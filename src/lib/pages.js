@@ -371,14 +371,21 @@ export function buildPageList(data) {
     const sortedByDateDesc = [...news.articles].sort((a, b) => new Date(b.date) - new Date(a.date));
     const companyArticles = sortedByDateDesc.filter(a => a.type === 'company');
     const industryArticles = sortedByDateDesc.filter(a => a.type === 'industry');
-    // News has no natural category taxonomy of its own (Company/Industry are
-    // already split into their own in-page sections above, not sidebar
-    // material) — the sidebar cross-links to the other 3 content areas instead.
-    const sidebarSections = sidebarNav('Explore More', [
-      { name: 'Products', url: '/products/' },
-      { name: 'Solutions', url: '/solutions/' },
-      { name: 'Support', url: '/support/' },
-    ]);
+    // design §5.11 requires a sidebar Company/Industry news navigation
+    // (in-page anchors to the two sections rendered in news-list.html,
+    // since News has no separate category/URL taxonomy of its own), plus
+    // cross-links to the other 3 content areas.
+    const sidebarSections = [
+      ...sidebarNav('News Categories', [
+        { name: 'Company News', url: '/news/#company-news' },
+        { name: 'Industry News', url: '/news/#industry-news' },
+      ]),
+      ...sidebarNav('Explore More', [
+        { name: 'Products', url: '/products/' },
+        { name: 'Solutions', url: '/solutions/' },
+        { name: 'Support', url: '/support/' },
+      ]),
+    ];
     pages.push({
       url: '/news/',
       template: 'news-list',

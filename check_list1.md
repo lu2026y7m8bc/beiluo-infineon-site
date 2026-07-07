@@ -184,7 +184,7 @@ checked before a template is considered delivered. Items are verifiable against 
 - [ ] All `<th>` have `scope="col"`, `data-col`, `data-type` (`text`/`number`/`enum`); `data-filter` (`select`/`range`/`multi`) is **optional** — omit on non-filterable columns (no attribute rendered, no filter control generated). (markup-contract §1.2)
 - [ ] Part No. `<th>` and `<td>` elements each have `class="col-sticky"`. (markup-contract §1.2)
 - [ ] Every `<td>` has `data-col` matching its column `<th>`. (markup-contract §1.2)
-- [ ] Stock `<td>` contains `<span class="badge badge--stock-in">` or `class="badge badge--stock-rfq"`. (markup-contract §1.1)
+- [ ] Stock `<td>` contains `<span class="stock-badge stock-badge--inStock">` or `class="stock-badge stock-badge--rfq"`. (markup-contract §1.1 -- corrected during T8.1 close-out to match the actual implemented convention across product-category.html and product-detail.html; no functional dependency on the class name exists in table-filter.js, this was a doc/implementation naming drift, not a defect)
 
 ### D5 — SVG illustrations
 

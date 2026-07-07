@@ -96,7 +96,7 @@
         <td data-col="package">TO-247</td>
         <!-- 库存徽章由模板输出，JS 不修改徽章内容 -->
         <td data-col="stock">
-          <span class="badge badge--stock-in">In Stock</span>
+          <span class="stock-badge stock-badge--inStock">In Stock</span>
         </td>
       </tr>
       <!-- 更多 <tr> 行 -->
