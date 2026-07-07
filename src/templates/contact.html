@@ -44,13 +44,26 @@
           <h2 class="contact-card__title">Talk to BeiLuo Directly</h2>
 
           <div class="contact-card__channel">
-            <span class="contact-card__label">WhatsApp</span>
+            <span class="contact-card__label">
+              <svg class="contact-card__icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <rect width="24" height="24" rx="12" fill="#25D366"/>
+                <path d="M7 12 Q12 6 17 12 Q12 18 7 12Z" fill="#fff"/>
+              </svg>
+              WhatsApp
+            </span>
             <a class="contact-card__value contact-card__link" href="{{contact.whatsappHref}}" target="_blank" rel="noopener noreferrer">{{contact.whatsapp}}</a>
             <p class="contact-card__note">Fastest response for stock checks, pricing, and technical questions.</p>
           </div>
 
           <div class="contact-card__channel">
-            <span class="contact-card__label">WeChat</span>
+            <span class="contact-card__label">
+              <svg class="contact-card__icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <rect width="24" height="24" rx="12" fill="#07C160"/>
+                <circle cx="9" cy="12" r="2" fill="#fff"/>
+                <circle cx="15" cy="12" r="2" fill="#fff"/>
+              </svg>
+              WeChat
+            </span>
             <span class="contact-card__value">{{contact.wechat}}</span>
             {{#if contact.wechatQrSrc}}
             <img class="contact-card__qr" src="{{contact.wechatQrSrc}}" alt="Scan to add {{brand.name}} on WeChat" width="160" height="160" loading="lazy">

@@ -217,7 +217,7 @@ export function buildPageList(data) {
         bc(category.name, catUrl),
         bc(model.partNo, modelUrl),
       ]);
-      const seo = { ...site.seo, title: `${model.partNo} ${category.name} | ${site.brand.name}`, description: model.shortDescription, canonical: modelUrl };
+      const seo = { ...site.seo, title: `${model.partNo} ${category.name} | ${site.brand.name}`, description: `${model.partNo} — ${model.shortDescription}`, canonical: modelUrl };
       const availabilityUrl = model.stock === 'inStock' ? 'https://schema.org/InStock' : 'https://schema.org/BackOrder';
       const modelWithAvailability = { ...model, availabilityUrl };
       const breadcrumbJsonLd = breadcrumbJsonLdFor(breadcrumb, site);
