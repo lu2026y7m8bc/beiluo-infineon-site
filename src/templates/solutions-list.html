@@ -27,10 +27,11 @@
           <div class="solutions-grid">
             {{#each solutions}}
             <div class="solution-card">
+              <img src="{{icon}}" alt="{{industry}} solution icon" class="solution-card__icon">
               <h2 class="solution-card__title"><a href="/solutions/{{slug}}/">{{title}}</a></h2>
               <span class="solution-card__industry">{{industry}}</span>
               <p class="solution-card__summary">{{summary}}</p>
-              <a class="btn btn--secondary solution-card__link" href="/solutions/{{slug}}/">View Solution</a>
+              <a class="btn btn--ghost solution-card__link" href="/solutions/{{slug}}/">Read Solution →</a>
             </div>
             {{/each}}
           </div>

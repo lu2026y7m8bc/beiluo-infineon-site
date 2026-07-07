@@ -133,6 +133,7 @@
         <div class="alt-parts__grid">
           {{#each model.alternativeParts}}
           <div class="alt-parts__card">
+            <img src="/assets/svg/icons/{{categorySlug}}.svg" alt="{{partNo}} icon" class="alt-parts__icon">
             <h3 class="alt-parts__partno"><a href="/products/{{categorySlug}}/{{slug}}/">{{partNo}}</a></h3>
             <p class="alt-parts__summary">{{summary}}</p>
             <a class="btn btn--sm btn--secondary" href="/products/{{categorySlug}}/{{slug}}/">View Details</a>
@@ -147,6 +148,7 @@
         <div class="companion-parts__grid">
           {{#each model.companionParts}}
           <div class="companion-parts__card">
+            <img src="/assets/svg/icons/{{categorySlug}}.svg" alt="{{partNo}} icon" class="companion-parts__icon">
             <h3 class="companion-parts__partno"><a href="/products/{{categorySlug}}/{{slug}}/">{{partNo}}</a></h3>
             <p class="companion-parts__summary">{{summary}}</p>
           </div>

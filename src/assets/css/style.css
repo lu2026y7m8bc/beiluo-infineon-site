@@ -2019,6 +2019,13 @@ body.nav-drawer-open {
   min-width: 0;
 }
 
+.alt-parts__icon,
+.companion-parts__icon {
+  width: 32px;
+  height: 32px;
+  color: var(--c-primary);
+}
+
 .alt-parts__summary,
 .companion-parts__summary {
   color: var(--c-text-muted);
@@ -2068,6 +2075,12 @@ body.nav-drawer-open {
   }
 }
 
+@media (min-width: 1200px) {
+  .solutions-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
 .solution-card {
   background: var(--c-bg);
   border: 1px solid var(--c-border);
@@ -2084,6 +2097,12 @@ body.nav-drawer-open {
 .solution-card:hover {
   transform: translateY(-4px);
   box-shadow: var(--sh-hover);
+}
+
+.solution-card__icon {
+  width: 32px;
+  height: 32px;
+  color: var(--c-primary);
 }
 
 .solution-card__title a {
