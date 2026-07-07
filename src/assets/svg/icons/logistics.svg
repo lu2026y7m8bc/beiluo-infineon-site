@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-labelledby="icon-logistics-title"
+     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <title id="icon-logistics-title">Fast global delivery icon</title>
+  <!-- cargo box -->
+  <rect x="2" y="9" width="13" height="8" rx="1"/>
+  <!-- cab -->
+  <path d="M15 11h4l3 3v3h-7z"/>
+  <!-- wheels -->
+  <circle cx="7" cy="19" r="1.5"/>
+  <circle cx="17" cy="19" r="1.5"/>
+</svg>

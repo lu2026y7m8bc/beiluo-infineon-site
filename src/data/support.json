@@ -49,7 +49,7 @@
     {
       "slug": "li-wei",
       "name": "Li Wei",
-      "photo": "/assets/svg/illustrations/about-hero.svg",
+      "photo": "/assets/svg/illustrations/avatar-li-wei.svg",
       "photoAlt": "Li Wei -- BeiLuo FAE Engineer",
       "expertise": "Power semiconductors, IGBT gate drive design, EV inverter systems, motor control",
       "experience": "10 years in power electronics and field application engineering",
@@ -63,7 +63,7 @@
     {
       "slug": "chen-jing",
       "name": "Chen Jing",
-      "photo": "/assets/svg/illustrations/about-hero.svg",
+      "photo": "/assets/svg/illustrations/avatar-chen-jing.svg",
       "photoAlt": "Chen Jing -- BeiLuo FAE Engineer",
       "expertise": "Embedded MCU, AURIX safety systems, IoT sensor integration, CAN-FD networks",
       "experience": "8 years in automotive and industrial embedded systems engineering",

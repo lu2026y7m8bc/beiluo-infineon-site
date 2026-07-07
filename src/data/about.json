@@ -122,7 +122,7 @@
     {
       "slug": "chen-jing",
       "name": "Chen Jing",
-      "photo": "/assets/svg/illustrations/about-hero.svg",
+      "photo": "/assets/svg/illustrations/avatar-chen-jing.svg",
       "photoAlt": "Chen Jing - BeiLuo FAE Engineer, Infineon MCU specialist",
       "role": "Field Application Engineer (FAE)",
       "expertise": "Infineon AURIX and XMC MCU embedded design, automotive functional safety ISO 26262",
@@ -131,7 +131,7 @@
     {
       "slug": "li-wei",
       "name": "Li Wei",
-      "photo": "/assets/svg/illustrations/about-hero.svg",
+      "photo": "/assets/svg/illustrations/avatar-li-wei.svg",
       "photoAlt": "Li Wei - BeiLuo FAE Engineer, Infineon power semiconductor specialist",
       "role": "Field Application Engineer (FAE)",
       "expertise": "Infineon IGBT and MOSFET power electronics, inverter thermal design and gate-drive optimization",

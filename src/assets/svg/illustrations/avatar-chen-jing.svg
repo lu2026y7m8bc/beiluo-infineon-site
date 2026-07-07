@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-labelledby="avatar-chen-jing-title">
+  <title id="avatar-chen-jing-title">Chen Jing - BeiLuo FAE Engineer avatar</title>
+
+  <!-- background -->
+  <rect width="200" height="200" fill="#F8F9FA"/>
+
+  <!-- shoulders / crew-neck shirt (MCU / embedded FAE) -->
+  <path d="M30 200 Q30 148 68 140 Q100 130 132 140 Q170 148 170 200 Z" fill="#0072CE"/>
+
+  <!-- collar trim accent -->
+  <path d="M75 143 Q100 155 125 143" fill="none" stroke="#F5821F" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- neck -->
+  <rect x="88" y="115" width="24" height="28" fill="#5B6B7F"/>
+
+  <!-- bob-length hair (behind head) -->
+  <circle cx="100" cy="90" r="46" fill="#1A2433"/>
+
+  <!-- face / head -->
+  <circle cx="100" cy="96" r="38" fill="#5B6B7F"/>
+
+  <!-- hair clip accent -->
+  <circle cx="136" cy="74" r="6" fill="#F5821F"/>
+</svg>

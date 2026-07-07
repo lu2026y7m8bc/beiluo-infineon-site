@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-labelledby="icon-badge-parts-title"
+     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <title id="icon-badge-parts-title">Part numbers icon</title>
+  <!-- stacked component outlines representing high part-number count -->
+  <rect x="3" y="3" width="12" height="12" rx="1"/>
+  <rect x="9" y="9" width="12" height="12" rx="1"/>
+</svg>
