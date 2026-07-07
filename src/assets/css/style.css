@@ -1517,6 +1517,10 @@ body.nav-drawer-open {
    24. Why Choose Us — Feature Grid (shared: home.html + about.html)
    ========================================================================== */
 
+.why-choose {
+  background: var(--c-bg-alt);
+}
+
 .why-choose__grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -1551,6 +1555,10 @@ body.nav-drawer-open {
 /* ==========================================================================
    25. Home — Products / Solutions / Support / News Teasers
    ========================================================================== */
+
+.products-teaser {
+  background: var(--c-bg-alt);
+}
 
 .products-teaser__sub {
   color: var(--c-text-muted);
@@ -2536,6 +2544,10 @@ body.nav-drawer-open {
   margin-top: var(--space-2);
 }
 
+.client-cases {
+  background: var(--c-bg-alt);
+}
+
 .client-cases__grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -2645,7 +2657,11 @@ body.nav-drawer-open {
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--space-6);
-  padding-block: var(--space-8);
+  padding: var(--space-8);
+  background: var(--c-bg);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-card);
+  box-shadow: var(--sh-card);
 }
 
 @media (min-width: 768px) {
@@ -2700,6 +2716,7 @@ body.nav-drawer-open {
 .contact-card {
   background: var(--c-bg-alt);
   border-radius: var(--r-card);
+  box-shadow: var(--sh-card);
   padding: var(--space-8);
 }
 
@@ -2747,6 +2764,7 @@ body.nav-drawer-open {
   background: var(--c-bg);
   border: 1px solid var(--c-border);
   border-radius: var(--r-card);
+  box-shadow: var(--sh-card);
   padding: var(--space-8);
 }
 
