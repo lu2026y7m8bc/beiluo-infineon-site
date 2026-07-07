@@ -1244,9 +1244,9 @@ body.nav-drawer-open {
   order: 2;
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 768px) {
   .layout-with-sidebar {
-    grid-template-columns: 1fr 300px;
+    grid-template-columns: 1fr 240px;
     align-items: start;
   }
 
@@ -1254,6 +1254,12 @@ body.nav-drawer-open {
     order: 0;
     position: sticky;
     top: calc(72px + var(--space-6));
+  }
+}
+
+@media (min-width: 1200px) {
+  .layout-with-sidebar {
+    grid-template-columns: 1fr 300px;
   }
 }
 
@@ -1860,7 +1866,7 @@ body.nav-drawer-open {
   padding-block: var(--space-8);
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 768px) {
   .product-hero {
     grid-template-columns: 1fr 1fr;
   }
@@ -2237,10 +2243,16 @@ body.nav-drawer-open {
   min-width: 0;
 }
 
+@media (min-width: 768px) {
+  .tech-detail-layout {
+    grid-template-columns: 1fr 240px;
+    align-items: start;
+  }
+}
+
 @media (min-width: 1200px) {
   .tech-detail-layout {
     grid-template-columns: 1fr 300px;
-    align-items: start;
   }
 }
 
@@ -2308,10 +2320,18 @@ body.nav-drawer-open {
   gap: var(--space-8);
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 768px) {
   .sticky-sidebar {
     position: sticky;
-    top: calc(72px + var(--space-6));
+    top: 100px;
+    z-index: 10;
+    /* .tech-detail-layout has 3 direct children (article-content / related-articles
+       [grid-column:1/-1] / sticky-sidebar) in a 2-column grid — without an explicit
+       placement here, auto-placement leaves row 1 col 2 empty (skipped because
+       related-articles couldn't fit in row 1) and pushes this aside down into row 3,
+       full-width, below related-articles instead of beside the article. */
+    grid-column: 2;
+    grid-row: 1;
   }
 }
 

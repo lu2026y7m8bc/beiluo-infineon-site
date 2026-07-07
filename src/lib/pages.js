@@ -382,7 +382,7 @@ export function buildPageList(data) {
   for (const article of news.articles) {
     const articleUrl = `/news/${article.slug}/`;
     const breadcrumb = markCurrentLast([bc('Home', '/'), bc('News', '/news/'), bc(article.title, articleUrl)]);
-    const seo = { ...site.seo, title: `${article.title} | ${site.brand.name}`, description: article.summary || article.title, canonical: articleUrl };
+    const seo = { ...site.seo, title: `${article.title} | ${site.brand.name}`, description: article.metaDescription || article.title, canonical: articleUrl };
     // "Latest News" 3-card block: 3 most recent articles of any type, excluding the
     // current article, sorted by date descending (news.schema.md "news-detail Template
     // Rendering Logic" item 4 / design §5.12). render.js has no sort/compare
