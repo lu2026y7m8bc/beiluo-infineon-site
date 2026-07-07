@@ -8,14 +8,14 @@
 
 - **Branch**: `feat/beiluo-infineon-site` (do NOT commit to `main`)
 - **Worktree**: single, no linked worktrees
-- **Working tree**: clean except one pre-existing, unrelated diff in `CLAUDE.md`/`docs/current/todo_write.md`/`docs/current/dev-status.md` from an earlier session pass (T11.1/T11.2 prep), not yet committed
-- **Latest commits** (most recent first): `d7a40b9` docs(T8.1): check_list1.md close-out sweep → `fa08d49` fix(T8.1): stray Chinese comment → `4c4360b` fix(T8.1): product-category feature cards → `22d382c` fix(T8.1): article illustrations + timeline grid bug → `8c6b53a` fix(T8.1): product-detail description + contact icons → `a639020` fix(T8.1): SEO title phrases → `f0424ef` fix(T8.1): news sidebar + badge-class doc → `18bd067` fix(T8.1): tag breadcrumb Tags level → `61b4b15` fix(T8.1): solution-detail sidebar split + BOM CTA → `eeda6ad` fix(T8.1): icon/alt keyword fixes → `9cfc973` fix(T8.1): design tokens → `130c651` fix(T8.1): meta description bug + responsive breakpoints → `c5d800c`/`eae1dcd` fix(T8.1): Tier 2 PDF + icon/badge/avatar batches → `e3d037e` fix(T8.1): sidebarSections wiring → `c6cbcae` fix(T8.1/T8.2): Tier 1 batch
+- **Working tree**: clean except one pre-existing, unrelated diff in `CLAUDE.md` from an earlier session pass, not yet committed
+- **Latest commits** (most recent first): `aaefaf9` feat(T8.2): add Home Appliance solution → `d49eff9` feat(T8.2): WeChat QR popover → `01dfd05` docs(T8.1): mark completed → `d7a40b9` docs(T8.1): check_list1.md close-out sweep → `fa08d49`…`130c651` (13 T8.1 close-out fix batches) → `c5d800c`/`eae1dcd` fix(T8.1): Tier 2 PDF + icon/badge/avatar batches → `e3d037e` fix(T8.1): sidebarSections wiring → `c6cbcae` fix(T8.1/T8.2): Tier 1 batch
 
 ---
 
 ## 2. Completed Todos
 
-Phases 0–7, T9.1–T9.2, and **T8.1** are complete (full task-by-task detail: `docs/current/todo_write.md`):
+Phases 0–7, T9.1–T9.2, **T8.1**, and **T8.2 Tier 3** are complete (full task-by-task detail: `docs/current/todo_write.md`):
 
 | Phase | Scope |
 |-------|-------|
@@ -30,19 +30,18 @@ Phases 0–7, T9.1–T9.2, and **T8.1** are complete (full task-by-task detail: 
 | **T9.1** | Full build + zero dead/empty link verification — done, see §5 |
 | **T9.2** | Browser/UI verification (responsive/contrast/touch-target/interaction/reduced-motion) — done across all 52 pages, see §5 |
 | **T8.1** | check_list1.md fully closed out — see §6 for the full batch trail; 356/365 items verified-passing, 9 documented exceptions (checklist over-specifications, not defects) |
+| **T8.2 Tier 3** | WeChat QR popover implemented + a genuinely new 6th "Home Appliance" solution added — see §6 |
 
 ---
 
 ## 3. Currently In Progress
 
-**T8.2** — `in_progress`, its own check_list2.md content-quality items are done (Tier 1, orphan-field, JSON-LD-URL batches — see prior git log); only **Tier 3** remains:
+**T8.2** — `in_progress`; Tier 1/orphan-field/JSON-LD-URL/Tier 3 batches are all done. Two items remain before it can be marked `completed` (its own completion bar is "check_list2.md fully checked", same standard T8.1 used for check_list1.md):
 
 | Item | Status |
 |------|--------|
-| WeChat QR-popup (JS/CSS/design) | ⏳ not started |
-| New "Home Appliance" solution (~800 words) | ⏳ not started |
-
-See §6 for details on both.
+| A full check_list2.md audit sweep (mirroring the 13-agent audit + close-out done for check_list1.md/T8.1) | ⏳ not started |
+| Illustration-differentiation (13 files: 4 news + 4 support share one banner illustration; 5+1 solutions share one diagram) | ⏳ not started — scope/depth not yet confirmed with the user |
 
 ---
 
@@ -50,9 +49,9 @@ See §6 for details on both.
 
 | Task | What it needs |
 |------|----------------|
-| T8.2 Tier 3 | WeChat popup JS + new Home Appliance solution content (§6) |
+| T8.2 remainder | check_list2.md close-out sweep + illustration-differentiation scope decision (§3) |
 | T9.3 | Code review via `requesting-code-review`/`receiving-code-review` skills, process all feedback |
-| T9.4 | Verify PRD/design milestone counts (4 categories / 8 model details / 5 solutions / 4 news / 4 support / 4 category-index pages) against actual output |
+| T9.4 | Verify PRD/design milestone counts (4 categories / 8 model details / **6 solutions** (5 original + Home Appliance) / 4 news / 4 support / 4 category-index pages) against actual output |
 | T9.5 | Codex read-only recheck of the full built product + doc consistency |
 | [confirm] | Get deployment credentials (GitHub token + Cloudflare account) from user, or mark T10.x Blocked |
 | T10.1–T10.3 | Create GitHub repo + push, deploy to Cloudflare Pages, post-deploy smoke test — **BLOCKED pending credentials** |
@@ -63,10 +62,10 @@ See §6 for details on both.
 
 ## 5. Last Test / Lint / Build Results
 
-- **`npm test`**: **365/365 passing, 0 failures** (last run 2026-07-07, after the T8.1 close-out batches)
-- **`node src/build.js`**: **exit 0**, 54 files written (52 pages + `sitemap.xml` + `robots.txt`), **zero dead links, zero empty links**
+- **`npm test`**: **365/365 passing, 0 failures** (last run 2026-07-07, after the Home Appliance solution batch)
+- **`node src/build.js`**: **exit 0**, 55 files written (53 pages + `sitemap.xml` + `robots.txt` — up from 54/52 after adding the Home Appliance solution page), **zero dead links, zero empty links**
 - **Lint**: no lint config in this project (ESM + Node.js built-ins only, nothing configured)
-- **Browser verification**: Playwright + Firefox installed as an ephemeral `npm install --no-save` dependency (not in `package.json`). Used extensively during the T8.1 close-out sweep — every batch's visual claim (icons rendering, grid columns, sidebar placement, responsive breakpoints) was confirmed with real screenshots and `getComputedStyle`/`getBoundingClientRect()` DOM measurements, not just code review. Not persisted as a project dependency — a future session without a browser tool should disclose that limitation explicitly rather than skip visual verification silently.
+- **Browser verification**: Playwright + Firefox installed as an ephemeral `npm install --no-save` dependency (not in `package.json`). Used extensively throughout the T8.1 close-out sweep and the T8.2 Tier 3 work — every visual/interactive claim (icons rendering, grid columns, sidebar placement, responsive breakpoints, popover open/close/ESC/outside-click) was confirmed with real screenshots, `getComputedStyle`/`getBoundingClientRect()` DOM measurements, and real click/keyboard interaction, not just code review. Not persisted as a project dependency — a future session without a browser tool should disclose that limitation explicitly rather than skip visual verification silently.
 
 ---
 
@@ -80,30 +79,31 @@ A 13-parallel-agent audit against the actual `dist/` output (one agent per templ
 - **Responsive**: `.layout-with-sidebar`/`.product-hero`/`.tech-detail-layout` never gave a two-column tablet (768–1199px) layout, only desktop (≥1200px) — added the tablet breakpoint across all 4 affected templates.
 - **Content/structure gaps**: solution-detail's sidebar merged "related solutions" and "related products" into one list and had no "Get BOM Quote" CTA (design §5.6 requires both, split); the 14 support tag-aggregate pages had a 3-level breadcrumb instead of the required 4 (`Home/Support/Tags/<Tag>`); product-category pages were missing design §5.3's entire "Key Parameters | Typical Models | Applications | Advantages" feature-card row.
 - **Assets/SEO**: missing icons and keyword-bearing `alt` text across several templates; 3 SEO titles missing required literal keyword phrases; product-detail meta descriptions never mentioned the part number itself; 2 missing article-body illustrations (news-detail, about timeline).
-- **9 accepted exceptions** (documented inline in `check_list1.md` with a "T8.1收尾核实" note each, not fixed): items where check_list1.md's own wording turned out to be more specific than `design.md`/`prd.md` actually require — e.g. a literal phrase that appears nowhere in either source doc, a font-weight rule for a page design.md gives zero typography detail for, forcing an H1 or a brand-color icon (WhatsApp/WeChat) to the site's primary blue when no other page does that and design.md doesn't require it either.
+- **9 accepted exceptions** (documented inline in `check_list1.md` with a "T8.1收尾核实" note each, not fixed): items where check_list1.md's own wording turned out to be more specific than `design.md`/`prd.md` actually require.
 
-Full batch-by-batch detail and commit hashes: see §1's commit list and `git log`.
+### T8.2 Tier 3 — done this session
 
-### T8.2 — Tier 3 (2 independent bigger tasks, not started)
+- **WeChat QR-popover**: implemented (`d49eff9`) — new `wechat-popover.js` (vanilla JS, same style as `nav.js`'s mega-menu/drawer toggles), popover markup added to `contact-float.html`, script tag added to all 12 templates. Found and fixed two bugs along the way: `site.json`'s `contact.wechatQrSrc` had pointed at a file that never existed since the project began (both this new popover's QR image and `contact.html`'s own pre-existing QR image were broken — created a placeholder QR-pattern SVG to fix both); and an initial CSS implementation had a bare `display: flex` on the popover that outranked the browser's `[hidden]` rule, making the popover visible on every page load — fixed with `:not([hidden])`.
+- **Home Appliance solution**: added (`aaefaf9`) as the 6th solution (slug `home-appliance-motor-drive`), a genuinely new ~999-word BLDC appliance motor drive writeup (vacuums/blenders/pumps/fans) built around 3 real in-stock part numbers (BSC011N04LS MOSFET, XMC4700-F100K2048 MCU, TLI4966G Hall sensor), not a relabel of an existing solution.
 
-- **WeChat QR-popup**: `contact-float.html`'s WeChat button (`data-wechat-toggle`) has zero corresponding JS handler anywhere in `src/assets/js/` — clicking it does nothing. Needs new toggle JS, a QR-popup markup/CSS treatment not specified in `design.md`, and a layout decision.
-- **"Home Appliance" industry gap**: `solutions.json`'s 5 solutions cover Motor Drive / EV Charging / Industrial Automation / Embedded Control / Solar PV — "Home Appliance" (mentioned in `solutions.schema.md`'s field examples) has no real solution. Needs a genuinely new ~800-word solution (roughly T4.3-scale), not a relabel of an existing one — user already declined force-fitting it into an existing solution's content.
+### T8.2 — still open
+
+- **check_list2.md close-out sweep**: unlike check_list1.md, check_list2.md has not yet had the 13-agent-audit-plus-fix-batch treatment this session. T8.2's own completion bar (per todo_write.md) is "check_list2 全部勾选" — this hasn't been done yet.
+- **Illustration-differentiation** (lower severity, not broken, just repetitive): all 4 news + all 4 support articles share one generic `illustrations/news-hero.svg` banner; all 6 solutions (5 original + Home Appliance) share one generic `illustrations/solution-diagram.svg`. `home.json`'s `newsTeaser[].coverSvgSrc` also references 3 files that don't exist — moot since `home.html` doesn't render that field. Scope/depth (13 new illustration files) not yet discussed with the user — this is a large content-creation task, flagged for a scope conversation before starting, same as the Home Appliance solution was before this session tackled it.
 
 ### Smaller items (Low severity, batch-fixable whenever convenient, out of T8.1/T8.2 scope)
 
 - `check_list2.md`'s own text still lists `solutions.json`'s `blockDiagram.src`/`.alt` as required fields — stale now that Tier 1 removed that dead field in favor of `diagramSrc`/`diagramAlt`; the checklist doc itself wasn't updated (out of that batch's scope).
-- Illustration reuse (lower severity, not broken, just repetitive): all 4 news + all 4 support articles share one generic `illustrations/news-hero.svg` banner; all 5 solutions share one generic `illustrations/solution-diagram.svg`. `home.json`'s `newsTeaser[].coverSvgSrc` also references 3 files that don't exist — moot since `home.html` doesn't render that field. Scope/depth not yet discussed with the user.
-- `about.json`'s `advantages[].icon` also references `/assets/svg/icons/customs.svg`/`quote.svg` in a way that's already resolved (T8.1 batch D created both) — no longer an issue, listed here only to close the loop on a prior note.
 - No committed unit test coverage for several `pages.js` context-enrichment fields added across T5.6–T9.x (`guidesArticles`, `authorInfo`, `sidebarSections`, `topApplications`, etc.) — `tests/pages.test.js` uses a minimal stub fixture; correctness has been verified via disposable scripts during each review, not permanent test coverage.
 - `support.json` article `infineon-optimos-mosfet-overview`'s `internalLinks` declares a model link that never actually appears in the article body text — `validate-data.js` doesn't cross-check this.
 - Tag badges (`support-card.html`, `tech-detail.html`) render the raw tag slug (`igbt`) instead of a human-readable name — the per-article contexts only carry slugs, not resolved `Tag` objects.
-- `validate-data.js` enforces `bomList.length >= 2` while `solutions.schema.md` documents `>= 3` — a pre-existing code/doc mismatch (all 5 solutions currently have 3+, so no live violation, just worth tightening the validator to match the doc).
+- `validate-data.js` enforces `bomList.length >= 2` while `solutions.schema.md` documents `>= 3` — a pre-existing code/doc mismatch (all 6 solutions currently have 3+, so no live violation, just worth tightening the validator to match the doc).
 
 ---
 
 ## 7. Codex Recheck Conclusions
 
-Every code/data-affecting batch this session went through the mandatory implementer → independent reviewer → Codex read-only recheck workflow. **Every recheck concluded APPROVE** (one round needed a one-line correction after independent review caught a mis-check in `check_list1.md` itself, fixed before that commit):
+Every code/data-affecting batch this session went through the mandatory implementer → independent reviewer → Codex read-only recheck workflow. **Every recheck concluded APPROVE** (one T8.1 round needed a one-line correction after independent review caught a mis-check in `check_list1.md` itself, fixed before that commit; one T8.2 round had a substance-level APPROVE with a staging-timing false-flag on `git diff --stat` not showing an unstaged new file, resolved by `git add` before commit):
 
 | Batch | Result |
 |-------|--------|
@@ -114,25 +114,18 @@ Every code/data-affecting batch this session went through the mandatory implemen
 | T8.1 Tier 4 sidebar-wiring batch (`e3d037e`) | APPROVE |
 | T8.1 Tier 2 PDF batch (`c5d800c`) | APPROVE |
 | T8.1 Tier 2 icon/badge/avatar batch (`eae1dcd`) | APPROVE |
-| check_list1.md close-out: meta-desc bug + responsive breakpoints (`130c651`) | APPROVE |
-| check_list1.md close-out: design tokens (`9cfc973`) | APPROVE |
-| check_list1.md close-out: icon/alt fixes (`eeda6ad`) | APPROVE |
-| check_list1.md close-out: solution-detail sidebar (`61b4b15`) | APPROVE |
-| check_list1.md close-out: tag breadcrumb (`18bd067`) | APPROVE |
-| check_list1.md close-out: SEO titles (`a639020`) | APPROVE |
-| check_list1.md close-out: news sidebar + badge doc (`f0424ef`) | APPROVE |
-| check_list1.md close-out: product-detail desc + contact icons (`8c6b53a`) | APPROVE |
-| check_list1.md close-out: article illustrations + timeline bug (`22d382c`) | APPROVE |
-| check_list1.md close-out: product-category feature cards (`4c4360b`) | APPROVE |
+| check_list1.md close-out batches (`130c651` through `4c4360b`, 12 batches) | APPROVE (all) |
 | check_list1.md sweep document itself (`d7a40b9`) | APPROVE (after 1 correction) |
+| T8.2 Tier 3: WeChat QR popover (`d49eff9`) | APPROVE |
+| T8.2 Tier 3: Home Appliance solution (`aaefaf9`) | APPROVE (substance; 1 staging-timing false-flag resolved) |
 
-**Recurring Codex sandbox limitation (not a defect, hit almost every recheck this session):** Codex's read-only sandbox frequently can't run `npm test`/`node src/build.js` itself (`spawn EPERM` / `EPERM` on writing `dist/index.html`). When this happens, Codex falls back to static analysis of the pre-built `dist/` output, direct diff reads, or in one case an in-memory `assembleSite()` re-render — and the human-facing verification (real `npm test`/`node src/build.js` runs, plus Playwright+Firefox screenshots) was always done directly by the main session before dispatching Codex. This is an environment restriction, not something to "fix" in the codebase.
+**Recurring Codex sandbox limitation (not a defect, hit almost every recheck this session):** Codex's read-only sandbox frequently can't run `npm test`/`node src/build.js` itself (`spawn EPERM` / `EPERM` on writing `dist/index.html`). When this happens, Codex falls back to static analysis of the pre-built `dist/` output, direct diff reads, or an in-memory `assembleSite()` re-render — and the human-facing verification (real `npm test`/`node src/build.js` runs, plus Playwright+Firefox screenshots and interaction tests) was always done directly by the main session before dispatching Codex. This is an environment restriction, not something to "fix" in the codebase.
 
 ---
 
 ## 8. Next Recommended Todo
 
-1. **T8.2 Tier 3** — WeChat popup and the new Home Appliance solution are each self-contained; either can be picked up independently.
+1. **T8.2 remainder** — confirm with the user whether to do a full check_list2.md close-out sweep (mirroring T8.1's approach) and/or tackle the 13-file illustration-differentiation work now or defer both.
 2. Once T8.2 is fully closed out, proceed to **T9.3 → T9.4 → T9.5**.
 3. **T10.x remains BLOCKED** pending user-provided GitHub/Cloudflare credentials — do not attempt without them.
 4. **T11.3/T11.4** (branch-finish cleanup, memory update) come last, once all of the above is genuinely done — not yet due.
