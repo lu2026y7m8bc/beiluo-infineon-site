@@ -317,7 +317,7 @@ export function buildPageList(data) {
       : null;
     const tagName = tagInfo ? tagInfo.name : tagSlug;
     const tagUrl = `/support/tags/${tagSlug}/`;
-    const breadcrumb = markCurrentLast([bc('Home', '/'), bc('Support', '/support/'), bc(tagName, tagUrl)]);
+    const breadcrumb = markCurrentLast([bc('Home', '/'), bc('Support', '/support/'), bc('Tags', '/support/'), bc(tagName, tagUrl)]);
     const seo = { ...site.seo, title: `${tagName} | Technical Support | ${site.brand.name}`, description: `${site.brand.name} technical resources tagged with ${tagName}: guides, application notes, and FAE support.`, canonical: tagUrl };
     const tagArticles = support.articles.filter(a => Array.isArray(a.tags) && a.tags.some(t => slugify(t) === tagSlug));
     const sidebarSections = sidebarNav('Support Categories', support.categories.map(c => ({ name: c.name, url: `/support/${c.slug}/` })));
