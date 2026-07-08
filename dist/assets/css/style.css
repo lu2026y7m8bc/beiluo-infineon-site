@@ -1958,9 +1958,9 @@ body.nav-drawer-open {
   /* No max-width here (unlike model-overview/category-card__desc's
      narrower teaser contexts) — this page has been single-column since
      the sidebar was removed, and every other block on it (fae-note,
-     cat-features, spec-table) already spans the full container width.
-     A capped-width paragraph next to full-width siblings read as a
-     large, unbalanced empty gap on the right per user feedback. */
+     spec-table) already spans the full container width. A capped-width
+     paragraph next to full-width siblings read as a large, unbalanced
+     empty gap on the right per user feedback. */
 }
 
 .cat-hero__guide-ctas {
@@ -1983,40 +1983,6 @@ body.nav-drawer-open {
 .fae-note p {
   color: var(--c-text);
   margin-bottom: var(--space-4);
-}
-
-.cat-features {
-  margin-bottom: var(--space-8);
-}
-
-.cat-features__grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-6);
-}
-
-@media (min-width: 768px) {
-  .cat-features__grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 1200px) {
-  .cat-features__grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-.cat-features__list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-  color: var(--c-text-muted);
-}
-
-.cat-features__advantage {
-  color: var(--c-text-muted);
 }
 
 /* [data-filter-bar] (markup-contract.md §1) had zero layout CSS before —
