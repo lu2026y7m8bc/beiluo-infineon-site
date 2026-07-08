@@ -1,6 +1,6 @@
 # dev-status.md — BeiLuo Infineon Site
 
-> Current-state snapshot. For full historical narrative (batch-by-batch implementation detail, Codex tooling quirks, reviewer findings) see `.superpowers/sdd/progress.md` and `git log`. This file reflects state as of 2026-07-08 (T9.3 overall-review session).
+> Current-state snapshot. For full historical narrative (batch-by-batch implementation detail, Codex tooling quirks, reviewer findings) see `.superpowers/sdd/progress.md` and `git log`. This file reflects state as of 2026-07-08 (T9.3 overall-review + T9.4 milestone-verification session).
 
 ---
 
@@ -15,7 +15,7 @@
 
 ## 2. Completed Todos
 
-Phases 0–7, T9.1–T9.3, **T8.1**, and **T8.2** are complete (full task-by-task detail: `docs/current/todo_write.md`):
+Phases 0–7, T9.1–T9.4, **T8.1**, and **T8.2** are complete (full task-by-task detail: `docs/current/todo_write.md`):
 
 | Phase | Scope |
 |-------|-------|
@@ -32,12 +32,13 @@ Phases 0–7, T9.1–T9.3, **T8.1**, and **T8.2** are complete (full task-by-tas
 | **T8.1** | check_list1.md fully closed out — see §6 for the full batch trail; 356/365 items verified-passing, 9 documented exceptions (checklist over-specifications, not defects) |
 | **T8.2** | check_list2.md fully closed out — see §6 for the full batch trail; 287/294 items verified-passing, 7 documented exceptions (1 genuine content gap, 6 known/stale-doc items, not defects newly introduced this sweep) |
 | **T9.3** | Overall code review (4 parallel scoped reviewers over the whole feature branch vs main) + all feedback processed — see §6 for the full batch trail; 1 Critical + 5 of 6 Important issues fixed, 1 Important architectural finding deferred to a future decision, several Minor findings recorded |
+| **T9.4** | Milestone-count verification via `verification-before-completion` — every PRD §6/§1.3 count re-derived with fresh commands against actual `dist/` output and source data, zero gaps found. See §6 for the full checklist. |
 
 ---
 
 ## 3. Currently In Progress
 
-None. All in-scope work through T9.3 is complete; next unblocked task is T9.4 (see §4/§8).
+None. All in-scope work through T9.4 is complete; next unblocked task is T9.5 (see §4/§8).
 
 ---
 
@@ -47,7 +48,6 @@ None. All in-scope work through T9.3 is complete; next unblocked task is T9.4 (s
 |------|----------------|
 | Illustration-differentiation | 13-file SVG differentiation task (4 news + 4 support share one banner; 6 solutions share one diagram) — scope/depth still not confirmed with the user, deliberately deferred |
 | schema.js architecture decision | `src/lib/schema.js`'s 5 JSON-LD constructors (organization/webSite/product/techArticle/newsArticle) are dead code, never wired into any template — decide whether to wire them (+ their escaping) into all 12 templates, or formally retire them + their 641-line test file. See §6 T9.3 for detail. |
-| T9.4 | Verify PRD/design milestone counts (4 categories / 8 model details / **6 solutions** (5 original + Home Appliance) / 4 news / 4 support / 4 category-index pages) against actual output |
 | T9.5 | Codex read-only recheck of the full built product + doc consistency |
 | [confirm] | Get deployment credentials (GitHub token + Cloudflare account) from user, or mark T10.x Blocked |
 | T10.1–T10.3 | Create GitHub repo + push, deploy to Cloudflare Pages, post-deploy smoke test — **BLOCKED pending credentials** |
@@ -113,6 +113,30 @@ A 13-parallel-agent audit against the actual `dist/` output (one agent per templ
 - **Deferred — 1 Important architectural finding, not fixed this session**: `src/lib/schema.js`'s 5 JSON-LD constructors (`organization`/`webSite`/`product`/`techArticle`/`newsArticle`) are dead code — every template hand-authors its own JSON-LD instead of calling them (which is *why* R1's bug and R4's escaping gap could exist in the first place — the code built specifically to centralize and validate this logic is bypassed by what actually ships). `schema.js`'s own unused `product()` maps `rfq -> PreOrder`, a third, mutually-inconsistent business-logic variant versus R1's fix (`BackOrder`). Fixing this properly means either wiring `schema.js`'s constructors (+ `jsonLdScript()`'s escaping) into all 12 templates, or formally retiring the dead functions and their 641-line `schema.test.js` coverage — a bigger design decision than a review-response batch should make unilaterally. **Needs a user/next-session decision** (see §4).
 - **Minor findings, recorded not fixed** (non-blocking per project policy): `og:type` hardcoded to `"website"` even on article-like pages (news-detail/tech-detail); `home.html` hand-rolls 4 near-identical teaser card blocks instead of a shared partial; `.card`/`.category-card`/`.solution-card` CSS could consolidate ~30 lines; `wechat-popover.js` doesn't move focus into the popover on open; `toc.js`'s initial `activeId` can briefly highlight the wrong section before the first `IntersectionObserver` callback; `table-filter.js`'s code comment overstates its non-numeric-range fallback behavior.
 
+### T9.4 — milestone-count verification, fully closed out this session
+
+Ran `superpowers:verification-before-completion` against PRD §6/§1.3's milestone tables. Per that skill's "Requirements" pattern (re-read plan → checklist → verify each with fresh commands → report gaps or completion), every count below was re-derived in-session against actual `dist/` output and source JSON, not recalled from memory or prior claims:
+
+| Milestone | Required | Found (fresh command) |
+|-----------|----------|------------------------|
+| List pages (home/about/products/solutions/support/news/contact) | all published | 7/7 present |
+| Product category pages | 4 | 4 (mcu/igbt/mosfet/sensors) |
+| Product detail pages | 8 (2 per category) | 8 |
+| Solution detail pages | 5 (milestone ≥4) | 6 (5 original + Home Appliance) |
+| News detail pages | 4 | 4 |
+| Support detail pages | 4 (one per category) | 4 |
+| Support category-index pages | 4 | 4 |
+| Support tag-aggregate pages | auto-generated | 14 — exactly matches `support.json`'s `tags` array length |
+| Author profile pages | reuses `about` template | 2 — exactly matches `support.json`'s `authors` array length |
+| Templates | 12 | 12 |
+| JSON data files | 7 | 7 |
+| `check_list1.md` | fully checked | 356/365, 9 documented T8.1 exceptions |
+| `check_list2.md` | fully checked | 287/294, 7 documented T8.2 exceptions |
+| Empty links (`href="#"`) | zero | 0 |
+| 7 JSON-LD types present | per design §10 template mapping | Organization/WebSite/BreadcrumbList(52 = 53−1 home)/ItemList(4)/Product(12 = 8 detail + 4 embedded-in-category)/TechArticle(4)/NewsArticle(4) — all present |
+
+**Cross-total check**: 7 + 4 + 8 + 6 + 4 + 4 + 4 + 14 + 2 = **53**, matching `find dist -name "*.html" | wc -l` exactly; + `sitemap.xml` + `robots.txt` = 55, matching the build log's "55 file(s) written." **No gaps found** — zero code changes needed, this was a pure verification pass.
+
 ---
 
 ## 7. Codex Recheck Conclusions
@@ -153,11 +177,10 @@ Every code/data-affecting batch this session went through the mandatory implemen
 
 ## 8. Next Recommended Todo
 
-1. **T9.4** — verify PRD/design milestone counts against actual output. This is now unblocked (T8.1, T8.2, and T9.3 are all fully closed out).
-2. Then **T9.5** (Codex full-product recheck of the built product + doc consistency).
-3. **schema.js architecture decision** (see §4/§6 T9.3) — needs a user call on whether to wire the dead JSON-LD constructors in or retire them. Not blocking T9.4/T9.5, but worth raising before T11.x closes out the branch.
-4. **T10.x remains BLOCKED** pending user-provided GitHub/Cloudflare credentials — do not attempt without them.
-5. **T11.3/T11.4** (branch-finish cleanup, memory update) come last, once all of the above is genuinely done — not yet due.
-6. **Illustration-differentiation** (13 SVG files) remains an open scope question for the user, deliberately deferred — not blocking any of the above.
+1. **T9.5** — Codex read-only recheck of the full built product + doc consistency. This is now unblocked (T8.1, T8.2, T9.3, and T9.4 are all fully closed out).
+2. **schema.js architecture decision** (see §4/§6 T9.3) — needs a user call on whether to wire the dead JSON-LD constructors in or retire them. Not blocking T9.5, but worth raising before T11.x closes out the branch.
+3. **T10.x remains BLOCKED** pending user-provided GitHub/Cloudflare credentials — do not attempt without them.
+4. **T11.3/T11.4** (branch-finish cleanup, memory update) come last, once all of the above is genuinely done — not yet due.
+5. **Illustration-differentiation** (13 SVG files) remains an open scope question for the user, deliberately deferred — not blocking any of the above.
 
-**Session boundary note**: this session ran the full check_list2.md close-out sweep (closing T8.2) and then the full T9.3 overall code review (4 parallel scoped reviewers → 1 Critical + 6 Important findings → 5 fix batches, 3 of which needed real Codex-driven corrections). All changes are committed (`587a409` through `5b844db`); working tree is clean. `npm test` 376/376, `node src/build.js` exit 0.
+**Session boundary note**: this session ran the full check_list2.md close-out sweep (closing T8.2), the full T9.3 overall code review (4 parallel scoped reviewers → 1 Critical + 6 Important findings → 5 fix batches, 3 of which needed real Codex-driven corrections), and T9.4's milestone-count verification (pure verification pass, zero gaps, zero code changes). All changes are committed (`587a409` through `5b844db`); working tree is clean. `npm test` 376/376, `node src/build.js` exit 0.
