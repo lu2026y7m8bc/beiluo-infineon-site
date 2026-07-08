@@ -1404,10 +1404,25 @@ body.nav-drawer-open {
   margin-bottom: var(--space-8);
 }
 
+/* List-page banner variant — gray fill + centered text, per user feedback.
+   Scoped to a modifier class (not the base .page-hero) so contact.html's
+   independent-template hero, which the user did not ask to change, keeps
+   its plain left-aligned layout. */
+.page-hero--banner {
+  background: var(--c-bg-alt);
+  border-radius: var(--r-card);
+  text-align: center;
+  padding: var(--space-8) var(--space-6);
+}
+
 .page-hero__desc {
   color: var(--c-text-muted);
   max-width: 760px;
   margin-top: var(--space-4);
+}
+
+.page-hero--banner .page-hero__desc {
+  margin-inline: auto;
 }
 
 /* ==========================================================================
@@ -3048,29 +3063,15 @@ body.nav-drawer-open {
   margin-bottom: var(--space-6);
 }
 
-.global-network__grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-6);
-}
-
-@media (min-width: 640px) {
-  .global-network__grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 1024px) {
-  .global-network__grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-.network-region {
-  border: 1px solid var(--c-border);
-  border-radius: var(--r-card);
-  padding: var(--space-6);
-  background: var(--c-bg);
+/* One region section per network, stacked vertically; each region's
+   offices render as their own individual cards in a grid below its
+   heading (not nested sub-rows inside one big region card — user
+   feedback was that grouping multiple offices into a single card read
+   as one dense block rather than a scannable grid). */
+.global-network__regions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
 }
 
 .network-region__title {
@@ -3080,34 +3081,44 @@ body.nav-drawer-open {
   border-bottom: 1px solid var(--c-border);
 }
 
-.network-region__offices {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
+.network-region__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+}
+
+@media (min-width: 640px) {
+  .network-region__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .network-region__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 .network-office {
-  padding-bottom: var(--space-4);
-  border-bottom: 1px dashed var(--c-border);
-}
-
-.network-office:last-child {
-  padding-bottom: 0;
-  border-bottom: none;
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-card);
+  box-shadow: var(--sh-card);
+  padding: var(--space-4);
+  background: var(--c-bg);
 }
 
 .network-office__name {
   font-size: var(--fs-small);
   font-weight: var(--fw-medium);
   color: var(--c-primary-dark);
-  margin-bottom: var(--space-1);
+  margin-bottom: var(--space-2);
 }
 
 .network-office__address {
   color: var(--c-text-muted);
   font-size: var(--fs-small);
   line-height: var(--lh-body);
-  margin-bottom: var(--space-1);
+  margin-bottom: var(--space-2);
 }
 
 .network-office__email {

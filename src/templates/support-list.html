@@ -72,7 +72,7 @@
                SUPPORT OVERVIEW — /support/
                design.md §5.7: Breadcrumb → H1 → .tab-container(4 categories)
                ============================================================ -->
-          <header class="page-hero">
+          <header class="page-hero page-hero--banner">
             <h1 class="page-hero__title">Infineon Technical Support &amp; Selection Guides</h1>
             <p class="page-hero__desc">BeiLuo technical support pairs Infineon datasheets with real BeiLuo FAE field experience: selection guides for choosing the right IGBT, MCU, MOSFET, or sensor; application notes for gate-drive, thermal, and sensor-interface design; troubleshooting guides for common failure modes; and first-look reviews of newly released Infineon devices. Browse by category below.</p>
           </header>
@@ -120,7 +120,7 @@
                SUPPORT CATEGORY INDEX — /support/<category>/
                design.md §5.8: H1 = category name + keywords, filtered cards
                ============================================================ -->
-          <header class="page-hero">
+          <header class="page-hero page-hero--banner">
             <h1 class="page-hero__title">{{category.title}}</h1>
             {{#if category.description}}<p class="page-hero__desc">{{category.description}}</p>{{/if}}
           </header>
@@ -134,7 +134,7 @@
                SUPPORT TAG AGGREGATION — /support/tags/<tag>/
                design.md §5.9: H1 = Articles tagged "<tag.name>"
                ============================================================ -->
-          <header class="page-hero">
+          <header class="page-hero page-hero--banner">
             <h1 class="page-hero__title">Articles tagged &quot;{{tag.name}}&quot;</h1>
             <p class="page-hero__desc">Browse BeiLuo technical resources tagged with {{tag.name}}: selection guides, application notes, troubleshooting steps, and FAE reviews covering {{tag.name}} on Infineon components.</p>
           </header>

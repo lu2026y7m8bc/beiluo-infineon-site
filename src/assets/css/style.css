@@ -1404,10 +1404,25 @@ body.nav-drawer-open {
   margin-bottom: var(--space-8);
 }
 
+/* List-page banner variant — gray fill + centered text, per user feedback.
+   Scoped to a modifier class (not the base .page-hero) so contact.html's
+   independent-template hero, which the user did not ask to change, keeps
+   its plain left-aligned layout. */
+.page-hero--banner {
+  background: var(--c-bg-alt);
+  border-radius: var(--r-card);
+  text-align: center;
+  padding: var(--space-8) var(--space-6);
+}
+
 .page-hero__desc {
   color: var(--c-text-muted);
   max-width: 760px;
   margin-top: var(--space-4);
+}
+
+.page-hero--banner .page-hero__desc {
+  margin-inline: auto;
 }
 
 /* ==========================================================================
