@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-labelledby="icon-ev-charging-title"
-     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+     fill="none" stroke="#0072CE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
   <title id="icon-ev-charging-title">EV charging solution icon</title>
   <!-- charging plug body -->
   <rect x="4" y="7" width="10" height="12" rx="1.5"/>

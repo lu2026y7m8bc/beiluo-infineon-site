@@ -1693,9 +1693,14 @@ body.nav-drawer-open {
 }
 
 .why-choose__icon {
+  /* color: var(--c-primary) removed — dead CSS. Icon color is hardcoded
+     inside the SVG (stroke="#0072CE"), not controllable via CSS `color`
+     since these are <img>-loaded external SVGs (same bug/fix as
+     .category-card__icon/.solution-card__icon above: currentColor
+     inside an <img>-loaded SVG doesn't inherit the host document's CSS,
+     so it was rendering solid black until the SVG source was fixed). */
   width: 40px;
   height: 40px;
-  color: var(--c-primary);
 }
 
 /* ==========================================================================
@@ -1750,9 +1755,11 @@ body.nav-drawer-open {
 }
 
 .products-teaser__icon {
+  /* color: var(--c-primary) removed — dead CSS on an <img>-loaded SVG
+     (see .why-choose__icon above). Only ever loads mcu/igbt/mosfet/
+     sensors.svg, already hardcoded to stroke="#0072CE". */
   width: 40px;
   height: 40px;
-  color: var(--c-primary);
 }
 
 .products-teaser__cta,
@@ -1873,9 +1880,17 @@ body.nav-drawer-open {
 }
 
 .category-card__icon {
-  width: 40px;
-  height: 40px;
-  color: var(--c-primary);
+  /* Icon color is hardcoded inside the SVG file (stroke="#0072CE"), not
+     controlled via CSS `color`/currentColor — <img>-loaded SVGs render in
+     their own document context, so a `color` declaration here has no
+     effect on the rendered stroke (the icon was rendering solid black,
+     the browser's initial `color` value, until the SVG source was fixed).
+     Centered + enlarged per user feedback that it read as small and
+     off-center at the card's left edge. */
+  width: 56px;
+  height: 56px;
+  display: block;
+  align-self: center;
 }
 
 /* Bare <h2> previously fell back to the global h2 rule (--fs-h2, 30px) —
@@ -1942,9 +1957,11 @@ body.nav-drawer-open {
 }
 
 .cat-hero__icon {
+  /* color: var(--c-primary) removed — dead CSS on an <img>-loaded SVG
+     (see .why-choose__icon above). Only ever loads mcu/igbt/mosfet/
+     sensors.svg, already hardcoded to stroke="#0072CE". */
   width: 48px;
   height: 48px;
-  color: var(--c-primary);
   margin-bottom: var(--space-4);
 }
 
@@ -2312,9 +2329,11 @@ body.nav-drawer-open {
 
 .alt-parts__icon,
 .companion-parts__icon {
+  /* color: var(--c-primary) removed — dead CSS on an <img>-loaded SVG
+     (see .why-choose__icon above). Only ever loads mcu/igbt/mosfet/
+     sensors.svg, already hardcoded to stroke="#0072CE". */
   width: 32px;
   height: 32px;
-  color: var(--c-primary);
 }
 
 .alt-parts__summary,
@@ -2391,9 +2410,13 @@ body.nav-drawer-open {
 }
 
 .solution-card__icon {
-  width: 32px;
-  height: 32px;
-  color: var(--c-primary);
+  /* See .category-card__icon above — icon color is hardcoded in the SVG
+     file itself (<img>-loaded SVGs don't inherit CSS `color`), and the
+     icon is centered + enlarged per the same user feedback. */
+  width: 48px;
+  height: 48px;
+  display: block;
+  align-self: center;
 }
 
 /* h2 had no font-size override, so it fell back to the global h2 rule

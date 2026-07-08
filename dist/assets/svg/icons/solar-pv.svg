@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-labelledby="icon-solar-pv-title"
-     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+     fill="none" stroke="#0072CE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
   <title id="icon-solar-pv-title">Solar PV inverter solution icon</title>
   <!-- solar panel grid -->
   <rect x="3" y="9" width="18" height="11" rx="1"/>

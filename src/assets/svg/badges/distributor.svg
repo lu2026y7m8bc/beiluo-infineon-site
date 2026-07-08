@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-labelledby="icon-badge-distributor-title"
-     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+     fill="none" stroke="#0072CE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
   <title id="icon-badge-distributor-title">Top distributor ranking icon</title>
   <!-- medal ribbon tails -->
   <polyline points="8,14.2 6.2,21 12,18.3 17.8,21 16,14.2"/>
