@@ -179,10 +179,12 @@ Every code/data-affecting batch this session went through the mandatory implemen
 
 ## 8. Next Recommended Todo
 
-1. **T9.5** — Codex read-only recheck of the full built product + doc consistency. This is now unblocked (T8.1, T8.2, T9.3, and T9.4 are all fully closed out).
-2. **schema.js architecture decision** (see §4/§6 T9.3) — needs a user call on whether to wire the dead JSON-LD constructors in or retire them. Not blocking T9.5, but worth raising before T11.x closes out the branch.
-3. **T10.x remains BLOCKED** pending user-provided GitHub/Cloudflare credentials — do not attempt without them.
-4. **T11.3/T11.4** (branch-finish cleanup, memory update) come last, once all of the above is genuinely done — not yet due.
+**Phase 9 (T9.1–T9.5) is now fully complete.** Everything remaining needs either user input or is explicitly deferred:
+
+1. **schema.js architecture decision** (see §4/§6 T9.3) — needs a user call on whether to wire the dead JSON-LD constructors into all 12 templates or formally retire them + their 641-line test file. Not blocking anything else, but worth raising before T11.x closes out the branch.
+2. **T10.x remains BLOCKED** pending user-provided GitHub/Cloudflare credentials — do not attempt without them. Once provided, T10.1–T10.3 execute automatically per PRD §8's iron rule (no need to ask again).
+3. **T11.3/T11.4** (branch-finish cleanup via `finishing-a-development-branch`, memory update) — the natural next step if the user wants to wrap up this branch now rather than wait on T10.x/schema.js. Not yet due if more feature work is expected first.
+4. **Illustration-differentiation** (13 SVG files, §4) remains a deliberately-deferred open scope question — raise opportunistically, not gating anything.
 5. **Illustration-differentiation** (13 SVG files) remains an open scope question for the user, deliberately deferred — not blocking any of the above.
 
 **Session boundary note**: this session ran the full check_list2.md close-out sweep (closing T8.2), the full T9.3 overall code review (4 parallel scoped reviewers → 1 Critical + 6 Important findings → 5 fix batches, 3 of which needed real Codex-driven corrections), and T9.4's milestone-count verification (pure verification pass, zero gaps, zero code changes). All changes are committed (`587a409` through `5b844db`); working tree is clean. `npm test` 376/376, `node src/build.js` exit 0.
