@@ -426,8 +426,8 @@ export function buildPageList(data) {
       .filter(a => a.slug !== article.slug)
       .slice(0, 3);
     // Author JSON-LD @type: Organization when the byline is an editorial team, else
-    // Person — mirrors schema.js's newsArticle() logic. render.js has no string
-    // .includes()/equality operator, so this must be pre-computed here.
+    // Person. render.js has no string .includes()/equality operator, so this
+    // must be pre-computed here.
     const authorType = article.author.toLowerCase().includes('team') ? 'Organization' : 'Person';
     // Banner overlay CSS class: light variant only when explicitly requested via
     // bannerImage.overlayStyle === "light", dark by default (news.schema.md lines
