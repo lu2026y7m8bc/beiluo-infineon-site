@@ -1205,6 +1205,28 @@ body.nav-drawer-open {
   flex: 1;
 }
 
+.card__summary {
+  /* Clamp so cards in the same grid row stay a uniform height regardless of
+     how many words a given summary happens to run. Deliberately scoped to
+     .card__summary only, NOT .card__text: news-card.html/support-card.html
+     use .card__summary and always pair it with a "Read more →" link, so
+     clamped text stays reachable; .card__text is reused on home.html's
+     teaser grids and about.html's feature/case/team cards, which have no
+     such link -- clamping those would hide content with no way to recover
+     it (caught by review before this shipped). `flex: 1` stretches this
+     element to fill whatever space the flex row allocates, which is rarely
+     an exact multiple of line-height -- observed via real-browser
+     measurement to let a partial 4th line peek through -webkit-line-clamp
+     on some cards. The explicit max-height (in em, so it tracks this
+     element's own font-size) is a hard ceiling so the box can never exceed
+     3 lines' worth regardless of what flex hands it. */
+  max-height: calc(var(--lh-body) * 1em * 3);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 .card__date {
   color: var(--c-text-muted);
   font-size: var(--fs-caption);
@@ -1815,10 +1837,21 @@ body.nav-drawer-open {
   color: var(--c-primary);
 }
 
-.category-card__fae-note {
+.category-card__desc {
   color: var(--c-text-muted);
   font-size: var(--fs-small);
-  font-style: italic;
+  line-height: var(--lh-body);
+  margin: 0;
+  /* category.description is 200-300 words of detail-page copy (design §5.3) —
+     this card is a teaser (design §5.2 "icon + intro + View Models"), not the
+     full text, so clamp to a short preview instead of showing the whole thing.
+     Explicit max-height (see .card__summary for why) is a hard ceiling so
+     flex-column auto-height can't let a partial 4th line show through. */
+  max-height: calc(var(--lh-body) * 1em * 3);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .category-card .btn {
@@ -2245,6 +2278,15 @@ body.nav-drawer-open {
 .solution-card__summary {
   color: var(--c-text-muted);
   flex: 1;
+  /* Clamp so all 6 solution cards stay a uniform height in the grid
+     regardless of how many words a given summary happens to run. Explicit
+     max-height (see .card__summary above for why) keeps flex's auto-height
+     from letting a partial 4th line show through the clamp. */
+  max-height: calc(var(--lh-body) * 1em * 3);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 /* ==========================================================================
