@@ -2869,6 +2869,18 @@ body.nav-drawer-open {
 
 .about-hero__media {
   order: -1;
+  /* align-self: stretch fills the grid row's full height (set by the
+     much-taller 4-paragraph text column) with a tinted panel instead of
+     leaving a large blank gap below a small, top-pinned icon — same
+     complaint as the earlier align-items fix, just the leftover empty
+     space below the icon rather than beside the headline. */
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--c-bg-alt);
+  border-radius: var(--r-card);
+  padding: var(--space-8);
 }
 
 @media (min-width: 768px) {
