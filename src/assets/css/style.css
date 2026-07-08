@@ -1880,6 +1880,7 @@ body.nav-drawer-open {
   font-weight: var(--fw-semibold);
   line-height: var(--lh-h4);
   margin: 0;
+  text-align: center;
 }
 
 .category-card__title a {
