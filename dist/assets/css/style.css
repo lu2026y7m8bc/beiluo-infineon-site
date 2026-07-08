@@ -1541,6 +1541,9 @@ body.nav-drawer-open {
   position: relative;
   overflow: hidden;
   padding-block: var(--space-16);
+  /* Tinted background per user feedback (previously plain white behind
+     the decorative circuit-pattern SVG). */
+  background: var(--c-primary-tint);
 }
 
 .hero__bg {
@@ -1557,6 +1560,11 @@ body.nav-drawer-open {
   position: relative;
   z-index: 1;
   max-width: 760px;
+  /* Centered per user feedback — headline/subtext/CTAs/trust badges all
+     center within this column, and the column itself centers within
+     .container via margin-inline:auto. */
+  margin-inline: auto;
+  text-align: center;
 }
 
 .hero__subtext {
@@ -1568,6 +1576,7 @@ body.nav-drawer-open {
 .hero__ctas {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: var(--space-4);
   margin-top: var(--space-8);
 }
@@ -1575,6 +1584,7 @@ body.nav-drawer-open {
 .hero__trust-badges {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: var(--space-6);
   margin-top: var(--space-12);
 }
