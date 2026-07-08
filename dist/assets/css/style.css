@@ -1944,9 +1944,14 @@ body.nav-drawer-open {
 
 .cat-hero__desc {
   color: var(--c-text-muted);
-  max-width: 760px;
   margin-top: var(--space-4);
   white-space: pre-line;
+  /* No max-width here (unlike model-overview/category-card__desc's
+     narrower teaser contexts) — this page has been single-column since
+     the sidebar was removed, and every other block on it (fae-note,
+     cat-features, spec-table) already spans the full container width.
+     A capped-width paragraph next to full-width siblings read as a
+     large, unbalanced empty gap on the right per user feedback. */
 }
 
 .cat-hero__guide-ctas {
@@ -2011,7 +2016,13 @@ body.nav-drawer-open {
    wraps on narrow viewports. */
 [data-filter-bar] {
   display: flex;
-  flex-wrap: wrap;
+  /* nowrap + horizontal scroll, not wrap — per user feedback the filter
+     bar should read as one row. A category with many filterable columns
+     (e.g. MCU's 8) no longer breaks onto a second row; on narrower
+     viewports the row scrolls horizontally instead (same overflow-x
+     pattern as .spec-table-wrap below it). */
+  flex-wrap: nowrap;
+  overflow-x: auto;
   align-items: flex-end;
   gap: var(--space-4);
   padding: var(--space-4);
@@ -2029,6 +2040,8 @@ body.nav-drawer-open {
   display: flex;
   flex-direction: column;
   gap: var(--space-1);
+  flex-shrink: 0; /* keep each control at its natural width in the nowrap
+                     row above instead of squishing to fit */
 }
 
 .filter-control__label {
