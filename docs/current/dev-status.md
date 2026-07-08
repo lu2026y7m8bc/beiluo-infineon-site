@@ -1,6 +1,6 @@
 # dev-status.md — BeiLuo Infineon Site
 
-> Current-state snapshot. For full historical narrative (batch-by-batch implementation detail, Codex tooling quirks, reviewer findings) see `.superpowers/sdd/progress.md` and `git log`. This file reflects state as of 2026-07-08 (T8.2 close-out session).
+> Current-state snapshot. For full historical narrative (batch-by-batch implementation detail, Codex tooling quirks, reviewer findings) see `.superpowers/sdd/progress.md` and `git log`. This file reflects state as of 2026-07-08 (T9.3 overall-review session).
 
 ---
 
@@ -9,13 +9,13 @@
 - **Branch**: `feat/beiluo-infineon-site` (do NOT commit to `main`)
 - **Worktree**: single, no linked worktrees
 - **Working tree**: clean
-- **Latest commits** (most recent first): `85b58f2` docs(T8.2): check_list2.md close-out sweep → `29666c2` fix(T8.2): brand copy de-genericize + year-claim fix → `d3e6ece` fix(T8.2): site.json baseUrl wiring + orphan cleanup → `f92df8e` fix(T8.2): home.json dead SVG refs cleanup → `a3003d1` fix(T8.2): product-category H1/description/sidebar icons → `fff8784` fix(T8.2): solutions.json scenarios word-count fix → `587a409` fix(T8.2): news.json share.title + keyword fix → `298247a` docs: prior session close-out → `aaefaf9` feat(T8.2): add Home Appliance solution → `d49eff9` feat(T8.2): WeChat QR popover
+- **Latest commits** (most recent first): `5b844db` test(T9.3): backfill pages.js context-enrichment field coverage → `fb354b0` fix(T9.3): extend JSON-LD safety validation to all raw-interpolated fields → `474a15c` fix(T9.3): mobile nav drawer stays keyboard-focusable while closed → `dfc94ba` fix(T9.3): fix undefined --c-accent, drop dead card.html partial → `82e0e95` fix(T9.3): product-category Product JSON-LD always claimed InStock → `4840953` docs(T8.2): mark T8.2 completed → `85b58f2` docs(T8.2): check_list2.md close-out sweep → `29666c2` fix(T8.2): brand copy de-genericize + year-claim fix → `d3e6ece` fix(T8.2): site.json baseUrl wiring + orphan cleanup → `f92df8e` fix(T8.2): home.json dead SVG refs cleanup
 
 ---
 
 ## 2. Completed Todos
 
-Phases 0–7, T9.1–T9.2, **T8.1**, and **T8.2** are complete (full task-by-task detail: `docs/current/todo_write.md`):
+Phases 0–7, T9.1–T9.3, **T8.1**, and **T8.2** are complete (full task-by-task detail: `docs/current/todo_write.md`):
 
 | Phase | Scope |
 |-------|-------|
@@ -31,12 +31,13 @@ Phases 0–7, T9.1–T9.2, **T8.1**, and **T8.2** are complete (full task-by-tas
 | **T9.2** | Browser/UI verification (responsive/contrast/touch-target/interaction/reduced-motion) — done across all 52 pages, see §5 |
 | **T8.1** | check_list1.md fully closed out — see §6 for the full batch trail; 356/365 items verified-passing, 9 documented exceptions (checklist over-specifications, not defects) |
 | **T8.2** | check_list2.md fully closed out — see §6 for the full batch trail; 287/294 items verified-passing, 7 documented exceptions (1 genuine content gap, 6 known/stale-doc items, not defects newly introduced this sweep) |
+| **T9.3** | Overall code review (4 parallel scoped reviewers over the whole feature branch vs main) + all feedback processed — see §6 for the full batch trail; 1 Critical + 5 of 6 Important issues fixed, 1 Important architectural finding deferred to a future decision, several Minor findings recorded |
 
 ---
 
 ## 3. Currently In Progress
 
-None. All in-scope work through T8.2 is complete; next unblocked task is T9.3 (see §4/§8).
+None. All in-scope work through T9.3 is complete; next unblocked task is T9.4 (see §4/§8).
 
 ---
 
@@ -44,8 +45,8 @@ None. All in-scope work through T8.2 is complete; next unblocked task is T9.3 (s
 
 | Task | What it needs |
 |------|----------------|
-| Illustration-differentiation | 13-file SVG differentiation task (4 news + 4 support share one banner; 6 solutions share one diagram) — scope/depth still not confirmed with the user, deliberately deferred, not part of T8.2's completion bar |
-| T9.3 | Code review via `requesting-code-review`/`receiving-code-review` skills, process all feedback |
+| Illustration-differentiation | 13-file SVG differentiation task (4 news + 4 support share one banner; 6 solutions share one diagram) — scope/depth still not confirmed with the user, deliberately deferred |
+| schema.js architecture decision | `src/lib/schema.js`'s 5 JSON-LD constructors (organization/webSite/product/techArticle/newsArticle) are dead code, never wired into any template — decide whether to wire them (+ their escaping) into all 12 templates, or formally retire them + their 641-line test file. See §6 T9.3 for detail. |
 | T9.4 | Verify PRD/design milestone counts (4 categories / 8 model details / **6 solutions** (5 original + Home Appliance) / 4 news / 4 support / 4 category-index pages) against actual output |
 | T9.5 | Codex read-only recheck of the full built product + doc consistency |
 | [confirm] | Get deployment credentials (GitHub token + Cloudflare account) from user, or mark T10.x Blocked |
@@ -57,7 +58,7 @@ None. All in-scope work through T8.2 is complete; next unblocked task is T9.3 (s
 
 ## 5. Last Test / Lint / Build Results
 
-- **`npm test`**: **367/367 passing, 0 failures** (last run 2026-07-08, after the check_list2.md close-out sweep; up from 365 — +2 new `buildSite()` baseUrl-resolution regression tests added in the site.json batch)
+- **`npm test`**: **376/376 passing, 0 failures** (last run 2026-07-08, after T9.3's overall-review fix batches; up from 367 — +9 new `pages.js` context-enrichment tests added in the T9.3-R5 batch)
 - **`node src/build.js`**: **exit 0**, 55 files written (53 pages + `sitemap.xml` + `robots.txt`), **zero dead links, zero empty links**
 - **Lint**: no lint config in this project (ESM + Node.js built-ins only, nothing configured)
 - **Browser verification**: Playwright + Firefox installed as an ephemeral `npm install --no-save` dependency (not in `package.json`). Used extensively throughout the T8.1 close-out sweep and the T8.2 Tier 3 work — every visual/interactive claim (icons rendering, grid columns, sidebar placement, responsive breakpoints, popover open/close/ESC/outside-click) was confirmed with real screenshots, `getComputedStyle`/`getBoundingClientRect()` DOM measurements, and real click/keyboard interaction, not just code review. Not persisted as a project dependency — a future session without a browser tool should disclose that limitation explicitly rather than skip visual verification silently.
@@ -95,11 +96,22 @@ A 13-parallel-agent audit against the actual `dist/` output (one agent per templ
 
 - **Illustration-differentiation** (lower severity, not broken, just repetitive): all 4 news + all 4 support articles share one generic banner SVG; all 6 solutions share one generic diagram SVG. Scope/depth (13 new illustration files) still not discussed with the user — flagged for a scope conversation before starting, same status as last session.
 - **products.json FAQ brand-voice gap**: see check_list2.md line 171's note above — `IKD06N60RF` in particular needs 1-2 of its 5 FAQ answers rewritten with genuine distributor framing.
-- No committed unit test coverage for several `pages.js` context-enrichment fields added across T5.6–T9.x (`guidesArticles`, `authorInfo`, `topApplications`, etc.) — `tests/pages.test.js` uses a minimal stub fixture; correctness has been verified via disposable scripts during each review, not permanent test coverage. (The `sidebarSections`/`icon` path added this session for product-category *is* now covered by the independent-review re-render diffing done in that batch, but not by a permanent assertion in `tests/pages.test.js`.)
 - `support.json` article `infineon-optimos-mosfet-overview`'s `internalLinks` declares a model link (`IRFS4321PBF`) that never actually appears in the article body text — `validate-data.js` doesn't cross-check this (check_list2.md line 335).
 - Tag badges (`support-card.html`, `tech-detail.html`) render the raw tag slug (`igbt`) instead of a human-readable name — the per-article contexts only carry slugs, not resolved `Tag` objects (check_list2.md line 330).
 - `solution-detail.html`'s BOM anchor binds to `bom.href`, not `bom.link` as `solutions.schema.md`/check_list2.md specify — harmless today since both fields are always kept identical, but a latent drift risk (check_list2.md line 267).
 - `validate-data.js` enforces `bomList.length >= 2` while `solutions.schema.md` documents `>= 3` — a pre-existing code/doc mismatch (all 6 solutions currently have 3+, so no live violation, just worth tightening the validator to match the doc).
+
+### T9.3 — overall code review, fully closed out this session
+
+4 parallel scoped `code-reviewer` subagents (via `requesting-code-review`) covered the **whole feature branch vs main** (`759e2dd..HEAD`, 130 files / ~18K lines) — main only has planning docs, so this was effectively a first-ever holistic review of the entire built site, split by subsystem to keep each review actually readable: build engine + data layer, templates, CSS + SVG, client JS. Found **1 Critical + 6 Important** issues. Per `receiving-code-review` policy (Critical fixed immediately, Important fixed before proceeding, Minor recorded not blocked), fixed the Critical + 5 of 6 Important across 5 review-and-Codex-rechecked batches:
+
+- **R1 (`82e0e95`) — Critical, live shipped bug**: `product-category.html`'s Product JSON-LD `availability` used `{{#if stock}}InStock{{else}}PreOrder{{/if}}` — `model.stock` is always a non-empty string (`"inStock"`/`"rfq"`), so render.js's truthy-string check made the `{{else}}` branch permanently dead. Every model, including RFQ/out-of-stock parts, reported `InStock` on its category page while correctly reporting `BackOrder` on its own detail page — self-contradictory structured data, verified live with `IKD06N60RF`. Fixed by precomputing `availabilityUrl` in `pages.js`'s `categoryWithRowCells`, reusing the exact logic already correct on product-detail.
+- **R2 (`dfc94ba`) — Important**: `.breadcrumb__link` referenced `--c-accent`, a CSS custom property never defined anywhere in `tokens.css` — an unresolvable `var()` with no fallback silently inherits instead, so every breadcrumb link site-wide rendered in the same color as the non-clickable current-page segment. Fixed to `--c-primary`. Also deleted the dead `card.html` partial (never referenced by `{{> card}}` in any of the 12 templates, and it raw-interpolated `{{{icon}}}` for what's a plain image-path string everywhere else — a landmine if ever wired up) and swapped a hardcoded `z-index: 10` for the existing `--z-sticky` token.
+- **R3 (`474a15c`) — Important, real WCAG defect**: the mobile nav drawer is hidden purely via `transform: translateX(100%)` (stays `display:flex`; `display:none` only kicks in at the desktop media query), and closing it only toggled `aria-hidden` — which affects the accessibility tree but not tab order, since no CSS rule reacts to `[aria-hidden]`. A keyboard user on mobile who tabbed past the hamburger button landed on invisible, off-screen drawer links. Notable since `dev-status.md`'s T9.2 entry claims full keyboard-accessibility verification. Fixed with the `inert` attribute (blocks focus/interaction without touching `display`/`visibility`, so the slide transition is unaffected), toggled in lockstep with `aria-hidden` in `openDrawer()`/`closeDrawer()`. Confirmed `.mega-menu` doesn't share the bug (`display:none`/`block`, browser already excludes it from tab order when closed).
+- **R4 (`fb354b0`) — Important, latent injection risk**: many hand-authored JSON-LD `<script>` blocks across all 12 templates raw-interpolate (`{{{x}}}`) content fields with zero escaping — `validate-data.js`'s "JSON-LD safety" character check covered exactly 4 `site.json` fields, pre-dating this session. Extended via a new shared `checkJsonLdSafe()` helper to every field reachable from a raw JSON-LD site across all 6 data files. **This went through 3 review rounds** before landing clean — a cautionary tale about how easy this class of gap is to under-cover: round 1 (independent review) caught 2 missed fields (`support.categories[].title`/`.metaDescription`, `products` model `.href`); round 2 (independent review) caught a subtler miss — 5 `slug` fields that feed `pages.js`'s URL-building template literals (`catUrl`/`modelUrl`/`solutionUrl`/`articleUrl`), which become `seo.canonical`, which templates then raw-interpolate — an indirection the first pass's field-tracing missed entirely; round 3, both an independent reviewer and Codex independently re-derived the full field list from scratch (not trusting prior rounds) and confirmed complete coverage. Verified throughout with actual injection scripts (not just clean-data passes) that every check fires.
+- **R5 (`5b844db`) — Important, test-coverage gap**: `pages.js` context-enrichment fields (`guidesArticles` and siblings, `topApplications`, resolved `author` objects on tech-detail/author-profile pages) had zero test assertions — a regression in the category/author filter logic could ship empty tab panels or a missing bio while all 367 tests stayed green. Added 9 tests, verified via mutation testing (temporarily broke the real filters, confirmed exactly the targeted tests went red, restored clean). Codex's recheck caught that 4 of the new tests only `deepEqual`'d slug arrays, not full article objects — a regression truncating the returned objects to `{slug, category}` would have silently passed; strengthened to full-array comparisons against `support.articles.filter(...)`, second Codex pass APPROVE. Test count 367 → 376.
+- **Deferred — 1 Important architectural finding, not fixed this session**: `src/lib/schema.js`'s 5 JSON-LD constructors (`organization`/`webSite`/`product`/`techArticle`/`newsArticle`) are dead code — every template hand-authors its own JSON-LD instead of calling them (which is *why* R1's bug and R4's escaping gap could exist in the first place — the code built specifically to centralize and validate this logic is bypassed by what actually ships). `schema.js`'s own unused `product()` maps `rfq -> PreOrder`, a third, mutually-inconsistent business-logic variant versus R1's fix (`BackOrder`). Fixing this properly means either wiring `schema.js`'s constructors (+ `jsonLdScript()`'s escaping) into all 12 templates, or formally retiring the dead functions and their 641-line `schema.test.js` coverage — a bigger design decision than a review-response batch should make unilaterally. **Needs a user/next-session decision** (see §4).
+- **Minor findings, recorded not fixed** (non-blocking per project policy): `og:type` hardcoded to `"website"` even on article-like pages (news-detail/tech-detail); `home.html` hand-rolls 4 near-identical teaser card blocks instead of a shared partial; `.card`/`.category-card`/`.solution-card` CSS could consolidate ~30 lines; `wechat-popover.js` doesn't move focus into the popover on open; `toc.js`'s initial `activeId` can briefly highlight the wrong section before the first `IntersectionObserver` callback; `table-filter.js`'s code comment overstates its non-numeric-range fallback behavior.
 
 ---
 
@@ -127,19 +139,25 @@ Every code/data-affecting batch this session went through the mandatory implemen
 | T8.2: site.json baseUrl wiring (`d3e6ece`) | **REJECT → APPROVE** — first pass correctly identified missing regression-test coverage for the disk-I/O `buildSite()` layer where the original bug lived; 2 targeted tests added, second pass APPROVEd |
 | T8.2: brand copy rewrite (`29666c2`) | **REJECT → REJECT → APPROVE** — first pass caught a real factual error (both new fields claimed "Infineon authorized since 2010" vs. `history[]`'s documented 2013 authorization date); second pass, after the 2010→2013 fix, caught the *same* error in a third, pre-existing, out-of-original-scope field (`about.json seo.title`) that hadn't been touched yet; third pass APPROVEd after all three were corrected |
 | T8.2: check_list2.md tick-off document (`85b58f2`) | **REJECT → APPROVE** — flagged an inaccurate claim in the products.json FAQ exception note itself ("every model has ≥2 branded answers" — false; `IKD06N60RF` has 1/5); corrected, second pass APPROVEd |
+| T9.3-R1: product-category availability fix (`82e0e95`) | APPROVE |
+| T9.3-R2: --c-accent fix + card.html removal (`dfc94ba`) | APPROVE |
+| T9.3-R3: mobile drawer inert fix (`474a15c`) | APPROVE |
+| T9.3-R4: JSON-LD safety validation extension (`fb354b0`) | **REJECT → REJECT → APPROVE** — round 1 caught 2 missed fields (support category title/metaDescription, product href); round 2 caught 5 slug fields missed via the seo.canonical indirection; round 3 (independent + Codex both re-derived from scratch) APPROVEd |
+| T9.3-R5: pages.js test backfill (`5b844db`) | **REJECT → APPROVE** — flagged 4 tests that only compared slug arrays, not full objects; strengthened, second pass APPROVEd |
 
 **Recurring Codex sandbox limitation (not a defect, hit almost every recheck this session):** Codex's read-only sandbox frequently can't run `npm test`/`node src/build.js` itself (`spawn EPERM` / `EPERM` on `mkdtemp`/writing `dist/index.html`). When this happens, Codex falls back to static analysis, direct diff reads, or an in-memory `assembleSite()` re-render — and the human-facing verification (real `npm test`/`node src/build.js` runs) was always done directly by the main session before and after dispatching Codex. This is an environment restriction, not something to "fix" in the codebase.
 
-**Takeaway for future sessions**: this was the first session where Codex's read-only recheck caught genuine, substantive issues (missing test coverage; two separate factual/data-consistency errors; an inaccurate self-referential claim in documentation) rather than just confirming already-correct work. The mandatory recheck step earned its keep this round — do not treat it as a rubber stamp.
+**Takeaway for future sessions**: across T8.2 and T9.3 this session, Codex's read-only recheck caught genuine, substantive issues on **7 separate rounds** (missing test coverage twice, factual/data-consistency errors, an inaccurate self-referential documentation claim, and — repeatedly, in R4 — real field-coverage gaps that survived two prior human review passes). The mandatory recheck step earned its keep decisively this session; the R4 case in particular shows independent review and Codex catching *different* gaps from each other on different rounds of the *same* change — neither one alone would have caught everything. Do not treat either as a rubber stamp, and do not skip either layer.
 
 ---
 
 ## 8. Next Recommended Todo
 
-1. **T9.3** — code review via `requesting-code-review`/`receiving-code-review` skills over the full accumulated diff, process all feedback. This is now unblocked (T8.1 and T8.2 are both fully closed out).
-2. Then **T9.4 → T9.5** (milestone-count verification, Codex full-product recheck).
-3. **T10.x remains BLOCKED** pending user-provided GitHub/Cloudflare credentials — do not attempt without them.
-4. **T11.3/T11.4** (branch-finish cleanup, memory update) come last, once all of the above is genuinely done — not yet due.
-5. **Illustration-differentiation** (13 SVG files) remains an open scope question for the user, deliberately deferred — not blocking any of the above, raise it opportunistically rather than gating T9.x on it.
+1. **T9.4** — verify PRD/design milestone counts against actual output. This is now unblocked (T8.1, T8.2, and T9.3 are all fully closed out).
+2. Then **T9.5** (Codex full-product recheck of the built product + doc consistency).
+3. **schema.js architecture decision** (see §4/§6 T9.3) — needs a user call on whether to wire the dead JSON-LD constructors in or retire them. Not blocking T9.4/T9.5, but worth raising before T11.x closes out the branch.
+4. **T10.x remains BLOCKED** pending user-provided GitHub/Cloudflare credentials — do not attempt without them.
+5. **T11.3/T11.4** (branch-finish cleanup, memory update) come last, once all of the above is genuinely done — not yet due.
+6. **Illustration-differentiation** (13 SVG files) remains an open scope question for the user, deliberately deferred — not blocking any of the above.
 
-**Session boundary note**: this session ran the full check_list2.md close-out sweep (7-agent audit → 6 fix batches → tick-off), closing T8.2. All changes are committed (`587a409` through `85b58f2`); working tree is clean. `npm test` 367/367, `node src/build.js` exit 0.
+**Session boundary note**: this session ran the full check_list2.md close-out sweep (closing T8.2) and then the full T9.3 overall code review (4 parallel scoped reviewers → 1 Critical + 6 Important findings → 5 fix batches, 3 of which needed real Codex-driven corrections). All changes are committed (`587a409` through `5b844db`); working tree is clean. `npm test` 376/376, `node src/build.js` exit 0.
