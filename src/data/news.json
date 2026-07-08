@@ -12,7 +12,7 @@
       "metaDescription": "BeiLuo expands Infineon IGBT stock for industrial customers. Authorized Infineon distributor with TRENCHSTOP, EasyPACK, and PrimePACK modules in depth.",
       "tags": ["IGBT", "Infineon", "stock", "industrial", "motor drive", "inverter"],
       "bannerImage": {
-        "src": "/assets/svg/illustrations/news-hero.svg",
+        "src": "/assets/svg/illustrations/news-beiluo-expands-infineon-igbt-stock-2024.svg",
         "alt": "BeiLuo warehouse expanding Infineon IGBT module stock for industrial customers",
         "overlayStyle": "dark"
       },
@@ -51,7 +51,7 @@
       "metaDescription": "Industry analysis: Infineon AURIX MCU for automotive safety systems. ASIL-D TC264DA design and ISO 26262 compliance, sourced from BeiLuo distributor.",
       "tags": ["AURIX", "MCU", "automotive", "ISO 26262", "ASIL-D", "Infineon", "TC264DA"],
       "bannerImage": {
-        "src": "/assets/svg/illustrations/news-hero.svg",
+        "src": "/assets/svg/illustrations/news-infineon-aurix-mcu-automotive-applications.svg",
         "alt": "Infineon AURIX TC264DA MCU chip for automotive safety system design",
         "overlayStyle": "dark"
       },
@@ -90,7 +90,7 @@
       "metaDescription": "BeiLuo launches a dedicated FAE Support Program with three service tiers for Infineon customers: design reviews, thermal analysis, and software support.",
       "tags": ["FAE", "support", "Infineon", "BeiLuo", "engineering", "distributor"],
       "bannerImage": {
-        "src": "/assets/svg/illustrations/news-hero.svg",
+        "src": "/assets/svg/illustrations/news-beiluo-fae-support-program-launch.svg",
         "alt": "BeiLuo field application engineer providing Infineon product design support to customer",
         "overlayStyle": "dark"
       },
@@ -129,7 +129,7 @@
       "metaDescription": "SiC and GaN market outlook 2024: EV inverter growth, Infineon CoolSiC and CoolGaN strategy, and what wide bandgap adoption means for Infineon distributors.",
       "tags": ["SiC", "GaN", "wide bandgap", "Infineon", "CoolSiC", "CoolGaN", "MOSFET", "EV"],
       "bannerImage": {
-        "src": "/assets/svg/illustrations/news-hero.svg",
+        "src": "/assets/svg/illustrations/news-wide-bandgap-semiconductors-market-outlook.svg",
         "alt": "Silicon carbide and gallium nitride power semiconductor market trends chart 2024",
         "overlayStyle": "dark"
       },

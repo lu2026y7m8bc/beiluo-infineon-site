@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 500 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="bd-solar-title">
+  <defs>
+    <style>
+      .block { fill: #E8F1FA; stroke: #0072CE; stroke-width: 2; }
+      .label { font-family: Arial, sans-serif; font-size: 12px; fill: #0072CE; text-anchor: middle; font-weight: 500; }
+      .label-sub { font-family: Arial, sans-serif; font-size: 10px; fill: #666666; text-anchor: middle; }
+      .arrow { stroke: #0072CE; stroke-width: 2.5; fill: none; marker-end: url(#arrow-solar); }
+      .part { font-family: Arial, sans-serif; font-size: 9px; fill: #F5821F; text-anchor: middle; font-weight: bold; }
+    </style>
+    <marker id="arrow-solar" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#0072CE"/>
+    </marker>
+  </defs>
+  <title id="bd-solar-title">Block diagram: solar panel DC input through an IKW40N120H3 IGBT and IRFS4321PBF MOSFET full-bridge inverter feeding AC power to the utility grid</title>
+
+  <rect width="500" height="300" fill="transparent"/>
+
+  <!-- Solar panel -->
+  <g transform="translate(15, 105)">
+    <rect x="0" y="0" width="85" height="70" fill="#E6F6EE" stroke="#1F9D55" stroke-width="2" rx="3"/>
+    <line x1="21" y1="0" x2="21" y2="70" stroke="#1F9D55" stroke-width="1"/>
+    <line x1="42" y1="0" x2="42" y2="70" stroke="#1F9D55" stroke-width="1"/>
+    <line x1="63" y1="0" x2="63" y2="70" stroke="#1F9D55" stroke-width="1"/>
+    <line x1="0" y1="23" x2="85" y2="23" stroke="#1F9D55" stroke-width="1"/>
+    <line x1="0" y1="46" x2="85" y2="46" stroke="#1F9D55" stroke-width="1"/>
+    <text x="42" y="90" class="label-sub" font-size="9">Solar Array</text>
+  </g>
+  <path class="arrow" d="M 100 140 L 140 140"/>
+
+  <!-- Full-bridge inverter -->
+  <g>
+    <rect x="140" y="95" width="150" height="95" class="block" rx="4"/>
+    <text x="215" y="120" class="label">Full-Bridge</text>
+    <text x="215" y="137" class="label">Inverter</text>
+    <text x="215" y="155" class="part">IKW40N120H3</text>
+    <text x="215" y="170" class="part">IRFS4321PBF</text>
+  </g>
+  <path class="arrow" d="M 290 140 L 335 140"/>
+
+  <!-- Grid -->
+  <g transform="translate(335, 100)">
+    <rect x="0" y="0" width="90" height="80" class="block" rx="4"/>
+    <path d="M 20 25 L 35 45 L 25 45 L 40 65" fill="none" stroke="#F5821F" stroke-width="2.5" stroke-linejoin="round"/>
+    <path d="M 50 25 L 65 45 L 55 45 L 70 65" fill="none" stroke="#F5821F" stroke-width="2.5" stroke-linejoin="round"/>
+    <text x="45" y="-8" class="label-sub" font-size="10">Utility Grid</text>
+  </g>
+
+  <text x="215" y="245" class="label-sub">MPPT tracking · grid-synchronous switching</text>
+</svg>

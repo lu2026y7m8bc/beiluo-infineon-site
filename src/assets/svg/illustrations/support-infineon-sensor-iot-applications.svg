@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="support-sensor-iot-title">
+  <defs>
+    <style>
+      .primary { fill: #0072CE; }
+      .accent { fill: #F5821F; }
+      .neutral { fill: #E8F1FA; }
+    </style>
+  </defs>
+  <title id="support-sensor-iot-title">Infineon sensor chip broadcasting wireless signals to a connected network of industrial IoT nodes</title>
+
+  <rect width="400" height="300" fill="transparent"/>
+
+  <!-- Central sensor chip -->
+  <g transform="translate(165, 115)">
+    <rect x="0" y="0" width="70" height="70" class="primary" rx="6"/>
+    <rect x="8" y="8" width="54" height="54" class="neutral" rx="3"/>
+    <circle cx="35" cy="35" r="14" fill="none" stroke="#0072CE" stroke-width="2.5"/>
+    <circle cx="35" cy="35" r="5" class="accent"/>
+  </g>
+
+  <!-- Wireless signal arcs -->
+  <g transform="translate(200, 150)" fill="none" stroke="#F5821F" stroke-width="2.5">
+    <path d="M 45 -20 A 55 55 0 0 1 45 20"/>
+    <path d="M 65 -35 A 78 78 0 0 1 65 35"/>
+    <path d="M -45 -20 A 55 55 0 0 0 -45 20"/>
+    <path d="M -65 -35 A 78 78 0 0 0 -65 35"/>
+  </g>
+
+  <!-- Connected IoT nodes -->
+  <g transform="translate(50, 60)">
+    <circle cx="0" cy="0" r="14" class="neutral" stroke="#0072CE" stroke-width="2"/>
+    <circle cx="0" cy="0" r="5" class="primary"/>
+    <line x1="14" y1="10" x2="110" y2="70" stroke="#C5D8EE" stroke-width="1.5" stroke-dasharray="4 3"/>
+  </g>
+
+  <g transform="translate(50, 210)">
+    <circle cx="0" cy="0" r="14" class="neutral" stroke="#0072CE" stroke-width="2"/>
+    <circle cx="0" cy="0" r="5" class="primary"/>
+    <line x1="14" y1="-10" x2="110" y2="-40" stroke="#C5D8EE" stroke-width="1.5" stroke-dasharray="4 3"/>
+  </g>
+
+  <g transform="translate(330, 70)">
+    <circle cx="0" cy="0" r="14" class="neutral" stroke="#0072CE" stroke-width="2"/>
+    <circle cx="0" cy="0" r="5" class="accent"/>
+    <line x1="-14" y1="10" x2="-90" y2="60" stroke="#C5D8EE" stroke-width="1.5" stroke-dasharray="4 3"/>
+  </g>
+
+  <g transform="translate(330, 220)">
+    <circle cx="0" cy="0" r="14" class="neutral" stroke="#0072CE" stroke-width="2"/>
+    <circle cx="0" cy="0" r="5" class="accent"/>
+    <line x1="-14" y1="-10" x2="-90" y2="-50" stroke="#C5D8EE" stroke-width="1.5" stroke-dasharray="4 3"/>
+  </g>
+</svg>
