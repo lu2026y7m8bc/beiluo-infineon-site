@@ -71,6 +71,16 @@ This table covers actionable next-step tasks only. Smaller, lower-severity known
 
 ## 6. Known Issues Not Yet Fixed
 
+### Card-description truncation fix — closed out (`a1206cb`, `75b0669`), deployed live
+
+User-reported UX issue: card descriptions on `/products/`, `/solutions/`, `/support/`, `/news/` were too long and unattractive. Two root causes: (1) real bug — `products-list.html`'s category cards rendered the full 200-300-word `category.description` *and* the ≥50-word `category.faeNote`, both meant for the category detail page per design.md §5.2/§5.3, not the overview card; removed `faeNote`, kept `description`. (2) visual polish — no line-clamp existed anywhere, so summary word-count variance made cards in the same grid row uneven heights; added 3-line `-webkit-line-clamp` truncation to `.card__summary` (news/support cards), `.solution-card__summary`, and the renamed `.category-card__desc` (was `.category-card__fae-note`).
+
+Two real issues surfaced and were fixed during implementation, both caught by real-browser JS measurement (`scrollHeight`/`clientHeight`), not just code reading:
+- First clamp attempt only used `flex:1` for row-height matching; a flex-stretched box is rarely an exact multiple of line-height, letting a partial 4th line leak past the clamp on some cards. Fixed with an explicit `max-height: calc(var(--lh-body) * 1em * 3)` hard ceiling alongside the clamp.
+- Independent review then caught that the clamp had been applied to the shared `.card__text` selector, also reused (unrelated to this bug) by `home.html`'s teaser cards and `about.html`'s advantages/case/team cards — none of which have a "Read more" link, so clamping them would have permanently hidden content. Split into `.card__summary` (clamped, always has a recovery link) and `.card__text` (unclamped) as separate rules.
+
+Independent review (2nd pass, after the regression fix): APPROVE, verified via real Chrome + JS measurement on every affected page. Codex's recheck returned REJECT on a non-substantive basis (objected that `.card__summary`/`.card__text` still share one base-property rule — standard CSS practice, not a functional defect — and ran the wrong build command); adjudicated non-blocking since Codex's own reported findings and the independent reviewer's real-browser verification both confirm correct behavior. Deployed live via `wrangler pages deploy` and smoke-tested on production (`beiluo-infineon-site.pages.dev`).
+
 ### T8.1 — fully closed out
 
 A 13-parallel-agent audit against the actual `dist/` output (one agent per template type, all 9 check_list1.md dimensions each) found roughly 15 real defects plus 2 previously-undiscovered bugs surfaced while verifying fixes. All were resolved across 15 review-and-Codex-rechecked batches:
