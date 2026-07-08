@@ -26,7 +26,7 @@ Stack: HTML + native CSS + Node.js (ESM). Zero runtime dependencies.
 
 ## Template Engine Rules (src/lib/render.js)
 
-- `{{x}}` = HTML-escaped, `{{{x}}}` = raw (JSON-LD only, validated safe)
+- `{{x}}` = HTML-escaped, `{{{x}}}` = raw — used for (1) JSON-LD `<script>` blocks, validated via `validate-data.js`'s `checkJsonLdSafe()`, and (2) pre-authored trusted body HTML (`article.body`/`solution.body` on news-detail/solution-detail/tech-detail — build-time content from this repo's own JSON, never runtime/user input) plus build-time-encoded share URLs. Never use `{{{x}}}` for anything else, especially not runtime/user-supplied content.
 - `{{#if x}}…{{/if}}`, `{{#each arr}}…{{/each}}`, `{{> partial}}`
 - pages.js context = `{ ...site, ...pageData, breadcrumb }` — ALL fields at ROOT
 - **NEVER use `{{site.x}}`** — always `{{brand.name}}`, `{{contact.whatsapp}}`, etc.
