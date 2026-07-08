@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 200 48" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="client-appliance-title">
+  <title id="client-appliance-title">Home appliance OEM client mark</title>
+  <circle cx="24" cy="24" r="22" fill="#E8F1FA" stroke="#0072CE" stroke-width="2"/>
+  <g stroke="#0072CE" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="14" y="12" width="20" height="24" rx="2"/>
+    <line x1="14" y1="18" x2="34" y2="18"/>
+    <circle cx="24" cy="27" r="6"/>
+    <circle cx="24" cy="27" r="2.5" fill="#F5821F" stroke="none"/>
+  </g>
+  <circle cx="18" cy="15" r="0.9" fill="#0072CE"/>
+  <circle cx="21" cy="15" r="0.9" fill="#0072CE"/>
+  <g fill="#B9C4CF">
+    <rect x="58" y="15" width="30" height="5" rx="2.5"/>
+    <rect x="58" y="26" width="48" height="5" rx="2.5"/>
+  </g>
+</svg>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 200 48" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="client-ev-title">
+  <title id="client-ev-title">Electric vehicle manufacturer client mark</title>
+  <circle cx="24" cy="24" r="22" fill="#E8F1FA" stroke="#0072CE" stroke-width="2"/>
+  <g stroke="#0072CE" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M13 28 L15 20 Q16 18 18 18 H30 Q32 18 33 20 L35 28 Z"/>
+    <line x1="11" y1="28" x2="37" y2="28"/>
+    <circle cx="17" cy="30" r="2.5" fill="#0072CE" stroke="none"/>
+    <circle cx="31" cy="30" r="2.5" fill="#0072CE" stroke="none"/>
+  </g>
+  <path d="M21 14 L17 22 H21 L18 27 L26 18 H22 Z" fill="#F5821F"/>
+  <g fill="#B9C4CF">
+    <rect x="58" y="15" width="34" height="5" rx="2.5"/>
+    <rect x="58" y="26" width="50" height="5" rx="2.5"/>
+  </g>
+</svg>

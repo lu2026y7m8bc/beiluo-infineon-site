@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 200 48" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="client-industrial-title">
+  <title id="client-industrial-title">Industrial automation OEM client mark</title>
+  <circle cx="24" cy="24" r="22" fill="#E8F1FA" stroke="#0072CE" stroke-width="2"/>
+  <g stroke="#0072CE" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="24" cy="24" r="6"/>
+    <path d="M24 14 V17 M24 31 V34 M14 24 H17 M31 24 H34 M17.1 17.1 L19.2 19.2 M28.8 28.8 L30.9 30.9 M17.1 30.9 L19.2 28.8 M28.8 19.2 L30.9 17.1"/>
+  </g>
+  <circle cx="24" cy="24" r="2.5" fill="#F5821F"/>
+  <g fill="#B9C4CF">
+    <rect x="58" y="15" width="40" height="5" rx="2.5"/>
+    <rect x="58" y="26" width="54" height="5" rx="2.5"/>
+  </g>
+</svg>

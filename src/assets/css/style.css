@@ -1652,7 +1652,7 @@ body.nav-drawer-open {
 .why-choose__grid {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start; /* left-aligned per user feedback */
   gap: var(--space-6);
 }
 
@@ -2854,10 +2854,10 @@ body.nav-drawer-open {
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--space-8);
-  /* align-items: start, not center — the body copy (4 paragraphs) is far
-     taller than the image, so centering left the image floating next to
-     paragraphs 3-4 instead of beside the headline it's meant to pair
-     with (caught by review: still read as "disconnected", just relocated). */
+  /* align-items: start, not center — the body copy is far taller than
+     the image, so centering left the image floating next to a middle
+     paragraph instead of beside the headline it's meant to pair with
+     (caught by review: still read as "disconnected", just relocated). */
   align-items: start;
 }
 
@@ -2900,8 +2900,8 @@ body.nav-drawer-open {
 .about-hero__body {
   color: var(--c-text-muted);
   margin-top: var(--space-4);
-  /* intro.body is 4 paragraphs (~380 words) separated by \n\n, escaped
-     into a single <p> — without this the breaks collapse into one dense,
+  /* intro.body is multiple paragraphs separated by \n\n, escaped into a
+     single <p> — without this the breaks collapse into one dense,
      hierarchy-less block (same content shape as .model-overview /
      .category-card__desc above, same fix). */
   white-space: pre-line;
@@ -2914,9 +2914,19 @@ body.nav-drawer-open {
 }
 
 .timeline__list {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr;
   gap: var(--space-6);
+}
+
+/* 2 columns per user feedback — 6 history entries stacked in one long
+   single-column list made the section feel much taller than its actual
+   content warranted. */
+@media (min-width: 768px) {
+  .timeline__list {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: var(--space-8);
+  }
 }
 
 .timeline__item {
