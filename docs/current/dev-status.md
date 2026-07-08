@@ -1,6 +1,6 @@
 # dev-status.md — BeiLuo Infineon Site
 
-> Current-state snapshot. For full historical narrative (batch-by-batch implementation detail, Codex tooling quirks, reviewer findings) see `.superpowers/sdd/progress.md` and `git log`. This file reflects state as of 2026-07-08, after Phase 9 (T9.1–T9.5), Phase 11 (T11.3/T11.4), and the post-merge schema.js cleanup.
+> Current-state snapshot. For full historical narrative (batch-by-batch implementation detail, Codex tooling quirks, reviewer findings) see `.superpowers/sdd/progress.md` and `git log`. This file reflects state as of 2026-07-08 — the project is **fully built, illustration-complete, and live in production** (Phases 0–9, 11, the schema.js cleanup, illustration-differentiation, and T10.1–T10.3 deployment are all done).
 
 ---
 
@@ -39,7 +39,7 @@ Phases 0–9 and Phase 11 (T11.3/T11.4) are complete (full task-by-task detail: 
 | **T11.3** | Branch-finish cleanup via `finishing-a-development-branch` — `feat/beiluo-infineon-site` merged into `main` (fast-forward), branch deleted, `main`-tracked docs updated |
 | **T11.4** | Memory updated (project-status pointer, recheck-rigor feedback, user-interaction-style note) + `MEMORY.md` index |
 | **schema.js cleanup** | Post-T9.3 follow-up: user chose to retire (not wire in) the 5 dead JSON-LD constructor functions flagged by T9.3's review. See §6. |
-| **Illustration-differentiation** | 14 new SVG illustrations (4 news + 4 support + 6 solutions, each thematically distinct) replaced 2 previously-shared generic files, closing a PRD §4.5 "required item" gap deferred since T8.1/T8.2. Independent review APPROVE; Codex recheck still owed (usage-limit window mid-batch). See §6. |
+| **Illustration-differentiation** | 14 new SVG illustrations (4 news + 4 support + 6 solutions, each thematically distinct) replaced 2 previously-shared generic files, closing a PRD §4.5 "required item" gap deferred since T8.1/T8.2. Independent review + Codex recheck both APPROVE (Codex's recheck ran after an initial usage-limit delay, using strict XML parsing on all 14 files). See §6. |
 | **T10.1–T10.3** | Full deployment: GitHub repo created + pushed (`github.com/lu2026y7m8bc/beiluo-infineon-site`), Cloudflare Pages project created + deployed (`beiluo-infineon-site.pages.dev`), post-deploy smoke tests all passing. See §6. |
 
 ---
@@ -54,7 +54,6 @@ None. Every task in `docs/current/todo_write.md` is either `completed` or explic
 
 | Task | What it needs |
 |------|----------------|
-| Illustration-differentiation Codex recheck | 14-file SVG differentiation batch (6c5fb22) was committed with independent review APPROVE but Codex's own recheck hit a usage-limit window mid-session — still owed, not a code-correctness concern (independent review was thorough) |
 | Custom domain binding | Site is live at `beiluo-infineon-site.pages.dev`; `site.json`'s `seo.baseUrl` still points at `https://www.beiluo.com` (not yet connected), so `sitemap.xml`/canonical URLs reference a domain not yet live — bind the custom domain in Cloudflare Pages when ready, or update `seo.baseUrl` to match the actual domain |
 
 This table covers actionable next-step tasks only. Smaller, lower-severity known issues (products.json FAQ brand-voice gap, support.json `internalLinks` validation gap, tag-badge slug display, solution BOM `href`/`link` field drift, `bomList` count-quota doc mismatch) are tracked in §6 "Known Issues Not Yet Fixed" rather than duplicated here — none are blocking or currently scheduled as a dedicated todo.
@@ -141,9 +140,17 @@ Dispatched a read-only Codex recheck of the entire project's current state (not 
 
 `feat/beiluo-infineon-site` merged into `main` via fast-forward (`git checkout main && git merge feat/beiluo-infineon-site`), no conflicts, tests re-verified on the merged result (376/376 at the time), branch deleted. `CLAUDE.md`/`dev-status.md`'s stale branch references fixed in the same pass. Memory updated with 3 new cross-session files (project-status pointer, recheck-rigor feedback, user-interaction-style note) — see `~/.claude/projects/.../memory/`, not part of this repo.
 
+### Illustration-differentiation — fully closed out (`6c5fb22`)
+
+PRD §4.5 explicitly lists per-list/detail-item matching SVG artwork as a required item; deferred since T8.1/T8.2 as all 4 news + all 4 support articles shared one generic `news-hero.svg` banner and all 6 solutions shared one generic `solution-diagram.svg`. After a plain-language explanation of the PRD requirement, the user confirmed the scope. Created 14 new distinct SVG files (4 news banners, 4 support cover images, 6 `bd-<slug>.svg` solution block diagrams each citing the solution's real BOM part numbers), using the established design-token palette and viewBox conventions, each with a descriptive `<title>` for accessibility. Wired via precise line-targeted string replacement (not whole-file JSON re-serialization, which would have reformatted array/object spacing and produced noisy diffs) into `news.json`'s `bannerImage.src` (×4), `support.json`'s `coverSvgSrc` (×4 — `bannerImage` independently confirmed dead/unrendered, left untouched), and `solutions.json`'s `diagramSrc` (×6). Independent review (7-point verification) and Codex's recheck (strict XML parsing on all 14 files, confirmed zero old-file references remain in the 14 target fields, confirmed JSON diffs touched only those fields) both APPROVE. Noted one unrelated pre-existing dead field (`solutions.json`'s undocumented `heroImage`, still pointing at the old shared file) as a non-blocking finding, out of scope.
+
+### T10.1–T10.3 — deployment, fully closed out
+
+User provided a GitHub PAT and a Cloudflare API token mid-session. **T10.1**: authenticated via `gh auth login --with-token` (token piped via stdin, never written to disk), created the public repo `github.com/lu2026y7m8bc/beiluo-infineon-site` via `gh repo create --source=. --remote=origin`, committed the current `dist/` build output (`c0c47ae`, 128 files — matching the PRD task's literal "推送源码与dist" wording; Cloudflare Pages still runs its own `node src/build.js` per plan.md's configured build command, so this committed snapshot is for repo completeness, not the deployment's source of truth), and pushed. Hit a pre-existing environment issue — the system's git credential helper pointed at a nonexistent `gh.exe` path — worked around by temporarily embedding the token in the remote URL for each push and immediately resetting it to the clean URL afterward (verified no token residue in `.git/config`); did not modify git config per the standing "never update git config" rule. **T10.2**: verified the token via the Cloudflare API, resolved the account ID, used `npx wrangler` (no global install) to `wrangler pages project create` and `wrangler pages deploy dist`, live at `https://beiluo-infineon-site.pages.dev`. **T10.3**: 11-point smoke test against the live production URL — all key page types (home/products list/category/detail, solution detail, support detail, news detail, about, contact) plus `sitemap.xml`/`robots.txt` returned 200, with deeper verification beyond status codes (correct `<title>`, brand content present, CSS/new-illustration SVG assets loading, sitemap content valid, product detail page showing the real part number, not a blank/error page).
+
 ### Still open (deliberately deferred, not blocking anything)
 
-- **Illustration-differentiation** (lower severity, not broken, just repetitive): all 4 news + all 4 support articles share one generic banner SVG; all 6 solutions share one generic diagram SVG. Scope/depth (13 new illustration files) still not discussed with the user.
+- **Custom domain binding**: the site is live at `beiluo-infineon-site.pages.dev`, but `site.json`'s `seo.baseUrl` still says `https://www.beiluo.com` (not yet connected as a custom domain), so `sitemap.xml`/canonical URLs reference that domain rather than the current live one. Not a defect — pending the user's domain-binding decision in the Cloudflare Pages dashboard, or an `seo.baseUrl` update to match whatever domain actually goes live.
 - **products.json FAQ brand-voice gap**: `IKD06N60RF` in particular needs 1-2 of its 5 FAQ answers rewritten with genuine distributor framing (check_list2.md line 171).
 - `support.json` article `infineon-optimos-mosfet-overview`'s `internalLinks` declares a model link (`IRFS4321PBF`) that never actually appears in the article body text — `validate-data.js` doesn't cross-check this (check_list2.md line 335).
 - Tag badges (`support-card.html`, `tech-detail.html`) render the raw tag slug instead of a human-readable name (check_list2.md line 330).
@@ -183,6 +190,7 @@ Every code/data-affecting batch went through the mandatory implementer → indep
 | T9.3-R5: pages.js test backfill (`5b844db`) | **REJECT → APPROVE** — 4 tests only compared slug arrays, not full objects |
 | T9.5: whole-product/doc consistency recheck | APPROVE (after fixing the 5 gaps it found) |
 | schema.js dead-code removal (`f4b5ceb`) | APPROVE-on-substance — sandbox EPERM prevented Codex from running npm test/build itself, but its own static/in-memory checks found no defect; human-run tests (310/310) + build (exit 0) done directly |
+| Illustration-differentiation batch (`6c5fb22`) | APPROVE — ran after an initial Codex usage-limit delay; used strict XML parsing (not just tag-count regex) on all 14 new SVGs, confirmed zero old-shared-file references remain in the 14 target JSON fields, confirmed JSON diffs touched only those fields |
 
 **Recurring Codex sandbox limitation (not a defect):** Codex's read-only sandbox frequently can't run `npm test`/`node src/build.js` itself (`spawn EPERM` / `EPERM` on `mkdtemp`/writing `dist/index.html`). When this happens, Codex falls back to static analysis, direct diff reads, or an in-memory `assembleSite()` re-render — and the human-facing verification was always done directly by the main session before and after dispatching Codex. This is an environment restriction, not something to "fix" in the codebase.
 
@@ -192,10 +200,9 @@ Every code/data-affecting batch went through the mandatory implementer → indep
 
 ## 8. Next Recommended Todo
 
-**All of `todo_write.md` is now `completed`.** T10.x deployment is live. Only housekeeping/optional items remain:
+**All of `todo_write.md` is now `completed`, including T10.1–T10.3 deployment.** Only one optional item remains:
 
-1. **Illustration-differentiation Codex recheck** — still owed (Codex hit a usage-limit window during that batch); independent review already gave a thorough APPROVE, so this is a formality, not a known-risk item.
-2. **Custom domain binding** — the site is live at `beiluo-infineon-site.pages.dev`, but `site.json`'s `seo.baseUrl` still says `https://www.beiluo.com`, so `sitemap.xml` and canonical URLs reference a domain that isn't connected yet. Bind the domain in Cloudflare Pages (or update `seo.baseUrl` to the actual live domain) when the user is ready.
+1. **Custom domain binding** — the site is live at `beiluo-infineon-site.pages.dev`, but `site.json`'s `seo.baseUrl` still says `https://www.beiluo.com`, so `sitemap.xml` and canonical URLs reference a domain that isn't connected yet. Bind the domain in Cloudflare Pages (or update `seo.baseUrl` to the actual live domain) when the user is ready.
 3. No other blockers remain. `T10.1`/`T10.2`/`T10.3` are all complete: GitHub repo live at `github.com/lu2026y7m8bc/beiluo-infineon-site`, Cloudflare Pages deployment live at `beiluo-infineon-site.pages.dev`, smoke tests all passing.
 
 **Session boundary note**: this session closed out T8.2, T9.3, T9.4, T9.5, T11.3, T11.4, the schema.js dead-code removal, the 14-file illustration-differentiation batch, and full T10.1–T10.3 deployment (GitHub push + Cloudflare Pages, both completed once the user provided credentials mid-session). All changes are committed and pushed to `origin/main` (`587a409` through `43bd3a8`); working tree is clean. `npm test` 310/310, `node src/build.js` exit 0, production site returns 200 on all smoke-tested pages.
