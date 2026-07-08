@@ -11,7 +11,7 @@
 - **Working tree**: clean; `dist/` is now tracked (committed in `c0c47ae` for the GitHub push) and regenerated in place by `node src/build.js` before each deploy
 - **Remote**: `origin` → `https://github.com/lu2026y7m8bc/beiluo-infineon-site` (public), pushed and up to date with local `main`
 - **Live deployment**: Cloudflare Pages project `beiluo-infineon-site`, production URL `https://beiluo-infineon-site.pages.dev` — deployed via `wrangler pages deploy dist`, all smoke-test checks passing (T10.1–T10.3 complete, see §6)
-- **Latest commits** (most recent first): `43bd3a8` docs(T10.1): mark T10.1 completed, GitHub repo live → `c0c47ae` build: commit dist/ build output for T10.1 GitHub upload → `6c5fb22` feat: differentiate 14 shared SVG illustrations → `0e1f43b` docs: full dev-status.md rewrite → `f4b5ceb` refactor: remove schema.js's 5 unwired JSON-LD constructor functions → `ca8d158` docs(T11.4): mark T11.4 completed after memory update → `5c351a1` docs(T11.3): mark T11.3 completed after branch finish → `771708b` docs: update branch references after merging feat/beiluo-infineon-site to main
+- **Latest commits** (most recent first): `84aa1d8` fix: breadcrumb alignment, filter layout, sidebar rationalization, contact.txt integration (R1–R8 batch, see §6) → `75b0669`/`c6f3414` build+docs: card-description truncation fix → `a1206cb` fix: clamp overlong card descriptions → `43bd3a8` docs(T10.1): mark T10.1 completed, GitHub repo live → `c0c47ae` build: commit dist/ build output for T10.1 GitHub upload → `6c5fb22` feat: differentiate 14 shared SVG illustrations → `0e1f43b` docs: full dev-status.md rewrite → `f4b5ceb` refactor: remove schema.js's 5 unwired JSON-LD constructor functions
 
 ---
 
@@ -70,6 +70,20 @@ This table covers actionable next-step tasks only. Smaller, lower-severity known
 ---
 
 ## 6. Known Issues Not Yet Fixed
+
+### 8-item UI/UX batch — closed out (`84aa1d8`), deployed live
+
+User reported 8 issues in two follow-up messages; all fixed, each independently reviewed (real-browser verified, not just code-read) plus a final Codex read-only recheck before commit:
+
+1. **Breadcrumb overflow** (all 12 templates): `{{> breadcrumb}}` renders outside `.container`, so it had no width/padding constraint and stuck past the H1/content edge. Mirrored `.container`'s 3-tier responsive padding onto `.breadcrumb` directly. Review caught the first pass missing the `>=1200px` tier — fixed and re-verified.
+2. **product-category filter bar**: `[data-filter-bar]`'s JS-generated controls had no layout CSS (one-per-line stacking). Added flex-row CSS + visible per-control labels (`table-filter.js` previously only set an invisible `aria-label`).
+3. **& 8. Sidebar removed from all 4 list pages** (`products-list`, `solutions-list`, `support-list`, `news-list`) — each duplicated navigation the page's own tabs/category-cards/section-grid already provides. Cleaned up dead `sidebarSections` generation in `pages.js`.
+4. **product-detail Overview**: `model.overview` has `\n\n` paragraph breaks but rendered as one flat `<p>`. Added `white-space: pre-line` (no raw HTML).
+5. **Sidebar added to product-detail + news-detail** — reverses the PRD C6/C7 "no sidebar" decision per explicit user request; `design.md`/`prd.md` updated to record the supersession (not silently overwritten).
+6. **contact.txt integration**: user-provided office directory (HQ + 3 China offices + 15 international, 19 total) parsed into `site.json`'s new `contact.globalNetwork`; `contact.html` renders it as a responsive region-card grid.
+7. **Contact page simplified**: WhatsApp/WeChat card + quote-request form removed per follow-up feedback (Global Sales Network + site-wide floating widget now cover this). `form.js` deleted as fully orphaned (verified zero remaining references repo-wide); `markup-contract.md` §4 flagged deprecated rather than silently deleted.
+
+Additional issues caught by review/Codex during this batch (all fixed before commit): a regression where the separate card-truncation task's `.card__text` clamp also hit `home.html`/`about.html`'s unrelated feature cards (see previous entry below); an undefined `var(--space-5)` CSS token (typo for `--space-6`, matching sibling card padding) in the new Global Sales Network styles; several `prd.md` sections still describing the pre-reversal sidebar/contact rules.
 
 ### Card-description truncation fix — closed out (`a1206cb`, `75b0669`), deployed live
 
