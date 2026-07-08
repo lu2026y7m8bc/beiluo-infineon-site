@@ -81,12 +81,21 @@
          Customs declarations (trust) → Team/FAE entry → CTA
          ============================================================ -->
 
-    <!-- 1. Hero -->
+    <!-- 1. Hero — two-column layout: SVG illustration paired beside the
+         headline/body (previously the SVG sat alone above the text as a
+         small disconnected icon, and the body's \n\n paragraph breaks
+         collapsed into one dense block; both fixed per user feedback). -->
     <header class="about-hero section">
-      <div class="container">
-        {{#if intro.heroSvgSrc}}<img class="about-hero__img" src="{{intro.heroSvgSrc}}" alt="{{#if intro.heroSvgAlt}}{{intro.heroSvgAlt}}{{else}}{{/if}}" loading="lazy">{{/if}}
-        <h1 class="about-hero__title">{{intro.headline}}</h1>
-        <p class="about-hero__body">{{intro.body}}</p>
+      <div class="container about-hero__grid">
+        <div class="about-hero__content">
+          <h1 class="about-hero__title">{{intro.headline}}</h1>
+          <p class="about-hero__body">{{intro.body}}</p>
+        </div>
+        {{#if intro.heroSvgSrc}}
+        <div class="about-hero__media">
+          <img class="about-hero__img" src="{{intro.heroSvgSrc}}" alt="{{#if intro.heroSvgAlt}}{{intro.heroSvgAlt}}{{else}}{{/if}}" loading="lazy" width="400" height="300">
+        </div>
+        {{/if}}
       </div>
     </header>
 
