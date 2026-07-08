@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 500 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="bd-bldc-title">
+  <defs>
+    <style>
+      .block { fill: #E8F1FA; stroke: #0072CE; stroke-width: 2; }
+      .label { font-family: Arial, sans-serif; font-size: 12px; fill: #0072CE; text-anchor: middle; font-weight: 500; }
+      .label-sub { font-family: Arial, sans-serif; font-size: 10px; fill: #666666; text-anchor: middle; }
+      .arrow { stroke: #0072CE; stroke-width: 2.5; fill: none; marker-end: url(#arrow-bldc); }
+      .part { font-family: Arial, sans-serif; font-size: 9px; fill: #F5821F; text-anchor: middle; font-weight: bold; }
+    </style>
+    <marker id="arrow-bldc" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#0072CE"/>
+    </marker>
+  </defs>
+  <title id="bd-bldc-title">Block diagram: DC power supply through an IKW40N120H3 IGBT three-phase inverter driving a BLDC motor, with a TLI4966G Hall sensor feedback loop</title>
+
+  <rect width="500" height="300" fill="transparent"/>
+
+  <!-- DC Power block -->
+  <g>
+    <rect x="15" y="110" width="90" height="70" class="block" rx="4"/>
+    <text x="60" y="140" class="label">DC Power</text>
+    <text x="60" y="156" class="label-sub">Supply</text>
+  </g>
+  <path class="arrow" d="M 105 145 L 155 145"/>
+
+  <!-- IGBT inverter block -->
+  <g>
+    <rect x="155" y="100" width="120" height="90" class="block" rx="4"/>
+    <text x="215" y="130" class="label">3-Phase IGBT</text>
+    <text x="215" y="148" class="label">Inverter</text>
+    <text x="215" y="165" class="part">IKW40N120H3</text>
+  </g>
+  <path class="arrow" d="M 275 145 L 320 145"/>
+
+  <!-- BLDC motor block -->
+  <g>
+    <rect x="320" y="105" width="95" height="80" class="block" rx="4"/>
+    <circle cx="367" cy="135" r="16" fill="none" stroke="#0072CE" stroke-width="2"/>
+    <line x1="367" y1="119" x2="367" y2="151" stroke="#0072CE" stroke-width="1.5"/>
+    <line x1="351" y1="135" x2="383" y2="135" stroke="#0072CE" stroke-width="1.5"/>
+    <text x="367" y="170" class="label-sub">BLDC Motor</text>
+  </g>
+
+  <!-- Hall sensor feedback loop -->
+  <path d="M 367 185 L 367 230 L 215 230 L 215 190" fill="none" stroke="#F5821F" stroke-width="2" stroke-dasharray="5 3" marker-end="url(#arrow-bldc)"/>
+  <g transform="translate(150, 210)">
+    <rect x="0" y="0" width="50" height="30" fill="#FBEFD9" stroke="#E8820C" stroke-width="1.5" rx="3"/>
+    <text x="25" y="19" font-size="8" class="part" fill="#D96D10">TLI4966G</text>
+  </g>
+  <text x="215" y="255" class="label-sub">Hall-effect position feedback</text>
+
+  <!-- Overcurrent protection callout -->
+  <g transform="translate(430, 40)">
+    <rect x="0" y="0" width="55" height="28" fill="#F5F8FC" stroke="#C5D8EE" stroke-width="1" rx="2"/>
+    <text x="27" y="18" class="label-sub" font-size="8">IKD06N60RF</text>
+  </g>
+</svg>

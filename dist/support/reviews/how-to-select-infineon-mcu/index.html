@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Infineon AURIX vs XMC vs PSoC 6 MCU Comparison: A BeiLuo FAE Review | BeiLuo</title>
+<meta name="description" content="BeiLuo FAE review comparing Infineon AURIX TC2xx, XMC4000, and PSoC 6 MCUs on architecture, safety, and connectivity for automotive and industrial designs.">
+<link rel="canonical" href="/support/reviews/how-to-select-infineon-mcu/">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Infineon AURIX vs XMC vs PSoC 6 MCU Comparison: A BeiLuo FAE Review | BeiLuo">
+<meta property="og:description" content="BeiLuo FAE review comparing Infineon AURIX TC2xx, XMC4000, and PSoC 6 MCUs on architecture, safety, and connectivity for automotive and industrial designs.">
+<meta property="og:url" content="/support/reviews/how-to-select-infineon-mcu/">
+
+<meta property="og:site_name" content="BeiLuo">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- Fonts (display=swap is set in tokens.css's @import; preconnect here just speeds up the connection) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<!-- Styles -->
+<link rel="stylesheet" href="/assets/css/style.css">
+
+
+  <!-- TechArticle JSON-LD (design.md §5.10, PRD §3.5.4, support.schema.md JSON-LD Mapping).
+       Hand-authored per project convention (see products-list.html) using triple-brace
+       raw interpolation — values are build-time strings from support.json, not user input. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Infineon AURIX vs XMC vs PSoC 6 MCU Comparison: A BeiLuo FAE Review",
+    "description": "BeiLuo FAE review comparing Infineon AURIX TC2xx, XMC4000, and PSoC 6 MCUs on architecture, safety, and connectivity for automotive and industrial designs.",
+    "datePublished": "2024-04-10",
+    "dateModified": "2024-06-15",
+    "author": {
+      "@type": "Person",
+      "name": "Chen Jing",
+      "url": "https://www.beiluo.com/about/authors/chen-jing/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "BeiLuo",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "/assets/svg/logo/logo.svg"
+      }
+    },
+    "url": "https://www.beiluo.com/support/reviews/how-to-select-infineon-mcu/"
+  }
+  </script>
+
+  <!-- BreadcrumbList JSON-LD — Home → Support → <category.name> → <article.title>
+       (support.schema.md JSON-LD Mapping, design §10). -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://www.beiluo.com/"},
+      {"@type":"ListItem","position":2,"name":"Support","item":"https://www.beiluo.com/support/"},
+      {"@type":"ListItem","position":3,"name":"New Product Reviews","item":"https://www.beiluo.com/support/reviews/"},
+      {"@type":"ListItem","position":4,"name":"Infineon AURIX vs XMC vs PSoC 6 MCU Comparison: A BeiLuo FAE Review","item":"https://www.beiluo.com/support/reviews/how-to-select-infineon-mcu/"}
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header class="site-nav" data-nav>
+  <div class="container">
+    <div class="site-nav__inner">
+
+      <!-- Logo + Slogan -->
+      <a href="/" class="site-nav__logo-link" aria-label="BeiLuo — Top 8 Electronic Component Distributor in China">
+        <img class="site-nav__logo-img" src="/assets/svg/logo/logo.svg" alt="BeiLuo — Top 8 Electronic Component Distributor in China" width="160" height="40">
+        <span class="site-nav__slogan">Top 8 Electronic Component Distributor in China</span>
+      </a>
+
+      <!-- Desktop Main Navigation (data-driven from site.json's nav.items) -->
+      <nav class="site-nav__links" aria-label="Main">
+        <ul class="site-nav__list" role="list">
+          
+          <li class="site-nav__item">
+            <a class="site-nav__link" href="/">Home</a>
+            
+          </li>
+          
+          <li class="site-nav__item has-megamenu">
+            <a class="site-nav__link" href="/products/" data-megamenu-trigger aria-haspopup="true" aria-expanded="false">Products</a>
+            
+            <!-- Mega menu panel is a child of .has-megamenu so the <li> is one contiguous
+                 hover zone covering both trigger and panel. CSS sets .has-megamenu to
+                 position:static so the panel's position:absolute is relative to <header>. -->
+            <div class="mega-menu" data-megamenu aria-hidden="true">
+              <div class="container">
+                <ul class="mega-menu__categories" role="list">
+                  
+                  <li class="mega-menu__category">
+                    <a class="mega-menu__cat-link" href="/products/mcu/">MCU</a>
+                    
+                    <ul class="mega-menu__models" role="list">
+                      
+                      <li class="mega-menu__model">
+                        <a class="mega-menu__model-link" href="/products/mcu/tc264da/">TC264DA</a>
+                      </li>
+                      
+                      <li class="mega-menu__model">
+                        <a class="mega-menu__model-link" href="/products/mcu/xmc4700-f100k2048/">XMC4700-F100K2048</a>
+                      </li>
+                      
+                    </ul>
+                    
+                  </li>
+                  
+                  <li class="mega-menu__category">
+                    <a class="mega-menu__cat-link" href="/products/igbt/">IGBT</a>
+                    
+                    <ul class="mega-menu__models" role="list">
+                      
+                      <li class="mega-menu__model">
+                        <a class="mega-menu__model-link" href="/products/igbt/ikw40n120h3/">IKW40N120H3</a>
+                      </li>
+                      
+                      <li class="mega-menu__model">
+                        <a class="mega-menu__model-link" href="/products/igbt/ikd06n60rf/">IKD06N60RF</a>
+                      </li>
+                      
+                    </ul>
+                    
+                  </li>
+                  
+                  <li class="mega-menu__category">
+                    <a class="mega-menu__cat-link" href="/products/mosfet/">MOSFET</a>
+                    
+                    <ul class="mega-menu__models" role="list">
+                      
+                      <li class="mega-menu__model">
+                        <a class="mega-menu__model-link" href="/products/mosfet/irfs4321pbf/">IRFS4321PBF</a>
+                      </li>
+                      
+                      <li class="mega-menu__model">
+                        <a class="mega-menu__model-link" href="/products/mosfet/bsc011n04ls/">BSC011N04LS</a>
+                      </li>
+                      
+                    </ul>
+                    
+                  </li>
+                  
+                  <li class="mega-menu__category">
+                    <a class="mega-menu__cat-link" href="/products/sensors/">Sensors</a>
+                    
+                    <ul class="mega-menu__models" role="list">
+                      
+                      <li class="mega-menu__model">
+                        <a class="mega-menu__model-link" href="/products/sensors/tli4966g/">TLI4966G</a>
+                      </li>
+                      
+                      <li class="mega-menu__model">
+                        <a class="mega-menu__model-link" href="/products/sensors/dps310/">DPS310</a>
+                      </li>
+                      
+                    </ul>
+                    
+                  </li>
+                  
+                </ul>
+              </div>
+            </div><!-- /.mega-menu -->
+            
+          </li>
+          
+          <li class="site-nav__item">
+            <a class="site-nav__link" href="/solutions/">Solutions</a>
+            
+          </li>
+          
+          <li class="site-nav__item">
+            <a class="site-nav__link" href="/support/">Support</a>
+            
+          </li>
+          
+          <li class="site-nav__item">
+            <a class="site-nav__link" href="/news/">News</a>
+            
+          </li>
+          
+          <li class="site-nav__item">
+            <a class="site-nav__link" href="/about/">About Us</a>
+            
+          </li>
+          
+          <li class="site-nav__item">
+            <a class="site-nav__link" href="/contact/">Contact</a>
+            
+          </li>
+          
+        </ul>
+      </nav>
+
+      <!-- Desktop CTA -->
+      <a href="/contact/" class="btn btn--cta site-nav__cta">Get a Quote</a>
+
+      <!-- Mobile Hamburger Toggle (≥44px) -->
+      <button
+        class="site-nav__hamburger"
+        type="button"
+        data-drawer-toggle
+        aria-expanded="false"
+        aria-controls="nav-drawer"
+        aria-label="Open navigation menu"
+      >
+        <span class="site-nav__bar" aria-hidden="true"></span>
+        <span class="site-nav__bar" aria-hidden="true"></span>
+        <span class="site-nav__bar" aria-hidden="true"></span>
+      </button>
+
+    </div><!-- /.site-nav__inner -->
+  </div><!-- /.container -->
+
+  <!-- Mobile Drawer -->
+  <div class="site-nav__drawer" data-drawer id="nav-drawer" aria-hidden="true" inert>
+    <nav aria-label="Mobile navigation">
+      <ul class="site-nav__drawer-list" role="list">
+        
+        <li class="site-nav__drawer-item">
+          <a class="site-nav__drawer-link" href="/">Home</a>
+        </li>
+        
+        <li class="site-nav__drawer-item">
+          <a class="site-nav__drawer-link" href="/products/">Products</a>
+        </li>
+        
+        <li class="site-nav__drawer-item">
+          <a class="site-nav__drawer-link" href="/solutions/">Solutions</a>
+        </li>
+        
+        <li class="site-nav__drawer-item">
+          <a class="site-nav__drawer-link" href="/support/">Support</a>
+        </li>
+        
+        <li class="site-nav__drawer-item">
+          <a class="site-nav__drawer-link" href="/news/">News</a>
+        </li>
+        
+        <li class="site-nav__drawer-item">
+          <a class="site-nav__drawer-link" href="/about/">About Us</a>
+        </li>
+        
+        <li class="site-nav__drawer-item">
+          <a class="site-nav__drawer-link" href="/contact/">Contact</a>
+        </li>
+        
+      </ul>
+      <a href="/contact/" class="btn btn--cta site-nav__drawer-cta">Get a Quote</a>
+    </nav>
+  </div><!-- /.site-nav__drawer -->
+
+</header>
+
+  <main id="main">
+    
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ol class="breadcrumb__list">
+    
+    <li class="breadcrumb__item">
+      
+        <a class="breadcrumb__link" href="/">Home</a>
+      
+    </li>
+    
+    <li class="breadcrumb__item">
+      
+        <a class="breadcrumb__link" href="/support/">Support</a>
+      
+    </li>
+    
+    <li class="breadcrumb__item">
+      
+        <a class="breadcrumb__link" href="/support/reviews/">New Product Reviews</a>
+      
+    </li>
+    
+    <li class="breadcrumb__item">
+      
+        <span class="breadcrumb__current" aria-current="page">Infineon AURIX vs XMC vs PSoC 6 MCU Comparison: A BeiLuo FAE Review</span>
+      
+    </li>
+    
+  </ol>
+</nav>
+
+
+
+    <div class="container">
+      <div class="tech-detail-layout">
+
+        <!-- LEFT: article (design §5.10 — max-width 800px, immersive reading) -->
+        <article class="article-content">
+
+          
+          <a class="badge badge--category" href="/support/reviews/">New Product Reviews</a>
+          
+
+          <!-- FAE author bar: avatar / name / date -->
+          <div class="article-author">
+            <img class="article-author__photo" src="/assets/svg/illustrations/avatar-chen-jing.svg" alt="Chen Jing -- BeiLuo FAE Engineer" width="64" height="64" loading="lazy">
+            <div class="article-author__meta">
+              <a class="article-author__name" href="/about/authors/chen-jing/">Chen Jing</a>
+              <time class="article-author__date" datetime="2024-04-10">2024-04-10</time>
+            </div>
+          </div>
+
+          <h1 class="article-content__title">Infineon AURIX vs XMC vs PSoC 6 MCU Comparison: A BeiLuo FAE Review</h1>
+
+          <!-- Body HTML — pre-authored with H2/H3[id] anchors, code blocks, blockquotes,
+               and in-body internal links (model + concept), per support.schema.md.
+               "longform" reuses the T2.2 baseline typography (800px width / H2-H3 left
+               rule / <pre><code> grey background / <blockquote> left border, design §5.10). -->
+          <div class="article-body longform">
+            <h2 id="introduction">Why MCU Selection Matters</h2>
+<p>Selecting the wrong microcontroller at the start of a project creates expensive problems downstream: insufficient flash forces code optimization sprints, missing peripherals require external ICs that add BOM cost and board area, and inadequate safety certification forces a redesign before your product can be certified. Infineon's MCU portfolio spans three families designed for distinct market segments, and understanding how they differ is the first step toward a confident selection. This review is written by Chen Jing, a BeiLuo field application engineer who has guided more than 80 design teams through Infineon MCU selection over the past eight years.</p>
+
+<h2 id="aurix-family">AURIX TC Series: Automotive Safety Computing</h2>
+<p>The AURIX TC series uses Infineon's proprietary TriCore 1.6P processor architecture, which integrates a RISC load/store pipeline with a DSP multiply-accumulate unit and a very-long-instruction-word (VLIW) engine in a single core. The TC2xx sub-family offers devices with one, two, three, or four cores operating at up to 200 MHz, while the TC3xx sub-family scales up to six cores at 300 MHz. Both sub-families provide lockstep CPU monitoring: a shadow core executes identical instructions in parallel and the hardware compares outputs every clock cycle, flagging any discrepancy for the Safety Management Unit (SMU).</p>
+<p>The <a href="/products/mcu/tc264da/">Infineon TC264DA</a> is a dual-core AURIX TC2xx device that BeiLuo stocks in LQFP-176 packaging. It runs at 200 MHz, integrates 4 MB of program flash with ECC protection, and provides six CAN-FD nodes alongside two Ethernet MACs. The on-chip Hardware Security Module (HSM) performs AES-128 encryption and secure boot verification, satisfying EVITA Full requirements for connected vehicle designs. Customers building ADAS domain controllers, battery management systems, or engine control units should start their evaluation with the TC264DA.</p>
+<p>Compared to ARM Cortex-M based devices, the TriCore architecture provides tighter real-time determinism because its separate instruction and data buses eliminate the bottleneck of a unified bus matrix. Context switch latency from an interrupt is as low as 3 to 5 clock cycles with the interrupt router hardware. For ISO 26262 ASIL-D designs, AURIX eliminates the need for external monitoring ICs, saving significant BOM cost at high volumes.</p>
+
+<h2 id="xmc-family">XMC Series: Industrial Motor Drives and Automation</h2>
+<p>The XMC family uses ARM Cortex-M cores combined with Infineon's proprietary peripheral engine. The XMC4000 series pairs a Cortex-M4F (hardware floating-point unit included) running at 144 MHz or 180 MHz with the Capture Compare Unit 8 (CCU8), which provides phase-correct PWM generation with dead-band insertion for three-phase motor control. The Position Interface (POSIF) module decodes quadrature encoders, Hall sensors, and multi-turn absolute encoders without consuming CPU cycles, a significant advantage in servo-drive designs.</p>
+<p>XMC4000 devices also integrate a 12-bit SAR ADC with simultaneous conversion channels, allowing current sampling at the exact PWM zero-crossing point for field-oriented control (FOC) algorithms. The communication peripherals cover the standard industrial mix: USIC modules configurable as SPI, UART, or I2C, plus two CAN nodes and an Ethernet MAC. BeiLuo recommends the XMC4700 in LQFP-100 for cost-sensitive drives in the 5 to 20 A range, and the XMC4800 when CANFD and Ethernet must coexist on the same MCU.</p>
+
+<h2 id="psoc-family">PSoC 6: IoT and Edge Intelligence</h2>
+<p>PSoC 6 takes a fundamentally different approach to low-power IoT design. It integrates two independent cores: a Cortex-M4 application processor running at up to 150 MHz and a Cortex-M0+ power-management core running at up to 100 MHz. The M0+ core manages peripherals and radio state while the M4 core sleeps, reducing system current to single-digit microamp levels in standby. A built-in BLE 5.0 radio and a Programmable Analog Front-End (AFE) with a 12-bit ADC and hardware comparators enable wearable and sensor-node designs without external radio or AFE ICs.</p>
+<p>PSoC 6 is not the right choice for designs requiring ASIL certification or for high-frequency motor drives, but it excels in battery-powered IoT nodes, industrial wireless sensors, and smart-home gateways. BeiLuo offers PSoC 6 evaluation kits alongside production-grade devices to help customers validate BLE range and power budget early in the design cycle.</p>
+
+<h2 id="comparison">Side-by-Side Comparison: Key Parameters</h2>
+<p>When comparing AURIX, XMC, and PSoC devices, the three most important axes are: (1) safety certification requirement, (2) real-time peripheral needs, and (3) connectivity and power budget. AURIX wins on safety (ASIL-D capable, lockstep, HSM). XMC wins on motor-control peripherals (CCU8, POSIF, simultaneous ADC). PSoC wins on ultra-low-power wireless IoT. If your design requires ASIL-B or higher and a CAN bus, AURIX is the correct family. If you are driving a brushless motor from a 24 V industrial supply with no safety mandate, XMC is the better choice. If you are building a battery-powered wireless sensor that sleeps for seconds between measurements, PSoC is the right answer.</p>
+
+<h2 id="tools">Development Tools and Ecosystem</h2>
+<p>Infineon's development ecosystem has converged on ModusToolbox for XMC and PSoC devices, an Eclipse-based IDE with middleware libraries for motor control (FOC, BLDC), Bluetooth, Wi-Fi, and USB. AURIX developers use HighTec or TASKING compilers with the AURIX Development Studio IDE, and the AUTOSAR Classic stack partners include Vector, ETAS, and Elektrobit. BeiLuo FAEs can review your toolchain selection and recommend evaluation boards that include pre-wired programmer/debugger interfaces to accelerate bringup.</p>
+
+<h2 id="beiluo-support">BeiLuo Procurement and FAE Support</h2>
+<p>BeiLuo maintains authorized stock of TC264DA, XMC4700, and PSoC 6 devices with lot traceability and can ship within three to five business days for standard quantities. For customers designing in a new Infineon MCU for the first time, our FAE team offers a free 90-minute application review session covering MCU selection, pin assignment, clock configuration, and power supply requirements. Refer to our <a href="/support/guides/how-to-select-infineon-igbt/">IGBT selection guide</a> if your system also includes an Infineon power stage, as BeiLuo can provide a consolidated procurement quote covering both the control and power electronics layers.</p>
+
+<h2 id="summary">Summary and Recommendations</h2>
+<p>Infineon's MCU portfolio is broad enough to cover nearly any embedded application, but the three families occupy distinct niches. Use AURIX when functional safety, multi-core determinism, and automotive-grade qualification are non-negotiable. Use XMC when your design centers on precision motor control or industrial automation with a 3.3 V or 5 V supply. Use PSoC when ultra-low power and integrated wireless connectivity define the product requirements. BeiLuo FAEs are available to review your specific requirements and recommend the device that best balances performance, certification, and procurement risk for your production schedule.</p>
+          </div>
+
+          
+          <div class="article-tags">
+            <a class="badge badge--tag" href="/support/tags/mcu/">mcu</a><a class="badge badge--tag" href="/support/tags/automotive/">automotive</a><a class="badge badge--tag" href="/support/tags/aurix/">aurix</a><a class="badge badge--tag" href="/support/tags/iot/">iot</a>
+          </div>
+          
+
+        </article>
+
+        <!-- Related Articles — sibling of .article-content (not inside it), so its own
+             heading and the support-card headings are excluded from the Sticky TOC scan,
+             which per markup-contract §3 only reads h2/h3 within .article-content. -->
+        
+        <section class="related-articles">
+          <h2 class="related-articles__title">Related Articles</h2>
+          <div class="support-card-grid">
+            <article class="card card--teaser" data-article-category="guides">
+  <img class="card__image" src="/assets/svg/illustrations/support-how-to-select-infineon-igbt.svg" alt="Infineon IGBT selection guide illustration" loading="lazy">
+  
+  <div class="card__tags">
+    <a class="badge badge--tag" href="/support/tags/igbt/">igbt</a><a class="badge badge--tag" href="/support/tags/selection-guide/">selection-guide</a><a class="badge badge--tag" href="/support/tags/power-electronics/">power-electronics</a><a class="badge badge--tag" href="/support/tags/ev/">ev</a><a class="badge badge--tag" href="/support/tags/motor-control/">motor-control</a>
+  </div>
+  
+  <h2 class="card__title"><a href="/support/guides/how-to-select-infineon-igbt/">How to Select the Right Infineon IGBT: A Distributor&#39;s Practical Guide</a></h2>
+  <p class="card__summary">Choosing the correct Infineon IGBT requires matching voltage class, current rating, switching speed, and thermal package to your specific application. This guide walks through each parameter with BeiLuo FAE insights on stock availability and common pitfalls.</p>
+  <time class="card__date">2024-03-15</time>
+  <a class="card__more" href="/support/guides/how-to-select-infineon-igbt/">Read more &rarr;</a>
+</article>
+<article class="card card--teaser" data-article-category="troubleshooting">
+  <img class="card__image" src="/assets/svg/illustrations/support-infineon-optimos-mosfet-overview.svg" alt="Infineon OptiMOS MOSFET application note illustration" loading="lazy">
+  
+  <div class="card__tags">
+    <a class="badge badge--tag" href="/support/tags/mosfet/">mosfet</a><a class="badge badge--tag" href="/support/tags/power-electronics/">power-electronics</a><a class="badge badge--tag" href="/support/tags/optimos/">optimos</a><a class="badge badge--tag" href="/support/tags/gate-drive/">gate-drive</a>
+  </div>
+  
+  <h2 class="card__title"><a href="/support/troubleshooting/infineon-optimos-mosfet-overview/">Troubleshooting Infineon OptiMOS MOSFET Gate-Drive, Dead-Time, and Thermal Issues</a></h2>
+  <p class="card__summary">A BeiLuo FAE troubleshooting guide for Infineon OptiMOS MOSFETs in synchronous buck converters and half-bridge stages, covering gate-drive, dead-time, and thermal layout problems.</p>
+  <time class="card__date">2024-05-20</time>
+  <a class="card__more" href="/support/troubleshooting/infineon-optimos-mosfet-overview/">Read more &rarr;</a>
+</article>
+<article class="card card--teaser" data-article-category="application-notes">
+  <img class="card__image" src="/assets/svg/illustrations/support-infineon-sensor-iot-applications.svg" alt="Infineon XENSIV sensor IoT application note illustration" loading="lazy">
+  
+  <div class="card__tags">
+    <a class="badge badge--tag" href="/support/tags/sensors/">sensors</a><a class="badge badge--tag" href="/support/tags/application-note/">application-note</a><a class="badge badge--tag" href="/support/tags/iot/">iot</a><a class="badge badge--tag" href="/support/tags/automotive/">automotive</a><a class="badge badge--tag" href="/support/tags/motor-control/">motor-control</a>
+  </div>
+  
+  <h2 class="card__title"><a href="/support/application-notes/infineon-sensor-iot-applications/">Infineon Sensors in Industrial IoT Applications: A Practical Application Note</a></h2>
+  <p class="card__summary">Infineon XENSIV sensors enable precision measurement of current, position, pressure, and magnetic field in industrial IoT and automotive designs. This application note covers sensor selection, interface design, and calibration strategies for reliable field deployment.</p>
+  <time class="card__date">2024-06-05</time>
+  <a class="card__more" href="/support/application-notes/infineon-sensor-iot-applications/">Read more &rarr;</a>
+</article>
+
+          </div>
+        </section>
+        
+
+        <!-- RIGHT: Sticky sidebar — TOC (markup-contract §3) + PDF download + Ask an Engineer -->
+        <aside class="sticky-sidebar">
+
+          <nav data-toc aria-label="Table of contents">
+            <!-- Generated at runtime by toc.js (markup-contract §3) -->
+          </nav>
+
+          
+          <div class="sidebar-pdf">
+            <h2 class="sidebar-pdf__title">Related PDF Download</h2>
+            <ul class="sidebar-pdf__list">
+              
+              <li class="sidebar-pdf__item">
+                <a href="/assets/docs/beiluo-mcu-selection-guide.pdf" target="_blank" rel="noopener noreferrer">BeiLuo MCU Selection Guide PDF</a>
+              </li>
+              
+            </ul>
+          </div>
+          
+
+          <div class="sidebar-ask">
+            <h2 class="sidebar-ask__title">Ask an Engineer</h2>
+            <p class="sidebar-ask__text">Have a question about this article, or need help selecting a part? Our BeiLuo FAE team is ready to help.</p>
+            <a class="btn btn--cta" href="/contact/?ref=how-to-select-infineon-mcu">Ask an Engineer</a>
+          </div>
+
+        </aside>
+
+      </div>
+    </div>
+
+    <section class="cta-block">
+  <div class="container cta-block__inner">
+    <h2 class="cta-block__title">Your Trusted Infineon Distributor</h2>
+    <p class="cta-block__text">Get genuine Infineon parts from stock with expert FAE support. Request a quote today.</p>
+    <a class="btn btn--cta" href="/contact/">Get a Quote</a>
+  </div>
+</section>
+
+  </main>
+  <footer class="site-footer">
+  <div class="container">
+    <!-- 4-Column Grid -->
+    <div class="site-footer__grid">
+
+      <!-- Column 1: Brand (rendered directly from brand.* — richer 3-line layout
+           than footer.columns[0]'s generic heading+links shape provides) -->
+      <div class="site-footer__column">
+        <h3 class="site-footer__heading">BeiLuo</h3>
+        <p class="site-footer__tagline">Top 8 Electronic Component Distributor in China</p>
+        <p class="site-footer__intro">Infineon authorized distributor since 2013 — Top 8 in China, with 10,000+ Infineon part numbers in Shenzhen bonded-warehouse stock.</p>
+      </div>
+
+      <!-- Columns 2-4: data-driven from site.json's footer.columns (index 0 is the
+           brand column already rendered above, skipped via an index-truthiness check) -->
+      
+      
+      
+      
+      <div class="site-footer__column">
+        <h3 class="site-footer__heading">Products</h3>
+        <ul class="site-footer__list" role="list">
+          
+          <li class="site-footer__item">
+            <a href="/products/" class="site-footer__link">All Products</a>
+          </li>
+          
+          <li class="site-footer__item">
+            <a href="/products/mcu/" class="site-footer__link">MCU</a>
+          </li>
+          
+          <li class="site-footer__item">
+            <a href="/products/igbt/" class="site-footer__link">IGBT</a>
+          </li>
+          
+          <li class="site-footer__item">
+            <a href="/products/mosfet/" class="site-footer__link">MOSFET</a>
+          </li>
+          
+          <li class="site-footer__item">
+            <a href="/products/sensors/" class="site-footer__link">Sensors</a>
+          </li>
+          
+        </ul>
+      </div>
+      
+      
+      
+      <div class="site-footer__column">
+        <h3 class="site-footer__heading">Resources</h3>
+        <ul class="site-footer__list" role="list">
+          
+          <li class="site-footer__item">
+            <a href="/solutions/" class="site-footer__link">Solutions</a>
+          </li>
+          
+          <li class="site-footer__item">
+            <a href="/support/" class="site-footer__link">Support</a>
+          </li>
+          
+          <li class="site-footer__item">
+            <a href="/news/" class="site-footer__link">News</a>
+          </li>
+          
+          <li class="site-footer__item">
+            <a href="/about/" class="site-footer__link">About</a>
+          </li>
+          
+        </ul>
+      </div>
+      
+      
+      
+      <div class="site-footer__column">
+        <h3 class="site-footer__heading">Contact</h3>
+        <ul class="site-footer__list" role="list">
+          
+          <li class="site-footer__item">
+            <a href="https://wa.me/8615013702378" class="site-footer__link" target="_blank" rel="noopener noreferrer">WhatsApp: +86 15013702378</a>
+          </li>
+          
+          <li class="site-footer__item">
+            <a href="/contact/" class="site-footer__link">WeChat: +86 18612518271</a>
+          </li>
+          
+          <li class="site-footer__item">
+            <a href="/contact/" class="site-footer__link">Get a Quote</a>
+          </li>
+          
+        </ul>
+      </div>
+      
+      
+
+    </div><!-- /.site-footer__grid -->
+
+    <!-- Bottom Bar -->
+    <div class="site-footer__bottom">
+      <p class="site-footer__copyright">© 2024 BeiLuo. All rights reserved.</p>
+      <div class="site-footer__meta-links">
+        <a href="/sitemap.xml" class="site-footer__meta-link">Sitemap</a>
+        <a href="/robots.txt" class="site-footer__meta-link">robots.txt</a>
+      </div>
+    </div>
+
+  </div><!-- /.container -->
+</footer>
+
+  <aside class="contact-float" aria-label="Quick contact">
+  <a class="contact-float__btn contact-float__btn--wa" href="https://wa.me/8615013702378" target="_blank" rel="noopener noreferrer" aria-label="Contact us on WhatsApp">
+    <!-- placeholder WhatsApp icon (Phase 3: real SVG) -->
+    <svg class="contact-float__icon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <rect width="24" height="24" rx="12" fill="#25D366"/>
+      <path d="M7 12 Q12 6 17 12 Q12 18 7 12Z" fill="#fff"/>
+    </svg>
+    <span class="contact-float__label">WhatsApp</span>
+  </a>
+  <button class="contact-float__btn contact-float__btn--wc" type="button" aria-label="Show WeChat QR" aria-haspopup="true" aria-expanded="false" aria-controls="wechat-qr-popover" data-wechat-toggle data-wechat="+86 18612518271">
+    <!-- placeholder WeChat icon (Phase 3: real SVG) -->
+    <svg class="contact-float__icon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <rect width="24" height="24" rx="12" fill="#07C160"/>
+      <circle cx="9" cy="12" r="2" fill="#fff"/>
+      <circle cx="15" cy="12" r="2" fill="#fff"/>
+    </svg>
+    <span class="contact-float__label">WeChat</span>
+  </button>
+
+  <div class="contact-float__popover" id="wechat-qr-popover" role="dialog" aria-label="WeChat QR code" data-wechat-popover hidden>
+    <button class="contact-float__popover-close" type="button" aria-label="Close" data-wechat-popover-close>&times;</button>
+    
+    <img class="contact-float__popover-qr" src="/assets/svg/icons/wechat-qr.svg" alt="Scan to add BeiLuo on WeChat" width="140" height="140" loading="lazy">
+    
+    <p class="contact-float__popover-id">WeChat ID: +86 18612518271</p>
+  </div>
+</aside>
+
+  <script type="module" src="/assets/js/nav.js"></script>
+  <script type="module" src="/assets/js/wechat-popover.js"></script>
+  <script type="module" src="/assets/js/toc.js"></script>
+</body>
+</html>

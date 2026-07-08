@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-labelledby="icon-industrial-iot-title"
+     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <title id="icon-industrial-iot-title">Industrial IoT automation solution icon</title>
+  <!-- factory roof/body -->
+  <path d="M3 20V10l5 4v-4l5 4v-4l5 4v6z"/>
+  <line x1="3" y1="20" x2="21" y2="20"/>
+  <!-- wireless signal arcs -->
+  <path d="M17 5a4 4 0 0 1 0 6" />
+  <path d="M19 3a7 7 0 0 1 0 10" />
+</svg>

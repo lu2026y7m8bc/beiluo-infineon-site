@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="news-aurix-title">
+  <defs>
+    <style>
+      .primary { fill: #0072CE; }
+      .accent { fill: #F5821F; }
+      .neutral { fill: #E8F1FA; }
+      .line { stroke: #0072CE; stroke-width: 2; fill: none; }
+    </style>
+  </defs>
+  <title id="news-aurix-title">Car silhouette with an Infineon AURIX microcontroller and a safety shield representing automotive functional safety</title>
+
+  <rect width="400" height="300" fill="transparent"/>
+
+  <!-- Car silhouette -->
+  <g transform="translate(50, 150)">
+    <path d="M 10 60 L 20 30 Q 26 18 40 18 L 110 18 Q 124 18 130 30 L 140 60 L 140 75 L 10 75 Z" class="neutral" stroke="#0072CE" stroke-width="2"/>
+    <path d="M 35 20 L 45 40 L 105 40 L 115 20" fill="none" stroke="#0072CE" stroke-width="2"/>
+    <circle cx="35" cy="75" r="14" class="primary"/>
+    <circle cx="35" cy="75" r="6" class="neutral"/>
+    <circle cx="115" cy="75" r="14" class="primary"/>
+    <circle cx="115" cy="75" r="6" class="neutral"/>
+  </g>
+
+  <!-- Circuit lines from car to MCU -->
+  <path d="M 150 195 Q 190 195 200 160" class="line"/>
+  <path d="M 150 210 Q 210 220 230 190" class="line"/>
+
+  <!-- AURIX MCU chip -->
+  <g transform="translate(200, 70)">
+    <rect x="0" y="0" width="90" height="90" class="primary" rx="4"/>
+    <rect x="6" y="6" width="78" height="78" class="neutral" rx="2"/>
+    <text x="45" y="50" font-family="Arial, sans-serif" font-size="13" fill="#0072CE" text-anchor="middle" font-weight="bold">AURIX</text>
+    <!-- pins -->
+    <rect x="-6" y="15" width="6" height="8" class="accent"/>
+    <rect x="-6" y="35" width="6" height="8" class="accent"/>
+    <rect x="-6" y="55" width="6" height="8" class="accent"/>
+    <rect x="-6" y="70" width="6" height="8" class="accent"/>
+    <rect x="90" y="15" width="6" height="8" class="accent"/>
+    <rect x="90" y="35" width="6" height="8" class="accent"/>
+    <rect x="90" y="55" width="6" height="8" class="accent"/>
+    <rect x="90" y="70" width="6" height="8" class="accent"/>
+  </g>
+
+  <!-- Safety shield -->
+  <g transform="translate(310, 55)">
+    <path d="M 20 0 L 40 8 L 40 28 Q 40 46 20 55 Q 0 46 0 28 L 0 8 Z" class="accent"/>
+    <path d="M 10 26 L 17 33 L 31 17" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <text x="330" y="90" font-family="Arial, sans-serif" font-size="10" fill="#5B6B7F" text-anchor="middle">ISO 26262</text>
+</svg>

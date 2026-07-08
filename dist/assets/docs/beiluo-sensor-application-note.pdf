@@ -1,0 +1,77 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 5 0 R /F2 6 0 R >> >> /Contents 4 0 R >>
+endobj
+4 0 obj
+<< /Length 791 >>
+stream
+BT
+/F2 20 Tf
+1 0 0 1 72 740 Tm
+(Infineon Sensor Application Note) Tj
+/F1 12 Tf
+0 -30 Td
+(BeiLuo -- Infineon Authorized Distributor) Tj
+/F1 11 Tf
+0 -40 Td
+(This is a placeholder selection guide.) Tj
+/F1 11 Tf
+0 -18 Td
+(The full technical document is available on request.) Tj
+/F1 11 Tf
+0 -18 Td
+() Tj
+/F1 11 Tf
+0 -18 Td
+(Contact our FAE \(Field Application Engineer\) team at BeiLuo) Tj
+/F1 11 Tf
+0 -18 Td
+(for the complete, up-to-date technical document, part) Tj
+/F1 11 Tf
+0 -18 Td
+(recommendations, and design support.) Tj
+/F1 11 Tf
+0 -18 Td
+() Tj
+/F1 11 Tf
+0 -18 Td
+(Visit: https://www.example-beiluo.com/contact/) Tj
+/F1 11 Tf
+0 -18 Td
+(\(see /contact/ on this site for our contact form\)) Tj
+/F1 11 Tf
+0 -18 Td
+() Tj
+/F1 11 Tf
+0 -18 Td
+(Document: Infineon Sensor Application Note) Tj
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+6 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+xref
+0 7
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000121 00000 n 
+0000000257 00000 n 
+0000001099 00000 n 
+0000001169 00000 n 
+trailer
+<< /Size 7 /Root 1 0 R >>
+startxref
+1244
+%%EOF

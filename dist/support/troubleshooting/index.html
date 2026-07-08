@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Infineon Device Troubleshooting Guides -- Solve Common Design Issues | BeiLuo</title>
+<meta name="description" content="Troubleshoot Infineon IGBT, MCU, MOSFET, and sensor issues with step-by-step guides from BeiLuo field application engineers.">
+<link rel="canonical" href="/support/troubleshooting/">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Infineon Device Troubleshooting Guides -- Solve Common Design Issues | BeiLuo">
+<meta property="og:description" content="Troubleshoot Infineon IGBT, MCU, MOSFET, and sensor issues with step-by-step guides from BeiLuo field application engineers.">
+<meta property="og:url" content="/support/troubleshooting/">
+
+<meta property="og:site_name" content="BeiLuo">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- Fonts (display=swap is set in tokens.css's @import; preconnect here just speeds up the connection) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<!-- Styles -->
+<link rel="stylesheet" href="/assets/css/style.css">
+
+
+  <!-- CollectionPage JSON-LD (same shape for all 3 URL variants — seo.title/description already vary per page in pages.js).
+       Uses raw triple-brace interpolation per CLAUDE.md ("raw, JSON-LD only, validated safe") — on the
+       /support/ and /support/tags/<tag>/ variants seo.title/description are build-time-composed strings
+       with no user-editable content; on the /support/<category>/ variant they instead pass through
+       category.title/category.metaDescription from support.json (see pages.js), so validate-data.js's
+       checkJsonLdSafe() explicitly covers those two fields to keep this raw interpolation safe. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Infineon Device Troubleshooting Guides -- Solve Common Design Issues | BeiLuo",
+    "description": "Troubleshoot Infineon IGBT, MCU, MOSFET, and sensor issues with step-by-step guides from BeiLuo field application engineers."
+  }
+  </script>
+
+  <!-- BreadcrumbList JSON-LD — depth differs per URL variant (support.schema.md §JSON-LD Mapping).
+       breadcrumb.html's breadcrumbJsonLd hook is never populated by pages.js (same gap as
+       solution-detail.html), so this is authored inline here, following that same precedent. -->
+  
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://www.beiluo.com/"},
+      {"@type":"ListItem","position":2,"name":"Support","item":"https://www.beiluo.com/support/"},
+      {"@type":"ListItem","position":3,"name":"Troubleshooting","item":"/support/troubleshooting/"}
+    ]
+  }
+  </script>
+  
+  
+</head>
+<body>
+  <header class="site-nav" data-nav>
+  <div class="container">
+    <div class="site-nav__inner">
+
+      <!-- Logo + Slogan -->
+      <a href="/" class="site-nav__logo-link" aria-label="BeiLuo — Top 8 Electronic Component Distributor in China">
+        <img class="site-nav__logo-img" src="/assets/svg/logo/logo.svg" alt="BeiLuo — Top 8 Electronic Component Distributor in China" width="160" height="40">
+        <span class="site-nav__slogan">Top 8 Electronic Component Distributor in China</span>
+      </a>
+
+      <!-- Desktop Main Navigation (data-driven from site.json's nav.items) -->
+      <nav class="site-nav__links" aria-label="Main">
+        <ul class="site-nav__list" role="list">
+          
+          <li class="site-nav__item">
+            <a class="site-nav__link" href="/">Home</a>
+            
+          </li>
+          
+          <li class="site-nav__item has-megamenu">
+            <a class="site-nav__link" href="/products/" data-megamenu-trigger aria-haspopup="true" aria-expanded="false">Products</a>
+            
+            <!-- Mega menu panel is a child of .has-megamenu so the <li> is one contiguous
+                 hover zone covering both trigger and panel. CSS sets .has-megamenu to
+                 position:static so the panel's position:absolute is relative to <header>. -->
+            <div class="mega-menu" data-megamenu aria-hidden="true">
+              <div class="container">
+                <ul class="mega-menu__categories" role="list">
+                  
+                  <li class="mega-menu__category">
+                    <a class="mega-menu__cat-link" href="/products/mcu/">MCU</a>
+                    
+                    <ul class="mega-menu__models" role="list">
+                      
+                      <li class="mega-menu__model">
+                        <a class="mega-menu__model-link" href="/products/mcu/tc264da/">TC264DA</a>
+                      </li>
+                      
+                      <li class="mega-menu__model">
+                        <a class="mega-menu__model-link" href="/products/mcu/xmc4700-f100k2048/">XMC4700-F100K2048</a>
+                      </li>
+                      
+                    </ul>
+                    
+                  </li>
+                  
+                  <li class="mega-menu__category">
+                    <a class="mega-menu__cat-link" href="/products/igbt/">IGBT</a>
+                    
+                    <ul class="mega-menu__models" role="list">
+                      
+                      <li class="mega-menu__model">
+                        <a class="mega-menu__model-link" href="/products/igbt/ikw40n120h3/">IKW40N120H3</a>
+                      </li>
+                      
+                      <li class="mega-menu__model">
+                        <a class="mega-menu__model-link" href="/products/igbt/ikd06n60rf/">IKD06N60RF</a>
+                      </li>
+                      
+                    </ul>
+                    
+                  </li>
+                  
+                  <li class="mega-menu__category">
+                    <a class="mega-menu__cat-link" href="/products/mosfet/">MOSFET</a>
+                    
+                    <ul class="mega-menu__models" role="list">
+                      
+                      <li class="mega-menu__model">
+                        <a class="mega-menu__model-link" href="/products/mosfet/irfs4321pbf/">IRFS4321PBF</a>
+                      </li>
+                      
+                      <li class="mega-menu__model">
+                        <a class="mega-menu__model-link" href="/products/mosfet/bsc011n04ls/">BSC011N04LS</a>
+                      </li>
+                      
+                    </ul>
+                    
+                  </li>
+                  
+                  <li class="mega-menu__category">
+                    <a class="mega-menu__cat-link" href="/products/sensors/">Sensors</a>
+                    
+                    <ul class="mega-menu__models" role="list">
+                      
+                      <li class="mega-menu__model">
+                        <a class="mega-menu__model-link" href="/products/sensors/tli4966g/">TLI4966G</a>
+                      </li>
+                      
+                      <li class="mega-menu__model">
+                        <a class="mega-menu__model-link" href="/products/sensors/dps310/">DPS310</a>
+                      </li>
+                      
+                    </ul>
+                    
+                  </li>
+                  
+                </ul>
+              </div>
+            </div><!-- /.mega-menu -->
+            
+          </li>
+          
+          <li class="site-nav__item">
+            <a class="site-nav__link" href="/solutions/">Solutions</a>
+            
+          </li>
+          
+          <li class="site-nav__item">
+            <a class="site-nav__link" href="/support/">Support</a>
+            
+          </li>
+          
+          <li class="site-nav__item">
+            <a class="site-nav__link" href="/news/">News</a>
+            
+          </li>
+          
+          <li class="site-nav__item">
+            <a class="site-nav__link" href="/about/">About Us</a>
+            
+          </li>
+          
+          <li class="site-nav__item">
+            <a class="site-nav__link" href="/contact/">Contact</a>
+            
+          </li>
+          
+        </ul>
+      </nav>
+
+      <!-- Desktop CTA -->
+      <a href="/contact/" class="btn btn--cta site-nav__cta">Get a Quote</a>
+
+      <!-- Mobile Hamburger Toggle (≥44px) -->
+      <button
+        class="site-nav__hamburger"
+        type="button"
+        data-drawer-toggle
+        aria-expanded="false"
+        aria-controls="nav-drawer"
+        aria-label="Open navigation menu"
+      >
+        <span class="site-nav__bar" aria-hidden="true"></span>
+        <span class="site-nav__bar" aria-hidden="true"></span>
+        <span class="site-nav__bar" aria-hidden="true"></span>
+      </button>
+
+    </div><!-- /.site-nav__inner -->
+  </div><!-- /.container -->
+
+  <!-- Mobile Drawer -->
+  <div class="site-nav__drawer" data-drawer id="nav-drawer" aria-hidden="true" inert>
+    <nav aria-label="Mobile navigation">
+      <ul class="site-nav__drawer-list" role="list">
+        
+        <li class="site-nav__drawer-item">
+          <a class="site-nav__drawer-link" href="/">Home</a>
+        </li>
+        
+        <li class="site-nav__drawer-item">
+          <a class="site-nav__drawer-link" href="/products/">Products</a>
+        </li>
+        
+        <li class="site-nav__drawer-item">
+          <a class="site-nav__drawer-link" href="/solutions/">Solutions</a>
+        </li>
+        
+        <li class="site-nav__drawer-item">
+          <a class="site-nav__drawer-link" href="/support/">Support</a>
+        </li>
+        
+        <li class="site-nav__drawer-item">
+          <a class="site-nav__drawer-link" href="/news/">News</a>
+        </li>
+        
+        <li class="site-nav__drawer-item">
+          <a class="site-nav__drawer-link" href="/about/">About Us</a>
+        </li>
+        
+        <li class="site-nav__drawer-item">
+          <a class="site-nav__drawer-link" href="/contact/">Contact</a>
+        </li>
+        
+      </ul>
+      <a href="/contact/" class="btn btn--cta site-nav__drawer-cta">Get a Quote</a>
+    </nav>
+  </div><!-- /.site-nav__drawer -->
+
+</header>
+
+  <main id="main">
+    
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ol class="breadcrumb__list">
+    
+    <li class="breadcrumb__item">
+      
+        <a class="breadcrumb__link" href="/">Home</a>
+      
+    </li>
+    
+    <li class="breadcrumb__item">
+      
+        <a class="breadcrumb__link" href="/support/">Support</a>
+      
+    </li>
+    
+    <li class="breadcrumb__item">
+      
+        <span class="breadcrumb__current" aria-current="page">Troubleshooting</span>
+      
+    </li>
+    
+  </ol>
+</nav>
+
+
+
+    <div class="container">
+      <div class="layout-with-sidebar">
+        <div class="layout-with-sidebar__main">
+
+          
+          
+          <!-- ============================================================
+               SUPPORT CATEGORY INDEX — /support/<category>/
+               design.md §5.8: H1 = category name + keywords, filtered cards
+               ============================================================ -->
+          <header class="page-hero">
+            <h1 class="page-hero__title">Infineon Device Troubleshooting Guides -- Solve Common Design Issues</h1>
+            <p class="page-hero__desc">When your Infineon design misbehaves, our troubleshooting guides provide structured diagnostic steps based on real failure modes seen in the field. Coverage includes overcurrent protection, clock startup problems, oscillation in gate drives, and sensor output drift.</p>
+          </header>
+
+          <div class="support-card-grid">
+            <article class="card card--teaser" data-article-category="troubleshooting">
+  <img class="card__image" src="/assets/svg/illustrations/support-infineon-optimos-mosfet-overview.svg" alt="Infineon OptiMOS MOSFET application note illustration" loading="lazy">
+  
+  <div class="card__tags">
+    <a class="badge badge--tag" href="/support/tags/mosfet/">mosfet</a><a class="badge badge--tag" href="/support/tags/power-electronics/">power-electronics</a><a class="badge badge--tag" href="/support/tags/optimos/">optimos</a><a class="badge badge--tag" href="/support/tags/gate-drive/">gate-drive</a>
+  </div>
+  
+  <h2 class="card__title"><a href="/support/troubleshooting/infineon-optimos-mosfet-overview/">Troubleshooting Infineon OptiMOS MOSFET Gate-Drive, Dead-Time, and Thermal Issues</a></h2>
+  <p class="card__summary">A BeiLuo FAE troubleshooting guide for Infineon OptiMOS MOSFETs in synchronous buck converters and half-bridge stages, covering gate-drive, dead-time, and thermal layout problems.</p>
+  <time class="card__date">2024-05-20</time>
+  <a class="card__more" href="/support/troubleshooting/infineon-optimos-mosfet-overview/">Read more &rarr;</a>
+</article>
+
+          </div>
+
+          
+          
+
+        </div>
+        <aside class="layout-with-sidebar__sidebar">
+          <aside class="sidebar" aria-label="Section navigation">
+  
+  <nav class="sidebar__group" aria-label="Support Categories">
+    <h2 class="sidebar__heading">Support Categories</h2>
+    <ul class="sidebar__list">
+      
+      <li class="sidebar__item"><a class="sidebar__link" href="/support/guides/">Selection Guides</a></li>
+      
+      <li class="sidebar__item"><a class="sidebar__link" href="/support/application-notes/">Application Notes</a></li>
+      
+      <li class="sidebar__item"><a class="sidebar__link is-active" href="/support/troubleshooting/">Troubleshooting</a></li>
+      
+      <li class="sidebar__item"><a class="sidebar__link" href="/support/reviews/">New Product Reviews</a></li>
+      
+    </ul>
+  </nav>
+  
+</aside>
+
+        </aside>
+      </div>
+    </div>
+  </main>
+  <footer class="site-footer">
+  <div class="container">
+    <!-- 4-Column Grid -->
+    <div class="site-footer__grid">
+
+      <!-- Column 1: Brand (rendered directly from brand.* — richer 3-line layout
+           than footer.columns[0]'s generic heading+links shape provides) -->
+      <div class="site-footer__column">
+        <h3 class="site-footer__heading">BeiLuo</h3>
+        <p class="site-footer__tagline">Top 8 Electronic Component Distributor in China</p>
+        <p class="site-footer__intro">Infineon authorized distributor since 2013 — Top 8 in China, with 10,000+ Infineon part numbers in Shenzhen bonded-warehouse stock.</p>
+      </div>
+
+      <!-- Columns 2-4: data-driven from site.json's footer.columns (index 0 is the
+           brand column already rendered above, skipped via an index-truthiness check) -->
+      
+      
+      
+      
+      <div class="site-footer__column">
+        <h3 class="site-footer__heading">Products</h3>
+        <ul class="site-footer__list" role="list">
+          
+          <li class="site-footer__item">
+            <a href="/products/" class="site-footer__link">All Products</a>
+          </li>
+          
+          <li class="site-footer__item">
+            <a href="/products/mcu/" class="site-footer__link">MCU</a>
+          </li>
+          
+          <li class="site-footer__item">
+            <a href="/products/igbt/" class="site-footer__link">IGBT</a>
+          </li>
+          
+          <li class="site-footer__item">
+            <a href="/products/mosfet/" class="site-footer__link">MOSFET</a>
+          </li>
+          
+          <li class="site-footer__item">
+            <a href="/products/sensors/" class="site-footer__link">Sensors</a>
+          </li>
+          
+        </ul>
+      </div>
+      
+      
+      
+      <div class="site-footer__column">
+        <h3 class="site-footer__heading">Resources</h3>
+        <ul class="site-footer__list" role="list">
+          
+          <li class="site-footer__item">
+            <a href="/solutions/" class="site-footer__link">Solutions</a>
+          </li>
+          
+          <li class="site-footer__item">
+            <a href="/support/" class="site-footer__link">Support</a>
+          </li>
+          
+          <li class="site-footer__item">
+            <a href="/news/" class="site-footer__link">News</a>
+          </li>
+          
+          <li class="site-footer__item">
+            <a href="/about/" class="site-footer__link">About</a>
+          </li>
+          
+        </ul>
+      </div>
+      
+      
+      
+      <div class="site-footer__column">
+        <h3 class="site-footer__heading">Contact</h3>
+        <ul class="site-footer__list" role="list">
+          
+          <li class="site-footer__item">
+            <a href="https://wa.me/8615013702378" class="site-footer__link" target="_blank" rel="noopener noreferrer">WhatsApp: +86 15013702378</a>
+          </li>
+          
+          <li class="site-footer__item">
+            <a href="/contact/" class="site-footer__link">WeChat: +86 18612518271</a>
+          </li>
+          
+          <li class="site-footer__item">
+            <a href="/contact/" class="site-footer__link">Get a Quote</a>
+          </li>
+          
+        </ul>
+      </div>
+      
+      
+
+    </div><!-- /.site-footer__grid -->
+
+    <!-- Bottom Bar -->
+    <div class="site-footer__bottom">
+      <p class="site-footer__copyright">© 2024 BeiLuo. All rights reserved.</p>
+      <div class="site-footer__meta-links">
+        <a href="/sitemap.xml" class="site-footer__meta-link">Sitemap</a>
+        <a href="/robots.txt" class="site-footer__meta-link">robots.txt</a>
+      </div>
+    </div>
+
+  </div><!-- /.container -->
+</footer>
+
+  <aside class="contact-float" aria-label="Quick contact">
+  <a class="contact-float__btn contact-float__btn--wa" href="https://wa.me/8615013702378" target="_blank" rel="noopener noreferrer" aria-label="Contact us on WhatsApp">
+    <!-- placeholder WhatsApp icon (Phase 3: real SVG) -->
+    <svg class="contact-float__icon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <rect width="24" height="24" rx="12" fill="#25D366"/>
+      <path d="M7 12 Q12 6 17 12 Q12 18 7 12Z" fill="#fff"/>
+    </svg>
+    <span class="contact-float__label">WhatsApp</span>
+  </a>
+  <button class="contact-float__btn contact-float__btn--wc" type="button" aria-label="Show WeChat QR" aria-haspopup="true" aria-expanded="false" aria-controls="wechat-qr-popover" data-wechat-toggle data-wechat="+86 18612518271">
+    <!-- placeholder WeChat icon (Phase 3: real SVG) -->
+    <svg class="contact-float__icon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <rect width="24" height="24" rx="12" fill="#07C160"/>
+      <circle cx="9" cy="12" r="2" fill="#fff"/>
+      <circle cx="15" cy="12" r="2" fill="#fff"/>
+    </svg>
+    <span class="contact-float__label">WeChat</span>
+  </button>
+
+  <div class="contact-float__popover" id="wechat-qr-popover" role="dialog" aria-label="WeChat QR code" data-wechat-popover hidden>
+    <button class="contact-float__popover-close" type="button" aria-label="Close" data-wechat-popover-close>&times;</button>
+    
+    <img class="contact-float__popover-qr" src="/assets/svg/icons/wechat-qr.svg" alt="Scan to add BeiLuo on WeChat" width="140" height="140" loading="lazy">
+    
+    <p class="contact-float__popover-id">WeChat ID: +86 18612518271</p>
+  </div>
+</aside>
+
+  <script type="module" src="/assets/js/nav.js"></script>
+  <script type="module" src="/assets/js/wechat-popover.js"></script>
+  <script type="module" src="/assets/js/tabs.js"></script>
+</body>
+</html>

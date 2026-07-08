@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 500 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="bd-iiot-title">
+  <defs>
+    <style>
+      .block { fill: #E8F1FA; stroke: #0072CE; stroke-width: 2; }
+      .label { font-family: Arial, sans-serif; font-size: 12px; fill: #0072CE; text-anchor: middle; font-weight: 500; }
+      .label-sub { font-family: Arial, sans-serif; font-size: 10px; fill: #666666; text-anchor: middle; }
+      .arrow { stroke: #0072CE; stroke-width: 2.5; fill: none; marker-end: url(#arrow-iiot); }
+      .part { font-family: Arial, sans-serif; font-size: 9px; fill: #F5821F; text-anchor: middle; font-weight: bold; }
+    </style>
+    <marker id="arrow-iiot" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#0072CE"/>
+    </marker>
+  </defs>
+  <title id="bd-iiot-title">Block diagram: DPS310 pressure sensor and TLI4966G Hall sensor feeding an XMC4700 MCU that transmits data wirelessly to the industrial cloud</title>
+
+  <rect width="500" height="300" fill="transparent"/>
+
+  <!-- Two sensors stacked -->
+  <g>
+    <rect x="15" y="70" width="100" height="55" class="block" rx="4"/>
+    <text x="65" y="93" class="label" font-size="11">Pressure</text>
+    <text x="65" y="108" class="part">DPS310</text>
+  </g>
+  <g>
+    <rect x="15" y="170" width="100" height="55" class="block" rx="4"/>
+    <text x="65" y="193" class="label" font-size="11">Hall Sensor</text>
+    <text x="65" y="208" class="part">TLI4966G</text>
+  </g>
+  <path class="arrow" d="M 115 97 L 145 97 L 145 145 L 175 145"/>
+  <path class="arrow" d="M 115 197 L 145 197 L 145 150 L 175 150"/>
+
+  <!-- MCU block -->
+  <g>
+    <rect x="175" y="105" width="115" height="85" class="block" rx="4"/>
+    <text x="232" y="135" class="label">Sensor Fusion</text>
+    <text x="232" y="152" class="label">MCU</text>
+    <text x="232" y="170" class="part">XMC4700-F100K2048</text>
+  </g>
+  <path class="arrow" d="M 290 147 L 335 147"/>
+
+  <!-- Wireless transmitter -->
+  <g transform="translate(335, 120)">
+    <rect x="0" y="0" width="60" height="55" class="block" rx="4"/>
+    <path d="M 30 12 A 14 14 0 0 1 30 40" fill="none" stroke="#F5821F" stroke-width="2"/>
+    <path d="M 30 18 A 8 8 0 0 1 30 34" fill="none" stroke="#F5821F" stroke-width="2"/>
+    <circle cx="30" cy="27" r="3" fill="#F5821F"/>
+    <text x="30" y="70" class="label-sub" font-size="9">Wireless</text>
+  </g>
+
+  <!-- Cloud icon -->
+  <g transform="translate(415, 105)">
+    <path d="M 20 45 Q 0 45 0 30 Q 0 15 18 16 Q 20 0 40 2 Q 60 2 62 20 Q 78 20 78 35 Q 78 45 62 45 Z" class="block"/>
+  </g>
+  <path class="arrow" d="M 395 147 L 415 130"/>
+  <text x="450" y="255" class="label-sub">Industrial IoT gateway → cloud</text>
+</svg>

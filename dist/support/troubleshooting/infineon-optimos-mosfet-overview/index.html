@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Troubleshooting Infineon OptiMOS MOSFET Gate-Drive, Dead-Time, and Thermal Issues | BeiLuo</title>
+<meta name="description" content="BeiLuo troubleshooting guide for Infineon OptiMOS MOSFET gate-drive, dead-time, and thermal issues in buck converters and half-bridge stages.">
+<link rel="canonical" href="/support/troubleshooting/infineon-optimos-mosfet-overview/">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Troubleshooting Infineon OptiMOS MOSFET Gate-Drive, Dead-Time, and Thermal Issues | BeiLuo">
+<meta property="og:description" content="BeiLuo troubleshooting guide for Infineon OptiMOS MOSFET gate-drive, dead-time, and thermal issues in buck converters and half-bridge stages.">
+<meta property="og:url" content="/support/troubleshooting/infineon-optimos-mosfet-overview/">
+
+<meta property="og:site_name" content="BeiLuo">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- Fonts (display=swap is set in tokens.css's @import; preconnect here just speeds up the connection) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<!-- Styles -->
+<link rel="stylesheet" href="/assets/css/style.css">
+
+
+  <!-- TechArticle JSON-LD (design.md §5.10, PRD §3.5.4, support.schema.md JSON-LD Mapping).
+       Hand-authored per project convention (see products-list.html) using triple-brace
+       raw interpolation — values are build-time strings from support.json, not user input. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Troubleshooting Infineon OptiMOS MOSFET Gate-Drive, Dead-Time, and Thermal Issues",
+    "description": "BeiLuo troubleshooting guide for Infineon OptiMOS MOSFET gate-drive, dead-time, and thermal issues in buck converters and half-bridge stages.",
+    "datePublished": "2024-05-20",
+    "dateModified": "2024-07-10",
+    "author": {
+      "@type": "Person",
+      "name": "Li Wei",
+      "url": "https://www.beiluo.com/about/authors/li-wei/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "BeiLuo",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "/assets/svg/logo/logo.svg"
+      }
+    },
+    "url": "https://www.beiluo.com/support/troubleshooting/infineon-optimos-mosfet-overview/"
+  }
+  </script>
+
+  <!-- BreadcrumbList JSON-LD — Home → Support → <category.name> → <article.title>
+       (support.schema.md JSON-LD Mapping, design §10). -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://www.beiluo.com/"},
+      {"@type":"ListItem","position":2,"name":"Support","item":"https://www.beiluo.com/support/"},
+      {"@type":"ListItem","position":3,"name":"Troubleshooting","item":"https://www.beiluo.com/support/troubleshooting/"},
+      {"@type":"ListItem","position":4,"name":"Troubleshooting Infineon OptiMOS MOSFET Gate-Drive, Dead-Time, and Thermal Issues","item":"https://www.beiluo.com/support/troubleshooting/infineon-optimos-mosfet-overview/"}
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header class="site-nav" data-nav>
+  <div class="container">
+    <div class="site-nav__inner">
+
+      <!-- Logo + Slogan -->
+      <a href="/" class="site-nav__logo-link" aria-label="BeiLuo — Top 8 Electronic Component Distributor in China">
+        <img class="site-nav__logo-img" src="/assets/svg/logo/logo.svg" alt="BeiLuo — Top 8 Electronic Component Distributor in China" width="160" height="40">
+        <span class="site-nav__slogan">Top 8 Electronic Component Distributor in China</span>
+      </a>
+
+      <!-- Desktop Main Navigation (data-driven from site.json's nav.items) -->
+      <nav class="site-nav__links" aria-label="Main">
+        <ul class="site-nav__list" role="list">
+          
+          <li class="site-nav__item">
+            <a class="site-nav__link" href="/">Home</a>
+            
+          </li>
+          
+          <li class="site-nav__item has-megamenu">
+            <a class="site-nav__link" href="/products/" data-megamenu-trigger aria-haspopup="true" aria-expanded="false">Products</a>
+            
+            <!-- Mega menu panel is a child of .has-megamenu so the <li> is one contiguous
+                 hover zone covering both trigger and panel. CSS sets .has-megamenu to
+                 position:static so the panel's position:absolute is relative to <header>. -->
+            <div class="mega-menu" data-megamenu aria-hidden="true">
+              <div class="container">
+                <ul class="mega-menu__categories" role="list">
+                  
+                  <li class="mega-menu__category">
+                    <a class="mega-menu__cat-link" href="/products/mcu/">MCU</a>
+                    
+                    <ul class="mega-menu__models" role="list">
+                      
+                      <li class="mega-menu__model">
+                        <a class="mega-menu__model-link" href="/products/mcu/tc264da/">TC264DA</a>
+                      </li>
+                      
+                      <li class="mega-menu__model">
+                        <a class="mega-menu__model-link" href="/products/mcu/xmc4700-f100k2048/">XMC4700-F100K2048</a>
+                      </li>
+                      
+                    </ul>
+                    
+                  </li>
+                  
+                  <li class="mega-menu__category">
+                    <a class="mega-menu__cat-link" href="/products/igbt/">IGBT</a>
+                    
+                    <ul class="mega-menu__models" role="list">
+                      
+                      <li class="mega-menu__model">
+                        <a class="mega-menu__model-link" href="/products/igbt/ikw40n120h3/">IKW40N120H3</a>
+                      </li>
+                      
+                      <li class="mega-menu__model">
+                        <a class="mega-menu__model-link" href="/products/igbt/ikd06n60rf/">IKD06N60RF</a>
+                      </li>
+                      
+                    </ul>
+                    
+                  </li>
+                  
+                  <li class="mega-menu__category">
+                    <a class="mega-menu__cat-link" href="/products/mosfet/">MOSFET</a>
+                    
+                    <ul class="mega-menu__models" role="list">
+                      
+                      <li class="mega-menu__model">
+                        <a class="mega-menu__model-link" href="/products/mosfet/irfs4321pbf/">IRFS4321PBF</a>
+                      </li>
+                      
+                      <li class="mega-menu__model">
+                        <a class="mega-menu__model-link" href="/products/mosfet/bsc011n04ls/">BSC011N04LS</a>
+                      </li>
+                      
+                    </ul>
+                    
+                  </li>
+                  
+                  <li class="mega-menu__category">
+                    <a class="mega-menu__cat-link" href="/products/sensors/">Sensors</a>
+                    
+                    <ul class="mega-menu__models" role="list">
+                      
+                      <li class="mega-menu__model">
+                        <a class="mega-menu__model-link" href="/products/sensors/tli4966g/">TLI4966G</a>
+                      </li>
+                      
+                      <li class="mega-menu__model">
+                        <a class="mega-menu__model-link" href="/products/sensors/dps310/">DPS310</a>
+                      </li>
+                      
+                    </ul>
+                    
+                  </li>
+                  
+                </ul>
+              </div>
+            </div><!-- /.mega-menu -->
+            
+          </li>
+          
+          <li class="site-nav__item">
+            <a class="site-nav__link" href="/solutions/">Solutions</a>
+            
+          </li>
+          
+          <li class="site-nav__item">
+            <a class="site-nav__link" href="/support/">Support</a>
+            
+          </li>
+          
+          <li class="site-nav__item">
+            <a class="site-nav__link" href="/news/">News</a>
+            
+          </li>
+          
+          <li class="site-nav__item">
+            <a class="site-nav__link" href="/about/">About Us</a>
+            
+          </li>
+          
+          <li class="site-nav__item">
+            <a class="site-nav__link" href="/contact/">Contact</a>
+            
+          </li>
+          
+        </ul>
+      </nav>
+
+      <!-- Desktop CTA -->
+      <a href="/contact/" class="btn btn--cta site-nav__cta">Get a Quote</a>
+
+      <!-- Mobile Hamburger Toggle (≥44px) -->
+      <button
+        class="site-nav__hamburger"
+        type="button"
+        data-drawer-toggle
+        aria-expanded="false"
+        aria-controls="nav-drawer"
+        aria-label="Open navigation menu"
+      >
+        <span class="site-nav__bar" aria-hidden="true"></span>
+        <span class="site-nav__bar" aria-hidden="true"></span>
+        <span class="site-nav__bar" aria-hidden="true"></span>
+      </button>
+
+    </div><!-- /.site-nav__inner -->
+  </div><!-- /.container -->
+
+  <!-- Mobile Drawer -->
+  <div class="site-nav__drawer" data-drawer id="nav-drawer" aria-hidden="true" inert>
+    <nav aria-label="Mobile navigation">
+      <ul class="site-nav__drawer-list" role="list">
+        
+        <li class="site-nav__drawer-item">
+          <a class="site-nav__drawer-link" href="/">Home</a>
+        </li>
+        
+        <li class="site-nav__drawer-item">
+          <a class="site-nav__drawer-link" href="/products/">Products</a>
+        </li>
+        
+        <li class="site-nav__drawer-item">
+          <a class="site-nav__drawer-link" href="/solutions/">Solutions</a>
+        </li>
+        
+        <li class="site-nav__drawer-item">
+          <a class="site-nav__drawer-link" href="/support/">Support</a>
+        </li>
+        
+        <li class="site-nav__drawer-item">
+          <a class="site-nav__drawer-link" href="/news/">News</a>
+        </li>
+        
+        <li class="site-nav__drawer-item">
+          <a class="site-nav__drawer-link" href="/about/">About Us</a>
+        </li>
+        
+        <li class="site-nav__drawer-item">
+          <a class="site-nav__drawer-link" href="/contact/">Contact</a>
+        </li>
+        
+      </ul>
+      <a href="/contact/" class="btn btn--cta site-nav__drawer-cta">Get a Quote</a>
+    </nav>
+  </div><!-- /.site-nav__drawer -->
+
+</header>
+
+  <main id="main">
+    
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ol class="breadcrumb__list">
+    
+    <li class="breadcrumb__item">
+      
+        <a class="breadcrumb__link" href="/">Home</a>
+      
+    </li>
+    
+    <li class="breadcrumb__item">
+      
+        <a class="breadcrumb__link" href="/support/">Support</a>
+      
+    </li>
+    
+    <li class="breadcrumb__item">
+      
+        <a class="breadcrumb__link" href="/support/troubleshooting/">Troubleshooting</a>
+      
+    </li>
+    
+    <li class="breadcrumb__item">
+      
+        <span class="breadcrumb__current" aria-current="page">Troubleshooting Infineon OptiMOS MOSFET Gate-Drive, Dead-Time, and Thermal Issues</span>
+      
+    </li>
+    
+  </ol>
+</nav>
+
+
+
+    <div class="container">
+      <div class="tech-detail-layout">
+
+        <!-- LEFT: article (design §5.10 — max-width 800px, immersive reading) -->
+        <article class="article-content">
+
+          
+          <a class="badge badge--category" href="/support/troubleshooting/">Troubleshooting</a>
+          
+
+          <!-- FAE author bar: avatar / name / date -->
+          <div class="article-author">
+            <img class="article-author__photo" src="/assets/svg/illustrations/avatar-li-wei.svg" alt="Li Wei -- BeiLuo FAE Engineer" width="64" height="64" loading="lazy">
+            <div class="article-author__meta">
+              <a class="article-author__name" href="/about/authors/li-wei/">Li Wei</a>
+              <time class="article-author__date" datetime="2024-05-20">2024-05-20</time>
+            </div>
+          </div>
+
+          <h1 class="article-content__title">Troubleshooting Infineon OptiMOS MOSFET Gate-Drive, Dead-Time, and Thermal Issues</h1>
+
+          <!-- Body HTML — pre-authored with H2/H3[id] anchors, code blocks, blockquotes,
+               and in-body internal links (model + concept), per support.schema.md.
+               "longform" reuses the T2.2 baseline typography (800px width / H2-H3 left
+               rule / <pre><code> grey background / <blockquote> left border, design §5.10). -->
+          <div class="article-body longform">
+            <h2 id="introduction">Introduction to OptiMOS Technology</h2>
+<p>Infineon's OptiMOS family of N-channel power MOSFETs is engineered to minimize the product of on-state resistance (RDS(on)) and gate charge (Qg), which directly reduces both conduction loss and switching loss in high-frequency converters. The OptiMOS 5 and OptiMOS 6 generations achieve remarkably low RDS(on) values -- devices rated for 40 V deliver RDS(on) below 1 milliohm in a standard DPAK package, and 100 V devices reach below 3 milliohm in TO-220 -- while keeping Qg and Qgd small enough to support switching frequencies above 300 kHz without excessive gate-drive power dissipation. This troubleshooting guide addresses the gate-drive, dead-time, and thermal problems BeiLuo FAEs most often see when customers apply OptiMOS in synchronous buck converters and motor half-bridge stages for industrial power-supply and motor-drive applications.</p>
+
+<h2 id="mosfet-selection">Selecting the Right OptiMOS Device</h2>
+<p>The first step in applying any Infineon <a href="/products/mosfet/">Infineon MOSFET</a> is to determine the maximum drain-source voltage your circuit will impose on the device, including all transient spikes caused by parasitic inductance. For a 12 V bus, a 30 V rated MOSFET provides adequate margin. For a 48 V bus common in automotive mild-hybrid systems, you need a 60 V or 80 V rated device. For a 400 V DC bus in a single-phase PFC stage, you need a 600 V or 650 V rated device, where Infineon's CoolMOS family is more appropriate than OptiMOS.</p>
+<p>After establishing the voltage class, calculate the average and RMS drain currents in each switching state. In a synchronous buck converter, the high-side MOSFET carries pulsed current with a duty cycle equal to Vout/Vin, while the low-side MOSFET conducts the complementary duty cycle. The low-side device therefore has higher RMS current and benefits more from low RDS(on). BeiLuo typically recommends using a device with lower RDS(on) on the low side and a device with lower gate charge on the high side, because the high-side switching loss is proportional to Qgd and frequency.</p>
+
+<h2 id="gate-drive">Gate-Drive Circuit Design</h2>
+<p>The gate-drive circuit must supply sufficient current to charge the MOSFET gate in the desired rise time and then actively pull the gate negative during turn-off to prevent dv/dt induced parasitic turn-on of the complementary device. A typical gate-drive requirement for an OptiMOS device with 30 nC total gate charge at a 200 ns rise time is 150 mA peak source and sink current. Most dedicated gate-drive ICs from Infineon or other suppliers can meet this requirement from a 5 V or 12 V supply rail.</p>
+<p>The gate resistor (Rg) placed between the gate-drive output and the MOSFET gate controls switching speed. Lower Rg causes faster switching with lower Eoff and Eon, but higher di/dt that stresses the PCB layout and causes ringing across the drain-source. An Rg of 3.3 ohm to 10 ohm is a reasonable starting point for most 100 V OptiMOS devices at switching frequencies of 100 kHz to 300 kHz. BeiLuo FAEs recommend measuring the drain-source voltage waveform with a differential probe during initial lab bring-up and adjusting Rg empirically to achieve clean switching without excessive ringing.</p>
+<p>For bridge topologies, the high-side gate drive requires either a bootstrap circuit or an isolated DC-DC converter for the floating gate supply. Bootstrap circuits are cost-effective but require a minimum low-side on-time to refresh the bootstrap capacitor. Isolated gate-drive stages using a transformer or dedicated isolated IC eliminate this constraint and are preferred in applications with variable duty cycle reaching 100 percent, such as soft-start ramp-up in motor drives.</p>
+
+<h2 id="dead-time">Dead-Time Optimization</h2>
+<p>In a half-bridge topology, both high-side and low-side MOSFETs must not conduct simultaneously, as cross-conduction (shoot-through) creates a direct short across the DC bus. A dead time interval is inserted between turn-off of one device and turn-on of the other. During this interval, the body diode of the low-side MOSFET conducts the inductor current, introducing forward-voltage drop and reverse-recovery losses if the dead time is too long.</p>
+<p>Infineon OptiMOS devices are characterized for body-diode forward voltage (VSD) and reverse recovery charge (Qrr). Minimizing dead time to just slightly longer than the propagation delay matching tolerance of your gate-drive IC reduces body-diode conduction time and Qrr losses. Modern gate-drive ICs with adaptive dead-time control detect the body-diode conduction onset through the switch-node voltage and advance the complementary turn-on accordingly, achieving near-optimal dead time without manual tuning.</p>
+
+<h2 id="thermal-layout">Thermal Layout Best Practices</h2>
+<p>The thermal resistance from junction to board (Rth(j-b)) for surface-mount OptiMOS devices like DPAK and D2PAK depends heavily on the PCB copper area surrounding the drain pad. Infineon's datasheet thermal characterization assumes a specific copper area on a defined PCB thickness. Adding extra copper pour beyond the footprint significantly reduces Rth(j-b). For high-power applications, adding thermal vias under the drain pad connects the top copper to an inner ground plane, further reducing thermal resistance by as much as 30 percent.</p>
+<p>Keep the gate trace short and routed away from high-dv/dt switching nodes to minimize capacitive coupling that could cause false turn-on. Place the gate resistor as close as possible to the MOSFET gate pin. Use a Kelvin connection for the source return of the gate-drive loop, tying the gate-drive source reference directly to the MOSFET source pin rather than to the power ground plane, which can have millivolt-level transients during switching events.</p>
+
+<h2 id="beiluo-tips">BeiLuo Field Application Tips</h2>
+<p>BeiLuo FAEs have observed several recurring issues in customer OptiMOS designs. First, selecting the package before confirming the thermal budget: always calculate junction temperature rise before choosing between DPAK and TO-220, because the difference in Rth(j-c) can be 3X or more. Second, underestimating gate-charge requirements: always verify gate charge at the actual VDS and ID operating point, as Qg increases significantly at high VDS compared to the 10 V test condition typically quoted in the headline spec table. Third, neglecting source inductance: the parasitic inductance in the source connection of the MOSFET introduces a negative feedback during turn-on that slows di/dt, increasing turn-on energy. Minimize source inductance by using wide, short PCB traces or a Kelvin source connection.</p>
+<p>Refer to our <a href="/support/guides/how-to-select-infineon-igbt/">IGBT selection guide</a> for applications where the voltage or current requirements exceed the OptiMOS operating range. BeiLuo maintains stock of the full OptiMOS 5 and OptiMOS 6 product range and can ship samples within two business days for evaluation purposes.</p>
+
+<h2 id="summary">Summary</h2>
+<p>Infineon OptiMOS MOSFETs deliver industry-leading RDS(on) for a given package and voltage class, but realizing the full performance benefit requires careful attention to gate-drive design, dead-time control, and PCB thermal layout. By following the troubleshooting steps in this guide, designers can achieve switching efficiencies above 98 percent in synchronous buck converters and motor half-bridge stages. BeiLuo FAEs are available to review your schematic and layout before PCB fabrication to catch common mistakes early in the design process.</p>
+          </div>
+
+          
+          <div class="article-tags">
+            <a class="badge badge--tag" href="/support/tags/mosfet/">mosfet</a><a class="badge badge--tag" href="/support/tags/power-electronics/">power-electronics</a><a class="badge badge--tag" href="/support/tags/optimos/">optimos</a><a class="badge badge--tag" href="/support/tags/gate-drive/">gate-drive</a>
+          </div>
+          
+
+        </article>
+
+        <!-- Related Articles — sibling of .article-content (not inside it), so its own
+             heading and the support-card headings are excluded from the Sticky TOC scan,
+             which per markup-contract §3 only reads h2/h3 within .article-content. -->
+        
+        <section class="related-articles">
+          <h2 class="related-articles__title">Related Articles</h2>
+          <div class="support-card-grid">
+            <article class="card card--teaser" data-article-category="guides">
+  <img class="card__image" src="/assets/svg/illustrations/support-how-to-select-infineon-igbt.svg" alt="Infineon IGBT selection guide illustration" loading="lazy">
+  
+  <div class="card__tags">
+    <a class="badge badge--tag" href="/support/tags/igbt/">igbt</a><a class="badge badge--tag" href="/support/tags/selection-guide/">selection-guide</a><a class="badge badge--tag" href="/support/tags/power-electronics/">power-electronics</a><a class="badge badge--tag" href="/support/tags/ev/">ev</a><a class="badge badge--tag" href="/support/tags/motor-control/">motor-control</a>
+  </div>
+  
+  <h2 class="card__title"><a href="/support/guides/how-to-select-infineon-igbt/">How to Select the Right Infineon IGBT: A Distributor&#39;s Practical Guide</a></h2>
+  <p class="card__summary">Choosing the correct Infineon IGBT requires matching voltage class, current rating, switching speed, and thermal package to your specific application. This guide walks through each parameter with BeiLuo FAE insights on stock availability and common pitfalls.</p>
+  <time class="card__date">2024-03-15</time>
+  <a class="card__more" href="/support/guides/how-to-select-infineon-igbt/">Read more &rarr;</a>
+</article>
+<article class="card card--teaser" data-article-category="reviews">
+  <img class="card__image" src="/assets/svg/illustrations/support-how-to-select-infineon-mcu.svg" alt="Infineon MCU selection guide illustration showing AURIX, XMC, and PSoC families" loading="lazy">
+  
+  <div class="card__tags">
+    <a class="badge badge--tag" href="/support/tags/mcu/">mcu</a><a class="badge badge--tag" href="/support/tags/automotive/">automotive</a><a class="badge badge--tag" href="/support/tags/aurix/">aurix</a><a class="badge badge--tag" href="/support/tags/iot/">iot</a>
+  </div>
+  
+  <h2 class="card__title"><a href="/support/reviews/how-to-select-infineon-mcu/">Infineon AURIX vs XMC vs PSoC 6 MCU Comparison: A BeiLuo FAE Review</a></h2>
+  <p class="card__summary">A BeiLuo FAE review comparing Infineon AURIX for automotive safety, XMC for industrial motor drives, and PSoC 6 for IoT, helping you choose the right MCU family for your application.</p>
+  <time class="card__date">2024-04-10</time>
+  <a class="card__more" href="/support/reviews/how-to-select-infineon-mcu/">Read more &rarr;</a>
+</article>
+<article class="card card--teaser" data-article-category="application-notes">
+  <img class="card__image" src="/assets/svg/illustrations/support-infineon-sensor-iot-applications.svg" alt="Infineon XENSIV sensor IoT application note illustration" loading="lazy">
+  
+  <div class="card__tags">
+    <a class="badge badge--tag" href="/support/tags/sensors/">sensors</a><a class="badge badge--tag" href="/support/tags/application-note/">application-note</a><a class="badge badge--tag" href="/support/tags/iot/">iot</a><a class="badge badge--tag" href="/support/tags/automotive/">automotive</a><a class="badge badge--tag" href="/support/tags/motor-control/">motor-control</a>
+  </div>
+  
+  <h2 class="card__title"><a href="/support/application-notes/infineon-sensor-iot-applications/">Infineon Sensors in Industrial IoT Applications: A Practical Application Note</a></h2>
+  <p class="card__summary">Infineon XENSIV sensors enable precision measurement of current, position, pressure, and magnetic field in industrial IoT and automotive designs. This application note covers sensor selection, interface design, and calibration strategies for reliable field deployment.</p>
+  <time class="card__date">2024-06-05</time>
+  <a class="card__more" href="/support/application-notes/infineon-sensor-iot-applications/">Read more &rarr;</a>
+</article>
+
+          </div>
+        </section>
+        
+
+        <!-- RIGHT: Sticky sidebar — TOC (markup-contract §3) + PDF download + Ask an Engineer -->
+        <aside class="sticky-sidebar">
+
+          <nav data-toc aria-label="Table of contents">
+            <!-- Generated at runtime by toc.js (markup-contract §3) -->
+          </nav>
+
+          
+          <div class="sidebar-pdf">
+            <h2 class="sidebar-pdf__title">Related PDF Download</h2>
+            <ul class="sidebar-pdf__list">
+              
+              <li class="sidebar-pdf__item">
+                <a href="/assets/docs/beiluo-mosfet-application-note.pdf" target="_blank" rel="noopener noreferrer">OptiMOS MOSFET Application Note PDF</a>
+              </li>
+              
+            </ul>
+          </div>
+          
+
+          <div class="sidebar-ask">
+            <h2 class="sidebar-ask__title">Ask an Engineer</h2>
+            <p class="sidebar-ask__text">Have a question about this article, or need help selecting a part? Our BeiLuo FAE team is ready to help.</p>
+            <a class="btn btn--cta" href="/contact/?ref=infineon-optimos-mosfet-overview">Ask an Engineer</a>
+          </div>
+
+        </aside>
+
+      </div>
+    </div>
+
+    <section class="cta-block">
+  <div class="container cta-block__inner">
+    <h2 class="cta-block__title">Your Trusted Infineon Distributor</h2>
+    <p class="cta-block__text">Get genuine Infineon parts from stock with expert FAE support. Request a quote today.</p>
+    <a class="btn btn--cta" href="/contact/">Get a Quote</a>
+  </div>
+</section>
+
+  </main>
+  <footer class="site-footer">
+  <div class="container">
+    <!-- 4-Column Grid -->
+    <div class="site-footer__grid">
+
+      <!-- Column 1: Brand (rendered directly from brand.* — richer 3-line layout
+           than footer.columns[0]'s generic heading+links shape provides) -->
+      <div class="site-footer__column">
+        <h3 class="site-footer__heading">BeiLuo</h3>
+        <p class="site-footer__tagline">Top 8 Electronic Component Distributor in China</p>
+        <p class="site-footer__intro">Infineon authorized distributor since 2013 — Top 8 in China, with 10,000+ Infineon part numbers in Shenzhen bonded-warehouse stock.</p>
+      </div>
+
+      <!-- Columns 2-4: data-driven from site.json's footer.columns (index 0 is the
+           brand column already rendered above, skipped via an index-truthiness check) -->
+      
+      
+      
+      
+      <div class="site-footer__column">
+        <h3 class="site-footer__heading">Products</h3>
+        <ul class="site-footer__list" role="list">
+          
+          <li class="site-footer__item">
+            <a href="/products/" class="site-footer__link">All Products</a>
+          </li>
+          
+          <li class="site-footer__item">
+            <a href="/products/mcu/" class="site-footer__link">MCU</a>
+          </li>
+          
+          <li class="site-footer__item">
+            <a href="/products/igbt/" class="site-footer__link">IGBT</a>
+          </li>
+          
+          <li class="site-footer__item">
+            <a href="/products/mosfet/" class="site-footer__link">MOSFET</a>
+          </li>
+          
+          <li class="site-footer__item">
+            <a href="/products/sensors/" class="site-footer__link">Sensors</a>
+          </li>
+          
+        </ul>
+      </div>
+      
+      
+      
+      <div class="site-footer__column">
+        <h3 class="site-footer__heading">Resources</h3>
+        <ul class="site-footer__list" role="list">
+          
+          <li class="site-footer__item">
+            <a href="/solutions/" class="site-footer__link">Solutions</a>
+          </li>
+          
+          <li class="site-footer__item">
+            <a href="/support/" class="site-footer__link">Support</a>
+          </li>
+          
+          <li class="site-footer__item">
+            <a href="/news/" class="site-footer__link">News</a>
+          </li>
+          
+          <li class="site-footer__item">
+            <a href="/about/" class="site-footer__link">About</a>
+          </li>
+          
+        </ul>
+      </div>
+      
+      
+      
+      <div class="site-footer__column">
+        <h3 class="site-footer__heading">Contact</h3>
+        <ul class="site-footer__list" role="list">
+          
+          <li class="site-footer__item">
+            <a href="https://wa.me/8615013702378" class="site-footer__link" target="_blank" rel="noopener noreferrer">WhatsApp: +86 15013702378</a>
+          </li>
+          
+          <li class="site-footer__item">
+            <a href="/contact/" class="site-footer__link">WeChat: +86 18612518271</a>
+          </li>
+          
+          <li class="site-footer__item">
+            <a href="/contact/" class="site-footer__link">Get a Quote</a>
+          </li>
+          
+        </ul>
+      </div>
+      
+      
+
+    </div><!-- /.site-footer__grid -->
+
+    <!-- Bottom Bar -->
+    <div class="site-footer__bottom">
+      <p class="site-footer__copyright">© 2024 BeiLuo. All rights reserved.</p>
+      <div class="site-footer__meta-links">
+        <a href="/sitemap.xml" class="site-footer__meta-link">Sitemap</a>
+        <a href="/robots.txt" class="site-footer__meta-link">robots.txt</a>
+      </div>
+    </div>
+
+  </div><!-- /.container -->
+</footer>
+
+  <aside class="contact-float" aria-label="Quick contact">
+  <a class="contact-float__btn contact-float__btn--wa" href="https://wa.me/8615013702378" target="_blank" rel="noopener noreferrer" aria-label="Contact us on WhatsApp">
+    <!-- placeholder WhatsApp icon (Phase 3: real SVG) -->
+    <svg class="contact-float__icon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <rect width="24" height="24" rx="12" fill="#25D366"/>
+      <path d="M7 12 Q12 6 17 12 Q12 18 7 12Z" fill="#fff"/>
+    </svg>
+    <span class="contact-float__label">WhatsApp</span>
+  </a>
+  <button class="contact-float__btn contact-float__btn--wc" type="button" aria-label="Show WeChat QR" aria-haspopup="true" aria-expanded="false" aria-controls="wechat-qr-popover" data-wechat-toggle data-wechat="+86 18612518271">
+    <!-- placeholder WeChat icon (Phase 3: real SVG) -->
+    <svg class="contact-float__icon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <rect width="24" height="24" rx="12" fill="#07C160"/>
+      <circle cx="9" cy="12" r="2" fill="#fff"/>
+      <circle cx="15" cy="12" r="2" fill="#fff"/>
+    </svg>
+    <span class="contact-float__label">WeChat</span>
+  </button>
+
+  <div class="contact-float__popover" id="wechat-qr-popover" role="dialog" aria-label="WeChat QR code" data-wechat-popover hidden>
+    <button class="contact-float__popover-close" type="button" aria-label="Close" data-wechat-popover-close>&times;</button>
+    
+    <img class="contact-float__popover-qr" src="/assets/svg/icons/wechat-qr.svg" alt="Scan to add BeiLuo on WeChat" width="140" height="140" loading="lazy">
+    
+    <p class="contact-float__popover-id">WeChat ID: +86 18612518271</p>
+  </div>
+</aside>
+
+  <script type="module" src="/assets/js/nav.js"></script>
+  <script type="module" src="/assets/js/wechat-popover.js"></script>
+  <script type="module" src="/assets/js/toc.js"></script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+/* Design Tokens - CSS Custom Properties */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap');
+
+:root {
+  /* Colors - Primary & Branding */
+  --c-primary: #0072CE;
+  --c-primary-dark: #005BA3;
+  --c-primary-tint: #E6F1FB;
+  --c-cta: #F5821F;
+  --c-cta-dark: #D96D10;
+
+  /* Colors - Background & Text */
+  --c-bg: #FFFFFF;
+  --c-bg-alt: #F8F9FA;
+  --c-text: #1A2433;
+  --c-text-muted: #5B6B7F;
+  --c-border: #E2E8F0;
+
+  /* Colors - Semantic */
+  --c-success: #1F9D55;
+  --c-success-dark: #166B3A;
+  --c-success-tint: #E6F6EE;
+  --c-warn: #E8820C;
+  --c-warn-dark: #8F4D00;
+  --c-warn-tint: #FBEFD9;
+
+  /* Colors - Special */
+  --c-ink-banner: #0B1B2B;
+
+  /* Colors - Footer */
+  --c-footer-text: #CBD5E1;
+  --c-footer-heading: #FFFFFF;
+  --c-footer-border: rgba(255, 255, 255, 0.1);
+
+  /* Typography - Font Families */
+  --font-heading: 'Inter', system-ui, sans-serif;
+  --font-body: 'Roboto', system-ui, sans-serif;
+
+  /* Typography - Font Sizes (Desktop) */
+  --fs-h1: 40px;
+  --fs-h2: 30px;
+  --fs-h3: 23px;
+  --fs-h4: 18px;
+  --fs-body: 16px;
+  --fs-small: 14px;
+  --fs-caption: 12px;
+
+  /* Typography - Font Sizes (Mobile) */
+  --fs-h1-m: 30px;
+  --fs-h2-m: 24px;
+  --fs-h3-m: 20px;
+  --fs-h4-m: 17px;
+  --fs-body-m: 16px;
+  --fs-small-m: 14px;
+  --fs-caption-m: 12px;
+
+  /* Typography - Line Heights (Per Level) */
+  --lh-h1: 1.2;
+  --lh-h2: 1.25;
+  --lh-h3: 1.3;
+  --lh-h4: 1.4;
+  --lh-body: 1.7;
+  --lh-small: 1.5;
+  --lh-caption: 1.4;
+
+  /* Typography - Font Weights */
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+
+  /* Typography - Legacy Line Heights */
+  --lh-tight: 1.2;
+  --lh-longform: 1.8;
+
+  /* Spacing - 8px base unit */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-24: 96px;
+
+  /* Border Radius */
+  --r-base: 8px;
+  --r-card: 12px;
+  --r-pill: 999px;
+
+  /* Shadows */
+  --sh-sm: 0 1px 2px rgba(0, 0, 0, 0.06);
+  --sh-card: 0 4px 6px rgba(0, 0, 0, 0.07);
+  --sh-hover: 0 10px 20px rgba(0, 0, 0, 0.10);
+  --sh-nav: 0 2px 8px rgba(0, 0, 0, 0.06);
+
+  /* Z-index Staircase */
+  --z-sticky: 10;
+  --z-menu: 20;
+  --z-float: 30;
+  --z-overlay: 40;
+  --z-modal: 50;
+
+  /* Container & Layout */
+  --container-max: 1319px;
+}

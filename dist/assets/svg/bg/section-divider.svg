@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" role="presentation" aria-hidden="true">
+  <defs>
+    <style>
+      .divider-wave { fill: #F5F8FC; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1440" height="80" fill="transparent"/>
+
+  <!-- Gentle wave divider -->
+  <path class="divider-wave" d="M 0 40 Q 180 20 360 40 T 720 40 T 1080 40 T 1440 40 L 1440 80 L 0 80 Z"/>
+
+  <!-- Subtle angled divider as alternative -->
+  <path class="divider-wave" d="M 0 50 L 1440 30 L 1440 80 L 0 80 Z" opacity="0.3"/>
+
+</svg>

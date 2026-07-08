@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 500 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="bd-ev-charger-title">
+  <defs>
+    <style>
+      .block { fill: #E8F1FA; stroke: #0072CE; stroke-width: 2; }
+      .label { font-family: Arial, sans-serif; font-size: 12px; fill: #0072CE; text-anchor: middle; font-weight: 500; }
+      .label-sub { font-family: Arial, sans-serif; font-size: 10px; fill: #666666; text-anchor: middle; }
+      .arrow { stroke: #0072CE; stroke-width: 2.5; fill: none; marker-end: url(#arrow-ev); }
+      .part { font-family: Arial, sans-serif; font-size: 9px; fill: #F5821F; text-anchor: middle; font-weight: bold; }
+    </style>
+    <marker id="arrow-ev" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#0072CE"/>
+    </marker>
+  </defs>
+  <title id="bd-ev-charger-title">Block diagram: AC mains through an IRFS4321PBF PFC stage and a BSC011N04LS synchronous rectifier on-board charger, controlled by an XMC4700 MCU, charging an EV battery</title>
+
+  <rect width="500" height="300" fill="transparent"/>
+
+  <!-- AC Mains -->
+  <g>
+    <rect x="15" y="110" width="80" height="70" class="block" rx="4"/>
+    <path d="M 30 145 Q 40 130 55 145 Q 70 160 80 145" fill="none" stroke="#0072CE" stroke-width="2"/>
+    <text x="55" y="165" class="label-sub">AC Mains</text>
+  </g>
+  <path class="arrow" d="M 95 145 L 140 145"/>
+
+  <!-- PFC stage -->
+  <g>
+    <rect x="140" y="100" width="110" height="90" class="block" rx="4"/>
+    <text x="195" y="128" class="label">PFC Stage</text>
+    <text x="195" y="145" class="part">IRFS4321PBF</text>
+    <text x="195" y="162" class="label-sub">Power Factor</text>
+  </g>
+  <path class="arrow" d="M 250 145 L 295 145"/>
+
+  <!-- Synchronous rectifier -->
+  <g>
+    <rect x="295" y="100" width="110" height="90" class="block" rx="4"/>
+    <text x="350" y="122" class="label">Sync Rectifier</text>
+    <text x="350" y="142" class="part">BSC011N04LS</text>
+    <text x="350" y="162" class="label-sub">DC Output Stage</text>
+  </g>
+  <path class="arrow" d="M 405 145 L 445 145"/>
+
+  <!-- EV battery -->
+  <g transform="translate(445, 118)">
+    <rect x="0" y="0" width="40" height="55" fill="#E6F6EE" stroke="#1F9D55" stroke-width="2" rx="3"/>
+    <rect x="14" y="-8" width="12" height="8" fill="#1F9D55"/>
+    <text x="20" y="35" font-size="9" fill="#1F9D55" text-anchor="middle" font-weight="bold">EV</text>
+  </g>
+
+  <!-- XMC4700 MCU control below -->
+  <path d="M 350 190 L 350 230" fill="none" stroke="#F5821F" stroke-width="2" stroke-dasharray="5 3" marker-end="url(#arrow-ev)"/>
+  <g transform="translate(300, 230)">
+    <rect x="0" y="0" width="100" height="34" fill="#FBEFD9" stroke="#E8820C" stroke-width="1.5" rx="3"/>
+    <text x="50" y="21" class="part" fill="#D96D10">XMC4700-F100K2048</text>
+  </g>
+  <text x="350" y="280" class="label-sub">Digital power control loop</text>
+</svg>

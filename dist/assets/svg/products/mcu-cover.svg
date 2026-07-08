@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="mcu-cover-title">
+  <defs>
+    <style>
+      .primary { fill: #0072CE; }
+      .accent { fill: #F5821F; }
+      .neutral { fill: #E8F1FA; }
+      .light-grey { fill: #D5DFE8; }
+    </style>
+  </defs>
+  <title id="mcu-cover-title">Infineon MCU microcontroller product</title>
+
+  <!-- Background -->
+  <rect width="400" height="240" fill="transparent"/>
+
+  <!-- PCB fragment -->
+  <g transform="translate(50, 40)">
+    <rect x="0" y="0" width="300" height="160" class="light-grey" rx="8"/>
+    <circle cx="30" cy="30" r="2.5" fill="#A8C4E0"/>
+    <circle cx="60" cy="30" r="2.5" fill="#A8C4E0"/>
+    <circle cx="30" cy="60" r="2.5" fill="#A8C4E0"/>
+    <circle cx="60" cy="60" r="2.5" fill="#A8C4E0"/>
+  </g>
+
+  <!-- Main MCU chip body -->
+  <g transform="translate(130, 60)">
+    <!-- Chip base -->
+    <rect x="0" y="0" width="140" height="140" class="primary" rx="2"/>
+    <rect x="8" y="8" width="124" height="124" class="neutral" rx="1"/>
+
+    <!-- Top label area -->
+    <rect x="15" y="15" width="110" height="30" class="primary" opacity="0.2" rx="1"/>
+    <text x="70" y="38" font-family="Arial, sans-serif" font-size="10" fill="#0072CE" text-anchor="middle" font-weight="bold">Infineon MCU</text>
+
+    <!-- Internal circuit pattern -->
+    <line x1="25" y1="60" x2="115" y2="60" stroke="#0072CE" stroke-width="1" opacity="0.5"/>
+    <line x1="25" y1="80" x2="115" y2="80" stroke="#0072CE" stroke-width="1" opacity="0.5"/>
+    <line x1="25" y1="100" x2="115" y2="100" stroke="#0072CE" stroke-width="1" opacity="0.5"/>
+    <line x1="50" y1="60" x2="50" y2="110" stroke="#0072CE" stroke-width="1" opacity="0.5"/>
+    <line x1="70" y1="60" x2="70" y2="110" stroke="#0072CE" stroke-width="1" opacity="0.5"/>
+    <line x1="90" y1="60" x2="90" y2="110" stroke="#0072CE" stroke-width="1" opacity="0.5"/>
+
+    <!-- Component nodes -->
+    <circle cx="35" cy="70" r="2" class="accent"/>
+    <circle cx="55" cy="85" r="2" class="accent"/>
+    <circle cx="85" cy="95" r="2" class="accent"/>
+    <circle cx="105" cy="75" r="2" class="accent"/>
+  </g>
+
+  <!-- Pin indicators (bottom and side) -->
+  <g transform="translate(135, 195)">
+    <circle cx="0" cy="0" r="2.5" class="accent"/>
+    <circle cx="15" cy="0" r="2.5" class="accent"/>
+    <circle cx="30" cy="0" r="2.5" class="accent"/>
+    <circle cx="45" cy="0" r="2.5" class="accent"/>
+    <circle cx="60" cy="0" r="2.5" class="accent"/>
+    <circle cx="75" cy="0" r="2.5" class="accent"/>
+    <circle cx="90" cy="0" r="2.5" class="accent"/>
+    <circle cx="105" cy="0" r="2.5" class="accent"/>
+  </g>
+
+</svg>

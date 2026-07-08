@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-labelledby="icon-badge-distributor-title"
+     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <title id="icon-badge-distributor-title">Top distributor ranking icon</title>
+  <!-- medal ribbon tails -->
+  <polyline points="8,14.2 6.2,21 12,18.3 17.8,21 16,14.2"/>
+  <!-- medal disc -->
+  <circle cx="12" cy="9" r="6.5"/>
+  <!-- star inside medal -->
+  <polygon points="12,5.8 12.76,7.95 15.04,8.01 13.24,9.4 13.88,11.59 12,10.3 10.12,11.59 10.76,9.4 8.96,8.01 11.24,7.95"/>
+</svg>

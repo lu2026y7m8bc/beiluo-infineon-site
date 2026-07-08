@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 1440 600" xmlns="http://www.w3.org/2000/svg" role="presentation" aria-hidden="true">
+  <defs>
+    <style>
+      .pcb-line { stroke: #C5D8EE; stroke-width: 1.5; fill: none; }
+      .pcb-node { fill: #A8C4E0; }
+      .pcb-accent { stroke: #E8F1FA; stroke-width: 0.8; fill: none; }
+    </style>
+  </defs>
+  <title id="hero-bg-title">Hero background with PCB circuit trace pattern</title>
+
+  <!-- Background -->
+  <rect width="1440" height="600" fill="transparent"/>
+
+  <!-- Subtle PCB trace lines -->
+  <path class="pcb-line" d="M 100 150 L 250 150 L 250 300 L 400 300"/>
+  <path class="pcb-line" d="M 350 100 L 500 100 L 500 250 L 650 250"/>
+  <path class="pcb-line" d="M 800 200 L 950 200 L 950 350 L 1100 350"/>
+  <path class="pcb-line" d="M 1100 100 L 1250 100 L 1250 280 L 1350 280"/>
+  <path class="pcb-accent" d="M 200 400 L 400 400 L 400 500 L 600 500"/>
+  <path class="pcb-accent" d="M 750 450 L 900 450 L 900 550 L 1050 550"/>
+  <path class="pcb-line" d="M 50 500 L 200 500 L 200 200 L 350 200"/>
+  <path class="pcb-line" d="M 1200 450 L 1350 450 L 1350 300 L 1400 300"/>
+
+  <!-- Circuit nodes (via points) -->
+  <circle class="pcb-node" cx="250" cy="150" r="4"/>
+  <circle class="pcb-node" cx="250" cy="300" r="4"/>
+  <circle class="pcb-node" cx="400" cy="300" r="4"/>
+  <circle class="pcb-node" cx="500" cy="100" r="3.5"/>
+  <circle class="pcb-node" cx="500" cy="250" r="3.5"/>
+  <circle class="pcb-node" cx="650" cy="250" r="3.5"/>
+  <circle class="pcb-node" cx="950" cy="200" r="4"/>
+  <circle class="pcb-node" cx="950" cy="350" r="4"/>
+  <circle class="pcb-node" cx="1100" cy="350" r="4"/>
+  <circle class="pcb-node" cx="1250" cy="100" r="3.5"/>
+  <circle class="pcb-node" cx="1250" cy="280" r="3.5"/>
+  <circle class="pcb-node" cx="400" cy="400" r="3"/>
+  <circle class="pcb-node" cx="400" cy="500" r="3"/>
+  <circle class="pcb-node" cx="600" cy="500" r="3"/>
+  <circle class="pcb-node" cx="900" cy="450" r="3.5"/>
+  <circle class="pcb-node" cx="900" cy="550" r="3.5"/>
+  <circle class="pcb-node" cx="200" cy="500" r="4"/>
+  <circle class="pcb-node" cx="200" cy="200" r="4"/>
+  <circle class="pcb-node" cx="350" cy="200" r="4"/>
+  <circle class="pcb-node" cx="1350" cy="450" r="3"/>
+  <circle class="pcb-node" cx="1350" cy="300" r="3"/>
+
+  <!-- Subtle accent lines for depth -->
+  <path class="pcb-accent" d="M 300 50 Q 400 80 500 50" stroke-dasharray="5,3"/>
+  <path class="pcb-accent" d="M 800 500 Q 900 520 1000 500" stroke-dasharray="5,3"/>
+  <path class="pcb-accent" d="M 1200 150 Q 1300 180 1400 150" stroke-dasharray="5,3"/>
+
+</svg>

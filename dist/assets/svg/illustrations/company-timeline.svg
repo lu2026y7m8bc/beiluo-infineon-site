@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 500 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="company-timeline-title">
+  <defs>
+    <style>
+      .primary { fill: #0072CE; }
+      .accent { fill: #F5821F; }
+      .neutral { fill: #E8F1FA; }
+      .line { stroke: #0072CE; stroke-width: 2; fill: none; }
+    </style>
+  </defs>
+  <title id="company-timeline-title">BeiLuo company growth milestones timeline since founding</title>
+
+  <rect width="500" height="160" fill="transparent"/>
+
+  <!-- Rising growth path -->
+  <path d="M30 130 L140 100 L250 75 L360 45 L470 20" class="line"/>
+
+  <!-- Milestone markers along the path -->
+  <circle cx="30" cy="130" r="7" class="primary"/>
+  <circle cx="140" cy="100" r="7" class="primary"/>
+  <circle cx="250" cy="75" r="7" class="accent"/>
+  <circle cx="360" cy="45" r="7" class="primary"/>
+  <circle cx="470" cy="20" r="9" class="accent"/>
+
+  <!-- Base axis -->
+  <line x1="20" y1="145" x2="480" y2="145" stroke="#E2E8F0" stroke-width="2"/>
+
+  <!-- Warehouse icon at start -->
+  <g transform="translate(10, 95)">
+    <rect x="0" y="10" width="24" height="18" class="neutral"/>
+    <path d="M-2 10 L12 0 L26 10Z" class="primary"/>
+  </g>
+
+  <!-- Flag icon at latest milestone -->
+  <g transform="translate(470, 5)">
+    <line x1="0" y1="0" x2="0" y2="20" stroke="#0072CE" stroke-width="2"/>
+    <path d="M0 0 L14 4 L0 8Z" class="accent"/>
+  </g>
+</svg>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 500 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="bd-appliance-title">
+  <defs>
+    <style>
+      .block { fill: #E8F1FA; stroke: #0072CE; stroke-width: 2; }
+      .label { font-family: Arial, sans-serif; font-size: 12px; fill: #0072CE; text-anchor: middle; font-weight: 500; }
+      .label-sub { font-family: Arial, sans-serif; font-size: 10px; fill: #666666; text-anchor: middle; }
+      .arrow { stroke: #0072CE; stroke-width: 2.5; fill: none; marker-end: url(#arrow-appliance); }
+      .part { font-family: Arial, sans-serif; font-size: 9px; fill: #F5821F; text-anchor: middle; font-weight: bold; }
+    </style>
+    <marker id="arrow-appliance" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#0072CE"/>
+    </marker>
+  </defs>
+  <title id="bd-appliance-title">Block diagram: AC mains rectified and driven by a BSC011N04LS MOSFET bridge controlled by an XMC4700 MCU with TLI4966G Hall feedback, powering a small home appliance BLDC motor</title>
+
+  <rect width="500" height="300" fill="transparent"/>
+
+  <!-- AC Mains -->
+  <g>
+    <rect x="15" y="115" width="75" height="60" class="block" rx="4"/>
+    <path d="M 28 145 Q 37 132 50 145 Q 63 158 75 145" fill="none" stroke="#0072CE" stroke-width="2"/>
+    <text x="52" y="163" class="label-sub" font-size="9">AC Mains</text>
+  </g>
+  <path class="arrow" d="M 90 145 L 130 145"/>
+
+  <!-- MOSFET bridge -->
+  <g>
+    <rect x="130" y="100" width="115" height="90" class="block" rx="4"/>
+    <text x="187" y="128" class="label" font-size="11">MOSFET Bridge</text>
+    <text x="187" y="146" class="part">BSC011N04LS</text>
+    <text x="187" y="163" class="label-sub" font-size="9">Variable Speed</text>
+  </g>
+  <path class="arrow" d="M 245 145 L 285 145"/>
+
+  <!-- Small appliance motor -->
+  <g transform="translate(285, 105)">
+    <circle cx="40" cy="40" r="38" fill="none" stroke="#0072CE" stroke-width="2.5"/>
+    <circle cx="40" cy="40" r="10" class="primary" fill="#0072CE"/>
+    <line x1="40" y1="12" x2="40" y2="68" stroke="#0072CE" stroke-width="1.5"/>
+    <line x1="12" y1="40" x2="68" y2="40" stroke="#0072CE" stroke-width="1.5"/>
+    <text x="40" y="95" class="label-sub" font-size="9">Appliance Motor</text>
+  </g>
+
+  <!-- MCU control + Hall feedback -->
+  <path d="M 187 190 L 187 225" fill="none" stroke="#F5821F" stroke-width="2" stroke-dasharray="5 3" marker-end="url(#arrow-appliance)"/>
+  <g transform="translate(120, 225)">
+    <rect x="0" y="0" width="135" height="32" fill="#FBEFD9" stroke="#E8820C" stroke-width="1.5" rx="3"/>
+    <text x="67" y="20" class="part" fill="#D96D10" font-size="9">XMC4700 + TLI4966G</text>
+  </g>
+  <text x="400" y="260" class="label-sub" font-size="9">Vacuums · blenders · pumps · fans</text>
+</svg>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="igbt-cover-title">
+  <defs>
+    <style>
+      .primary { fill: #0072CE; }
+      .accent { fill: #F5821F; }
+      .neutral { fill: #E8F1FA; }
+      .metal { fill: #C0C0C0; }
+    </style>
+  </defs>
+  <title id="igbt-cover-title">Infineon IGBT power module product</title>
+
+  <!-- Background -->
+  <rect width="400" height="240" fill="transparent"/>
+
+  <!-- Main power module block -->
+  <g transform="translate(80, 50)">
+    <!-- Module housing -->
+    <rect x="0" y="0" width="240" height="140" class="primary" rx="4"/>
+    <rect x="8" y="8" width="224" height="124" class="neutral" rx="2"/>
+
+    <!-- Module label -->
+    <text x="120" y="35" font-family="Arial, sans-serif" font-size="12" fill="#0072CE" text-anchor="middle" font-weight="bold">IGBT Power Module</text>
+
+    <!-- Heat fins (vertical lines) on right side -->
+    <rect x="190" y="50" width="8" height="60" class="metal" opacity="0.7"/>
+    <rect x="205" y="50" width="8" height="60" class="metal" opacity="0.7"/>
+
+    <!-- Internal heat dissipation indication -->
+    <line x1="190" y1="60" x2="222" y2="60" stroke="#F5821F" stroke-width="1.5" opacity="0.6"/>
+    <line x1="190" y1="75" x2="222" y2="75" stroke="#F5821F" stroke-width="1.5" opacity="0.6"/>
+    <line x1="190" y1="90" x2="222" y2="90" stroke="#F5821F" stroke-width="1.5" opacity="0.6"/>
+    <line x1="190" y1="105" x2="222" y2="105" stroke="#F5821F" stroke-width="1.5" opacity="0.6"/>
+
+    <!-- Component internals representation -->
+    <g transform="translate(30, 55)">
+      <!-- Simplified transistor symbol outline -->
+      <line x1="15" y1="10" x2="15" y2="40" stroke="#0072CE" stroke-width="2"/>
+      <line x1="10" y1="25" x2="20" y2="25" stroke="#0072CE" stroke-width="2"/>
+      <circle cx="15" cy="35" r="6" fill="none" stroke="#0072CE" stroke-width="2"/>
+    </g>
+
+    <!-- Connection points -->
+    <circle cx="30" cy="20" r="2.5" class="accent"/>
+    <circle cx="30" cy="112" r="2.5" class="accent"/>
+    <circle cx="210" cy="20" r="2.5" class="accent"/>
+    <circle cx="210" cy="112" r="2.5" class="accent"/>
+  </g>
+
+  <!-- Terminal pins (top and bottom) -->
+  <g transform="translate(120, 45)">
+    <rect x="0" y="-8" width="6" height="8" class="metal"/>
+    <rect x="30" y="-8" width="6" height="8" class="metal"/>
+    <rect x="60" y="-8" width="6" height="8" class="metal"/>
+    <rect x="90" y="-8" width="6" height="8" class="metal"/>
+  </g>
+
+  <g transform="translate(120, 195)">
+    <rect x="0" y="0" width="6" height="8" class="metal"/>
+    <rect x="30" y="0" width="6" height="8" class="metal"/>
+    <rect x="60" y="0" width="6" height="8" class="metal"/>
+    <rect x="90" y="0" width="6" height="8" class="metal"/>
+  </g>
+
+</svg>

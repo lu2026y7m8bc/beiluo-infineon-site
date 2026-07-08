@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="sensors-cover-title">
+  <defs>
+    <style>
+      .primary { fill: #0072CE; }
+      .accent { fill: #F5821F; }
+      .neutral { fill: #E8F1FA; }
+      .wave { stroke: #0072CE; fill: none; }
+    </style>
+  </defs>
+  <title id="sensors-cover-title">Infineon sensor products</title>
+
+  <!-- Background -->
+  <rect width="400" height="240" fill="transparent"/>
+
+  <!-- Main sensor chip -->
+  <g transform="translate(70, 50)">
+    <!-- Chip body -->
+    <rect x="0" y="0" width="120" height="120" class="primary" rx="2"/>
+    <rect x="8" y="8" width="104" height="104" class="neutral" rx="1"/>
+
+    <!-- Sensing element (center) -->
+    <circle cx="60" cy="60" r="25" class="primary" opacity="0.3"/>
+    <circle cx="60" cy="60" r="18" class="primary" opacity="0.5"/>
+    <circle cx="60" cy="60" r="12" class="accent"/>
+    <circle cx="60" cy="60" r="8" class="primary"/>
+
+    <!-- Connection pads -->
+    <circle cx="20" cy="20" r="3" class="accent"/>
+    <circle cx="100" cy="20" r="3" class="accent"/>
+    <circle cx="20" cy="100" r="3" class="accent"/>
+    <circle cx="100" cy="100" r="3" class="accent"/>
+
+    <!-- Sensor label -->
+    <text x="60" y="105" font-family="Arial, sans-serif" font-size="9" fill="#0072CE" text-anchor="middle" font-weight="bold">Sensor</text>
+  </g>
+
+  <!-- Detection waves radiating from sensor -->
+  <g transform="translate(130, 110)">
+    <!-- Wave circles - radiating detection pattern -->
+    <circle cx="0" cy="0" r="35" class="wave" stroke-width="2" opacity="0.8"/>
+    <circle cx="0" cy="0" r="55" class="wave" stroke-width="1.5" opacity="0.5"/>
+    <circle cx="0" cy="0" r="75" class="wave" stroke-width="1" opacity="0.3"/>
+
+    <!-- Radial wave indicators -->
+    <line x1="0" y1="0" x2="0" y2="-40" stroke="#F5821F" stroke-width="2" opacity="0.7"/>
+    <line x1="0" y1="0" x2="28" y2="-28" stroke="#F5821F" stroke-width="2" opacity="0.7"/>
+    <line x1="0" y1="0" x2="40" y2="0" stroke="#F5821F" stroke-width="2" opacity="0.7"/>
+    <line x1="0" y1="0" x2="28" y2="28" stroke="#F5821F" stroke-width="2" opacity="0.7"/>
+
+    <!-- Wave pulse indicators -->
+    <circle cx="0" cy="-50" r="2.5" class="accent"/>
+    <circle cx="35" cy="-35" r="2.5" class="accent"/>
+    <circle cx="50" cy="0" r="2.5" class="accent"/>
+    <circle cx="35" cy="35" r="2.5" class="accent"/>
+  </g>
+
+  <!-- Sensor types indicator -->
+  <g transform="translate(70, 190)">
+    <text x="0" y="0" font-family="Arial, sans-serif" font-size="9" fill="#666">Temperature • Pressure</text>
+  </g>
+
+  <g transform="translate(270, 190)">
+    <text x="0" y="0" font-family="Arial, sans-serif" font-size="9" fill="#666">Motion • Proximity</text>
+  </g>
+
+</svg>

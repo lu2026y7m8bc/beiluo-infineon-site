@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-labelledby="icon-fae-title"
+     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <title id="icon-fae-title">FAE technical support icon</title>
+  <!-- headset band -->
+  <path d="M4 13v-1a8 8 0 0 1 16 0v1"/>
+  <!-- left ear cup -->
+  <rect x="2" y="13" width="4" height="6" rx="1.5"/>
+  <!-- right ear cup -->
+  <rect x="18" y="13" width="4" height="6" rx="1.5"/>
+  <!-- mic boom to mouth -->
+  <path d="M20 19v1a2 2 0 0 1-2 2h-3"/>
+</svg>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="mosfet-cover-title">
+  <defs>
+    <style>
+      .primary { fill: #0072CE; }
+      .accent { fill: #F5821F; }
+      .neutral { fill: #E8F1FA; }
+      .metal { fill: #D5D5D5; }
+      .black-component { fill: #1a1a1a; }
+    </style>
+  </defs>
+  <title id="mosfet-cover-title">Infineon MOSFET transistor product</title>
+
+  <!-- Background -->
+  <rect width="400" height="240" fill="transparent"/>
+
+  <!-- TO-220 Package (left side) -->
+  <g transform="translate(70, 60)">
+    <!-- Package body -->
+    <rect x="0" y="0" width="80" height="100" class="black-component" rx="3"/>
+
+    <!-- Heat sink flange (metal back) -->
+    <rect x="0" y="40" width="100" height="40" class="metal" opacity="0.9"/>
+    <text x="50" y="70" font-family="Arial, sans-serif" font-size="9" fill="#666" text-anchor="middle">HEAT SINK</text>
+
+    <!-- Leads (pins) -->
+    <g transform="translate(5, 95)">
+      <!-- Gate (G) -->
+      <line x1="10" y1="0" x2="10" y2="20" stroke="#1a1a1a" stroke-width="3"/>
+      <circle cx="10" cy="25" r="3" class="metal"/>
+      <!-- Drain (D) -->
+      <line x1="35" y1="0" x2="35" y2="20" stroke="#1a1a1a" stroke-width="3"/>
+      <circle cx="35" cy="25" r="3" class="metal"/>
+      <!-- Source (S) -->
+      <line x1="60" y1="0" x2="60" y2="20" stroke="#1a1a1a" stroke-width="3"/>
+      <circle cx="60" cy="25" r="3" class="metal"/>
+    </g>
+
+    <!-- Package label -->
+    <text x="40" y="25" font-family="Arial, sans-serif" font-size="10" fill="#FFFFFF" text-anchor="middle" font-weight="bold">TO-220</text>
+  </g>
+
+  <!-- Schematic symbol (right side) -->
+  <g transform="translate(220, 70)">
+    <!-- Frame -->
+    <rect x="0" y="0" width="100" height="100" class="neutral" stroke="#0072CE" stroke-width="2" rx="2"/>
+
+    <!-- MOSFET schematic symbol -->
+    <g transform="translate(25, 20)">
+      <!-- Gate -->
+      <line x1="0" y1="30" x2="15" y2="30" stroke="#0072CE" stroke-width="2"/>
+      <line x1="15" y1="20" x2="15" y2="40" stroke="#0072CE" stroke-width="2"/>
+
+      <!-- Channel -->
+      <line x1="25" y1="15" x2="25" y2="45" stroke="#0072CE" stroke-width="2"/>
+
+      <!-- Drain -->
+      <line x1="25" y1="10" x2="25" y2="5" stroke="#0072CE" stroke-width="2"/>
+      <line x1="20" y1="5" x2="30" y2="5" stroke="#0072CE" stroke-width="1.5"/>
+      <line x1="25" y1="0" x2="40" y2="0" stroke="#0072CE" stroke-width="2"/>
+
+      <!-- Source -->
+      <line x1="25" y1="50" x2="25" y2="55" stroke="#0072CE" stroke-width="2"/>
+      <line x1="20" y1="55" x2="30" y2="55" stroke="#0072CE" stroke-width="1.5"/>
+      <line x1="25" y1="60" x2="40" y2="60" stroke="#0072CE" stroke-width="2"/>
+
+      <!-- Arrow indicator -->
+      <path d="M 32 35 L 40 40 L 37 45" fill="none" stroke="#0072CE" stroke-width="1.5" stroke-linecap="round"/>
+    </g>
+
+    <!-- Labels -->
+    <text x="75" y="25" font-family="Arial, sans-serif" font-size="8" fill="#0072CE" font-weight="bold">D</text>
+    <text x="75" y="75" font-family="Arial, sans-serif" font-size="8" fill="#0072CE" font-weight="bold">S</text>
+    <text x="10" y="40" font-family="Arial, sans-serif" font-size="8" fill="#0072CE" font-weight="bold">G</text>
+  </g>
+
+  <!-- Description -->
+  <text x="200" y="210" font-family="Arial, sans-serif" font-size="11" fill="#0072CE" text-anchor="middle" font-weight="bold">N-Channel MOSFET</text>
+
+</svg>
