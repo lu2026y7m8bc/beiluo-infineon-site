@@ -44,16 +44,19 @@
            per PRD §3.8's conditional data-source rule: workspace contact.txt now
            exists, so its office directory is synced into site.json.contact and
            rendered here instead of the earlier WhatsApp/WeChat-only fallback).
-           Modern modular grid: one card per region, each listing its offices. -->
+           Modern modular grid: one card per OFFICE (not per region) — a
+           region is a heading grouping its offices' individual cards below
+           it, per explicit user feedback that grouping multiple offices
+           into a single region card read as one big block, not a grid. -->
       {{#if contact.globalNetwork}}
       <section class="global-network">
         <h2 class="global-network__title">{{brand.name}} Global Sales Network</h2>
         <p class="global-network__intro">{{contact.globalNetwork.intro}}</p>
-        <div class="global-network__grid">
+        <div class="global-network__regions">
           {{#each contact.globalNetwork.regions}}
           <div class="network-region">
             <h3 class="network-region__title">{{name}}</h3>
-            <div class="network-region__offices">
+            <div class="network-region__grid">
               {{#each offices}}
               <div class="network-office">
                 <h4 class="network-office__name">{{name}}</h4>
