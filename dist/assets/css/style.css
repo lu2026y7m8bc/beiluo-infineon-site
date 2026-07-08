@@ -1878,6 +1878,29 @@ body.nav-drawer-open {
   color: var(--c-primary);
 }
 
+/* Bare <h2> previously fell back to the global h2 rule (--fs-h2, 30px) —
+   too large for a card title in a 4-column grid, matching the same
+   oversized-card-title complaint fixed for .solution-card__title below.
+   Sized down to --fs-h3 to match .card__title's (news/support cards)
+   existing card-title treatment, for visual consistency across all list
+   pages' card grids. */
+.category-card__title {
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-h3);
+  margin: 0;
+}
+
+.category-card__title a {
+  color: var(--c-text);
+  text-decoration: none;
+}
+
+.category-card__title a:hover {
+  color: var(--c-primary);
+  text-decoration: none;
+}
+
 .category-card__desc {
   color: var(--c-text-muted);
   font-size: var(--fs-small);
@@ -2371,6 +2394,18 @@ body.nav-drawer-open {
   width: 32px;
   height: 32px;
   color: var(--c-primary);
+}
+
+/* h2 had no font-size override, so it fell back to the global h2 rule
+   (--fs-h2, 30px) — oversized for a card title, especially since these
+   titles run long ("BLDC Motor Drive Solution with Infineon IGBT
+   IKW40N120H3"). Sized down to --fs-h3 to match .card__title/
+   .category-card__title's card-title treatment on the other list pages. */
+.solution-card__title {
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-h3);
+  margin: 0;
 }
 
 .solution-card__title a {
