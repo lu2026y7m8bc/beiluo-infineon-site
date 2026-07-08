@@ -2,7 +2,7 @@
  * nav.js — Top-nav behaviour (T2.4)
  * Sticky-on-scroll, Products mega menu (hover/focus/ESC), mobile drawer (toggle/ESC/link-close)
  * Vanilla JS, defensive (no-op when elements absent), keyboard-accessible.
- * Loaded via <script src="/assets/js/nav.js" defer>.
+ * Loaded via <script type="module" src="/assets/js/nav.js">.
  */
 
 (function () {
@@ -108,6 +108,11 @@
     if (!drawer || !drawerToggle) return;
     drawer.classList.add('is-open');
     drawer.removeAttribute('aria-hidden');
+    /* [Fix 5] Drawer stays display:flex while closed (only translated off-screen
+       via CSS transform), so aria-hidden alone doesn't remove its links from the
+       keyboard tab order. `inert` does — must be removed on open, restored on
+       close, so a closed-but-visually-offscreen drawer is never Tab-reachable. */
+    drawer.removeAttribute('inert');
     drawerToggle.setAttribute('aria-expanded', 'true');
     /* [Fix 4] Keep aria-label in sync with drawer state */
     drawerToggle.setAttribute('aria-label', 'Close navigation menu');
@@ -118,6 +123,8 @@
     if (!drawer || !drawerToggle) return;
     drawer.classList.remove('is-open');
     drawer.setAttribute('aria-hidden', 'true');
+    /* [Fix 5] see openDrawer() */
+    drawer.setAttribute('inert', '');
     drawerToggle.setAttribute('aria-expanded', 'false');
     /* [Fix 4] Keep aria-label in sync with drawer state */
     drawerToggle.setAttribute('aria-label', 'Open navigation menu');
