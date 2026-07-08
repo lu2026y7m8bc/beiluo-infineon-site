@@ -789,7 +789,9 @@ body.nav-drawer-open {
 .site-footer {
   background: var(--c-ink-banner);
   color: var(--c-footer-text);
-  padding-block: var(--space-12);
+  /* Tightened from --space-12 per user feedback that the footer felt
+     loose/not compact — matching reductions below in __grid/__bottom. */
+  padding-block: var(--space-8);
 }
 
 .site-footer a {
@@ -806,7 +808,7 @@ body.nav-drawer-open {
   display: grid;
   gap: var(--space-8);
   grid-template-columns: 1fr;
-  margin-bottom: var(--space-8);
+  margin-bottom: var(--space-6);
 }
 
 @media (min-width: 768px) {
@@ -882,8 +884,8 @@ body.nav-drawer-open {
 
 .site-footer__bottom {
   border-top: 1px solid var(--c-footer-border);
-  margin-top: var(--space-8);
-  padding-top: var(--space-6);
+  margin-top: var(--space-6);
+  padding-top: var(--space-4);
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
@@ -2139,6 +2141,11 @@ body.nav-drawer-open {
   align-items: center;
   gap: var(--space-4);
   justify-content: space-between;
+  /* Same missing-margin-before-footer bug as .solutions-grid — this is
+     the last element in product-category.html before </main>/{{> footer}},
+     and had zero bottom margin, so the shaded box ran straight into the
+     footer with no gap. */
+  margin-bottom: var(--space-12);
 }
 
 .cat-cta p {
@@ -2364,6 +2371,11 @@ body.nav-drawer-open {
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--space-6);
+  /* .category-card__grid (products-list.html) has this same margin-bottom
+     since it's also the last element in .container before the footer;
+     this rule was missing it, so the cards ran straight into the footer
+     with zero gap (per user feedback). */
+  margin-bottom: var(--space-12);
 }
 
 @media (min-width: 768px) {
@@ -2565,6 +2577,15 @@ body.nav-drawer-open {
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--space-6);
+  /* Same missing-margin-before-footer bug as .solutions-grid/.cat-cta —
+     on the support category-index and tag-aggregation page variants
+     (support-list.html) this grid is the last element before the
+     footer with zero bottom margin. On the /support/ overview page
+     it's nested inside .tab-container, which already has its own
+     margin-block, so this just adds a harmless bit of extra space
+     there rather than being needed. Matches .category-card__grid/
+     .news-list__section's established margin-bottom convention. */
+  margin-bottom: var(--space-12);
 }
 
 @media (min-width: 768px) {
