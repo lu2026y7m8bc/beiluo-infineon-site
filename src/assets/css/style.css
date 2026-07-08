@@ -1643,25 +1643,22 @@ body.nav-drawer-open {
   background: var(--c-bg-alt);
 }
 
+/* flex-wrap + justify-content:center instead of a fixed-column grid —
+   about.json currently has 5 advantages, which doesn't divide evenly
+   into 2 or 3 columns and left the last row's 2 cards stranded at the
+   grid's left edge with a large empty gap on the right. Centering the
+   wrapped row (and letting the count grow/shrink without re-tuning a
+   column count) fixes this regardless of how many advantages exist. */
 .why-choose__grid {
-  display: grid;
-  grid-template-columns: 1fr;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: var(--space-6);
 }
 
-@media (min-width: 768px) {
-  .why-choose__grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 1200px) {
-  .why-choose__grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
 .why-choose__card {
+  flex: 1 1 300px;
+  max-width: 380px;
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
@@ -2971,16 +2968,20 @@ body.nav-drawer-open {
   margin-bottom: var(--space-8);
 }
 
+/* flex-wrap + justify-content:center, not a fixed 2-column grid — 3
+   customs declarations in a 2-column grid stranded the 3rd card alone
+   on a half-empty second row. Centering the wrapped row keeps this
+   balanced regardless of how many declarations exist. */
 .customs__grid {
-  display: grid;
-  grid-template-columns: 1fr;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: var(--space-6);
 }
 
-@media (min-width: 768px) {
-  .customs__grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+.customs__card {
+  flex: 1 1 300px;
+  max-width: 380px;
 }
 
 .customs__img {
@@ -2998,25 +2999,20 @@ body.nav-drawer-open {
   margin-right: var(--space-3);
 }
 
+/* flex-wrap + justify-content:center, not a fixed 3-column grid — with
+   only 2 FAEs today, a 3-column grid left the row 2/3 full and visibly
+   off-center. Centering the wrapped row keeps this balanced as the
+   team grows without re-tuning a column count. */
 .team__grid {
-  display: grid;
-  grid-template-columns: 1fr;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: var(--space-6);
 }
 
-@media (min-width: 768px) {
-  .team__grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 1200px) {
-  .team__grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
 .team__card {
+  flex: 1 1 260px;
+  max-width: 320px;
   text-align: center;
   display: flex;
   flex-direction: column;
