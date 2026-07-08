@@ -4,8 +4,11 @@
   {{> head-meta}}
 
   <!-- CollectionPage JSON-LD (same shape for all 3 URL variants — seo.title/description already vary per page in pages.js).
-       Uses raw triple-brace interpolation per CLAUDE.md ("raw, JSON-LD only, validated safe") —
-       seo.title/description are build-time strings from site.json/pages.js, not user input. -->
+       Uses raw triple-brace interpolation per CLAUDE.md ("raw, JSON-LD only, validated safe") — on the
+       /support/ and /support/tags/<tag>/ variants seo.title/description are build-time-composed strings
+       with no user-editable content; on the /support/<category>/ variant they instead pass through
+       category.title/category.metaDescription from support.json (see pages.js), so validate-data.js's
+       checkJsonLdSafe() explicitly covers those two fields to keep this raw interpolation safe. -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",

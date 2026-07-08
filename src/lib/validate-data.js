@@ -20,6 +20,21 @@ function isArray(v) {
   return Array.isArray(v);
 }
 
+/**
+ * Checks [path, value] pairs for characters that would break JSON syntax when
+ * raw-interpolated (`{{{x}}}`) into a `<script type="application/ld+json">` block —
+ * every raw-JSON-LD site across all 12 templates funnels through this, not just
+ * site.json's. Skips non-string/empty values (optional fields are validated for
+ * presence elsewhere; this only guards content that IS present).
+ */
+function checkJsonLdSafe(prefix, fields, errors) {
+  for (const [path, val] of fields) {
+    if (typeof val === 'string' && val !== '' && /["\\\n\r]/.test(val)) {
+      errors.push(`${prefix}: ${path} contains JSON-unsafe characters (" \\ or newline) — breaks JSON-LD output`);
+    }
+  }
+}
+
 // ── Domain validators — each pushes to `errors` ───────────────────────────────
 
 function validateSite(site, errors) {
@@ -86,18 +101,19 @@ function validateSite(site, errors) {
   }
 
   // JSON-LD safety: fields embedded as raw strings in <script type="application/ld+json">
-  // must not contain characters that would break JSON syntax
-  const jsonLdFields = [
+  // must not contain characters that would break JSON syntax. brand.slogan/logo.src
+  // and the optional jsonLd.foundingYear/areaServed are also raw-interpolated in
+  // home.html's Organization block — not just the 4 fields checked pre-T9.3.
+  checkJsonLdSafe('site', [
     ['brand.name', brand.name],
+    ['brand.slogan', brand.slogan],
     ['brand.oneLiner', brand.oneLiner],
+    ['logo.src', logo.src],
     ['jsonLd.organizationUrl', jsonLd.organizationUrl],
     ['jsonLd.organizationType', jsonLd.organizationType],
-  ];
-  for (const [path, val] of jsonLdFields) {
-    if (typeof val === 'string' && /["\\\n\r]/.test(val)) {
-      errors.push(`site: ${path} contains JSON-unsafe characters (" \\ or newline) — breaks JSON-LD output`);
-    }
-  }
+    ['jsonLd.foundingYear', jsonLd.foundingYear],
+    ['jsonLd.areaServed', jsonLd.areaServed],
+  ], errors);
 }
 
 function validateProducts(products, errors) {
@@ -126,6 +142,12 @@ function validateProducts(products, errors) {
     if (cat.columns === undefined || cat.columns === null) {
       errors.push(`products: category "${catId}" missing required field "columns"`);
     }
+
+    // JSON-LD safety: category.slug feeds catUrl/modelUrl (pages.js), which
+    // becomes seo.canonical, raw-interpolated as Product.url/offers.url on
+    // product-detail.html. (The model-slug half of that URL is safe — it's
+    // uniqueSlug()-generated via slugify.js, which strips to [a-z0-9-].)
+    checkJsonLdSafe(`products: category "${catId}"`, [['slug', cat.slug]], errors);
 
     const models = cat.models;
     if (!isArray(models) || models.length !== 2) {
@@ -186,6 +208,19 @@ function validateProducts(products, errors) {
       if (!isArray(model.companionParts)) {
         errors.push(`${modelPrefix}: companionParts must be an array`);
       }
+
+      // JSON-LD safety: product-category.html/product-detail.html raw-interpolate
+      // these into per-model Product <script type="application/ld+json"> blocks.
+      checkJsonLdSafe(modelPrefix, [
+        ['partNo', model.partNo],
+        ['brand', model.brand],
+        ['shortDescription', model.shortDescription],
+        ['image', model.image],
+        // absoluteHref (= site.jsonLd.organizationUrl + model.href) is raw-interpolated
+        // as Product.url/offers.url — href is the user-editable half of that string.
+        ['href', model.href],
+        ...(isArray(model.applications) ? model.applications.map((app, ai) => [`applications[${ai}]`, app]) : []),
+      ], errors);
     }
   }
 }
@@ -220,6 +255,11 @@ function validateSolutions(solutions, errors) {
     if (!isArray(sol.advantages) || sol.advantages.length < 3) {
       errors.push(`${prefix}: advantages must have at least 3 items (got ${isArray(sol.advantages) ? sol.advantages.length : 'none'})`);
     }
+
+    // JSON-LD safety: solution-detail.html raw-interpolates title into its
+    // BreadcrumbList block; slug feeds solutionUrl (pages.js) -> seo.canonical,
+    // also raw-interpolated there.
+    checkJsonLdSafe(prefix, [['title', sol.title], ['slug', sol.slug]], errors);
   }
 }
 
@@ -255,6 +295,52 @@ function validateSupport(support, errors) {
     if (!isArray(article.contextLinks) || article.contextLinks.length === 0) {
       errors.push(`${prefix}: contextLinks must be a non-empty array (got ${isArray(article.contextLinks) ? article.contextLinks.length : 'none/missing'})`);
     }
+
+    // JSON-LD safety: tech-detail.html raw-interpolates these into its
+    // TechArticle block; slug (+ category, already listed) feeds articleUrl
+    // (pages.js) -> seo.canonical, also raw-interpolated there.
+    checkJsonLdSafe(prefix, [
+      ['title', article.title],
+      ['metaDescription', article.metaDescription],
+      ['date', article.date],
+      ['dateModified', article.dateModified],
+      ['category', article.category],
+      ['slug', article.slug],
+    ], errors);
+  }
+
+  // JSON-LD safety: tech-detail.html/about.html raw-interpolate author.name/
+  // author.profileHref into TechArticle.author and BreadcrumbList blocks.
+  for (const [i, author] of (isArray(authors) ? authors : []).entries()) {
+    const id = author.slug || `[${i}]`;
+    checkJsonLdSafe(`support: author "${id}"`, [
+      ['name', author.name],
+      ['profileHref', author.profileHref],
+    ], errors);
+  }
+
+  // JSON-LD safety: support-list.html raw-interpolates category.name into
+  // BreadcrumbList blocks on every /support/ variant, and ALSO — on the
+  // /support/<category>/ index page specifically — pages.js builds that page's
+  // `seo` from category.title/category.metaDescription (pages.js: `title:
+  // \`${category.title} | ${site.brand.name}\``, `description: category.
+  // metaDescription`), which support-list.html then raw-interpolates as
+  // {{{seo.title}}}/{{{seo.description}}} into a CollectionPage block — despite
+  // that template's own comment claiming seo.title/description are always
+  // build-time-safe strings, which is true for the /support/ and
+  // /support/tags/<tag>/ variants but not this one.
+  // category.slug feeds catUrl (pages.js) -> seo.canonical, also raw-interpolated
+  // into that same CollectionPage block on the /support/<category>/ variant.
+  for (const [i, cat] of (isArray(support.categories) ? support.categories : []).entries()) {
+    checkJsonLdSafe(`support: category "${cat.slug || `[${i}]`}"`, [
+      ['name', cat.name],
+      ['title', cat.title],
+      ['metaDescription', cat.metaDescription],
+      ['slug', cat.slug],
+    ], errors);
+  }
+  for (const [i, tag] of (isArray(support.tags) ? support.tags : []).entries()) {
+    checkJsonLdSafe(`support: tag "${tag.slug || `[${i}]`}"`, [['name', tag.name]], errors);
   }
 }
 
@@ -297,6 +383,19 @@ function validateNews(news, errors) {
     if (bi === undefined || bi === null || bi === '') {
       errors.push(`${prefix}: bannerImage must exist (string or object)`);
     }
+
+    // JSON-LD safety: news-detail.html raw-interpolates these into its
+    // NewsArticle block; slug feeds articleUrl (pages.js) -> seo.canonical,
+    // also raw-interpolated there (mainEntityOfPage + BreadcrumbList item).
+    checkJsonLdSafe(prefix, [
+      ['title', article.title],
+      ['metaDescription', article.metaDescription],
+      ['date', article.date],
+      ['dateModified', article.dateModified],
+      ['slug', article.slug],
+      ['author', article.author],
+      ['bannerImage.src', bi && typeof bi === 'object' ? bi.src : undefined],
+    ], errors);
   }
 }
 
