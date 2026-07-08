@@ -1206,9 +1206,9 @@ body.nav-drawer-open {
 
 .card__title {
   font-family: var(--font-heading);
-  font-size: var(--fs-h3);
+  font-size: var(--fs-h4);
   font-weight: var(--fw-semibold);
-  line-height: var(--lh-h3);
+  line-height: var(--lh-h4);
   margin: 0;
 }
 
@@ -1881,13 +1881,13 @@ body.nav-drawer-open {
 /* Bare <h2> previously fell back to the global h2 rule (--fs-h2, 30px) —
    too large for a card title in a 4-column grid, matching the same
    oversized-card-title complaint fixed for .solution-card__title below.
-   Sized down to --fs-h3 to match .card__title's (news/support cards)
-   existing card-title treatment, for visual consistency across all list
-   pages' card grids. */
+   First pass sized to --fs-h3 (23px) to match .card__title (news/support
+   cards); user feedback that it was still too large brought all three
+   card-title rules down another step to --fs-h4 (18px) together. */
 .category-card__title {
-  font-size: var(--fs-h3);
+  font-size: var(--fs-h4);
   font-weight: var(--fw-semibold);
-  line-height: var(--lh-h3);
+  line-height: var(--lh-h4);
   margin: 0;
 }
 
@@ -2399,12 +2399,14 @@ body.nav-drawer-open {
 /* h2 had no font-size override, so it fell back to the global h2 rule
    (--fs-h2, 30px) — oversized for a card title, especially since these
    titles run long ("BLDC Motor Drive Solution with Infineon IGBT
-   IKW40N120H3"). Sized down to --fs-h3 to match .card__title/
-   .category-card__title's card-title treatment on the other list pages. */
+   IKW40N120H3"). First pass sized to --fs-h3 (23px) to match
+   .card__title/.category-card__title; user feedback that it was still
+   too large brought all three card-title rules down another step to
+   --fs-h4 (18px) together. */
 .solution-card__title {
-  font-size: var(--fs-h3);
+  font-size: var(--fs-h4);
   font-weight: var(--fw-semibold);
-  line-height: var(--lh-h3);
+  line-height: var(--lh-h4);
   margin: 0;
 }
 
