@@ -24,15 +24,6 @@
                   {{#each navCategories}}
                   <li class="mega-menu__category">
                     <a class="mega-menu__cat-link" href="/products/{{slug}}/">{{name}}</a>
-                    {{#if featuredModels}}
-                    <ul class="mega-menu__models" role="list">
-                      {{#each featuredModels}}
-                      <li class="mega-menu__model">
-                        <a class="mega-menu__model-link" href="{{href}}">{{partNo}}</a>
-                      </li>
-                      {{/each}}
-                    </ul>
-                    {{/if}}
                   </li>
                   {{/each}}
                 </ul>

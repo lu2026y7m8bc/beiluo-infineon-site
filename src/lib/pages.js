@@ -79,15 +79,15 @@ function sidebarNav(title, items, currentUrl) {
 export function buildPageList(data) {
   const { home, products, solutions, support, news, about } = data;
 
-  // Mega Menu data: 2 featured models per product category, attached to the
-  // "Products" nav item so nav.html can render it via {{#each navCategories}}
-  // from within {{#each nav.items}} — render.js's {{#each}} has no
-  // parent-scope access, so navCategories must live on that item itself,
-  // not as a sibling top-level field.
+  // Mega Menu data: category links only, per explicit user feedback that
+  // the "Products" nav dropdown shouldn't list individual models. Attached
+  // to the "Products" nav item so nav.html can render it via
+  // {{#each navCategories}} from within {{#each nav.items}} — render.js's
+  // {{#each}} has no parent-scope access, so navCategories must live on
+  // that item itself, not as a sibling top-level field.
   const navCategories = products.categories.map(category => ({
     slug: category.slug,
     name: category.name,
-    featuredModels: category.models.slice(0, 2).map(m => ({ partNo: m.partNo, href: m.href })),
   }));
   const site = {
     ...data.site,
