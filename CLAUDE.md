@@ -18,7 +18,7 @@ Stack: HTML + native CSS + Node.js (ESM). Zero runtime dependencies.
 
 ## Active Branch
 
-`feat/beiluo-infineon-site` — do NOT commit to `main`.
+`main`. `feat/beiluo-infineon-site` (Phases 0–9 of the site build) was merged into `main` and deleted on 2026-07-08 via the `finishing-a-development-branch` skill, per user choice. Any new feature work should branch off `main` again rather than resuming the deleted branch name.
 
 ## Current Files in `docs/current/`
 
