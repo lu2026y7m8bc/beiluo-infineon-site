@@ -81,7 +81,7 @@
 
   { "content": "T11.1 更新CLAUDE.md(项目规则/文档入口/AI边界/current文件列表) — 完成标准：含入口规则与有效文件列表 — 完成：用户直接要求提前做会话收尾整理，补充了current文件列表小节，其余部分本就精简符合要求", "status": "completed" },
   { "content": "T11.2 更新docs/current/dev-status.md(状态/已完成/in_progress/pending/测试结果/Codex结论/下一步) — 完成标准：dev-status反映真实状态 — 完成：用户直接要求提前做会话收尾整理，dev-status.md已重写为按分支/已完成/in_progress/pending概览/测试构建结果/未处理问题/Codex复检结论/下一步建议组织的当前状态快照(深度历史叙事保留在progress.md/git log)。注：此条为T11.2完成当时(该次会话)的历史状态记录——彼时T8.1/T8.2仍是in_progress，T11.1/T11.2提前完成是用户明确指示的例外，非常规顺序；T8.1/T8.2均已在后续会话完成，此注释不代表当前状态，当前状态以本文件对应条目及dev-status.md为准", "status": "completed" },
-  { "content": "T11.3 用finishing-a-development-branch收尾(防未完成/未提交/未跑测试/文档未同步) — 完成标准：分支干净,所有文件提交,测试已跑", "status": "pending" },
+  { "content": "T11.3 用finishing-a-development-branch收尾(防未完成/未提交/未跑测试/文档未同步) — 完成标准：分支干净,所有文件提交,测试已跑 — 完成：跑npm test确认376/376全绿→检测为普通仓库无worktree→确认基础分支main(merge-base 759e2dd)→按技能标准菜单向用户展示4个选项(本地合并/推送建PR/保持现状/丢弃)→用户选择本地合并→检查确认无远程仓库配置(跳过git pull步骤)→git checkout main→git merge feat/beiluo-infineon-site(fast-forward,无冲突)→合并后main分支上重跑npm test(376/376)+node build(exit 0)验证→git branch -d删除已合并的feature分支→更新CLAUDE.md与dev-status.md里过时的'Active Branch'/'Branch'引用(均已指向main,注明feat分支已于2026-07-08合并删除)。全部完成后提交(771708b)。", "status": "completed" },
   { "content": "T11.4 更新memory(关键项目事实/偏好)+索引 — 完成标准：memory文件与MEMORY.md索引更新", "status": "pending" }
 ]
 ```
