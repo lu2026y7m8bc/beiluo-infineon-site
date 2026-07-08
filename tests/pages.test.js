@@ -332,6 +332,72 @@ describe('buildPageList', () => {
     }
   });
 
+  // ── Product category topApplications (dedup + cap) ─────────────────────────
+  it('product-category topApplications dedupes across all models and caps at 6', () => {
+    const testData = {
+      ...data,
+      products: {
+        categories: [
+          {
+            slug: 'igbt',
+            name: 'IGBT',
+            title: 'Infineon IGBT Distributor',
+            metaDescription: 'IGBT meta',
+            description: 'IGBT desc',
+            faeNote: 'FAE note',
+            icon: '/assets/svg/icons/igbt.svg',
+            selectionGuideHref: '/support/guides/how-to-select-infineon-igbt/',
+            selectionGuideDownloadHref: '/assets/docs/igbt-guide.pdf',
+            columns: [],
+            models: [
+              {
+                partNo: 'M1',
+                series: 'H3',
+                params: {},
+                package: 'TO-247',
+                stock: 'inStock',
+                href: '/products/igbt/m1/',
+                applications: ['Motor Drive', 'Solar Inverter', 'EV Charging'],
+              },
+              {
+                partNo: 'M2',
+                series: 'H3',
+                params: {},
+                package: 'TO-247',
+                stock: 'inStock',
+                href: '/products/igbt/m2/',
+                // "Motor Drive" repeats (must dedupe); 4 new applications push the
+                // unique count to 7, which must be capped at 6.
+                applications: ['Motor Drive', 'Industrial IoT', 'Welding', 'UPS', 'Traction'],
+              },
+            ],
+          },
+        ],
+      },
+    };
+
+    const testPages = buildPageList(testData);
+    const p = findPage(testPages, '/products/igbt/');
+    assert.ok(p, '/products/igbt/ page not found');
+
+    // 7 unique applications across both models, capped at 6
+    assert.equal(p.context.topApplications.length, 6);
+
+    // No duplicates in the result
+    const unique = new Set(p.context.topApplications);
+    assert.equal(unique.size, p.context.topApplications.length);
+
+    // "Motor Drive" (repeated across both models) appears exactly once
+    const motorDriveCount = p.context.topApplications.filter(a => a === 'Motor Drive').length;
+    assert.equal(motorDriveCount, 1);
+
+    // First-seen order preserved; the 7th unique application ("Traction") is dropped by the cap
+    assert.deepEqual(p.context.topApplications, [
+      'Motor Drive', 'Solar Inverter', 'EV Charging', 'Industrial IoT', 'Welding', 'UPS',
+    ]);
+    assert.ok(!p.context.topApplications.includes('Traction'));
+  });
+
   // ── Product detail pages ────────────────────────────────────────────────────
   it('product detail pages count equals total models across all categories (4)', () => {
     const detailPages = pagesByTemplate(pages, 'product-detail');
@@ -475,6 +541,46 @@ describe('buildPageList', () => {
     assert.equal(p.template, 'support-list');
   });
 
+  // ── Support overview per-category filtered article arrays ──────────────────
+  it('support overview guidesArticles contains only guides-category articles', () => {
+    const p = findPage(pages, '/support/');
+    assert.ok(p, '/support/ not found');
+    const slugs = p.context.guidesArticles.map(a => a.slug);
+    assert.deepEqual(slugs, ['how-to-select-igbt']);
+    for (const a of p.context.guidesArticles) {
+      assert.equal(a.category, 'guides');
+    }
+    // Must not leak the reviews-category article
+    assert.ok(!p.context.guidesArticles.some(a => a.slug === 'aurix-tc387-review'));
+    // Full-object comparison — guards against a regression that keeps slug
+    // filtering correct but returns truncated/reshaped article objects.
+    assert.deepEqual(
+      p.context.guidesArticles,
+      support.articles.filter(a => a.category === 'guides'),
+    );
+  });
+
+  it('support overview reviewsArticles contains only reviews-category articles', () => {
+    const p = findPage(pages, '/support/');
+    const slugs = p.context.reviewsArticles.map(a => a.slug);
+    assert.deepEqual(slugs, ['aurix-tc387-review']);
+    for (const a of p.context.reviewsArticles) {
+      assert.equal(a.category, 'reviews');
+    }
+    // Must not leak the guides-category article
+    assert.ok(!p.context.reviewsArticles.some(a => a.slug === 'how-to-select-igbt'));
+    assert.deepEqual(
+      p.context.reviewsArticles,
+      support.articles.filter(a => a.category === 'reviews'),
+    );
+  });
+
+  it('support overview applicationNotesArticles and troubleshootingArticles are empty for fixture data with no such-category articles', () => {
+    const p = findPage(pages, '/support/');
+    assert.deepEqual(p.context.applicationNotesArticles, []);
+    assert.deepEqual(p.context.troubleshootingArticles, []);
+  });
+
   // ── Support category pages ──────────────────────────────────────────────────
   it('support category pages count equals support.categories length (2)', () => {
     // All pages under /support/<catSlug>/ that are NOT /support/tags/<tagSlug>/
@@ -531,6 +637,26 @@ describe('buildPageList', () => {
     assert.equal(p.template, 'tech-detail');
   });
 
+  it('tech-detail context.author resolves the full author object, not just the slug string', () => {
+    const p = findPage(pages, '/support/guides/how-to-select-igbt/');
+    assert.ok(p, '/support/guides/how-to-select-igbt/ not found');
+    assert.equal(typeof p.context.author, 'object');
+    assert.notEqual(p.context.author, null);
+    assert.equal(p.context.author.slug, 'li-wei');
+    assert.equal(p.context.author.name, 'Li Wei');
+    assert.equal(p.context.author.expertise, 'Power semiconductors, IGBT gate drive design');
+    // Full resolved object matches the fixture author record exactly.
+    assert.deepEqual(p.context.author, support.authors.find(a => a.slug === 'li-wei'));
+  });
+
+  it('tech-detail context.author resolves a different author for a different article (wang-fang, not li-wei)', () => {
+    const p = findPage(pages, '/support/reviews/aurix-tc387-review/');
+    assert.ok(p, '/support/reviews/aurix-tc387-review/ not found');
+    assert.equal(p.context.author.slug, 'wang-fang');
+    assert.equal(p.context.author.name, 'Wang Fang');
+    assert.deepEqual(p.context.author, support.authors.find(a => a.slug === 'wang-fang'));
+  });
+
   // ── News ─────────────────────────────────────────────────────────────────────
   it('news list has url "/news/" and template "news-list"', () => {
     const p = findPage(pages, '/news/');
@@ -574,6 +700,43 @@ describe('buildPageList', () => {
     const p = findPage(pages, '/about/authors/wang-fang/');
     assert.ok(p, '/about/authors/wang-fang/ not found');
     assert.equal(p.context.authorProfile, true);
+  });
+
+  it('author profile page context.author is the fully resolved author object matching support.authors', () => {
+    const p = findPage(pages, '/about/authors/li-wei/');
+    assert.ok(p, '/about/authors/li-wei/ not found');
+    assert.deepEqual(p.context.author, support.authors.find(a => a.slug === 'li-wei'));
+    assert.equal(p.context.author.name, 'Li Wei');
+    assert.equal(p.context.author.expertise, 'Power semiconductors, IGBT gate drive design');
+  });
+
+  it('author profile page context.authoredArticles contains only articles written by this author', () => {
+    const p = findPage(pages, '/about/authors/li-wei/');
+    const slugs = p.context.authoredArticles.map(a => a.slug);
+    assert.deepEqual(slugs, ['how-to-select-igbt']);
+    for (const a of p.context.authoredArticles) {
+      assert.equal(a.author, 'li-wei');
+    }
+    // Must not include wang-fang's article
+    assert.ok(!p.context.authoredArticles.some(a => a.slug === 'aurix-tc387-review'));
+    assert.deepEqual(
+      p.context.authoredArticles,
+      support.articles.filter(a => a.author === 'li-wei'),
+    );
+  });
+
+  it('second author profile page (wang-fang) authoredArticles excludes li-wei\'s article', () => {
+    const p = findPage(pages, '/about/authors/wang-fang/');
+    const slugs = p.context.authoredArticles.map(a => a.slug);
+    assert.deepEqual(slugs, ['aurix-tc387-review']);
+    for (const a of p.context.authoredArticles) {
+      assert.equal(a.author, 'wang-fang');
+    }
+    assert.ok(!p.context.authoredArticles.some(a => a.slug === 'how-to-select-igbt'));
+    assert.deepEqual(
+      p.context.authoredArticles,
+      support.articles.filter(a => a.author === 'wang-fang'),
+    );
   });
 
   it('author page breadcrumb has 4 levels (Home / About Us / Authors / Name)', () => {
