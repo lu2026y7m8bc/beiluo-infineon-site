@@ -973,7 +973,7 @@ body.nav-drawer-open {
 }
 
 .breadcrumb__link {
-  color: var(--c-accent);
+  color: var(--c-primary);
   text-decoration: none;
 }
 
@@ -2469,7 +2469,7 @@ body.nav-drawer-open {
   .sticky-sidebar {
     position: sticky;
     top: 100px;
-    z-index: 10;
+    z-index: var(--z-sticky);
     /* .tech-detail-layout has 3 direct children (article-content / related-articles
        [grid-column:1/-1] / sticky-sidebar) in a 2-column grid — without an explicit
        placement here, auto-placement leaves row 1 col 2 empty (skipped because

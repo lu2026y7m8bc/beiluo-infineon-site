@@ -1,9 +1,0 @@
-<article class="card card--teaser">
-  {{#if icon}}<div class="card__icon">{{{icon}}}</div>{{/if}}
-  {{#if image}}<img class="card__image" src="{{image.src}}" alt="{{image.alt}}">{{/if}}
-  {{#if tag}}<span class="badge badge--tag">{{tag}}</span>{{/if}}
-  <h3 class="card__title"><a href="{{href}}">{{title}}</a></h3>
-  {{#if summary}}<p class="card__summary">{{summary}}</p>{{/if}}
-  {{#if date}}<time class="card__date">{{date}}</time>{{/if}}
-  <a class="card__more" href="{{href}}">{{#if moreLabel}}{{moreLabel}}{{else}}Read more{{/if}} &rarr;</a>
-</article>
