@@ -128,6 +128,15 @@
       group.className = 'filter-control';
       group.dataset.filterGroup = col.key;
 
+      // Visible label so sighted users know which column each control
+      // filters (previously only conveyed via the aria-label below, which
+      // is invisible on screen — the filter bar just looked like a loose
+      // stack of unlabeled inputs).
+      var labelEl = document.createElement('span');
+      labelEl.className = 'filter-control__label';
+      labelEl.textContent = col.label;
+      group.appendChild(labelEl);
+
       if (col.filterKind === 'select') {
         var select = document.createElement('select');
         select.setAttribute('aria-label', ariaLabel);
@@ -155,6 +164,9 @@
 
         group.appendChild(select);
       } else if (col.filterKind === 'range') {
+        var rangeRow = document.createElement('div');
+        rangeRow.className = 'filter-control__row';
+
         var minInput = document.createElement('input');
         minInput.type = 'number';
         minInput.placeholder = 'Min';
@@ -178,9 +190,13 @@
         minInput.addEventListener('input', updateRange);
         maxInput.addEventListener('input', updateRange);
 
-        group.appendChild(minInput);
-        group.appendChild(maxInput);
+        rangeRow.appendChild(minInput);
+        rangeRow.appendChild(maxInput);
+        group.appendChild(rangeRow);
       } else if (col.filterKind === 'multi') {
+        var multiRow = document.createElement('div');
+        multiRow.className = 'filter-control__row';
+
         uniqueValues(col.key).forEach(function (value) {
           var checkboxLabel = document.createElement('label');
           checkboxLabel.className = 'filter-control__checkbox';
@@ -204,8 +220,9 @@
 
           checkboxLabel.appendChild(checkbox);
           checkboxLabel.appendChild(document.createTextNode(value));
-          group.appendChild(checkboxLabel);
+          multiRow.appendChild(checkboxLabel);
         });
+        group.appendChild(multiRow);
       } else {
         return; // unknown data-filter value, skip generating a control
       }

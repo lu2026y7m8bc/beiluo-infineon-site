@@ -290,10 +290,13 @@
 
 
     <!-- ============================================================
-         NEWS DETAIL — /news/<slug>/  (single-column, no sidebar, PRD C7)
+         NEWS DETAIL — /news/<slug>/
          design.md §5.12: full-width header banner (H1 + date + category
-         badge over bannerImage.src with dark overlay) → single-column
-         body → share bar → "Latest News" 3-card block → final CTA.
+         badge over bannerImage.src with dark overlay) → body + sidebar
+         → share bar → "Latest News" 3-card block → final CTA.
+         Sidebar (News Categories + Explore More) added per explicit user
+         request overriding the original PRD C7 "no sidebar" decision —
+         the bottom "Latest News" cards remain as a secondary nav aid.
          ============================================================ -->
     <header class="news-banner banner-overlay-dark">
       <img class="news-banner__bg" src="/assets/svg/illustrations/news-beiluo-expands-infineon-igbt-stock-2024.svg" alt="BeiLuo warehouse expanding Infineon IGBT module stock for industrial customers" loading="eager">
@@ -309,9 +312,11 @@
     </header>
 
     <div class="container">
-      <!-- Single-column centered body (design §5.12, PRD C7 — no sidebar). "longform"
-           reuses the T2.2/T5.7 baseline typography (max-width 800px, line-height 1.8,
-           H2/H3 left rule, <pre><code> grey background, <blockquote> left border). -->
+      <div class="layout-with-sidebar">
+        <div class="layout-with-sidebar__main">
+      <!-- Body column. "longform" reuses the T2.2/T5.7 baseline typography
+           (max-width 800px, line-height 1.8, H2/H3 left rule, <pre><code>
+           grey background, <blockquote> left border). -->
       <article class="news-article">
         <div class="news-article__body longform">
           <p>The industrial power electronics market is undergoing rapid expansion. Variable-speed motor drives, solar inverters, uninterruptible power supplies (UPS), and railway traction systems all rely on insulated gate bipolar transistors (IGBTs) to switch high voltages and currents efficiently. As factories automate, renewable energy installations grow, and electric vehicle (EV) charging infrastructure rolls out, demand for quality IGBTs from trusted suppliers has never been higher.</p>
@@ -362,7 +367,7 @@
 
       <!-- "Latest News" 3-card block — 3 most recent articles of any type, excluding
            the current article, computed in pages.js (render.js has no sort/compare
-           capability). Replaces sidebar navigation per PRD C7 / news.schema.md line 8. -->
+           capability). -->
       
       <section class="news-latest section">
         <h2 class="section__title">Latest News</h2>
@@ -395,6 +400,38 @@
         </div>
       </section>
       
+        </div>
+        <aside class="layout-with-sidebar__sidebar">
+          <aside class="sidebar" aria-label="Section navigation">
+  
+  <nav class="sidebar__group" aria-label="News Categories">
+    <h2 class="sidebar__heading">News Categories</h2>
+    <ul class="sidebar__list">
+      
+      <li class="sidebar__item"><a class="sidebar__link" href="/news/#company-news">Company News</a></li>
+      
+      <li class="sidebar__item"><a class="sidebar__link" href="/news/#industry-news">Industry News</a></li>
+      
+    </ul>
+  </nav>
+  
+  <nav class="sidebar__group" aria-label="Explore More">
+    <h2 class="sidebar__heading">Explore More</h2>
+    <ul class="sidebar__list">
+      
+      <li class="sidebar__item"><a class="sidebar__link" href="/products/">Products</a></li>
+      
+      <li class="sidebar__item"><a class="sidebar__link" href="/solutions/">Solutions</a></li>
+      
+      <li class="sidebar__item"><a class="sidebar__link" href="/support/">Support</a></li>
+      
+    </ul>
+  </nav>
+  
+</aside>
+
+        </aside>
+      </div>
     </div>
 
     <section class="cta-block">

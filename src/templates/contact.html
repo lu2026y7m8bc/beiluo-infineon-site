@@ -26,119 +26,60 @@
 
     <!-- ============================================================
          CONTACT PAGE — /contact/  (independent template)
-         design.md §5.14: Breadcrumb → H1 → grid (left contact card:
-         WhatsApp/WeChat + QR SVG / right: inquiry form) → map placeholder
-         + business hours → floating contact widget (global, §4.5).
+         design.md §5.14 originally specced a grid (WhatsApp/WeChat card +
+         inquiry form) here; both removed per explicit user feedback in
+         favor of the Global Sales Network directory below plus the
+         site-wide floating contact widget (§4.5, WhatsApp/WeChat, present
+         on every page). Layout is now: Breadcrumb → H1 → Global Sales
+         Network → map placeholder + business hours.
          ============================================================ -->
     <div class="container">
 
       <header class="page-hero">
         <h1 class="page-hero__title">Contact BeiLuo — Get an Infineon Quote</h1>
-        <p class="page-hero__desc">Reach BeiLuo's sales and FAE team directly via WhatsApp or WeChat for real-time stock and pricing, or submit the inquiry form below with your part number and requirements. As an Infineon authorized distributor, we respond to every quote request {{contact.responseTime}}.</p>
+        <p class="page-hero__desc">Reach BeiLuo's sales and FAE team directly via WhatsApp or WeChat for real-time stock and pricing, or find your nearest regional office below. As an Infineon authorized distributor, we respond to every inquiry {{contact.responseTime}}.</p>
       </header>
 
-      <div class="contact-grid">
-
-        <!-- Left: contact card — WhatsApp / WeChat + QR (design §5.14) -->
-        <aside class="contact-card">
-          <h2 class="contact-card__title">Talk to BeiLuo Directly</h2>
-
-          <div class="contact-card__channel">
-            <span class="contact-card__label">
-              <svg class="contact-card__icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                <rect width="24" height="24" rx="12" fill="#25D366"/>
-                <path d="M7 12 Q12 6 17 12 Q12 18 7 12Z" fill="#fff"/>
-              </svg>
-              WhatsApp
-            </span>
-            <a class="contact-card__value contact-card__link" href="{{contact.whatsappHref}}" target="_blank" rel="noopener noreferrer">{{contact.whatsapp}}</a>
-            <p class="contact-card__note">Fastest response for stock checks, pricing, and technical questions.</p>
+      <!-- GLOBAL SALES NETWORK — contact.globalNetwork (parsed from contact.txt
+           per PRD §3.8's conditional data-source rule: workspace contact.txt now
+           exists, so its office directory is synced into site.json.contact and
+           rendered here instead of the earlier WhatsApp/WeChat-only fallback).
+           Modern modular grid: one card per region, each listing its offices. -->
+      {{#if contact.globalNetwork}}
+      <section class="global-network">
+        <h2 class="global-network__title">{{brand.name}} Global Sales Network</h2>
+        <p class="global-network__intro">{{contact.globalNetwork.intro}}</p>
+        <div class="global-network__grid">
+          {{#each contact.globalNetwork.regions}}
+          <div class="network-region">
+            <h3 class="network-region__title">{{name}}</h3>
+            <div class="network-region__offices">
+              {{#each offices}}
+              <div class="network-office">
+                <h4 class="network-office__name">{{name}}</h4>
+                <p class="network-office__address">{{address}}</p>
+                <a class="network-office__email" href="mailto:{{email}}">{{email}}</a>
+              </div>
+              {{/each}}
+            </div>
           </div>
-
-          <div class="contact-card__channel">
-            <span class="contact-card__label">
-              <svg class="contact-card__icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                <rect width="24" height="24" rx="12" fill="#07C160"/>
-                <circle cx="9" cy="12" r="2" fill="#fff"/>
-                <circle cx="15" cy="12" r="2" fill="#fff"/>
-              </svg>
-              WeChat
-            </span>
-            <span class="contact-card__value">{{contact.wechat}}</span>
-            {{#if contact.wechatQrSrc}}
-            <img class="contact-card__qr" src="{{contact.wechatQrSrc}}" alt="Scan to add {{brand.name}} on WeChat" width="160" height="160" loading="lazy">
-            {{/if}}
-            <p class="contact-card__note">Scan the QR code or search the WeChat ID above to connect with our sales team.</p>
-          </div>
-        </aside>
-
-        <!-- Right: inquiry form — markup-contract.md §4 DOM contract.
-             data-validate/data-rule/data-error-for/data-submit/data-success are
-             static markup hooks only; the validation/submit behavior itself is
-             T6.4 (form.js), a later independent task (same "markup now, JS
-             later" split already used for T5.3's filter hooks / T5.4's tab
-             hooks / T5.7's TOC hooks). No `action` attribute — static site,
-             JS-only submission per markup-contract.md §4.2. -->
-        <div class="contact-form">
-          <h2 class="contact-form__title">Request a Quote</h2>
-          <form data-validate novalidate>
-
-            <div class="form-group">
-              <label for="field-name">Name <span aria-hidden="true">*</span></label>
-              <input type="text" id="field-name" name="name" required data-rule="text" autocomplete="name" aria-required="true" aria-describedby="error-name" placeholder="Your full name">
-              <span id="error-name" data-error-for="name" role="alert"></span>
-            </div>
-
-            <div class="form-group">
-              <label for="field-email">Email <span aria-hidden="true">*</span></label>
-              <input type="email" id="field-email" name="email" required data-rule="email" autocomplete="email" aria-required="true" aria-describedby="error-email" placeholder="you@company.com">
-              <span id="error-email" data-error-for="email" role="alert"></span>
-            </div>
-
-            <div class="form-group">
-              <label for="field-partno">Part No. <span aria-hidden="true">*</span></label>
-              <input type="text" id="field-partno" name="partNo" required data-rule="partno" aria-required="true" aria-describedby="error-partno" placeholder="e.g. IKW40N120H3">
-              <span id="error-partno" data-error-for="partNo" role="alert"></span>
-            </div>
-
-            <div class="form-group">
-              <label for="field-message">Message</label>
-              <textarea id="field-message" name="message" data-rule="text" aria-describedby="error-message" rows="4" placeholder="Describe your requirement..."></textarea>
-              <span id="error-message" data-error-for="message" role="alert"></span>
-            </div>
-
-            <button type="submit" data-submit class="btn btn--cta">Get a Quote</button>
-
-            <div data-success hidden role="status" aria-live="polite">
-              <p>Thank you! We will contact you {{contact.responseTime}}.</p>
-              <p>For a faster response, message us directly on <a href="{{contact.whatsappHref}}" target="_blank" rel="noopener noreferrer">WhatsApp</a> or WeChat ({{contact.wechat}}).</p>
-            </div>
-
-            <noscript>
-              <p>JavaScript is required to submit this form. Please contact us directly:</p>
-              <ul>
-                <li>WhatsApp: <a href="{{contact.whatsappHref}}">{{contact.whatsapp}}</a></li>
-                <li>WeChat: {{contact.wechat}}</li>
-              </ul>
-            </noscript>
-
-          </form>
+          {{/each}}
         </div>
-
-      </div>
+      </section>
+      {{/if}}
 
       <!-- Bottom: map placeholder + business hours (design §5.14 "底部地图占位/营业说明").
-           No street address exists in site.json (contact object holds only
-           WhatsApp/WeChat channels — see site.schema.md §contact), so the
-           placeholder describes coverage from confirmed site data
-           (jsonLd.areaServed) rather than inventing an unverified address. -->
+           Individual office addresses now live in contact.globalNetwork above;
+           this placeholder stays a general coverage statement (jsonLd.areaServed)
+           since embedding an actual interactive map (Maps/Mapbox API key) is
+           out of scope here — no map provider credentials exist in this project. -->
       <section class="contact-location">
         <div class="contact-map" role="img" aria-label="BeiLuo service coverage map placeholder">
           <span class="contact-map__label">{{brand.name}} — Serving Customers {{jsonLd.areaServed}}</span>
         </div>
         <div class="contact-hours">
           <h2 class="contact-hours__title">Business Hours &amp; Response Time</h2>
-          <p class="contact-hours__text">Our sales and FAE team is available {{contact.businessHours}}. WhatsApp and WeChat messages are typically answered within a few hours during business hours, and every quote request submitted through this page receives a response {{contact.responseTime}}.</p>
+          <p class="contact-hours__text">Our sales and FAE team is available {{contact.businessHours}}. WhatsApp and WeChat messages are typically answered within a few hours during business hours, and every inquiry sent to a regional office above receives a response {{contact.responseTime}}.</p>
         </div>
       </section>
 
@@ -148,6 +89,5 @@
   {{> contact-float}}
   <script type="module" src="/assets/js/nav.js"></script>
   <script type="module" src="/assets/js/wechat-popover.js"></script>
-  <script type="module" src="/assets/js/form.js"></script>
 </body>
 </html>

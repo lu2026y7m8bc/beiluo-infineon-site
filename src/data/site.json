@@ -123,7 +123,51 @@
     "whatsappHref": "https://wa.me/8615013702378",
     "wechatQrSrc": "/assets/svg/icons/wechat-qr.svg",
     "businessHours": "Monday–Friday, 9:00–18:00 (GMT+8)",
-    "responseTime": "within 24 hours"
+    "responseTime": "within 24 hours",
+    "globalNetwork": {
+      "intro": "Our commitment to providing exceptional service and local support is reflected in our extensive global sales network. From our headquarters in Shandong to major economic centers across Asia, Europe, and the Americas, the BeiLuo team is strategically positioned to meet your needs. Find your nearest office below.",
+      "regions": [
+        {
+          "name": "Greater China Network",
+          "offices": [
+            { "name": "Shandong Headquarters", "address": "No. 290, Litianlou Township, Shanxian County, Shandong Province", "email": "hk@core-distributor.com" },
+            { "name": "Beijing Office", "address": "Room 101-215, 2/F, Building 19, Yard 6, Hengye North 7th Street, Tongzhou District, Beijing", "email": "bj@core-distributor.com" },
+            { "name": "Shanghai Office", "address": "Room 705-706, Baokuang Intercontinental Business Center, 100 Yutong Road, Shanghai", "email": "sh@core-distributor.com" },
+            { "name": "Shenzhen Office", "address": "Room 306-308, Changping Business Building, 6 Honghua Road, Futian Free Trade Zone, Shenzhen", "email": "sz@core-distributor.com" }
+          ]
+        },
+        {
+          "name": "Americas",
+          "offices": [
+            { "name": "United States", "address": "1776 K St NW, Washington, D.C. 20006, USA", "email": "john.smith@core-distributor.com" },
+            { "name": "Mexico", "address": "Torre Mayor, Av. P. de la Reforma 505, Cuauhtémoc, 06500 Ciudad de México, CDMX, Mexico", "email": "sofia.hernandez@core-distributor.com" }
+          ]
+        },
+        {
+          "name": "Europe",
+          "offices": [
+            { "name": "Germany", "address": "Potsdamer Platz 1, 10785 Berlin, Germany", "email": "michael.muller@core-distributor.com" },
+            { "name": "Italy", "address": "Piazzale dell'Industria, 40, 00144 Roma RM, Italy", "email": "giulia.rossi@core-distributor.com" },
+            { "name": "United Kingdom", "address": "20 Fenchurch St, London EC3M 3BY, United Kingdom", "email": "emily.jones@core-distributor.com" },
+            { "name": "Poland", "address": "Warsaw Financial Center, Emilii Plater 53, 00-113 Warszawa, Poland", "email": "anna.kowalska@core-distributor.com" },
+            { "name": "Slovakia", "address": "Twin City Tower, Mlynské nivy 10, 821 09 Bratislava, Slovakia", "email": "peter.horvath@core-distributor.com" },
+            { "name": "Russia", "address": "Federation Tower, Presnenskaya nab., 12, Moscow, Russia, 123112", "email": "ivan.petrov@core-distributor.com" },
+            { "name": "Turkey", "address": "Söğütözü, Söğütözü Cd. No:2, Armada Tower, 06510 Çankaya/Ankara, Turkey", "email": "elif.yilmaz@core-distributor.com" }
+          ]
+        },
+        {
+          "name": "Asia-Pacific",
+          "offices": [
+            { "name": "Australia", "address": "Australia Square, Level 33, 264 George Street, Sydney NSW 2000, Australia", "email": "liam.wilson@core-distributor.com" },
+            { "name": "Japan", "address": "Marunouchi Park Building, 2-6-1 Marunouchi, Chiyoda-ku, Tokyo 100-0005, Japan", "email": "ken.tanaka@core-distributor.com" },
+            { "name": "South Korea", "address": "Gangnam Finance Center, 152 Teheran-ro, Gangnam-gu, Seoul, South Korea", "email": "seojoon.park@core-distributor.com" },
+            { "name": "India", "address": "Worldmark 1, Aerocity, Indira Gandhi International Airport, New Delhi, Delhi 110037, India", "email": "priya.sharma@core-distributor.com" },
+            { "name": "Vietnam", "address": "Lotte Center Hanoi, 54 Liễu Giai, Cống Vị, Ba Đình, Hà Nội, Vietnam", "email": "an.nguyen@core-distributor.com" },
+            { "name": "Malaysia", "address": "Petronas Twin Tower 1, Kuala Lumpur City Centre, 50088 Kuala Lumpur, Malaysia", "email": "siti.nurhaliza@core-distributor.com" }
+          ]
+        }
+      ]
+    }
   },
   "seo": {
     "defaultTitle": "Infineon Distributor | BeiLuo",

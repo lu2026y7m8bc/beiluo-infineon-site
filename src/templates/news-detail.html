@@ -53,10 +53,13 @@
     {{> breadcrumb}}
 
     <!-- ============================================================
-         NEWS DETAIL — /news/<slug>/  (single-column, no sidebar, PRD C7)
+         NEWS DETAIL — /news/<slug>/
          design.md §5.12: full-width header banner (H1 + date + category
-         badge over bannerImage.src with dark overlay) → single-column
-         body → share bar → "Latest News" 3-card block → final CTA.
+         badge over bannerImage.src with dark overlay) → body + sidebar
+         → share bar → "Latest News" 3-card block → final CTA.
+         Sidebar (News Categories + Explore More) added per explicit user
+         request overriding the original PRD C7 "no sidebar" decision —
+         the bottom "Latest News" cards remain as a secondary nav aid.
          ============================================================ -->
     <header class="news-banner {{overlayClass}}">
       <img class="news-banner__bg" src="{{article.bannerImage.src}}" alt="{{article.bannerImage.alt}}" loading="eager">
@@ -72,9 +75,11 @@
     </header>
 
     <div class="container">
-      <!-- Single-column centered body (design §5.12, PRD C7 — no sidebar). "longform"
-           reuses the T2.2/T5.7 baseline typography (max-width 800px, line-height 1.8,
-           H2/H3 left rule, <pre><code> grey background, <blockquote> left border). -->
+      <div class="layout-with-sidebar">
+        <div class="layout-with-sidebar__main">
+      <!-- Body column. "longform" reuses the T2.2/T5.7 baseline typography
+           (max-width 800px, line-height 1.8, H2/H3 left rule, <pre><code>
+           grey background, <blockquote> left border). -->
       <article class="news-article">
         <div class="news-article__body longform">
           {{{article.body}}}
@@ -95,7 +100,7 @@
 
       <!-- "Latest News" 3-card block — 3 most recent articles of any type, excluding
            the current article, computed in pages.js (render.js has no sort/compare
-           capability). Replaces sidebar navigation per PRD C7 / news.schema.md line 8. -->
+           capability). -->
       {{#if latestNews}}
       <section class="news-latest section">
         <h2 class="section__title">Latest News</h2>
@@ -104,6 +109,11 @@
         </div>
       </section>
       {{/if}}
+        </div>
+        <aside class="layout-with-sidebar__sidebar">
+          {{> sidebar}}
+        </aside>
+      </div>
     </div>
 
     {{> cta-block}}

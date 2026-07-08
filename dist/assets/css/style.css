@@ -951,6 +951,32 @@ body.nav-drawer-open {
 
 /* ── Breadcrumb (T2.6) ───────────────────────────────────────────────────── */
 
+.breadcrumb {
+  /* All 12 templates render {{> breadcrumb}} as a sibling of .container
+     (before it opens), not inside it, so it previously had no width/padding
+     constraint of its own — it spanned the full viewport edge-to-edge while
+     every other section on the page was constrained to .container's
+     max-width + padding, making the breadcrumb visibly stick out past the
+     left/right edges of the H1/content below it. Mirror .container's box
+     model here instead of restructuring 12 templates. */
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--space-4);
+  padding-block: var(--space-4);
+}
+
+@media (min-width: 768px) {
+  .breadcrumb {
+    padding-inline: var(--space-6);
+  }
+}
+
+@media (min-width: 1200px) {
+  .breadcrumb {
+    padding-inline: var(--space-8);
+  }
+}
+
 .breadcrumb__list {
   display: flex;
   flex-wrap: wrap;
@@ -1947,6 +1973,70 @@ body.nav-drawer-open {
   color: var(--c-text-muted);
 }
 
+/* [data-filter-bar] (markup-contract.md §1) had zero layout CSS before —
+   table-filter.js's generated .filter-control groups defaulted to block-
+   level stacking, one filter per line down the page. Row layout below,
+   wraps on narrow viewports. */
+[data-filter-bar] {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  background: var(--c-bg-alt);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-card);
+  margin-bottom: var(--space-4);
+}
+
+[data-filter-bar]:empty {
+  display: none; /* markup-contract.md §1.4: JS not loaded → no controls generated */
+}
+
+.filter-control {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.filter-control__label {
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-medium);
+  color: var(--c-text-muted);
+}
+
+.filter-control select {
+  width: auto;
+  min-width: 120px;
+  min-height: 40px;
+}
+
+.filter-control__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.filter-control__row input[type="number"] {
+  width: 72px;
+  min-height: 40px;
+}
+
+.filter-control__checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-weight: var(--fw-regular);
+  font-size: var(--fs-small);
+  white-space: nowrap;
+}
+
+.filter-control__checkbox input[type="checkbox"] {
+  width: auto;
+  min-height: 0;
+}
+
 .spec-table-wrap {
   overflow-x: auto;
   max-width: 100%;
@@ -2017,6 +2107,18 @@ body.nav-drawer-open {
 /* ==========================================================================
    28. Product Detail (§5.4) — hero / thumbs / lists / parts / CTA
    ========================================================================== */
+
+.model-overview {
+  /* model.overview is 100+ words with \n\n paragraph breaks (same content
+     shape as products.json's category.description, see .category-card__desc
+     above) — rendered as a single escaped <p>, so without this the paragraph
+     breaks collapse and the whole field reads as one dense, hierarchy-free
+     block. white-space:pre-line preserves them as visual line breaks without
+     resorting to raw HTML output (CLAUDE.md's escaped-output-only rule). */
+  white-space: pre-line;
+  max-width: 760px;
+  line-height: var(--lh-body);
+}
 
 .product-hero {
   display: grid;
@@ -2889,88 +2991,93 @@ body.nav-drawer-open {
 
 /* ==========================================================================
    37. Contact (§5.14) — independent template
+   (contact-grid/contact-card/contact-form/form-group rules removed —
+   the WhatsApp/WeChat card and quote-request form they styled were
+   removed from contact.html per explicit user feedback; site-wide
+   contact-float partial + the Global Sales Network below replace them.)
    ========================================================================== */
 
-.contact-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-8);
+/* Global Sales Network (contact.globalNetwork, parsed from contact.txt) —
+   modular grid: one card per region, offices listed as sub-rows inside. */
+.global-network {
   margin-bottom: var(--space-12);
 }
 
-@media (min-width: 1200px) {
-  .contact-grid {
-    grid-template-columns: 1fr 1fr;
+.global-network__title {
+  margin-bottom: var(--space-2);
+}
+
+.global-network__intro {
+  color: var(--c-text-muted);
+  max-width: 760px;
+  margin-bottom: var(--space-6);
+}
+
+.global-network__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+}
+
+@media (min-width: 640px) {
+  .global-network__grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
-.contact-card {
-  background: var(--c-bg-alt);
+@media (min-width: 1024px) {
+  .global-network__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.network-region {
+  border: 1px solid var(--c-border);
   border-radius: var(--r-card);
-  box-shadow: var(--sh-card);
-  padding: var(--space-8);
+  padding: var(--space-6);
+  background: var(--c-bg);
 }
 
-.contact-card__title {
-  margin-bottom: var(--space-6);
-}
-
-.contact-card__channel {
-  padding-block: var(--space-4);
+.network-region__title {
+  font-size: var(--fs-h4);
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-3);
   border-bottom: 1px solid var(--c-border);
 }
 
-.contact-card__channel:last-child {
+.network-region__offices {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.network-office {
+  padding-bottom: var(--space-4);
+  border-bottom: 1px dashed var(--c-border);
+}
+
+.network-office:last-child {
+  padding-bottom: 0;
   border-bottom: none;
 }
 
-.contact-card__label {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  font-weight: var(--fw-semibold);
+.network-office__name {
+  font-size: var(--fs-small);
+  font-weight: var(--fw-medium);
+  color: var(--c-primary-dark);
+  margin-bottom: var(--space-1);
+}
+
+.network-office__address {
   color: var(--c-text-muted);
   font-size: var(--fs-small);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
+  line-height: var(--lh-body);
+  margin-bottom: var(--space-1);
 }
 
-.contact-card__icon {
-  flex-shrink: 0;
-}
-
-.contact-card__value {
-  display: block;
-  font-size: var(--fs-h4);
-  margin-top: var(--space-1);
-}
-
-.contact-card__note {
-  color: var(--c-text-muted);
+.network-office__email {
   font-size: var(--fs-small);
-  margin-top: var(--space-2);
-}
-
-.contact-card__qr {
-  margin-top: var(--space-3);
-  border: 1px solid var(--c-border);
-  border-radius: var(--r-base);
-}
-
-.contact-form {
-  background: var(--c-bg);
-  border: 1px solid var(--c-border);
-  border-radius: var(--r-card);
-  box-shadow: var(--sh-card);
-  padding: var(--space-8);
-}
-
-.contact-form__title {
-  margin-bottom: var(--space-6);
-}
-
-.form-group {
-  margin-bottom: var(--space-4);
+  word-break: break-word;
 }
 
 .contact-location {

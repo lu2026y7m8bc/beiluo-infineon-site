@@ -28,6 +28,8 @@
   <main id="main">
     {{> breadcrumb}}
     <div class="container">
+      <div class="layout-with-sidebar">
+        <div class="layout-with-sidebar__main">
 
       <!-- HERO: dual column -->
       <section class="product-hero">
@@ -72,7 +74,7 @@
         <!-- Panel: Overview -->
         <div class="tab-panel tab-panel--active" role="tabpanel" data-tabpanel="overview" id="tabpanel-overview" aria-labelledby="tab-overview">
           <h2>Overview</h2>
-          <p>{{model.overview}}</p>
+          <p class="model-overview">{{model.overview}}</p>
         </div>
 
         <!-- Panel: Specifications (zebra table) -->
@@ -166,6 +168,11 @@
         <a class="btn btn--secondary" href="/contact/?ref={{model.partNo}}&amp;type=fae">Ask FAE</a>
       </div>
 
+        </div>
+        <aside class="layout-with-sidebar__sidebar">
+          {{> sidebar}}
+        </aside>
+      </div>
     </div>
   </main>
   {{> footer}}

@@ -263,51 +263,25 @@
 
 
     <div class="container">
-      <div class="layout-with-sidebar">
-        <div class="layout-with-sidebar__main">
 
-          <!-- ============================================================
-               NEWS LIST — /news/
-               design.md §5.11: Breadcrumb → H1 → two sections (Company News /
-               Industry News), each its own card grid, never mixed. Sidebar
-               news navigation via <aside class="sidebar" aria-label="Section navigation">
-  
-  <nav class="sidebar__group" aria-label="News Categories">
-    <h2 class="sidebar__heading">News Categories</h2>
-    <ul class="sidebar__list">
-      
-      <li class="sidebar__item"><a class="sidebar__link" href="/news/#company-news">Company News</a></li>
-      
-      <li class="sidebar__item"><a class="sidebar__link" href="/news/#industry-news">Industry News</a></li>
-      
-    </ul>
-  </nav>
-  
-  <nav class="sidebar__group" aria-label="Explore More">
-    <h2 class="sidebar__heading">Explore More</h2>
-    <ul class="sidebar__list">
-      
-      <li class="sidebar__item"><a class="sidebar__link" href="/products/">Products</a></li>
-      
-      <li class="sidebar__item"><a class="sidebar__link" href="/solutions/">Solutions</a></li>
-      
-      <li class="sidebar__item"><a class="sidebar__link" href="/support/">Support</a></li>
-      
-    </ul>
-  </nav>
-  
-</aside>
- below.
-               ============================================================ -->
-          <header class="page-hero">
-            <h1 class="page-hero__title">BeiLuo Infineon Distributor News</h1>
-            <p class="page-hero__desc">Stay up to date with BeiLuo company announcements and Infineon industry insights — stock expansions, FAE support programs, exhibitions, and semiconductor market trends, from an authorized Infineon distributor.</p>
-          </header>
+      <!-- ============================================================
+           NEWS LIST — /news/
+           design.md §5.11: Breadcrumb → H1 → two sections (Company News /
+           Industry News), each its own card grid, never mixed. Sidebar
+           removed per explicit user feedback (redundant with the two
+           section headings below); news-detail.html's "News Categories"
+           sidebar still anchor-links here (#company-news / #industry-news),
+           unaffected by removing this page's own sidebar.
+           ============================================================ -->
+      <header class="page-hero">
+        <h1 class="page-hero__title">BeiLuo Infineon Distributor News</h1>
+        <p class="page-hero__desc">Stay up to date with BeiLuo company announcements and Infineon industry insights — stock expansions, FAE support programs, exhibitions, and semiconductor market trends, from an authorized Infineon distributor.</p>
+      </header>
 
-          <section class="news-list__section" id="company-news">
-            <h2 class="news-list__section-title">Company News</h2>
-            <div class="news-list__grid">
-              <article class="card card--teaser">
+      <section class="news-list__section" id="company-news">
+        <h2 class="news-list__section-title">Company News</h2>
+        <div class="news-list__grid">
+          <article class="card card--teaser">
   <img class="card__image" src="/assets/svg/illustrations/news-beiluo-expands-infineon-igbt-stock-2024.svg" alt="BeiLuo warehouse expanding Infineon IGBT module stock for industrial customers" loading="lazy">
   <span class="badge badge--tag">Company News</span>
   <h3 class="card__title"><a href="/news/beiluo-expands-infineon-igbt-stock-2024/">BeiLuo Expands Infineon IGBT Stock to Meet Growing Industrial Demand</a></h3>
@@ -324,13 +298,13 @@
   <a class="card__more" href="/news/beiluo-fae-support-program-launch/">Read more &rarr;</a>
 </article>
 
-            </div>
-          </section>
+        </div>
+      </section>
 
-          <section class="news-list__section" id="industry-news">
-            <h2 class="news-list__section-title">Industry News</h2>
-            <div class="news-list__grid">
-              <article class="card card--teaser">
+      <section class="news-list__section" id="industry-news">
+        <h2 class="news-list__section-title">Industry News</h2>
+        <div class="news-list__grid">
+          <article class="card card--teaser">
   <img class="card__image" src="/assets/svg/illustrations/news-infineon-aurix-mcu-automotive-applications.svg" alt="Infineon AURIX TC264DA MCU chip for automotive safety system design" loading="lazy">
   <span class="badge badge--tag">Industry News</span>
   <h3 class="card__title"><a href="/news/infineon-aurix-mcu-automotive-applications/">Infineon AURIX MCU in Automotive Safety Systems: An Industry Analysis</a></h3>
@@ -347,41 +321,9 @@
   <a class="card__more" href="/news/wide-bandgap-semiconductors-market-outlook/">Read more &rarr;</a>
 </article>
 
-            </div>
-          </section>
-
         </div>
-        <aside class="layout-with-sidebar__sidebar">
-          <aside class="sidebar" aria-label="Section navigation">
-  
-  <nav class="sidebar__group" aria-label="News Categories">
-    <h2 class="sidebar__heading">News Categories</h2>
-    <ul class="sidebar__list">
-      
-      <li class="sidebar__item"><a class="sidebar__link" href="/news/#company-news">Company News</a></li>
-      
-      <li class="sidebar__item"><a class="sidebar__link" href="/news/#industry-news">Industry News</a></li>
-      
-    </ul>
-  </nav>
-  
-  <nav class="sidebar__group" aria-label="Explore More">
-    <h2 class="sidebar__heading">Explore More</h2>
-    <ul class="sidebar__list">
-      
-      <li class="sidebar__item"><a class="sidebar__link" href="/products/">Products</a></li>
-      
-      <li class="sidebar__item"><a class="sidebar__link" href="/solutions/">Solutions</a></li>
-      
-      <li class="sidebar__item"><a class="sidebar__link" href="/support/">Support</a></li>
-      
-    </ul>
-  </nav>
-  
-</aside>
+      </section>
 
-        </aside>
-      </div>
     </div>
   </main>
   <footer class="site-footer">

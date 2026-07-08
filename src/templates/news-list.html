@@ -32,39 +32,35 @@
   <main id="main">
     {{> breadcrumb}}
     <div class="container">
-      <div class="layout-with-sidebar">
-        <div class="layout-with-sidebar__main">
 
-          <!-- ============================================================
-               NEWS LIST — /news/
-               design.md §5.11: Breadcrumb → H1 → two sections (Company News /
-               Industry News), each its own card grid, never mixed. Sidebar
-               news navigation via {{> sidebar}} below.
-               ============================================================ -->
-          <header class="page-hero">
-            <h1 class="page-hero__title">BeiLuo Infineon Distributor News</h1>
-            <p class="page-hero__desc">Stay up to date with BeiLuo company announcements and Infineon industry insights — stock expansions, FAE support programs, exhibitions, and semiconductor market trends, from an authorized Infineon distributor.</p>
-          </header>
+      <!-- ============================================================
+           NEWS LIST — /news/
+           design.md §5.11: Breadcrumb → H1 → two sections (Company News /
+           Industry News), each its own card grid, never mixed. Sidebar
+           removed per explicit user feedback (redundant with the two
+           section headings below); news-detail.html's "News Categories"
+           sidebar still anchor-links here (#company-news / #industry-news),
+           unaffected by removing this page's own sidebar.
+           ============================================================ -->
+      <header class="page-hero">
+        <h1 class="page-hero__title">BeiLuo Infineon Distributor News</h1>
+        <p class="page-hero__desc">Stay up to date with BeiLuo company announcements and Infineon industry insights — stock expansions, FAE support programs, exhibitions, and semiconductor market trends, from an authorized Infineon distributor.</p>
+      </header>
 
-          <section class="news-list__section" id="company-news">
-            <h2 class="news-list__section-title">Company News</h2>
-            <div class="news-list__grid">
-              {{#each companyArticles}}{{> news-card}}{{/each}}
-            </div>
-          </section>
-
-          <section class="news-list__section" id="industry-news">
-            <h2 class="news-list__section-title">Industry News</h2>
-            <div class="news-list__grid">
-              {{#each industryArticles}}{{> news-card}}{{/each}}
-            </div>
-          </section>
-
+      <section class="news-list__section" id="company-news">
+        <h2 class="news-list__section-title">Company News</h2>
+        <div class="news-list__grid">
+          {{#each companyArticles}}{{> news-card}}{{/each}}
         </div>
-        <aside class="layout-with-sidebar__sidebar">
-          {{> sidebar}}
-        </aside>
-      </div>
+      </section>
+
+      <section class="news-list__section" id="industry-news">
+        <h2 class="news-list__section-title">Industry News</h2>
+        <div class="news-list__grid">
+          {{#each industryArticles}}{{> news-card}}{{/each}}
+        </div>
+      </section>
+
     </div>
   </main>
   {{> footer}}

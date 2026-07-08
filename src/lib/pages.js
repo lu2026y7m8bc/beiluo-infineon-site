@@ -149,11 +149,10 @@ export function buildPageList(data) {
     const breadcrumb = markCurrentLast([bc('Home', '/'), bc('Products', '/products/')]);
     const seo = { ...site.seo, title: `Infineon Products | ${site.brand.name}`, description: `Browse ${site.brand.name} authorized Infineon products: MCU, IGBT, MOSFET and Sensors. Deep stock, FAE support, global delivery.`, canonical: '/products/' };
     const breadcrumbJsonLd = breadcrumbJsonLdFor(breadcrumb, site);
-    const sidebarSections = sidebarNav('Product Categories', products.categories.map(c => ({ name: c.name, url: `/products/${c.slug}/` })));
     pages.push({
       url: '/products/',
       template: 'products-list',
-      context: { ...site, seo, categories: products.categories, breadcrumb, breadcrumbJsonLd, sidebarSections },
+      context: { ...site, seo, categories: products.categories, breadcrumb, breadcrumbJsonLd },
       breadcrumb,
     });
   }
@@ -239,10 +238,15 @@ export function buildPageList(data) {
       const availabilityUrl = model.stock === 'inStock' ? 'https://schema.org/InStock' : 'https://schema.org/BackOrder';
       const modelWithAvailability = { ...model, availabilityUrl };
       const breadcrumbJsonLd = breadcrumbJsonLdFor(breadcrumb, site);
+      // Product Categories nav so a visitor on a detail page can jump to a
+      // different category without going back through /products/ — same
+      // sidebarNav() call product-category.html already uses, with the
+      // current category highlighted.
+      const sidebarSections = sidebarNav('Product Categories', products.categories.map(c => ({ name: c.name, url: `/products/${c.slug}/`, icon: c.icon })), catUrl);
       pages.push({
         url: modelUrl,
         template: 'product-detail',
-        context: { ...site, seo, category, model: modelWithAvailability, breadcrumb, breadcrumbJsonLd },
+        context: { ...site, seo, category, model: modelWithAvailability, breadcrumb, breadcrumbJsonLd, sidebarSections },
         breadcrumb,
       });
     }
@@ -253,11 +257,10 @@ export function buildPageList(data) {
     const breadcrumb = markCurrentLast([bc('Home', '/'), bc('Solutions', '/solutions/')]);
     const seo = { ...site.seo, title: `Infineon Application Solutions | ${site.brand.name}`, description: `Explore ${site.brand.name} Infineon-based application solutions: motor drive, EV charger, industrial IoT, MCU embedded control, and solar inverter.`, canonical: '/solutions/' };
     const breadcrumbJsonLd = breadcrumbJsonLdFor(breadcrumb, site);
-    const sidebarSections = sidebarNav('Solutions by Industry', solutions.solutions.map(s => ({ name: s.industry, url: `/solutions/${s.slug}/` })));
     pages.push({
       url: '/solutions/',
       template: 'solutions-list',
-      context: { ...site, seo, solutions: solutions.solutions, breadcrumb, breadcrumbJsonLd, sidebarSections },
+      context: { ...site, seo, solutions: solutions.solutions, breadcrumb, breadcrumbJsonLd },
       breadcrumb,
     });
   }
@@ -296,11 +299,10 @@ export function buildPageList(data) {
     const applicationNotesArticles = support.articles.filter(a => a.category === 'application-notes');
     const troubleshootingArticles = support.articles.filter(a => a.category === 'troubleshooting');
     const reviewsArticles = support.articles.filter(a => a.category === 'reviews');
-    const sidebarSections = sidebarNav('Support Categories', support.categories.map(c => ({ name: c.name, url: `/support/${c.slug}/` })));
     pages.push({
       url: '/support/',
       template: 'support-list',
-      context: { ...site, ...support, seo, guidesArticles, applicationNotesArticles, troubleshootingArticles, reviewsArticles, breadcrumb, sidebarSections },
+      context: { ...site, ...support, seo, guidesArticles, applicationNotesArticles, troubleshootingArticles, reviewsArticles, breadcrumb },
       breadcrumb,
     });
   }
@@ -311,11 +313,10 @@ export function buildPageList(data) {
     const breadcrumb = markCurrentLast([bc('Home', '/'), bc('Support', '/support/'), bc(category.name, catUrl)]);
     const seo = { ...site.seo, title: `${category.title} | ${site.brand.name}`, description: category.metaDescription, canonical: catUrl };
     const catArticles = support.articles.filter(a => a.category === category.slug);
-    const sidebarSections = sidebarNav('Support Categories', support.categories.map(c => ({ name: c.name, url: `/support/${c.slug}/` })), catUrl);
     pages.push({
       url: catUrl,
       template: 'support-list',
-      context: { ...site, seo, category, filterCategory: category.slug, articles: catArticles, breadcrumb, sidebarSections },
+      context: { ...site, seo, category, filterCategory: category.slug, articles: catArticles, breadcrumb },
       breadcrumb,
     });
   }
@@ -338,11 +339,10 @@ export function buildPageList(data) {
     const breadcrumb = markCurrentLast([bc('Home', '/'), bc('Support', '/support/'), bc('Tags', '/support/'), bc(tagName, tagUrl)]);
     const seo = { ...site.seo, title: `${tagName} | Technical Support | ${site.brand.name}`, description: `${site.brand.name} technical resources tagged with ${tagName}: guides, application notes, and FAE support.`, canonical: tagUrl };
     const tagArticles = support.articles.filter(a => Array.isArray(a.tags) && a.tags.some(t => slugify(t) === tagSlug));
-    const sidebarSections = sidebarNav('Support Categories', support.categories.map(c => ({ name: c.name, url: `/support/${c.slug}/` })));
     pages.push({
       url: tagUrl,
       template: 'support-list',
-      context: { ...site, seo, filterTag: tagSlug, tag: tagInfo, articles: tagArticles, breadcrumb, sidebarSections },
+      context: { ...site, seo, filterTag: tagSlug, tag: tagInfo, articles: tagArticles, breadcrumb },
       breadcrumb,
     });
   }
@@ -389,25 +389,10 @@ export function buildPageList(data) {
     const sortedByDateDesc = [...news.articles].sort((a, b) => new Date(b.date) - new Date(a.date));
     const companyArticles = sortedByDateDesc.filter(a => a.type === 'company');
     const industryArticles = sortedByDateDesc.filter(a => a.type === 'industry');
-    // design §5.11 requires a sidebar Company/Industry news navigation
-    // (in-page anchors to the two sections rendered in news-list.html,
-    // since News has no separate category/URL taxonomy of its own), plus
-    // cross-links to the other 3 content areas.
-    const sidebarSections = [
-      ...sidebarNav('News Categories', [
-        { name: 'Company News', url: '/news/#company-news' },
-        { name: 'Industry News', url: '/news/#industry-news' },
-      ]),
-      ...sidebarNav('Explore More', [
-        { name: 'Products', url: '/products/' },
-        { name: 'Solutions', url: '/solutions/' },
-        { name: 'Support', url: '/support/' },
-      ]),
-    ];
     pages.push({
       url: '/news/',
       template: 'news-list',
-      context: { ...site, seo, articles: news.articles, companyArticles, industryArticles, breadcrumb, sidebarSections },
+      context: { ...site, seo, articles: news.articles, companyArticles, industryArticles, breadcrumb },
       breadcrumb,
     });
   }
@@ -444,10 +429,24 @@ export function buildPageList(data) {
     // needed, and double-escaping would corrupt the encoding).
     const shareTitleEncoded = encodeURIComponent(article.share.title);
     const shareUrlEncoded = encodeURIComponent(article.share.url);
+    // Same News Categories + Explore More sidebar as /news/ (see item 13
+    // above) so a reader mid-article can jump to Company/Industry News or
+    // the other 3 content areas without scrolling back up.
+    const sidebarSections = [
+      ...sidebarNav('News Categories', [
+        { name: 'Company News', url: '/news/#company-news' },
+        { name: 'Industry News', url: '/news/#industry-news' },
+      ]),
+      ...sidebarNav('Explore More', [
+        { name: 'Products', url: '/products/' },
+        { name: 'Solutions', url: '/solutions/' },
+        { name: 'Support', url: '/support/' },
+      ]),
+    ];
     pages.push({
       url: articleUrl,
       template: 'news-detail',
-      context: { ...site, seo, article, latestNews, authorType, overlayClass, shareTitleEncoded, shareUrlEncoded, breadcrumb },
+      context: { ...site, seo, article, latestNews, authorType, overlayClass, shareTitleEncoded, shareUrlEncoded, breadcrumb, sidebarSections },
       breadcrumb,
     });
   }

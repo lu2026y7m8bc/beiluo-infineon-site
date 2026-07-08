@@ -391,6 +391,8 @@
 
 ## 4. 表单
 
+> **⚠️ 已废弃**：本节描述的询价表单（`contact.html` 的 `.contact-form`）与实现它的 `src/assets/js/form.js` 已于开发后期按用户明确反馈从 `/contact/` 页面移除（连同同页的 WhatsApp/WeChat 联系卡片，见 R7 批次）。`form.js` 文件已删除，全仓已无 `data-validate`/`data-rule`/`data-error-for`/`data-submit`/`data-success` 消费者。本节契约保留作历史记录，不再对应任何实际渲染的 DOM。
+
 **Design 依据**：design.md §4.11（询价/向工程师提问表单，纯前端校验，静态站提交后展示成功提示）
 
 ### 4.1 DOM 结构
