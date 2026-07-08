@@ -180,6 +180,11 @@ export function buildPageList(data) {
           // url) — computed here since {{#each category.models}} has no
           // parent-scope access to the top-level jsonLd.organizationUrl.
           absoluteHref: `${site.jsonLd.organizationUrl}${model.href}`,
+          // Same inStock->InStock / rfq->BackOrder mapping used on product-detail
+          // (line ~234) — precomputed here so the category-page Product JSON-LD
+          // doesn't have to re-derive it from the truthy (always non-empty) `stock`
+          // string via {{#if}}, which previously made every model report InStock.
+          availabilityUrl: model.stock === 'inStock' ? 'https://schema.org/InStock' : 'https://schema.org/BackOrder',
           rowCells: category.columns.map(col => {
             const raw = model[col.key] !== undefined ? model[col.key] : (model.params ? model.params[col.key] : undefined);
             return {
